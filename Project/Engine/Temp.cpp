@@ -180,7 +180,7 @@ void TempTick()
 
 	if (CKeyMgr::GetInst()->GetKeyState(KEY::LEFT) == KEY_STATE::PRESSED)
 	{
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			g_Vtx[i].vPos.x -= dt * 1.f;
 		}
@@ -188,7 +188,7 @@ void TempTick()
 
 	if (CKeyMgr::GetInst()->GetKeyState(KEY::RIGHT) == KEY_STATE::PRESSED)
 	{
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			g_Vtx[i].vPos.x += dt * 1.f;
 		}
@@ -198,7 +198,7 @@ void TempTick()
 	D3D11_MAPPED_SUBRESOURCE tMapSub = {};
 	CONTEXT->Map(g_VB, 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &tMapSub);
 
-	memcpy(tMapSub.pData, g_Vtx, sizeof(Vtx) * 6);
+	memcpy(tMapSub.pData, g_Vtx, sizeof(Vtx) * 4);
 
 	CONTEXT->Unmap(g_VB, 0);
 }
@@ -223,6 +223,7 @@ void TempRender()
 void TempRelease()
 {
 	g_VB->Release();
+	g_IB->Release();
 	g_VSBlob->Release();
 	g_VS->Release();
 
