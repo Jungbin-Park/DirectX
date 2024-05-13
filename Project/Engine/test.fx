@@ -1,6 +1,12 @@
 #ifndef _TEST
 #define _TEST
 
+cbuffer OBJECT_POS : register(b0)
+{
+    float4 g_ObjectPos;
+    float4 g_ObjectScale;
+};
+
 // Vertex Shader
 struct VTX_IN
 {
@@ -18,6 +24,10 @@ struct VTX_OUT
 VTX_OUT VS_Test(VTX_IN _in)
 {
     VTX_OUT output = (VTX_OUT) 0.f;
+    
+    // LocalSpace -> WorldSpace
+    _in.vPos *= g_ObjectScale.xyz;
+    _in.vPos += g_ObjectPos.xyz;
     
     output.vPosition = float4(_in.vPos, 1.f);
     output.vColor = _in.vColor;

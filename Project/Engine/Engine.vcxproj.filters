@@ -38,6 +38,37 @@
     <ClInclude Include="struct.h">
       <Filter>01. Header</Filter>
     </ClInclude>
+    <ClInclude Include="CEntity.h" />
+    <ClInclude Include="CAsset.h">
+      <Filter>05. Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="CAssetMgr.h">
+      <Filter>04. Manager\05. AssetMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h">
+      <Filter>05. Asset\01. Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CConstBuffer.h">
+      <Filter>03. Device\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>05. Asset\Shader\07. GraphicShader</Filter>
+    </ClInclude>
+    <ClInclude Include="CGraphicShader.h">
+      <Filter>05. Asset\Shader\07. GraphicShader</Filter>
+    </ClInclude>
+    <ClInclude Include="CComputeShader.h">
+      <Filter>05. Asset\Shader\08. ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="assets.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -64,6 +95,28 @@
     </ClCompile>
     <ClCompile Include="CTaskMgr.cpp">
       <Filter>04. Manager\TaskMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntity.cpp" />
+    <ClCompile Include="CAsset.cpp">
+      <Filter>05. Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="CAssetMgr.cpp">
+      <Filter>04. Manager\05. AssetMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.cpp">
+      <Filter>05. Asset\01. Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CConstBuffer.cpp">
+      <Filter>03. Device\ConstBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CGraphicShader.cpp">
+      <Filter>05. Asset\Shader\07. GraphicShader</Filter>
+    </ClCompile>
+    <ClCompile Include="CShader.cpp">
+      <Filter>05. Asset\Shader\07. GraphicShader</Filter>
+    </ClCompile>
+    <ClCompile Include="CComputeShader.cpp">
+      <Filter>05. Asset\Shader\08. ComputeShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +152,51 @@
     </Filter>
     <Filter Include="HLSL">
       <UniqueIdentifier>{efdd5d96-f795-4ea7-a29e-3f2b310578bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset">
+      <UniqueIdentifier>{33dfccc4-298e-4a99-8859-90d751a51b1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. GameObject">
+      <UniqueIdentifier>{4fe08b96-6f43-4fe2-9e9a-8268773a7328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component">
+      <UniqueIdentifier>{dfeb59a1-3947-450f-9e58-6f3cd4febb00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\04. LevelMgr">
+      <UniqueIdentifier>{b20b27fb-16ac-4bac-b4f7-d233790b3d91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\05. AssetMgr">
+      <UniqueIdentifier>{30bb5503-5b80-4296-92c3-ce0b443dd758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\02. MeshData">
+      <UniqueIdentifier>{bbde33a5-b208-4baf-a810-3f9f3fe2963e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\03. Material">
+      <UniqueIdentifier>{c835ccfe-94d1-42d0-9364-fabf0d741f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\04. Prefab">
+      <UniqueIdentifier>{9e4f4436-af9f-4ccb-a287-28bec460da70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\01. Mesh">
+      <UniqueIdentifier>{bb2a732e-0bb9-45bd-973e-54c670ceed93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\05. Texture">
+      <UniqueIdentifier>{f831a021-f16d-4904-98d1-f44034466851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\06. Sound">
+      <UniqueIdentifier>{4ae55243-47e4-4ddd-aca7-7a59c42e5ad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Device\ConstBuffer">
+      <UniqueIdentifier>{6832bb69-9065-48a5-a1b1-341c1081c081}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\Shader">
+      <UniqueIdentifier>{f1f914bf-b6c0-4563-85ca-ca69a3373b02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\Shader\07. GraphicShader">
+      <UniqueIdentifier>{7226ae87-49ed-4108-a799-3a06d11650d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Asset\Shader\08. ComputeShader">
+      <UniqueIdentifier>{8d0ac2fe-01dc-4ddc-b883-6999df7ef442}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

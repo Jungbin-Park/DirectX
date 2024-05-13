@@ -4,6 +4,7 @@
 #include "CPathMgr.h"
 #include "CKeyMgr.h"
 #include "CTimeMgr.h"
+#include "CAssetMgr.h"
 
 #include "CDevice.h"
 #include "Temp.h"
@@ -36,6 +37,7 @@ int CEngine::Init(HWND _wnd, POINT _ptResolution)
 	CPathMgr::GetInst()->Init();
 	CKeyMgr::GetInst()->Init();
 	CTimeMgr::GetInst()->Init();
+	CAssetMgr::GetInst()->Init();
 
 
 	if (FAILED(TempInit()))

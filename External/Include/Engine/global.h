@@ -6,6 +6,9 @@
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 
+#include <wrl.h>
+using namespace Microsoft::WRL;
+
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler")
 
@@ -29,4 +32,5 @@ using std::make_pair;
 
 #include "singleton.h"
 #include "define.h"
+#include "enum.h"
 #include "struct.h"
