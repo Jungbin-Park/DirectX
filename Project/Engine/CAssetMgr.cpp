@@ -38,7 +38,6 @@ void CAssetMgr::Init()
 	arrVtx[3].vPos = Vec3(-0.5f, -0.5f, 0.f);
 	arrVtx[3].vColor = Vec4(1.f, 1.f, 1.f, 1.f);
 
-
 	// Index 버퍼 생성
 	UINT arrIdx[6] = {};
 	arrIdx[0] = 0;	arrIdx[1] = 1;	arrIdx[2] = 2;
@@ -46,13 +45,13 @@ void CAssetMgr::Init()
 
 	pMesh = new CMesh;
 	pMesh->Create(arrVtx, 4, arrIdx, 6);
-	
+	AddAsset(L"RectMesh", pMesh);
 
 	CGraphicShader* pShader = nullptr;
 	pShader = new CGraphicShader;
 	pShader->CreateVertexShader(L"shader\\test.fx", "VS_Test");
 	pShader->CreatePixelShader(L"shader\\test.fx", "PS_Test");
-
+	AddAsset(L"TestShader", pShader);
 }
 
 CAsset* CAssetMgr::FindAsset(ASSET_TYPE _Type, const wstring& _Key)
@@ -67,11 +66,3 @@ CAsset* CAssetMgr::FindAsset(ASSET_TYPE _Type, const wstring& _Key)
 	return iter->second;
 }
 
-//void CAssetMgr::AddAsset(const wstring& _strName, CAsset* _Asset)
-//{
-//	ASSET_TYPE Type = _Asset->GetAssetType();
-//
-//	assert(!FindAsset(Type, _strName));
-//
-//	m_mapAsset[(UINT)Type].insert(make_pair(_strName, _Asset));
-//}

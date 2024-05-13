@@ -57,8 +57,6 @@ void TempRender()
 	CConstBuffer* pTransformCB = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
 	pTransformCB->Binding();
 
-	//CMesh* pRectMesh = (CMesh*)CAssetMgr::GetInst()->FindAsset(ASSET_TYPE::MESH, L"RectMesh");
-	//CGraphicShader* pShader = (CGraphicShader*)CAssetMgr::GetInst()->FindAsset(ASSET_TYPE::GRAPHIC_SHADER, L"TestShader");
 	CMesh* pRectMesh = CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh");
 	CGraphicShader* pShader = CAssetMgr::GetInst()->FindAsset<CGraphicShader>(L"TestShader");
 

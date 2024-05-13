@@ -30,7 +30,10 @@ using std::list;
 using std::map;
 using std::make_pair;
 
+#include <typeinfo>
+
 #include "singleton.h"
 #include "define.h"
 #include "enum.h"
 #include "struct.h"
+#include "func.h"
