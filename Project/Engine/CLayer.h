@@ -16,5 +16,7 @@ public:
 
 public:
     virtual CLayer* Clone() { return new CLayer(*this); }
+    CLayer();
+    ~CLayer();
 };
 

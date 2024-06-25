@@ -1,10 +1,16 @@
 #pragma once
 #include "CEntity.h"
 
+
+
 class CGameObject :
     public CEntity
 {
 private:
+
+
+public:
+
 
 public:
     void Tick();

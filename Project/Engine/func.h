@@ -33,13 +33,11 @@ void Delete_Map(map<T1, T2>& _map)
 	_map.clear();
 }
 
-
 // 변수 템플릿
 template<typename T1, typename T2>
 constexpr bool IsSame = false;
 template<typename T1>
 constexpr bool IsSame<T1, T1> = true;
-
 
 #include "assets.h"
 template<typename T>

@@ -3,6 +3,14 @@
 
 #include "CGameObject.h"
 
+CLayer::CLayer()
+{
+}
+
+CLayer::~CLayer()
+{
+}
+
 void CLayer::Tick()
 {
 	for (size_t i = 0; i < m_Parents.size(); i++)
@@ -26,3 +34,5 @@ void CLayer::Render()
 		m_Parents[i]->Render();
 	}
 }
+
+

@@ -38,7 +38,6 @@
     <ClInclude Include="struct.h">
       <Filter>01. Header</Filter>
     </ClInclude>
-    <ClInclude Include="CEntity.h" />
     <ClInclude Include="CAsset.h">
       <Filter>06. Asset</Filter>
     </ClInclude>
@@ -81,6 +80,69 @@
     <ClInclude Include="CGameObject.h">
       <Filter>07. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="CComponent.h">
+      <Filter>08. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>08. Component\01. Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderComponent.h">
+      <Filter>08. Component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshRender.h">
+      <Filter>08. Component\RenderComponent\01. MeshRender</Filter>
+    </ClInclude>
+    <ClInclude Include="components.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>08. Component\07. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderMgr.h">
+      <Filter>04. Manager\06. RenderMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CScript.h">
+      <Filter>08. Component\SCript</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="CEntity.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>06. Asset\05. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaterial.h">
+      <Filter>06. Asset\03. Material</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollider2D.h">
+      <Filter>08. Component\02. Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionMgr.h">
+      <Filter>04. Manager\07. CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CMissileScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimator2D.h">
+      <Filter>08. Component\04. Animator2D</Filter>
+    </ClInclude>
+    <ClInclude Include="CSprite.h">
+      <Filter>06. Asset\07. Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="CFlipBook.h">
+      <Filter>06. Asset\08. FlipBook</Filter>
+    </ClInclude>
+    <ClInclude Include="CTileMap.h">
+      <Filter>08. Component\RenderComponent\02. TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="CStructuredBuffer.h">
+      <Filter>03. Device\StructuredBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraMoveScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -108,7 +170,6 @@
     <ClCompile Include="CTaskMgr.cpp">
       <Filter>04. Manager\TaskMgr</Filter>
     </ClCompile>
-    <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CAsset.cpp">
       <Filter>06. Asset</Filter>
     </ClCompile>
@@ -141,6 +202,69 @@
     </ClCompile>
     <ClCompile Include="CGameObject.cpp">
       <Filter>07. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CComponent.cpp">
+      <Filter>08. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>08. Component\01. Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderComponent.cpp">
+      <Filter>08. Component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshRender.cpp">
+      <Filter>08. Component\RenderComponent\01. MeshRender</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>08. Component\07. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderMgr.cpp">
+      <Filter>04. Manager\06. RenderMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CScript.cpp">
+      <Filter>08. Component\SCript</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntity.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>06. Asset\05. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaterial.cpp">
+      <Filter>06. Asset\03. Material</Filter>
+    </ClCompile>
+    <ClCompile Include="CAssetInit.cpp">
+      <Filter>04. Manager\05. AssetMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollider2D.cpp">
+      <Filter>08. Component\02. Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionMgr.cpp">
+      <Filter>04. Manager\07. CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissileScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimator2D.cpp">
+      <Filter>08. Component\04. Animator2D</Filter>
+    </ClCompile>
+    <ClCompile Include="CSprite.cpp">
+      <Filter>06. Asset\07. Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="CFlipBook.cpp">
+      <Filter>06. Asset\08. FlipBook</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileMap.cpp">
+      <Filter>08. Component\RenderComponent\02. TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="CStructuredBuffer.cpp">
+      <Filter>03. Device\StructuredBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraMoveScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,10 +349,91 @@
     <Filter Include="05. Level">
       <UniqueIdentifier>{d6311670-6f96-41ad-b4b0-b5c7634d0a66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Component\01. Transform">
+      <UniqueIdentifier>{408a5cf3-a30e-4f5b-9bcb-44a5dac85a0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\02. Collider2D">
+      <UniqueIdentifier>{4589361c-b4f2-48d1-99bb-02ab20005e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\03. Collider3D">
+      <UniqueIdentifier>{d7c79e41-dc14-458c-9da3-bd0d3da5a3b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\04. Animator2D">
+      <UniqueIdentifier>{5a16b607-b7a1-4bdc-bd4f-438c66407360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\05. Animator3D">
+      <UniqueIdentifier>{19c61b4f-c347-4f60-abea-97939b393463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\06. RigidBody">
+      <UniqueIdentifier>{b72a6cba-1a98-4c12-886a-c9276ca81298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\07. Camera">
+      <UniqueIdentifier>{4943858a-e66b-4b5e-b241-e65713bcca70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent">
+      <UniqueIdentifier>{4af5235b-bb9f-4956-8fa1-5ffd4702634e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent\01. MeshRender">
+      <UniqueIdentifier>{d0bb0f32-5b1d-4e80-ba33-1332dcc294be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent\02. TileMap">
+      <UniqueIdentifier>{24367fc2-776a-4c48-aafc-fffa722d9481}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent\03. ParticleSystem">
+      <UniqueIdentifier>{4a1f2ec5-bdc1-4fb0-ab31-6295339c43c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent\04. Decal">
+      <UniqueIdentifier>{59f78a67-5b98-4870-bb08-a6700e3c4681}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent\05. SkyBox">
+      <UniqueIdentifier>{a94b7ee5-c642-43ed-9918-c1088dd083da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\RenderComponent\06. LandScape">
+      <UniqueIdentifier>{2f4489cf-dd46-46ec-aa08-894841007bd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\06. RenderMgr">
+      <UniqueIdentifier>{b4b30c14-426e-4567-bf29-7571f2cffc86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\SCript">
+      <UniqueIdentifier>{cce1c078-d96f-47c5-82dd-eb035181c994}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{67960eda-1222-4028-96df-1892dd26dd5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\07. CollisionMgr">
+      <UniqueIdentifier>{89205951-6db1-46aa-8df5-97a009cc0a2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\07. Sprite">
+      <UniqueIdentifier>{01c088cb-089e-4b0a-89a6-4dc57bc2ff4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Asset\08. FlipBook">
+      <UniqueIdentifier>{3ba277a7-8719-439e-82ce-019f17dfe17f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\01. Header">
+      <UniqueIdentifier>{58bed9e5-d5c1-423d-b100-d5ca46f04c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\02. Render">
+      <UniqueIdentifier>{f3efce07-0483-4b31-aa43-6c4eced3b809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Device\StructuredBuffer">
+      <UniqueIdentifier>{2c64435a-b268-4470-892a-0aa4001d716a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="test.fx">
-      <Filter>HLSL</Filter>
+    <FxCompile Include="func.fx">
+      <Filter>HLSL\01. Header</Filter>
+    </FxCompile>
+    <FxCompile Include="value.fx">
+      <Filter>HLSL\01. Header</Filter>
+    </FxCompile>
+    <FxCompile Include="debug.fx">
+      <Filter>HLSL\02. Render</Filter>
+    </FxCompile>
+    <FxCompile Include="std2d.fx">
+      <Filter>HLSL\02. Render</Filter>
+    </FxCompile>
+    <FxCompile Include="tilemap.fx">
+      <Filter>HLSL\02. Render</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

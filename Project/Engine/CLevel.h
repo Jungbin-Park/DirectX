@@ -10,6 +10,7 @@ private:
     CLayer* m_Layer[MAX_LAYER];
 
 public:
+    void Begin();
     void Tick();
     void FinalTick();
     void Render();

@@ -7,7 +7,7 @@ class CTaskMgr
 	SINGLE(CTaskMgr)
 private:
 	vector<tTask>	m_vecTask;
-	vector<CObj*>	m_GC; // Garbage Collector;
+	vector<CGameObject*>	m_GC; // Garbage Collector;
 
 public:
 	void tick();

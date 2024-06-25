@@ -53,7 +53,6 @@ int CMesh::Create(Vtx* _VtxSysMem, UINT _VtxCount, UINT* _IdxSysMem, UINT _IdxCo
 		return E_FAIL;
 	}
 
-
 	m_IBDesc.ByteWidth = sizeof(UINT) * m_IdxCount;
 	m_IBDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
