@@ -14,47 +14,6 @@
 #include <Engine\global.h>
 #include <Engine\CEngine.h>
 
-
-template<typename T>
-class MyPtr
-{
-private:
-    T* ptr;
-
-public:
-    T* Get() { return ptr; }
-    T** GetAddressOf() { return &ptr; }
-    
-    // Conversion Operator
-    operator T* ()
-    {
-        return ptr;
-    }
-
-    /*void operator = (T* _ptr)
-    {
-        ptr->Release();
-
-        ptr = _ptr;
-
-        ptr->AddRef();
-    }*/
-
-
-public:
-    MyPtr()
-        : ptr(nullptr)
-    {}
-
-    ~MyPtr()
-    {
-       ptr->Release();
-    }
-};
-
-
-
-
 // 전역 변수:
 HINSTANCE g_hInst = nullptr;
 

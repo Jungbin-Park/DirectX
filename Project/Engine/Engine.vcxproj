@@ -193,6 +193,7 @@ call EngineHeaderCopy.bat</Command>
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CLevel.h" />
     <ClInclude Include="CLevelMgr.h" />
+    <ClInclude Include="CLight2D.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshRender.h" />
@@ -222,7 +223,6 @@ call EngineHeaderCopy.bat</Command>
     <ClInclude Include="pch.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />
-    <ClInclude Include="Temp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAnimator2D.cpp" />
@@ -246,6 +246,7 @@ call EngineHeaderCopy.bat</Command>
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CLevel.cpp" />
     <ClCompile Include="CLevelMgr.cpp" />
+    <ClCompile Include="CLight2D.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshRender.cpp" />
@@ -273,7 +274,6 @@ call EngineHeaderCopy.bat</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Temp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="debug.fx" />
@@ -284,6 +284,7 @@ call EngineHeaderCopy.bat</Command>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="struct.fx" />
     <FxCompile Include="tilemap.fx" />
     <FxCompile Include="value.fx" />
   </ItemGroup>

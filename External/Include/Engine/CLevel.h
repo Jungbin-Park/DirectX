@@ -2,12 +2,16 @@
 #include "CEntity.h"
 
 class CLayer;
+class CGameObject;
 
 class CLevel :
     public CEntity
 {
 private:
     CLayer* m_Layer[MAX_LAYER];
+
+public:
+    void AddObject(int LayerIdx, CGameObject* _Object);
 
 public:
     void Begin();

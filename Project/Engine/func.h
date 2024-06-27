@@ -33,17 +33,11 @@ void Delete_Map(map<T1, T2>& _map)
 	_map.clear();
 }
 
-// º¯¼ö ÅÛÇÃ¸´
-template<typename T1, typename T2>
-constexpr bool IsSame = false;
-template<typename T1>
-constexpr bool IsSame<T1, T1> = true;
-
 #include "assets.h"
 template<typename T>
 ASSET_TYPE GetAssetType()
 {
-	if constexpr (IsSame<T, CMesh>)
+	if constexpr (std::is_same_v<T, CMesh>)
 		return ASSET_TYPE::MESH;
 	//if constexpr(IsSame<T, CMeshData>)
 	//	return ASSET_TYPE::MESH_DATA;
@@ -55,9 +49,9 @@ ASSET_TYPE GetAssetType()
 	//	return ASSET_TYPE::TEXTURE;
 	//if constexpr(IsSame<T, CSound>)
 	//	return ASSET_TYPE::SOUND;
-	if constexpr (IsSame<T, CGraphicShader>)
+	if constexpr (std::is_same_v<T, CGraphicShader>)
 		return ASSET_TYPE::GRAPHIC_SHADER;
-	if constexpr (IsSame<T, CComputeShader>)
+	if constexpr (std::is_same_v<T, CComputeShader>)
 		return ASSET_TYPE::COMPUTE_SHADER;
 
 }

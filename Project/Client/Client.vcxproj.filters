@@ -58,6 +58,9 @@
     <Filter Include="EditorUI\04. ListUI">
       <UniqueIdentifier>{3cbca5e2-9a41-43b9-a071-fcf3e1acca49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EditorUI\01. Inspector\ComponentUI\08. Light2DUI">
+      <UniqueIdentifier>{c3c5b8d6-60cf-436f-9f58-f9d459cf6b5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="ListUI.h">
       <Filter>EditorUI\04. ListUI</Filter>
     </ClInclude>
+    <ClInclude Include="Light2DUI.h">
+      <Filter>EditorUI\01. Inspector\ComponentUI\08. Light2DUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -235,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="ListUI.cpp">
       <Filter>EditorUI\04. ListUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Light2DUI.cpp">
+      <Filter>EditorUI\01. Inspector\ComponentUI\08. Light2DUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

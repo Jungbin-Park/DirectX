@@ -151,6 +151,7 @@
     <ClInclude Include="ComponentUI.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="FlipBookComUI.h" />
+    <ClInclude Include="Light2DUI.h" />
     <ClInclude Include="ListUI.h" />
     <ClInclude Include="MeshRenderUI.h" />
     <ClInclude Include="ParticleSystemUI.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="ComponentUI.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="FlipBookComUI.cpp" />
+    <ClCompile Include="Light2DUI.cpp" />
     <ClCompile Include="ListUI.cpp" />
     <ClCompile Include="MeshRenderUI.cpp" />
     <ClCompile Include="ParticleSystemUI.cpp" />

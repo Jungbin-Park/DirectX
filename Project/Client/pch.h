@@ -1,11 +1,11 @@
 #pragma once
 
-#ifndef PCH_H
-#define PCH_H
 
-// 여기에 미리 컴파일하려는 헤더 추가
-#include "framework.h"
+#ifdef _DEBUG
+#pragma comment(lib, "Engine\\Engine_D")
+#else
+#pragma comment(lib, "Engine\\Engine")
+#endif
 
-#include <stdlib.h>x
-
-#endif //PCH_H
+#include <Engine/global.h>
+#include <Engine/CEngine.h>

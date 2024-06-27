@@ -9,7 +9,6 @@
 #include "CAssetMgr.h"
 #include "CLevelMgr.h"
 
-#include "Temp.h"
 
 
 CEngine::CEngine()
@@ -20,7 +19,7 @@ CEngine::CEngine()
 
 CEngine::~CEngine()
 {
-	TempRelease();
+
 }
 
 int CEngine::Init(HWND _wnd, POINT _ptResolution)
@@ -43,12 +42,6 @@ int CEngine::Init(HWND _wnd, POINT _ptResolution)
 	CLevelMgr::GetInst()->Init();
 
 
-	if (FAILED(TempInit()))
-	{
-		MessageBox(nullptr, L"TempInit 실패", L"CEngine 초기화 실패", MB_OK);
-		return E_FAIL;
-	}
-
 	return S_OK;
 }
 
@@ -59,16 +52,11 @@ void CEngine::Progress()
 	// Manager
 	CKeyMgr::GetInst()->Tick();
 	CTimeMgr::GetInst()->Tick();
-
 	CLevelMgr::GetInst()->Progress();
-	TempTick();
 
 	// Render
 	CDevice::GetInst()->Clear();
-
 	CLevelMgr::GetInst()->Render();
-	TempRender();
-
 	CDevice::GetInst()->Present();
 }
 
