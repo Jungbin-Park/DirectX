@@ -9,6 +9,8 @@ private:
     Vec3    m_RelativeScale;
     Vec3    m_RelativeRotation;
 
+    Matrix  m_matWorld;     // 이동, 크기, 회전
+
 public:
     virtual void FinalTick() override;
     void Binding();
