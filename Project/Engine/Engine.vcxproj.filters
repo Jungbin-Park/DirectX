@@ -145,6 +145,9 @@
     <ClInclude Include="CLight2D.h">
       <Filter>08. Component\08. Light2D</Filter>
     </ClInclude>
+    <ClInclude Include="ptr.h">
+      <Filter>06. Asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
