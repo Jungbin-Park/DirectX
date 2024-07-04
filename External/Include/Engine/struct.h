@@ -11,6 +11,9 @@ struct Vtx
 // 상수 버퍼 연동 구조체
 struct tTransform
 {
-	Vec4 Pos;
-	Vec4 Scale;
+	Matrix matWorld;
+	Matrix matView;
+	Matrix matProj;
 };
+
+extern tTransform g_Trans;

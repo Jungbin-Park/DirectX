@@ -43,4 +43,13 @@ enum class COMPONENT_TYPE
 	LANDSCAPE,
 
 	END,
+
+	SCRIPT,
+};
+
+enum DIR
+{
+	RIGHT,
+	UP,
+	FRONT,
 };

@@ -43,13 +43,6 @@ void CLevel::FinalTick()
 	}
 }
 
-void CLevel::Render()
-{
-	for (int i = 0; i < MAX_LAYER; ++i)
-	{
-		m_Layer[i]->Render();
-	}
-}
 
 void CLevel::AddObject(int LayerIdx, CGameObject* _Object)
 {

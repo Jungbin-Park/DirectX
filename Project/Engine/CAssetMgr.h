@@ -41,7 +41,7 @@ inline void CAssetMgr::AddAsset(const wstring& _Key, Ptr<T> _Asset)
 {
 	ASSET_TYPE Type = GetAssetType<T>();
 
-	assert(!FindAsset(Type, _Key));
+	assert(!FindAsset(Type, _Key).Get());
 
 	m_mapAsset[(UINT)Type].insert(make_pair(_Key, _Asset.Get()));
 }

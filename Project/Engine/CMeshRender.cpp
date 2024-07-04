@@ -21,7 +21,7 @@ void CMeshRender::Render()
 	if (!GetMesh() || !GetShader())
 		return;
 
-	GetOwner()->Transform()->Binding();
+	Transform()->Binding();
 	GetShader()->Binding();
 	GetMesh()->render();
 }

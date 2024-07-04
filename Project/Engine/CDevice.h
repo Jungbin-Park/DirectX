@@ -28,7 +28,10 @@ private:
 	ComPtr<ID3D11SamplerState>			m_Sampler;
 	ComPtr<ID3D11RasterizerState>		m_RSState;
 
-	CConstBuffer* m_arrCB[(UINT)CB_TYPE::END];
+	CConstBuffer*						m_arrCB[(UINT)CB_TYPE::END];
+
+public:
+	Vec2 GetResolution() { return m_vResolution; }
 
 public:
 	int Init(HWND _hWnd, UINT _Width, UINT _Height);

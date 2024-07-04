@@ -4,6 +4,8 @@
 cbuffer OBJECT_POS : register(b0)
 {
     row_major matrix matWorld;
+    row_major matrix matView;
+    row_major matrix matProj;
 };
 
 // Vertex Shader
@@ -28,7 +30,11 @@ VTX_OUT VS_Test(VTX_IN _in)
     // float3 x float4x4(matrix)
     // float3를 float4로 차수를 맞추어준다.
     // 동차좌표를 1로 설정, 상태 행렬 4행에 들어있는 이동을 적용 받겠다.
-    output.vPosition = mul(float4(_in.vPos, 1.f), matWorld);
+    float3 vWorldPos = mul(float4(_in.vPos, 1.f), matWorld);
+    float4 vViewPos = mul(float4(vWorldPos, 1.f), matView);
+    float4 vProjPos = mul(vViewPos, matProj);
+    
+    output.vPosition = vProjPos;
     output.vColor = _in.vColor;
     
     return output;

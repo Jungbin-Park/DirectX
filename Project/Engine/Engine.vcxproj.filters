@@ -273,6 +273,9 @@
     <ClCompile Include="CLight2D.cpp">
       <Filter>08. Component\08. Light2D</Filter>
     </ClCompile>
+    <ClCompile Include="extern.cpp">
+      <Filter>01. Header</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
