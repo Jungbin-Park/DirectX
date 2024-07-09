@@ -34,5 +34,12 @@ void CCameraMoveScript::Tick()
 		vPos -= vFront * DT * Speed;
 	}
 
+	if (KEY_PRESSED(KEY::Y))
+	{
+		Vec3 vRot = Transform()->GetRelativeRotation();
+		vRot.y += XM_PI * DT;
+		Transform()->SetRelativeRotation(vRot);
+	}
+
 	Transform()->SetRelativePos(vPos);
 }

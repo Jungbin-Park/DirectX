@@ -37,10 +37,13 @@ void CLevelMgr::Init()
 	
 	// Main Camera 설정
 	CamObj->Camera()->SetPriority(0);
+
+	// 카메라 레이어 설정
 	CamObj->Camera()->SetLayerAll();
 	CamObj->Camera()->SetLayer(31, false);
+	CamObj->Camera()->SetFar(10000.f);
 	//CamObj->Camera()->SetProjType(ORTHOGRAPHIC);
-	//CamObj->Camera()->SetProjType(PERSPECTIVE);
+	CamObj->Camera()->SetProjType(PERSPECTIVE);
 
 
 	m_CurLevel->AddObject(0, CamObj);
