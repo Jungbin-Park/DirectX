@@ -10,6 +10,7 @@
 #include "assets.h"
 
 #include "CPlayerScript.h"
+#include "CCameraMoveScript.h"
 
 CLevelMgr::CLevelMgr()
 	: m_CurLevel(nullptr)
@@ -32,10 +33,15 @@ void CLevelMgr::Init()
 	CamObj->SetName(L"MainCamera");
 	CamObj->AddComponent(new CTransform);
 	CamObj->AddComponent(new CCamera);
+	CamObj->AddComponent(new CCameraMoveScript);
 	
 	// Main Camera ¼³Á¤
 	CamObj->Camera()->SetPriority(0);
 	CamObj->Camera()->SetLayerAll();
+	CamObj->Camera()->SetLayer(31, false);
+	//CamObj->Camera()->SetProjType(ORTHOGRAPHIC);
+	//CamObj->Camera()->SetProjType(PERSPECTIVE);
+
 
 	m_CurLevel->AddObject(0, CamObj);
 
@@ -47,7 +53,7 @@ void CLevelMgr::Init()
 	pObject->AddComponent(new CMeshRender);
 	pObject->AddComponent(new CPlayerScript);
 
-	pObject->Transform()->SetRelativePos(0.f, 0.f, 500.f);
+	pObject->Transform()->SetRelativePos(0.f, 0.f, 100.f);
 	pObject->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
 	pObject->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pObject->MeshRender()->SetShader(CAssetMgr::GetInst()->FindAsset<CGraphicShader>(L"TestShader"));

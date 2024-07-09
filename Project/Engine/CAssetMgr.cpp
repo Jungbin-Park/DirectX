@@ -46,8 +46,8 @@ void CAssetMgr::Init()
 
 	Ptr<CGraphicShader> pShader = nullptr;
 	pShader = new CGraphicShader;
-	pShader->CreateVertexShader(L"shader\\test.fx", "VS_Test");
-	pShader->CreatePixelShader(L"shader\\test.fx", "PS_Test");
+	pShader->CreateVertexShader(L"shader\\std2d.fx", "VS_Test");
+	pShader->CreatePixelShader(L"shader\\std2d.fx", "PS_Test");
 	AddAsset(L"TestShader", pShader);
 }
 

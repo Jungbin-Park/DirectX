@@ -13,7 +13,7 @@ enum class KEY
 	SPACE,
 	ALT,
 	CTRL,
-	SHIFT,
+	LSHIFT,
 	ESC,
 
 	LBTN,

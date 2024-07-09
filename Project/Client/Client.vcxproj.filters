@@ -97,6 +97,9 @@
     <Filter Include="EditorUI\01. Inspector\AsetUI\07. FlipBookUI">
       <UniqueIdentifier>{4a163c2f-20c1-4b22-be86-a0d4b913001b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EditorUI\06. MenuUI">
+      <UniqueIdentifier>{a2d36a50-245f-4473-ae44-d7c8d56f52bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="ComputeShaderUI.h">
       <Filter>EditorUI\01. Inspector\AsetUI\10. ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuUI.h">
+      <Filter>EditorUI\06. MenuUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -355,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="ComputeShaderUI.cpp">
       <Filter>EditorUI\01. Inspector\AsetUI\10. ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuUI.cpp">
+      <Filter>EditorUI\06. MenuUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

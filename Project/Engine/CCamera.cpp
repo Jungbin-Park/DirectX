@@ -17,8 +17,11 @@ CCamera::CCamera()
 	: CComponent(COMPONENT_TYPE::CAMERA)
 	, m_Priority(-1)
 	, m_LayerCheck(0)
+	, m_ProjType(PROJ_TYPE::ORTHOGRAPHIC)
 	, m_Width(0)
 	, m_Height(0)
+	, m_Far(500)
+	, m_FOV(XM_PI / 2.f)
 {
 	Vec2 vResolution = CDevice::GetInst()->GetResolution();
 	m_Width = vResolution.x;
@@ -60,13 +63,20 @@ void CCamera::FinalTick()
 
 
 	// Projection Space 투영 좌표계 (NDC)
-	// 1. 직교투영 (Orthographic)
-	// 투영을 일직선으로
-	// 시야 범위를 NDC 로 압축
-	m_matProj = XMMatrixOrthographicLH(m_Width, m_Height, 1.f, 10000.f);
-
-
-	// 2. 원근투영 (Perspective)
+	if (PROJ_TYPE::ORTHOGRAPHIC == m_ProjType)
+	{
+		// 1. 직교투영 (Orthographic)
+		// 투영을 일직선으로
+		// 시야 범위를 NDC 로 압축
+		m_matProj = XMMatrixOrthographicLH(m_Width, m_Height, 1.f, m_Far);
+	}
+	
+	else
+	{
+		// 2. 원근투영 (Perspective)
+		float AspectRatio = m_Height / m_Width;
+		m_matProj = XMMatrixPerspectiveFovLH(m_FOV, AspectRatio, 1.f, m_Far);
+	}
 
 }
 
