@@ -28,6 +28,10 @@ private:
             delete this;
     }
 
+    // AssetMgr를 통해 저장/로드가 가능하도록 private
+    virtual int Load(const wstring& _FilePath) { return S_OK; }
+    virtual int Save(const wstring& _FilePath) { return S_OK; }
+
 public:
     virtual void Binding() = 0;
     virtual CAsset* Clone() { return nullptr; }

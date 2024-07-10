@@ -3,11 +3,8 @@
 enum class CB_TYPE
 {
 	TRANSFORM,
-
 	MATERIAL,
-
 	GLOBAL,
-
 	END,
 };
 
@@ -52,4 +49,13 @@ enum DIR
 	RIGHT,
 	UP,
 	FRONT,
+};
+
+enum class RS_TYPE
+{
+	CULL_BACK,
+	CULL_FRONT,
+	CULL_NONE,
+	WIRE_FRAME,
+	END,
 };

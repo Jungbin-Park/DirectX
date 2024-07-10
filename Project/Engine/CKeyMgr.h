@@ -49,6 +49,9 @@ private:
 	Vec2				m_PrevMousePos;
 	Vec2				m_DragDir;
 
+	Vec2				m_CapturePos;
+	bool				m_MouseCapture;
+
 public:
 	void Init();
 	void Tick();
@@ -57,5 +60,11 @@ public:
 	KEY_STATE GetKeyState(KEY _Key) { return m_vecKeyInfo[(UINT)_Key].eKeyState; }
 	Vec2 GetMousePos() { return m_MousePos; }
 	Vec2 GetDragDir() { return m_DragDir; }
+
+	void MouseCapture(bool _bCapture)
+	{
+		//m_MouseCapture = _bCapture;		
+		//m_CapturePos = m_MousePos;
+	}
 };
 

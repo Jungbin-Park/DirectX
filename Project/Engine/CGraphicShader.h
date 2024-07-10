@@ -11,9 +11,12 @@ private:
     ComPtr<ID3D11PixelShader>	m_PS;
 
     ComPtr<ID3D11InputLayout>   m_Layout;
-
     D3D11_PRIMITIVE_TOPOLOGY    m_Topology;
 
+    RS_TYPE                     m_RSType;
+
+public:
+    void SetRSType(RS_TYPE _Type) { m_RSType = _Type; }
 
 public:
     int CreateVertexShader(const wstring& _RelativePath, const string& _FuncName);

@@ -23,10 +23,12 @@ private:
 	ComPtr<ID3D11RenderTargetView>		m_RTView;
 	ComPtr<ID3D11DepthStencilView>		m_DSView;
 
+	ComPtr<ID3D11RasterizerState>		m_RSState[(UINT)RS_TYPE::END];
+
 	ComPtr<ID3D11BlendState>			m_BSState;
 	ComPtr<ID3D11DepthStencilState>		m_DSSTage;
 	ComPtr<ID3D11SamplerState>			m_Sampler;
-	ComPtr<ID3D11RasterizerState>		m_RSState;
+	
 
 	CConstBuffer*						m_arrCB[(UINT)CB_TYPE::END];
 
@@ -42,11 +44,13 @@ private:
 	int CreateSwapChain();
 	int CreateView();
 	int CreateConstBuffer();
+	int CreateRasterizerState();
 
 public:
 	ID3D11Device* GetDevice() { return m_Device.Get(); }
 	ID3D11DeviceContext* GetContext() { return m_Context.Get(); }
 
 	CConstBuffer* GetConstBuffer(CB_TYPE _Type) { return m_arrCB[(UINT)_Type]; }
+	ID3D11RasterizerState* GetRSState(RS_TYPE _Type) { return m_RSState[(UINT)_Type].Get(); }
 };
 
