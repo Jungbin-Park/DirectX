@@ -4,6 +4,8 @@
 // GPU ¡¶æÓ
 class CConstBuffer;
 
+#include "CTexture.h"
+
 class CDevice
 	: public CSingleton<CDevice>
 {
@@ -18,10 +20,10 @@ private:
 	ComPtr<IDXGISwapChain>				m_SwapChain;
 
 	ComPtr<ID3D11Texture2D>				m_RTTex;	// ∑ª¥ı∏µ
-	ComPtr<ID3D11Texture2D>				m_DSTex;	// ±Ì¿Ã ¡§∫∏
 
 	ComPtr<ID3D11RenderTargetView>		m_RTView;
-	ComPtr<ID3D11DepthStencilView>		m_DSView;
+
+	Ptr<CTexture>						m_DSTex;	// ±Ì¿Ã ¡§∫∏
 
 	ComPtr<ID3D11RasterizerState>		m_RSState[(UINT)RS_TYPE::END];
 

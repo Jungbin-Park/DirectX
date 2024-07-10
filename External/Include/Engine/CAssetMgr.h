@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CPathMgr.h"
+
 class CAsset;
 
 class CAssetMgr
@@ -13,6 +15,9 @@ private:
 public:
 	void Init();
 
+	template<typename T>
+	Ptr<T> Load(const wstring& _Key, const wstring& _RelativePath);
+
 	Ptr<CAsset> FindAsset(ASSET_TYPE _Type, const wstring& _Key);
 	//void AddAsset(const wstring& _strName, CAsset* _Asset);
 
@@ -21,7 +26,49 @@ public:
 
 	template<typename T>
 	void AddAsset(const wstring& _Key, Ptr<T> _Asset);
+
+	// _Flags : D3D11_BIND_FLAG
+	Ptr<CTexture> CreateTexture(wstring _strKey, UINT _Width, UINT _Height
+		, DXGI_FORMAT _Format, UINT _Flags
+		, D3D11_USAGE _Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT);
 };
+
+template<typename T>
+Ptr<T> CAssetMgr::Load(const wstring& _Key, const wstring& _RelativePath)
+{
+	// 동일 키 값 에셋이 있는지 확인
+	Ptr<T> Asset = FindAsset<T>(_Key);
+
+	if (nullptr != Asset)
+	{
+		return Asset;
+	}
+
+	// 동일 키 값의 에셋이 없었으면
+	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
+	strFilePath += _RelativePath;
+
+	Asset = new T;
+
+	// 로딩 실패 시 예외처리
+	if (FAILED(Asset->Load(strFilePath)))
+	{
+		MessageBox(nullptr, L"알 수 없는 텍스쳐 포맷", L"텍스쳐 로딩 실패", MB_OK);
+		return nullptr;
+	}
+
+	// Asset이 자신의 키 값과 경로를 알게 함
+	Asset->m_Key = _Key;
+	Asset->m_RelativePath = _RelativePath;
+
+	// 맵에 등록
+	ASSET_TYPE type = GetAssetType<T>();
+	m_mapAsset[(UINT)type].insert(make_pair(_Key, Asset.Get()));
+
+	// 로딩된 에셋 주소 반환
+	return Asset;
+
+}
 
 template<typename T>
 Ptr<T> CAssetMgr::FindAsset(const wstring& _Key)

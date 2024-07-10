@@ -42,6 +42,9 @@ using std::make_pair;
 
 #include <typeinfo>
 
+#include <filesystem>
+using namespace std::filesystem;
+
 #include "singleton.h"
 #include "define.h"
 #include "enum.h"

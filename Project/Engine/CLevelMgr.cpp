@@ -26,6 +26,10 @@ CLevelMgr::~CLevelMgr()
 
 void CLevelMgr::Init()
 {
+
+	// Texture 로딩
+	Ptr<CTexture> pTexture = CAssetMgr::GetInst()->Load<CTexture>(L"PlayerTex", L"texture//Character.png");
+
 	m_CurLevel = new CLevel;
 
 	// 카메라 오브젝트
