@@ -29,11 +29,10 @@ private:
     }
 
     // AssetMgr를 통해 저장/로드가 가능하도록 private
-    virtual int Load(const wstring& _FilePath) { return S_OK; }
-    virtual int Save(const wstring& _FilePath) { return S_OK; }
+    virtual int Load(const wstring& _FilePath) = 0;
+    virtual int Save(const wstring& _FilePath) = 0;
 
 public:
-    virtual void Binding() = 0;
     virtual CAsset* Clone() { return nullptr; }
 
 public:

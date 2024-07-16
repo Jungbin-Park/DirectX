@@ -8,17 +8,23 @@ cbuffer OBJECT_POS : register(b0)
     row_major matrix matProj;
 };
 
+SamplerState g_sam_0 : register(s0);
+
+Texture2D g_tex_0 : register(t0);
+
 // Vertex Shader
 struct VTX_IN
 {
-    float3 vPos : POSITION;
-    float4 vColor : COLOR;
+    float3 vPos     : POSITION;
+    float4 vColor   : COLOR;
+    float2 vUV      : TEXCOORD;
 };
 
 struct VTX_OUT
 {
     float4 vPosition : SV_Position;
-    float4 vColor : COLOR;
+    float4 vColor    : COLOR;
+    float2 vUV       : TEXCOORD;
 };
 
 // πˆ≈ÿΩ∫ Ω¶¿Ã¥ı
@@ -36,6 +42,7 @@ VTX_OUT VS_Test(VTX_IN _in)
     
     output.vPosition = vProjPos;
     output.vColor = _in.vColor;
+    output.vUV = _in.vUV;
     
     return output;
 }
@@ -43,6 +50,8 @@ VTX_OUT VS_Test(VTX_IN _in)
 // «»ºø Ω¶¿Ã¥ı
 float4 PS_Test(VTX_OUT _in) : SV_Target
 {
+    float4 vColor = g_tex_0.Sample(g_sam_0, _in.vUV);
+    vColor.a = 0.f;
     return _in.vColor;
 }
 

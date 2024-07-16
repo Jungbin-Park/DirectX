@@ -154,6 +154,7 @@
     <ClInclude Include="ComponentUI.h" />
     <ClInclude Include="ComputeShaderUI.h" />
     <ClInclude Include="Content.h" />
+    <ClInclude Include="CTestLevel.h" />
     <ClInclude Include="FlipBookComUI.h" />
     <ClInclude Include="FlipBookUI.h" />
     <ClInclude Include="GraphicShaderUI.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="ComponentUI.cpp" />
     <ClCompile Include="ComputeShaderUI.cpp" />
     <ClCompile Include="Content.cpp" />
+    <ClCompile Include="CTestLevel.cpp" />
     <ClCompile Include="FlipBookComUI.cpp" />
     <ClCompile Include="FlipBookUI.cpp" />
     <ClCompile Include="GraphicShaderUI.cpp" />

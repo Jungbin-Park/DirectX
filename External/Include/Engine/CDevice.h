@@ -19,9 +19,7 @@ private:
 
 	ComPtr<IDXGISwapChain>				m_SwapChain;
 
-	ComPtr<ID3D11Texture2D>				m_RTTex;	// ∑ª¥ı∏µ
-
-	ComPtr<ID3D11RenderTargetView>		m_RTView;
+	Ptr<CTexture>						m_RTTex;	// ∑ª¥ı∏µ
 
 	Ptr<CTexture>						m_DSTex;	// ±Ì¿Ã ¡§∫∏
 

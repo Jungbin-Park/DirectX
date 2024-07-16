@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include "CShader.h"
 class CGraphicShader :
     public CShader
@@ -21,8 +21,7 @@ public:
 public:
     int CreateVertexShader(const wstring& _RelativePath, const string& _FuncName);
     int CreatePixelShader(const wstring& _RelativePath, const string& _FuncName);
-
-    virtual void Binding() override;
+    void Binding();
 
 
 public:

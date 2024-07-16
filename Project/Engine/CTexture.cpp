@@ -14,9 +14,9 @@ CTexture::~CTexture()
 {
 }
 
-
-void CTexture::Binding()
+void CTexture::Binding(UINT _RegisterNum)
 {
+	CONTEXT->PSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
 }
 
 int CTexture::Load(const wstring& _FilePath)
@@ -77,6 +77,11 @@ int CTexture::Load(const wstring& _FilePath)
 	return S_OK;
 }
 
+int CTexture::Save(const wstring& _FilePath)
+{
+	return 0;
+}
+
 int CTexture::Create(UINT _Width, UINT _Height, DXGI_FORMAT _PixelFormat, UINT _Flags, D3D11_USAGE _Usage)
 {
 	m_Desc.Width = _Width; // DepthStencil 텍스쳐는 렌더타겟 해상도와 반드시 일치해야한다.
@@ -132,8 +137,35 @@ int CTexture::Create(UINT _Width, UINT _Height, DXGI_FORMAT _PixelFormat, UINT _
 	return S_OK;
 }
 
-int CTexture::Save(const wstring& _FilePath)
+int CTexture::Create(ComPtr<ID3D11Texture2D> _Tex2D)
 {
+	m_Tex2D = _Tex2D;
+	m_Tex2D->GetDesc(&m_Desc);
 
-	return 0;
+	// View 생성
+	if (m_Desc.BindFlags & D3D11_BIND_RENDER_TARGET)
+	{
+		DEVICE->CreateRenderTargetView(m_Tex2D.Get(), nullptr, m_RTV.GetAddressOf());
+	}
+
+	if (m_Desc.BindFlags & D3D11_BIND_DEPTH_STENCIL)
+	{
+		DEVICE->CreateDepthStencilView(m_Tex2D.Get(), nullptr, m_DSV.GetAddressOf());
+	}
+
+	if (m_Desc.BindFlags & D3D11_BIND_SHADER_RESOURCE)
+	{
+		DEVICE->CreateShaderResourceView(m_Tex2D.Get(), nullptr, m_SRV.GetAddressOf());
+	}
+
+	if (m_Desc.BindFlags & D3D11_BIND_UNORDERED_ACCESS)
+	{
+		DEVICE->CreateUnorderedAccessView(m_Tex2D.Get(), nullptr, m_UAV.GetAddressOf());
+	}
+
+	return S_OK;
 }
+
+
+
+

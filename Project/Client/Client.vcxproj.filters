@@ -100,6 +100,9 @@
     <Filter Include="EditorUI\06. MenuUI">
       <UniqueIdentifier>{a2d36a50-245f-4473-ae44-d7c8d56f52bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\02. TestLevel">
+      <UniqueIdentifier>{4b6220a9-1716-4991-a4b2-dd38738e2094}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -230,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="MenuUI.h">
       <Filter>EditorUI\06. MenuUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTestLevel.h">
+      <Filter>Manager\02. TestLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -364,6 +370,9 @@
     </ClCompile>
     <ClCompile Include="MenuUI.cpp">
       <Filter>EditorUI\06. MenuUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CTestLevel.cpp">
+      <Filter>Manager\02. TestLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

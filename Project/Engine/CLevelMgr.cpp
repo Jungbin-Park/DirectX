@@ -29,6 +29,7 @@ void CLevelMgr::Init()
 
 	// Texture ·Îµù
 	Ptr<CTexture> pTexture = CAssetMgr::GetInst()->Load<CTexture>(L"PlayerTex", L"texture//Character.png");
+	pTexture->Binding(0);
 
 	m_CurLevel = new CLevel;
 

@@ -19,8 +19,11 @@ private:
 
 public:
     int Create(Vtx* _VtxSysMem, UINT _VtxCount, UINT* _IdxSysMem, UINT _IdxCount);
-    virtual void Binding() override;
+    void Binding();
     void render();
+
+    virtual int Load(const wstring& _FilePath) { return S_OK; }
+    virtual int Save(const wstring& _FilePath) { return S_OK; }
 
 public:
     CMesh();

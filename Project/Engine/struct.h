@@ -5,6 +5,7 @@ struct Vtx
 {
 	Vec3	vPos;	// ÁÂÇ¥
 	Vec4	vColor;	// »ö»ó
+	Vec2	vUV;
 };
 
 
