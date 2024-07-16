@@ -1,16 +1,8 @@
-#ifndef _TEST
-#define _TEST
+#ifndef _STD2D
+#define _STD2D
 
-cbuffer OBJECT_POS : register(b0)
-{
-    row_major matrix matWorld;
-    row_major matrix matView;
-    row_major matrix matProj;
-};
-
-SamplerState g_sam_0 : register(s0);
-
-Texture2D g_tex_0 : register(t0);
+#include "value.fx"
+#include "func.fx"
 
 // Vertex Shader
 struct VTX_IN
@@ -28,7 +20,7 @@ struct VTX_OUT
 };
 
 // πˆ≈ÿΩ∫ Ω¶¿Ã¥ı
-VTX_OUT VS_Test(VTX_IN _in)
+VTX_OUT VS_Std2D(VTX_IN _in)
 {
     VTX_OUT output = (VTX_OUT) 0.f;
     
@@ -48,11 +40,23 @@ VTX_OUT VS_Test(VTX_IN _in)
 }
 
 // «»ºø Ω¶¿Ã¥ı
-float4 PS_Test(VTX_OUT _in) : SV_Target
+float4 PS_Std2D(VTX_OUT _in) : SV_Target
 {
-    float4 vColor = g_tex_0.Sample(g_sam_0, _in.vUV);
-    vColor.a = 0.f;
-    return _in.vColor;
+    float4 vColor = float4(0.f, 0.f, 0.f, 0.f);
+    
+    if (g_btex_0)
+    {
+        vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+        
+        if(g_int_0)
+            vColor.r *= 2.f;
+    }
+    else
+    {
+        vColor = float4(1.f, 0.f, 1.f, 1.f);
+    }
+    
+    return vColor;
 }
 
 

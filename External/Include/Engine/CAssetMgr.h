@@ -13,8 +13,6 @@ private:
 	map<wstring, Ptr<CAsset>> m_mapAsset[(UINT)ASSET_TYPE::END];
 
 public:
-	void Init();
-
 	template<typename T>
 	Ptr<T> Load(const wstring& _Key, const wstring& _RelativePath);
 
@@ -33,6 +31,15 @@ public:
 								, D3D11_USAGE _Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT);
 
 	Ptr<CTexture> CreateTexture(wstring _strKey, ComPtr<ID3D11Texture2D> _Tex2D);
+
+public:
+	void Init();
+private:
+	void CreateEngineMesh();
+	void CreateEngineMaterial();
+	void CreateEngineTexture();
+	void CreateEngineGraphicShader();
+	void CreateEngineComputeShader();
 };
 
 template<typename T>

@@ -28,6 +28,7 @@ public:
     int Create(ComPtr<ID3D11Texture2D> _Tex2D);
 
     void Binding(UINT _RegisterNum);
+    static void Clear(UINT _RegisterNum);
 
     virtual int Load(const wstring& _FilePath) override;
     virtual int Save(const wstring& _FilePath) override;

@@ -24,11 +24,10 @@ private:
 	Ptr<CTexture>						m_DSTex;	// ±Ì¿Ã ¡§∫∏
 
 	ComPtr<ID3D11RasterizerState>		m_RSState[(UINT)RS_TYPE::END];
+	ComPtr<ID3D11SamplerState>			m_Sampler[2];
 
 	ComPtr<ID3D11BlendState>			m_BSState;
 	ComPtr<ID3D11DepthStencilState>		m_DSSTage;
-	ComPtr<ID3D11SamplerState>			m_Sampler;
-	
 
 	CConstBuffer*						m_arrCB[(UINT)CB_TYPE::END];
 
@@ -45,6 +44,7 @@ private:
 	int CreateView();
 	int CreateConstBuffer();
 	int CreateRasterizerState();
+	int CreateSamplerState();
 
 public:
 	ID3D11Device* GetDevice() { return m_Device.Get(); }

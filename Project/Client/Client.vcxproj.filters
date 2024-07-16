@@ -103,6 +103,9 @@
     <Filter Include="Manager\02. TestLevel">
       <UniqueIdentifier>{4b6220a9-1716-4991-a4b2-dd38738e2094}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EditorUI\01. Inspector\ComponentUI\09. ScriptUI">
+      <UniqueIdentifier>{dd27be52-c2b9-437f-89d8-da62d60b244a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -236,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="CTestLevel.h">
       <Filter>Manager\02. TestLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptUI.h">
+      <Filter>EditorUI\01. Inspector\ComponentUI\09. ScriptUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -373,6 +379,9 @@
     </ClCompile>
     <ClCompile Include="CTestLevel.cpp">
       <Filter>Manager\02. TestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptUI.cpp">
+      <Filter>EditorUI\01. Inspector\ComponentUI\09. ScriptUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

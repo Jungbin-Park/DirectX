@@ -6,14 +6,14 @@ class CRenderComponent :
 {
 private:
     Ptr<CMesh>              m_Mesh;
-    Ptr<CGraphicShader>     m_Shader;
+    Ptr<CMaterial>          m_Mtrl;
 
 public:
     void SetMesh(Ptr<CMesh> _Mesh) { m_Mesh = _Mesh; }
-    void SetShader(Ptr<CGraphicShader> _Shader) { m_Shader = _Shader; }
+    void SetMaterial(Ptr<CMaterial> _Mtrl) { m_Mtrl = _Mtrl; }
 
     Ptr<CMesh> GetMesh() { return m_Mesh; }
-    Ptr<CGraphicShader> GetShader() { return m_Shader; }
+    Ptr<CMaterial> GetMaterial() { return m_Mtrl; }
 
 public:
     virtual void FinalTick() = 0;

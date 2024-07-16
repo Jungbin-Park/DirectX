@@ -10,7 +10,6 @@ public:
 	T* Get() { return Asset; }
 	T** GetAddressOf() { return &Asset; }
 	T* operator ->() { return Asset; }
-
 	// operator T* (){ return Asset;}
 
 public:
