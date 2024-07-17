@@ -14,9 +14,13 @@ private:
     D3D11_PRIMITIVE_TOPOLOGY    m_Topology;
 
     RS_TYPE                     m_RSType;
+    DS_TYPE                     m_DSType;
+    BS_TYPE                     m_BSType;
 
 public:
     void SetRSType(RS_TYPE _Type) { m_RSType = _Type; }
+    void SetDSType(DS_TYPE _Type) { m_DSType = _Type; }
+    void SetBSType(BS_TYPE _Type) { m_BSType = _Type; }
 
 public:
     int CreateVertexShader(const wstring& _RelativePath, const string& _FuncName);

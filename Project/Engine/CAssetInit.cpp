@@ -58,12 +58,24 @@ void CAssetMgr::CreateEngineGraphicShader()
 {
 	Ptr<CGraphicShader> pShader = nullptr;
 
+	// Std2DShader
 	pShader = new CGraphicShader;
 	pShader->CreateVertexShader(L"shader\\std2d.fx", "VS_Std2D");
 	pShader->CreatePixelShader(L"shader\\std2d.fx", "PS_Std2D");
+
 	pShader->SetRSType(RS_TYPE::CULL_NONE);
 
 	AddAsset(L"Std2DShader", pShader);
+
+	// Std2DAlphaBlendShader
+	pShader = new CGraphicShader;
+	pShader->CreateVertexShader(L"shader\\std2d.fx", "VS_Std2D");
+	pShader->CreatePixelShader(L"shader\\std2d.fx", "PS_Std2D");
+
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetBSType(BS_TYPE::ALPHABLEND);
+
+	AddAsset(L"Std2DAlphaBlendShader", pShader);
 }
 
 void CAssetMgr::CreateEngineComputeShader()
@@ -74,9 +86,16 @@ void CAssetMgr::CreateEngineMaterial()
 {
 	Ptr<CMaterial>	pMtrl = nullptr;
 
+
+	// Std2DMtrl
 	pMtrl = new CMaterial();
 	pMtrl->SetShader(FindAsset<CGraphicShader>(L"Std2DShader"));
 	AddAsset(L"Std2DMtrl", pMtrl);
+
+	// Std2DAlphaBlendMtrl
+	pMtrl = new CMaterial();
+	pMtrl->SetShader(FindAsset<CGraphicShader>(L"Std2DAlphaBlendShader"));
+	AddAsset(L"Std2DAlphaBlendMtrl", pMtrl);
 }
 
 

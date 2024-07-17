@@ -60,13 +60,31 @@ enum class RS_TYPE
 	END,
 };
 
+enum class DS_TYPE
+{
+	LESS,				// 가까운 통과
+	LESS_EQUAL,			// 가깝거나 같은 경우 통과
+	GREATER,			// 더 멀면 통과
+	NO_TEST,			// 깊이 판정 X
+	NO_TEST_NO_WRITE,	// 깊이 판정 X, 기록 X
+	END,
+};
+
+enum class BS_TYPE
+{
+	DEFAULT,
+	ALPHABLEND,
+	ONE_ONE,
+	END,
+};
+
 enum SCALAR_PARAM
 {
-	INT_0, INT_1, INT_2, INT_3,
+	INT_0,   INT_1,   INT_2,   INT_3,
 	FLOAT_0, FLOAT_1, FLOAT_2, FLOAT_3,
-	VEC2_0, VEC2_1, VEC2_2, VEC2_3,
-	VEC4_0, VEC4_1, VEC4_2, VEC4_3,
-	MAT_0, MAT_1, MAT_2, MAT_3,
+	VEC2_0,  VEC2_1,  VEC2_2,  VEC2_3,
+	VEC4_0,  VEC4_1,  VEC4_2,  VEC4_3,
+	MAT_0,   MAT_1,   MAT_2,   MAT_3,
 };
 
 enum TEX_PARAM
