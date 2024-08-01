@@ -292,7 +292,7 @@ int CDevice::CreateBlendState()
 	m_BSState[(UINT)BS_TYPE::DEFAULT] = nullptr;
 
 	// AlphaBlend
-	Desc.AlphaToCoverageEnable = false;
+	Desc.AlphaToCoverageEnable = true;
 	Desc.IndependentBlendEnable = false;
 
 	Desc.RenderTarget[0].BlendEnable = true;

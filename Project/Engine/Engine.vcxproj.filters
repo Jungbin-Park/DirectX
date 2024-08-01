@@ -148,6 +148,15 @@
     <ClInclude Include="ptr.h">
       <Filter>06. Asset</Filter>
     </ClInclude>
+    <ClInclude Include="CPrefab.h">
+      <Filter>06. Asset\04. Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="CParticleSystem.h">
+      <Filter>08. Component\RenderComponent\03. ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="CSetColorCS.h">
+      <Filter>HLSL\03. Compute\01. SetColorShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -275,6 +284,16 @@
     </ClCompile>
     <ClCompile Include="extern.cpp">
       <Filter>01. Header</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp" />
+    <ClCompile Include="CPrefab.cpp">
+      <Filter>06. Asset\04. Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticleSystem.cpp">
+      <Filter>08. Component\RenderComponent\03. ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="CSetColorCS.cpp">
+      <Filter>HLSL\03. Compute\01. SetColorShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -440,6 +459,12 @@
     <Filter Include="08. Component\Script">
       <UniqueIdentifier>{cce1c078-d96f-47c5-82dd-eb035181c994}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HLSL\03. Compute">
+      <UniqueIdentifier>{fa7a2e09-46e2-48a5-bde5-d4ab0a4c906f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\03. Compute\01. SetColorShader">
+      <UniqueIdentifier>{e91a0277-0b60-4842-808a-811b62122bdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="func.fx">
@@ -462,6 +487,9 @@
     </FxCompile>
     <FxCompile Include="postprocess.fx">
       <Filter>HLSL\02. Render\03.PostProcess</Filter>
+    </FxCompile>
+    <FxCompile Include="setcolor.fx">
+      <Filter>HLSL\03. Compute\01. SetColorShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

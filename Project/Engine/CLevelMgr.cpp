@@ -26,14 +26,12 @@ CLevelMgr::~CLevelMgr()
 
 void CLevelMgr::Init()
 {
-	// Std2DMtrl
+	// Material
 	Ptr<CMaterial> pMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl");
 	Ptr<CMaterial> pAlphaBlendMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DAlphaBlendMtrl");
+	Ptr<CMaterial> pDebugShapeMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"DebugShapeMtrl");
 
 	Ptr<CTexture> pTexture = CAssetMgr::GetInst()->Load<CTexture>(L"PlayerTex", L"texture//Character.png");
-	pMtrl->SetScalarParam(INT_0, 1);
-	pMtrl->SetTexParam(TEX_0, pTexture);
-
 	pAlphaBlendMtrl->SetTexParam(TEX_0, pTexture);
 
 	m_CurLevel = new CLevel;
@@ -57,8 +55,9 @@ void CLevelMgr::Init()
 
 	m_CurLevel->AddObject(0, CamObj);
 
-	// 플레이어 오브젝트
 	CGameObject* pObject = nullptr;
+
+	// 플레이어 오브젝트
 	pObject = new CGameObject;
 	pObject->SetName(L"Player");
 	pObject->AddComponent(new CTransform);
@@ -67,8 +66,25 @@ void CLevelMgr::Init()
 
 	pObject->Transform()->SetRelativePos(0.f, 0.f, 100.f);
 	pObject->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
+
+	pObject->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"CircleMesh"));
+	pObject->MeshRender()->SetMaterial(pMtrl);
+	pObject->MeshRender()->GetMaterial()->SetScalarParam(INT_1, 1);
+	pObject->MeshRender()->GetMaterial()->SetScalarParam(FLOAT_0, 0.01f);
+    pObject->MeshRender()->GetMaterial()->SetScalarParam(VEC4_0, Vec4(0.f, 1.f, 0.f, 1.f));
+
+	m_CurLevel->AddObject(0, pObject);
+
+	// 몬스터 오브젝트
+	pObject = new CGameObject;
+	pObject->SetName(L"Monster");
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CMeshRender);
+
+	pObject->Transform()->SetRelativePos(100.f, 0.f, 200.f);
+	pObject->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
 	pObject->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pObject->MeshRender()->SetMaterial(pAlphaBlendMtrl);
+	pObject->MeshRender()->SetMaterial(pMtrl);
 
 	m_CurLevel->AddObject(0, pObject);
 

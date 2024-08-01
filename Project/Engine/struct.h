@@ -8,6 +8,19 @@ struct Vtx
 	Vec2	vUV;
 };
 
+struct tDebugShapeInfo
+{
+	DEBUG_SHAPE		Shape;
+	Vec3			vPos;
+	Vec3			vScale;
+	Vec3			vRot;
+	Matrix			matWorld;
+	Vec4			vColor;
+	float			LifeTime;
+	float			Age;
+	bool			DepthTest;	// 깊이 판정 여부
+};
+
 
 // 상수 버퍼 연동 구조체
 struct tTransform
@@ -15,6 +28,9 @@ struct tTransform
 	Matrix matWorld;
 	Matrix matView;
 	Matrix matProj;
+
+	Matrix matWV;
+	Matrix matWVP;
 };
 
 extern tTransform g_Trans;

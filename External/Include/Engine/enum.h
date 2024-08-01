@@ -104,3 +104,21 @@ enum TEX_PARAM
 
 	END,
 };
+
+enum SHADER_DOMAIN
+{
+	DOMAIN_OPAQUE,		// 불투명
+	DOMAIN_MASKED,		// 불투명한 영역과 투명한 영역이 나뉠 때
+	DOMAIN_TRANSPARENT, // 반투명
+	DOMAIN_PARTICLE,	// 파티클(입자)
+	DOMAIN_DEBUG,		// 디버그
+};
+
+enum class DEBUG_SHAPE
+{
+	RECT,
+	CIRCLE,
+	LINE,
+	CUBE,
+	SPHERE,
+};

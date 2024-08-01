@@ -34,6 +34,7 @@ int CMesh::Create(Vtx* _VtxSysMem, UINT _VtxCount, UINT* _IdxSysMem, UINT _IdxCo
 	m_IdxSysMem = new UINT[m_IdxCount];
 	memcpy(m_IdxSysMem, _IdxSysMem, sizeof(UINT) * m_IdxCount);
 
+
 	m_VBDesc.ByteWidth = sizeof(Vtx) * m_VtxCount;
 	m_VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
@@ -53,6 +54,7 @@ int CMesh::Create(Vtx* _VtxSysMem, UINT _VtxCount, UINT* _IdxSysMem, UINT _IdxCo
 		return E_FAIL;
 	}
 
+
 	m_IBDesc.ByteWidth = sizeof(UINT) * m_IdxCount;
 	m_IBDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
@@ -67,7 +69,7 @@ int CMesh::Create(Vtx* _VtxSysMem, UINT _VtxCount, UINT* _IdxSysMem, UINT _IdxCo
 
 	if (FAILED(DEVICE->CreateBuffer(&m_IBDesc, &tSub, m_IB.GetAddressOf())))
 	{
-		MessageBox(nullptr, L"IndexBuffer 생성 실패", L"Mesh 초기화 실패", MB_OK);
+		MessageBox(nullptr, L"IndexBuffer 생성 실패", L"Mesh 생성 실패", MB_OK);
 		return E_FAIL;
 	}
 
@@ -86,5 +88,5 @@ void CMesh::render()
 {
 	Binding();
 
-	CONTEXT->DrawIndexed(6, 0, 0);
+	CONTEXT->DrawIndexed(m_IdxCount, 0, 0);
 }
