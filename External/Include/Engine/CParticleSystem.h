@@ -1,7 +1,8 @@
 #pragma once
-#include "CComponent.h"
+#include "CRenderComponent.h"
+
 class CParticleSystem :
-    public CComponent
+    public CRenderComponent
 {
 };
 

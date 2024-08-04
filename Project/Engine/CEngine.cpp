@@ -55,6 +55,9 @@ void CEngine::Progress()
 	CTimeMgr::GetInst()->Tick();
 	CLevelMgr::GetInst()->Progress();
 
+	// Collision
+
+
 	// Render
 	CDevice::GetInst()->Clear();
 	CRenderMgr::GetInst()->Tick();

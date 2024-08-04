@@ -21,7 +21,7 @@ CCamera::CCamera()
 	, m_ProjType(PROJ_TYPE::ORTHOGRAPHIC)
 	, m_Width(0)
 	, m_Height(0)
-	, m_Far(10000.f)
+	, m_Far(100000.f)
 	, m_FOV(XM_PI / 2.f)
 {
 	Vec2 vResolution = CDevice::GetInst()->GetResolution();
@@ -66,9 +66,9 @@ void CCamera::FinalTick()
 	Matrix matTrans = XMMatrixTranslation(-Transform()->GetRelativePos().x, -Transform()->GetRelativePos().y, -Transform()->GetRelativePos().z);
 	
 	Matrix matRot;
-	Vec3 vR = Transform()->GetDir(DIR::RIGHT);
-	Vec3 vU = Transform()->GetDir(DIR::UP);
-	Vec3 vF = Transform()->GetDir(DIR::FRONT);
+	Vec3 vR = Transform()->GetWorldDir(DIR::RIGHT);
+	Vec3 vU = Transform()->GetWorldDir(DIR::UP);
+	Vec3 vF = Transform()->GetWorldDir(DIR::FRONT);
 
 	matRot._11 = vR.x; matRot._12 = vU.x; matRot._13 = vF.x;
 	matRot._21 = vR.y; matRot._22 = vU.y; matRot._23 = vF.y;
@@ -105,7 +105,7 @@ void CCamera::SortGameObject()
 
 		CLayer* pLayer = pLevel->GetLayer(i);
 
-		const vector<CGameObject*>& vecObjects = pLayer->GetParentObjects();
+		const vector<CGameObject*>& vecObjects = pLayer->GetObjects();
 		for (size_t j = 0; j < vecObjects.size(); ++j)
 		{
 			if (nullptr == vecObjects[j]->GetRenderComponent()

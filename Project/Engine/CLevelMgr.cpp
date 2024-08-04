@@ -49,7 +49,7 @@ void CLevelMgr::Init()
 	// 카메라 레이어 설정
 	CamObj->Camera()->SetLayerAll();
 	CamObj->Camera()->SetLayer(31, false);
-	CamObj->Camera()->SetFar(10000.f);
+	CamObj->Camera()->SetFar(100000.f);
 	CamObj->Camera()->SetProjType(ORTHOGRAPHIC);
 
 
@@ -67,24 +67,26 @@ void CLevelMgr::Init()
 	pObject->Transform()->SetRelativePos(0.f, 0.f, 100.f);
 	pObject->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
 
-	pObject->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"CircleMesh"));
+	pObject->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pObject->MeshRender()->SetMaterial(pMtrl);
 	pObject->MeshRender()->GetMaterial()->SetScalarParam(INT_1, 1);
 	pObject->MeshRender()->GetMaterial()->SetScalarParam(FLOAT_0, 0.01f);
     pObject->MeshRender()->GetMaterial()->SetScalarParam(VEC4_0, Vec4(0.f, 1.f, 0.f, 1.f));
 
-	m_CurLevel->AddObject(0, pObject);
+	// Child Object
+	CGameObject* pChild = new CGameObject;
+	pChild->SetName(L"Child");
 
-	// 몬스터 오브젝트
-	pObject = new CGameObject;
-	pObject->SetName(L"Monster");
-	pObject->AddComponent(new CTransform);
-	pObject->AddComponent(new CMeshRender);
+	pChild->AddComponent(new CTransform);
+	pChild->AddComponent(new CMeshRender);
 
-	pObject->Transform()->SetRelativePos(100.f, 0.f, 200.f);
-	pObject->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
-	pObject->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pObject->MeshRender()->SetMaterial(pMtrl);
+	pChild->Transform()->SetRelativePos(2.f, 0.f, 0.f);
+	pChild->Transform()->SetRelativeScale(0.8f, 0.8f, 1.f);
+
+	pChild->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pChild->MeshRender()->SetMaterial(pMtrl);
+
+	pObject->AddChild(pChild);
 
 	m_CurLevel->AddObject(0, pObject);
 
@@ -94,6 +96,7 @@ void CLevelMgr::Init()
 void CLevelMgr::Progress()
 {
 	m_CurLevel->Tick();
+	m_CurLevel->ClearObject();
 	m_CurLevel->FinalTick();
 }
 

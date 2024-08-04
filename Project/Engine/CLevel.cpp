@@ -43,10 +43,18 @@ void CLevel::FinalTick()
 	}
 }
 
-
-void CLevel::AddObject(int LayerIdx, CGameObject* _Object)
+void CLevel::ClearObject()
 {
-	m_Layer[LayerIdx]->AddObject(_Object);
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		m_Layer[i]->ClearObject();
+	}
+}
+
+
+void CLevel::AddObject(int LayerIdx, CGameObject* _Object, bool _bMoveChild)
+{
+	m_Layer[LayerIdx]->AddObject(_Object, _bMoveChild);
 }
 
 
