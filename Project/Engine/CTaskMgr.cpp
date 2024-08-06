@@ -3,15 +3,19 @@
 
 #include "CLevelMgr.h"
 #include "CLevel.h"
+#include "CLayer.h"
 #include "CGameObject.h"
 
 CTaskMgr::CTaskMgr()
-{}
+{
+}
 
 CTaskMgr::~CTaskMgr()
-{}
+{
 
-void CTaskMgr::tick()
+}
+
+void CTaskMgr::Tick()
 {
 	ClearGC();
 
@@ -20,69 +24,46 @@ void CTaskMgr::tick()
 
 void CTaskMgr::ClearGC()
 {
-	Safe_Del_Vec(m_GC);
+	Delete_Vec(m_GC);
 }
 
 void CTaskMgr::ExecuteTask()
 {
-	static bool bLevelChanged = false;
-	bLevelChanged = false;
-
+	
 	for (size_t i = 0; i < m_vecTask.size(); ++i)
 	{
-		switch (m_vecTask[i].Type)
+		tTask& task = m_vecTask[i];
+		switch (task.Type)
 		{
-		case TASK_TYPE::SPAWN_OBJECT:
+		case TASK_TYPE::CREATE_OBJECT:
 		{
-			CLevel* pSpawnLevel = (CLevel*)m_vecTask[i].Param1;
-			LAYER_TYPE Layer = (LAYER_TYPE)m_vecTask[i].Param2;
-			CObj* pObj = (CObj*)m_vecTask[i].Param3;
-
-			if (CLevelMgr::GetInst()->GetCurrentLevel() != pSpawnLevel)
-			{
-				delete pObj;
-			}
-			pSpawnLevel->AddObject(Layer, pObj);
-			pObj->begin();
+			CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+			int LayerIndex = task.Param_0;
+			CGameObject* pObject = (CGameObject*)task.Param_1;
+			pCurLevel->AddObject(LayerIndex, pObject);
 		}
 		break;
 		case TASK_TYPE::DELETE_OBJECT:
 		{
-			CObj* pObject = (CObj*)m_vecTask[i].Param1;
-			if (pObject->m_bDead)
+			CGameObject* pObject = (CGameObject*)task.Param_0;
+			if (pObject->m_Dead)
 			{
 				continue;
 			}
-			pObject->m_bDead = true;
 
 			// GC 에서 수거
+			pObject->m_Dead = true;
 			m_GC.push_back(pObject);
 		}
 		break;
 
 		case TASK_TYPE::CHANGE_LEVEL:
 		{
-			assert(!bLevelChanged);
-			bLevelChanged = true;
 
-
-			LEVEL_TYPE NextType = (LEVEL_TYPE)m_vecTask[i].Param1;
-			CLevelMgr::GetInst()->ChangeLevel(NextType);
 		}
-			break;
-
-		case TASK_TYPE::UI_LBTN_DOWN:
-		{
-			CUI* pUI = (CUI*)m_vecTask[i].Param1;
-			bool bLbtnDown = (bool)m_vecTask[i].Param2;
-			pUI->m_MouseLbtnDown = bLbtnDown;
+		break;
 		}
-
-
-			break;
-		}
-
 	}
 
-	m_vecTask.clear();	
+	m_vecTask.clear();
 }

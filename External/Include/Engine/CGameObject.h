@@ -20,6 +20,8 @@ private:
 
     int                     m_LayerIdx; // 소속 레이어의 인덱스 번호
 
+    bool                    m_Dead;
+
 public:
     void AddComponent(CComponent* _Component);
     CComponent* GetComponent(COMPONENT_TYPE _Type) { return m_arrCom[(UINT)_Type]; }
@@ -29,6 +31,9 @@ public:
     int GetLayerIdx() { return m_LayerIdx; }
     void AddChild(CGameObject* _ChildObject);
     const vector<CGameObject*>& GetChildren() { return m_vecChildren; }
+    const vector<CScript*> GetScripts() { return m_vecScript; }
+
+    bool IsDead() { return m_Dead; }
 
     void DisConnenctWithLayer();
 
@@ -54,5 +59,6 @@ public:
 
     friend class CLevel;
     friend class CLayer;
+    friend class CTaskMgr;
 };
 

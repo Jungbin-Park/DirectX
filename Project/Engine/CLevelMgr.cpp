@@ -44,6 +44,8 @@ void CLevelMgr::Init()
 	m_CurLevel->GetLayer(2)->SetName(L"Tile");
 	m_CurLevel->GetLayer(3)->SetName(L"Player");
 	m_CurLevel->GetLayer(4)->SetName(L"Monster");
+	m_CurLevel->GetLayer(5)->SetName(L"PlayerProjectile");
+	m_CurLevel->GetLayer(6)->SetName(L"MonsterProjectile");
 
 	// 카메라 오브젝트
 	CGameObject* CamObj = new CGameObject;
@@ -87,25 +89,6 @@ void CLevelMgr::Init()
 	pObject->MeshRender()->GetMaterial()->SetScalarParam(FLOAT_0, 0.01f);
     pObject->MeshRender()->GetMaterial()->SetScalarParam(VEC4_0, Vec4(0.f, 1.f, 0.f, 1.f));
 
-	// Child Object
-	CGameObject* pChild = new CGameObject;
-	pChild->SetName(L"Child");
-
-	pChild->AddComponent(new CTransform);
-	pChild->AddComponent(new CMeshRender);
-	pChild->AddComponent(new CCollider2D);
-
-	pChild->Transform()->SetRelativePos(400.f, 0.f, 0.f);
-	pChild->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
-	pChild->Transform()->SetIndependentScale(true);
-
-	pChild->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pChild->Collider2D()->SetScale(Vec3(1.2f, 1.2f, 1.f));
-
-	pChild->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pChild->MeshRender()->SetMaterial(pMtrl);
-
-	pObject->AddChild(pChild);
 
 	m_CurLevel->AddObject(3, pObject);
 
@@ -129,7 +112,8 @@ void CLevelMgr::Init()
 	m_CurLevel->AddObject(4, pMonster);
 
 	// 충돌 지정
-	CCollisionMgr::GetInst()->CollisionCheck(3, 4);
+	CCollisionMgr::GetInst()->CollisionCheck(3, 4); // Player vs Monster
+	CCollisionMgr::GetInst()->CollisionCheck(5, 4); // Player Projectile vs Monster
 
 	// 레벨 시작
 	m_CurLevel->Begin();

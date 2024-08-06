@@ -21,6 +21,13 @@ struct tDebugShapeInfo
 	bool			DepthTest;	// 깊이 판정 여부
 };
 
+struct tTask
+{
+	TASK_TYPE	Type;
+	DWORD_PTR	Param_0;
+	DWORD_PTR	Param_1;
+};
+
 
 // 상수 버퍼 연동 구조체
 struct tTransform

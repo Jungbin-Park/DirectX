@@ -15,6 +15,7 @@ CGameObject::CGameObject()
 	, m_RenderCom(nullptr)
 	, m_Parent(nullptr)
 	, m_LayerIdx(-1)	// 어느 레이어 소속도 아니다. (레벨 안에 있지 않은 상태)
+	, m_Dead(false)
 {
 }
 
