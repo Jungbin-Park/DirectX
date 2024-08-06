@@ -12,6 +12,8 @@
 #include "CPlayerScript.h"
 #include "CCameraMoveScript.h"
 
+#include "CCollisionMgr.h"
+
 CLevelMgr::CLevelMgr()
 	: m_CurLevel(nullptr)
 {
@@ -34,7 +36,14 @@ void CLevelMgr::Init()
 	Ptr<CTexture> pTexture = CAssetMgr::GetInst()->Load<CTexture>(L"PlayerTex", L"texture//Character.png");
 	pAlphaBlendMtrl->SetTexParam(TEX_0, pTexture);
 
+	// Level 생성
 	m_CurLevel = new CLevel;
+
+	m_CurLevel->GetLayer(0)->SetName(L"Default");
+	m_CurLevel->GetLayer(1)->SetName(L"Background");
+	m_CurLevel->GetLayer(2)->SetName(L"Tile");
+	m_CurLevel->GetLayer(3)->SetName(L"Player");
+	m_CurLevel->GetLayer(4)->SetName(L"Monster");
 
 	// 카메라 오브젝트
 	CGameObject* CamObj = new CGameObject;
@@ -98,8 +107,31 @@ void CLevelMgr::Init()
 
 	pObject->AddChild(pChild);
 
-	m_CurLevel->AddObject(0, pObject);
+	m_CurLevel->AddObject(3, pObject);
 
+	// Monster Object
+	CGameObject* pMonster = new CGameObject;
+	pMonster->SetName(L"Monster");
+
+	pMonster->AddComponent(new CTransform);
+	pMonster->AddComponent(new CMeshRender);
+	pMonster->AddComponent(new CCollider2D);
+
+	pMonster->Transform()->SetRelativePos(-400.f, 0.f, 100.f);
+	pMonster->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
+
+	pMonster->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pMonster->Collider2D()->SetScale(Vec3(1.2f, 1.2f, 1.f));
+
+	pMonster->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pMonster->MeshRender()->SetMaterial(pMtrl);
+
+	m_CurLevel->AddObject(4, pMonster);
+
+	// 충돌 지정
+	CCollisionMgr::GetInst()->CollisionCheck(3, 4);
+
+	// 레벨 시작
 	m_CurLevel->Begin();
 }
 

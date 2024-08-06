@@ -6,6 +6,7 @@
 CCollider2D::CCollider2D()
 	: CComponent(COMPONENT_TYPE::COLLIDER2D)
 	, m_OverlapCount(0)
+	, m_IndependentScale(false)
 {
 }
 
@@ -31,12 +32,16 @@ void CCollider2D::FinalTick()
 	m_matColWorld = matScale * matTranslation * matObjectScaleInv * GetOwner()->Transform()->GetWorldMat();
 
 	// Debug 렌더링으로 충돌체의 위치를 표시
-	DrawDebugRect(m_matColWorld, Vec4(0.f, 1.f, 0.f, 1.f), 0.f, false);
+	if (m_OverlapCount)
+		DrawDebugRect(m_matColWorld, Vec4(1.f, 0.f, 0.f, 1.f), 0.f, false);
+	else
+		DrawDebugRect(m_matColWorld, Vec4(0.f, 1.f, 0.f, 1.f), 0.f, false);
 }
 
 
 void CCollider2D::BeginOverlap(CCollider2D* _Other)
 {
+	m_OverlapCount += 1;
 }
 
 void CCollider2D::Overlap(CCollider2D* _Other)
@@ -45,6 +50,7 @@ void CCollider2D::Overlap(CCollider2D* _Other)
 
 void CCollider2D::EndOverlap(CCollider2D* _Other)
 {
+	m_OverlapCount -= 1;
 }
 
 

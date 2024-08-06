@@ -9,6 +9,7 @@
 #include "CAssetMgr.h"
 #include "CLevelMgr.h"
 #include "CRenderMgr.h"
+#include "CCollisionMgr.h"
 
 
 
@@ -56,7 +57,7 @@ void CEngine::Progress()
 	CLevelMgr::GetInst()->Progress();
 
 	// Collision
-
+	CCollisionMgr::GetInst()->Tick();
 
 	// Render
 	CDevice::GetInst()->Clear();

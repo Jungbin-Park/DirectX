@@ -88,5 +88,5 @@ void CMesh::render()
 {
 	Binding();
 
-	CONTEXT->DrawIndexed(6, 0, 0);
+	CONTEXT->DrawIndexed(m_IdxCount, 0, 0);
 }
