@@ -94,5 +94,45 @@ void CLayer::DisconnectWithObject(CGameObject* _Object)
 	assert(nullptr);
 }
 
+void CLayer::DeregisterObjectAsParent(CGameObject* _Object)
+{
+	vector<CGameObject*>::iterator iter = m_Parents.begin();
+
+	for (; iter != m_Parents.end(); ++iter)
+	{
+		if (_Object == (*iter))
+		{
+			m_Parents.erase(iter);
+			return;
+		}
+	}
+
+	assert(nullptr);
+}
+
+void CLayer::DeregisterObject(CGameObject* _Object)
+{
+	assert(_Object->m_LayerIdx == m_LayerIdx);
+
+	_Object->m_LayerIdx = -1;
+
+	if (nullptr == _Object->GetParent())
+	{
+		vector<CGameObject*>::iterator iter = m_Parents.begin();
+
+		for (; iter != m_Parents.end(); ++iter)
+		{
+			if (_Object == (*iter))
+			{
+				m_Parents.erase(iter);
+				return;
+			}
+		}
+
+		assert(nullptr);
+	}
+}
+
+
 
 

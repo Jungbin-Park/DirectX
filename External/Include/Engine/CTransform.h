@@ -11,7 +11,7 @@ private:
     Vec3    m_RelativeDir[3];
     Vec3    m_WorldDir[3];
 
-    Matrix  m_matWorld;     // 이동, 크기, 회전
+    Matrix  m_matWorld;         // 이동, 크기, 회전
     bool    m_IndependentScale; // 부모의 크기에 영향을 받지 않음
 
 public:
@@ -28,9 +28,14 @@ public:
     void SetRelativeRotation(float x, float y, float z) { m_RelativeRotation = Vec3(x, y, z); }
 
     void SetWorldMatrix(const Matrix& matWorld) { m_matWorld = matWorld; }
+    void SetIndependentScale(bool _Set) { m_IndependentScale = _Set; }
 
     Vec3 GetRelativePos() { return m_RelativePos; }
+    Vec3 GetWorldPos() { return m_matWorld.Translation(); }
+
     Vec3 GetRelativeScale() { return m_RelativeScale; }
+    Vec3 GetWorldScale();
+
     Vec3 GetRelativeRotation() { return m_RelativeRotation; }
     Vec3 GetRelativeDir(DIR _Type) { return m_RelativeDir[_Type]; }
     Vec3 GetWorldDir(DIR _Type) { return m_WorldDir[_Type]; }

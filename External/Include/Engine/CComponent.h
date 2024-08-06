@@ -23,6 +23,7 @@ public:
     GET_OTHER_COMPONENT(Transform);
     GET_OTHER_COMPONENT(MeshRender);
     GET_OTHER_COMPONENT(Camera);
+    GET_OTHER_COMPONENT(Collider2D);
 
 
 private:

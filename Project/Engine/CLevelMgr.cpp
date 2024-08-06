@@ -62,10 +62,15 @@ void CLevelMgr::Init()
 	pObject->SetName(L"Player");
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CMeshRender);
+	pObject->AddComponent(new CCollider2D);
 	pObject->AddComponent(new CPlayerScript);
 
 	pObject->Transform()->SetRelativePos(0.f, 0.f, 100.f);
 	pObject->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
+
+	pObject->Collider2D()->SetIndependentScale(true);
+	pObject->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pObject->Collider2D()->SetScale(Vec3(220.f, 220.f, 1.f));
 
 	pObject->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pObject->MeshRender()->SetMaterial(pMtrl);
@@ -79,9 +84,14 @@ void CLevelMgr::Init()
 
 	pChild->AddComponent(new CTransform);
 	pChild->AddComponent(new CMeshRender);
+	pChild->AddComponent(new CCollider2D);
 
-	pChild->Transform()->SetRelativePos(2.f, 0.f, 0.f);
-	pChild->Transform()->SetRelativeScale(0.8f, 0.8f, 1.f);
+	pChild->Transform()->SetRelativePos(400.f, 0.f, 0.f);
+	pChild->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
+	pChild->Transform()->SetIndependentScale(true);
+
+	pChild->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pChild->Collider2D()->SetScale(Vec3(1.2f, 1.2f, 1.f));
 
 	pChild->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pChild->MeshRender()->SetMaterial(pMtrl);

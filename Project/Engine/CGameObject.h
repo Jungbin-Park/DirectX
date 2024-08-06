@@ -32,9 +32,14 @@ public:
 
     void DisConnenctWithLayer();
 
+    // Unregister : 등록을 취소하다, 등록하는 행위를 취소하다
+    // Deregister : 등록된것을 취소하다
+    void DeregisterChild();
+
     GET_COMPONENT(Transform, TRANSFORM);
     GET_COMPONENT(MeshRender, MESHRENDER);
     GET_COMPONENT(Camera, CAMERA);
+    GET_COMPONENT(Collider2D, COLLIDER2D);
 
 public:
     void Begin();
