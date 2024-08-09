@@ -23,6 +23,10 @@ public:
     ComPtr<ID3D11UnorderedAccessView>   GetUAV() { return m_UAV; }
 
 public:
+    UINT Width() { return m_Desc.Width; }
+    UINT Height() { return m_Desc.Height; }
+
+public:
     // _Flags : D3D11_BIND_FLAG 
     int Create(UINT _Width, UINT _Height, DXGI_FORMAT _PixelFormat, UINT _Flags, D3D11_USAGE _Usage = D3D11_USAGE_DEFAULT);
     int Create(ComPtr<ID3D11Texture2D> _Tex2D);

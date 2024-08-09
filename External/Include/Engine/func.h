@@ -1,6 +1,7 @@
 #pragma once
 
 void CreateObject(class CGameObject* _NewObject, int _LayerIndex);
+void DeleteObject(CGameObject* _DeleteObject);
 
 bool IsValid(CGameObject*& _Object);
 
@@ -67,5 +68,9 @@ ASSET_TYPE GetAssetType()
 		return ASSET_TYPE::GRAPHIC_SHADER;
 	if constexpr (std::is_same_v<T, CComputeShader>)
 		return ASSET_TYPE::COMPUTE_SHADER;
+	if constexpr (std::is_same_v<T, CSprite>)
+		return ASSET_TYPE::SPRITE;
+	if constexpr (std::is_same_v<T, CFlipBook>)
+		return ASSET_TYPE::FLIPBOOK;
 
 }

@@ -66,5 +66,6 @@ TextureCube     g_texcube_1 : register(t7);
 Texture2DArray  g_texarr_0 : register(t8);
 Texture2DArray  g_texarr_1 : register(t9);
 
+Texture2D       g_AtlasTex : register(t10);
 
 #endif

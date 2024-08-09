@@ -18,3 +18,8 @@ void CMissileScript::Tick()
 
 	Transform()->SetRelativePos(vPos);
 }
+
+void CMissileScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
+{
+	DeleteObject(_OtherObject);
+}

@@ -45,6 +45,7 @@ public:
     GET_COMPONENT(MeshRender, MESHRENDER);
     GET_COMPONENT(Camera, CAMERA);
     GET_COMPONENT(Collider2D, COLLIDER2D);
+    GET_COMPONENT(FlipBookComponent, FLIPBOOKCOMPONENT);
 
 public:
     void Begin();

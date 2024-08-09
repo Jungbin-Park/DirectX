@@ -38,6 +38,7 @@ private:
 	void CreateEngineMesh();
 	void CreateEngineMaterial();
 	void CreateEngineTexture();
+	void CreateEngineSprite();
 	void CreateEngineGraphicShader();
 	void CreateEngineComputeShader();
 };
@@ -99,5 +100,6 @@ inline void CAssetMgr::AddAsset(const wstring& _Key, Ptr<T> _Asset)
 
 	assert(!FindAsset(Type, _Key).Get());
 
+	_Asset->SetKey(_Key);
 	m_mapAsset[(UINT)Type].insert(make_pair(_Key, _Asset.Get()));
 }

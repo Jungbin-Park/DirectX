@@ -51,7 +51,7 @@ void CTaskMgr::ExecuteTask()
 				continue;
 			}
 
-			// GC 에서 수거
+			// GC 에 넣기
 			pObject->m_Dead = true;
 			m_GC.push_back(pObject);
 		}

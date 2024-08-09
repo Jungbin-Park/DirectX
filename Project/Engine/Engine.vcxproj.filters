@@ -124,8 +124,8 @@
     <ClInclude Include="CMissileScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="CAnimator2D.h">
-      <Filter>08. Component\04. Animator2D</Filter>
+    <ClInclude Include="CFlipBookComponent.h">
+      <Filter>08. Component\04. FlipBookComponent</Filter>
     </ClInclude>
     <ClInclude Include="CSprite.h">
       <Filter>06. Asset\07. Sprite</Filter>
@@ -261,8 +261,8 @@
     <ClCompile Include="CMissileScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="CAnimator2D.cpp">
-      <Filter>08. Component\04. Animator2D</Filter>
+    <ClCompile Include="CFlipBookComponent.cpp">
+      <Filter>08. Component\04. FlipBookComponent</Filter>
     </ClCompile>
     <ClCompile Include="CSprite.cpp">
       <Filter>06. Asset\07. Sprite</Filter>
@@ -387,9 +387,6 @@
     <Filter Include="08. Component\03. Collider3D">
       <UniqueIdentifier>{d7c79e41-dc14-458c-9da3-bd0d3da5a3b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08. Component\04. Animator2D">
-      <UniqueIdentifier>{5a16b607-b7a1-4bdc-bd4f-438c66407360}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. Component\05. Animator3D">
       <UniqueIdentifier>{19c61b4f-c347-4f60-abea-97939b393463}</UniqueIdentifier>
     </Filter>
@@ -464,6 +461,9 @@
     </Filter>
     <Filter Include="HLSL\03. Compute\01. SetColorShader">
       <UniqueIdentifier>{e91a0277-0b60-4842-808a-811b62122bdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\04. FlipBookComponent">
+      <UniqueIdentifier>{5a16b607-b7a1-4bdc-bd4f-438c66407360}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

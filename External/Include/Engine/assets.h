@@ -8,3 +8,5 @@
 #include "CTexture.h"
 //#include "CSound.h"
 //#include "CPrefab.h"
+#include "CSprite.h"
+#include "CFlipBook.h"
