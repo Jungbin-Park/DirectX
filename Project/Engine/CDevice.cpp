@@ -202,6 +202,15 @@ int CDevice::CreateConstBuffer()
 	}
 	m_arrCB[(UINT)CB_TYPE::MATERIAL] = pCB;
 
+	// Sprite 정보 전달
+	pCB = new CConstBuffer;
+	if (FAILED(pCB->Create(CB_TYPE::SPRITE, sizeof(tSpriteInfo))))
+	{
+		MessageBox(nullptr, L"상수버퍼 생성 실패", L"초기화 실패", MB_OK);
+		return E_FAIL;
+	}
+	m_arrCB[(UINT)CB_TYPE::SPRITE] = pCB;
+
 	return S_OK;
 }
 

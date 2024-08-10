@@ -116,7 +116,7 @@ void CAssetMgr::CreateEngineTexture()
 
 void CAssetMgr::CreateEngineSprite()
 {
-	Ptr<CTexture> pAtlasTex = Load<CTexture>(L"texture\\link_32.bmp", L"texture\\link_32.bmp");
+	Ptr<CTexture> pAtlasTex = Load<CTexture>(L"texture\\link_32.bmp", L"texture\\link.png");
 
 	Ptr<CSprite> pSprite = nullptr;
 
@@ -127,6 +127,11 @@ void CAssetMgr::CreateEngineSprite()
 
 		pSprite = new CSprite;
 		pSprite->Create(pAtlasTex, Vec2((float)i * 120.f, 520.f), Vec2(120.f, 130.f));
+		pSprite->SetBackground(Vec2(200.f, 200.f));
+
+		//if (i == 2)
+			//pSprite->SetOffset(Vec2(30.f, 0.f));
+
 		AddAsset(szKey, pSprite);
 	}
 

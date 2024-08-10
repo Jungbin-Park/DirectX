@@ -24,12 +24,14 @@ public:
     virtual void FinalTick() override;
 
 public:
-    void AddFlipBook(Ptr<CFlipBook> _Flipbook);
+    void AddFlipBook(int _Idx, Ptr<CFlipBook> _Flipbook);
     Ptr<CFlipBook> FindFlipBook(const wstring& _Key);
     void Play(int _FlipBookIdx, float _FPS, bool _Repeat);
     Ptr<CSprite> GetCurSprite() { return m_CurFrmSprite; }
 
     void Reset();
+    void Binding();
+    static void Clear();
 
 public:
     CLONE(CFlipBookComponent);

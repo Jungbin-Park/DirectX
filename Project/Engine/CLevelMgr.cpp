@@ -82,13 +82,13 @@ void CLevelMgr::Init()
 
 	pObject->Collider2D()->SetIndependentScale(true);
 	pObject->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pObject->Collider2D()->SetScale(Vec3(220.f, 220.f, 1.f));
+	pObject->Collider2D()->SetScale(Vec3(200.f, 200.f, 1.f));
 
 	pObject->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pObject->MeshRender()->SetMaterial(pMtrl);
 	
-	pObject->FlipBookComponent()->AddFlipBook(CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Link_MoveDown"));
-	pObject->FlipBookComponent()->Play(0, 10, true);
+	pObject->FlipBookComponent()->AddFlipBook(5, CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Link_MoveDown"));
+	pObject->FlipBookComponent()->Play(5, 10, true);
 
 	m_CurLevel->AddObject(3, pObject);
 
