@@ -116,37 +116,36 @@ void CAssetMgr::CreateEngineTexture()
 
 void CAssetMgr::CreateEngineSprite()
 {
-	Ptr<CTexture> pAtlasTex = Load<CTexture>(L"texture\\link_32.bmp", L"texture\\link.png");
+	wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
 
-	Ptr<CSprite> pSprite = nullptr;
+	//Ptr<CSprite> pSprite = nullptr;
 
-	for (int i = 0; i < 10; ++i)
-	{
-		wchar_t szKey[50] = {};
-		swprintf_s(szKey, 50, L"Link_MoveDown_%d", i);
+	//for (int i = 0; i < 10; ++i)
+	//{
+	//	wchar_t Buffer[50] = {};
+	//	swprintf_s(Buffer, 50, L"Link_MoveDown_%d", i);
 
-		pSprite = new CSprite;
-		pSprite->Create(pAtlasTex, Vec2((float)i * 120.f, 520.f), Vec2(120.f, 130.f));
-		pSprite->SetBackground(Vec2(200.f, 200.f));
+	//	pSprite = Load<CSprite>(Buffer, wstring(L"Animation\\") + Buffer + L".sprite");		
 
-		//if (i == 2)
-			//pSprite->SetOffset(Vec2(30.f, 0.f));
+	//	pSprite->SetRelativePath(wstring(L"Animation\\") + Buffer + L".sprite");
+	//	pSprite->Save(strContentPath + L"Animation\\" + Buffer + L".sprite");
+	//}
 
-		AddAsset(szKey, pSprite);
-	}
 
-	Ptr<CFlipBook> pFlipBook = nullptr;
+	//Ptr<CFlipBook> pFilpBook = new CFlipBook;
 
-	pFlipBook = new CFlipBook;
+	//for (int i = 0; i < 10; ++i)
+	//{
+	//	wchar_t Buffer[50] = {};
+	//	swprintf_s(Buffer, 50, L"Link_MoveDown_%d", i);
+	//	pFilpBook->AddSprite(FindAsset<CSprite>(Buffer));		
+	//}
 
-	for (int i = 0; i < 10; ++i)
-	{
-		wchar_t szKey[50] = {};
-		swprintf_s(szKey, 50, L"Link_MoveDown_%d", i);
-		pFlipBook->AddSprite(FindAsset<CSprite>(szKey));
-	}
+	//AddAsset(L"Link_MoveDown", pFilpBook);
+	//pFilpBook->Save(strContentPath + L"Animation\\" + L"Link_MoveDown" + L".flip");
 
-	AddAsset(L"Link_MoveDown", pFlipBook);
+	Ptr<CFlipBook> pFilpBook = new CFlipBook;
+	Load<CFlipBook>(L"Link_MoveDown", L"Animation\\Link_MoveDown.flip");
 }
 
 void CAssetMgr::CreateEngineGraphicShader()
@@ -193,6 +192,20 @@ void CAssetMgr::CreateEngineGraphicShader()
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_DEBUG);
 
 	AddAsset(L"DebugShapeShader", pShader);
+
+	// TileMapShader
+	pShader = new CGraphicShader;
+
+	pShader->CreateVertexShader(L"shader\\tilemap.fx", "VS_TileMap");
+	pShader->CreatePixelShader(L"shader\\tilemap.fx", "PS_TileMap");
+
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
+	pShader->SetDSType(DS_TYPE::LESS);
+	pShader->SetBSType(BS_TYPE::DEFAULT);
+
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+
+	AddAsset(L"TileMapShader", pShader);
 }
 
 void CAssetMgr::CreateEngineComputeShader()
@@ -218,6 +231,11 @@ void CAssetMgr::CreateEngineMaterial()
 	pMtrl = new CMaterial();
 	pMtrl->SetShader(FindAsset<CGraphicShader>(L"DebugShapeShader"));
 	AddAsset(L"DebugShapeMtrl", pMtrl);
+
+	// TileMapMtrl
+	pMtrl = new CMaterial();
+	pMtrl->SetShader(FindAsset<CGraphicShader>(L"TileMapShader"));
+	AddAsset(L"TileMapMtrl", pMtrl);
 }
 
 

@@ -25,6 +25,7 @@ public:
     GET_OTHER_COMPONENT(Camera);
     GET_OTHER_COMPONENT(Collider2D);
     GET_OTHER_COMPONENT(FlipBookComponent);
+    GET_OTHER_COMPONENT(TileMap);
 
 
 private:

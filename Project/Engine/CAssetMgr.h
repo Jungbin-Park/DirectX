@@ -63,7 +63,7 @@ Ptr<T> CAssetMgr::Load(const wstring& _Key, const wstring& _RelativePath)
 	// 로딩 실패 시 예외처리
 	if (FAILED(Asset->Load(strFilePath)))
 	{
-		MessageBox(nullptr, L"알 수 없는 텍스쳐 포맷", L"텍스쳐 로딩 실패", MB_OK);
+		MessageBox(nullptr, L"에셋 로딩 실패", L"로딩 실패", MB_OK);
 		return nullptr;
 	}
 
@@ -102,4 +102,34 @@ inline void CAssetMgr::AddAsset(const wstring& _Key, Ptr<T> _Asset)
 
 	_Asset->SetKey(_Key);
 	m_mapAsset[(UINT)Type].insert(make_pair(_Key, _Asset.Get()));
+}
+
+// File에 Asset 참조정보 저장 불러오기
+template<typename T>
+void SaveAssetRef(Ptr<T> _Asset, FILE* _File)
+{
+	bool bAsset = _Asset.Get();
+	fwrite(&bAsset, 1, 1, _File);
+
+	if (bAsset)
+	{
+		SaveWString(_Asset->GetKey(), _File);
+		SaveWString(_Asset->GetRelativePath(), _File);
+	}
+}
+
+template<typename T>
+void LoadAssetRef(Ptr<T>& Asset, FILE* _File)
+{
+	bool bAsset = false;
+	fread(&bAsset, 1, 1, _File);
+
+	if (bAsset)
+	{
+		wstring key, relativepath;
+		LoadWString(key, _File);
+		LoadWString(relativepath, _File);
+
+		Asset = CAssetMgr::GetInst()->Load<T>(key, relativepath);
+	}
 }

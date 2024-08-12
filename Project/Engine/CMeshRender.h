@@ -7,9 +7,9 @@ class CMeshRender :
 public:
     virtual void FinalTick() override;
     virtual void Render() override;
-    virtual CMeshRender* Clone() { return new CMeshRender(*this); }
 
 public:
+    CLONE(CMeshRender);
     CMeshRender();
     ~CMeshRender();
 };
