@@ -17,12 +17,14 @@ public:
     UINT GetElementSize() { return m_ElementSize; }
     UINT GetBufferSize() { return m_ElementCount * m_ElementSize; }
 
+    void SetData(void* _pData, UINT _DataSize = 0);
     void Binding(UINT _RegisterNum);
 
 public:
     int Create(UINT _ElementSize, UINT _ElementCount, void* _InitData = nullptr);
 
 public:
+    CLONE_DISABLE(CStructuredBuffer);
     CStructuredBuffer();
     ~CStructuredBuffer();
 };

@@ -16,6 +16,9 @@ CStructuredBuffer::~CStructuredBuffer()
 
 int CStructuredBuffer::Create(UINT _ElementSize, UINT _ElementCount, void* _InitData)
 {
+	m_SB = nullptr;
+	m_SRV = nullptr;
+
 	m_ElementSize = _ElementSize;
 	m_ElementCount = _ElementCount;
 
@@ -62,8 +65,29 @@ int CStructuredBuffer::Create(UINT _ElementSize, UINT _ElementCount, void* _Init
 	return S_OK;
 }
 
+void CStructuredBuffer::SetData(void* _pData, UINT _DataSize)
+{
+	// 입력데이터가 구조화버퍼 크기보다 작아야한다.
+	assert(_DataSize <= m_Desc.ByteWidth);
+
+	if (0 == _DataSize)
+	{
+		_DataSize = m_Desc.ByteWidth;
+	}
+
+	D3D11_MAPPED_SUBRESOURCE tMapSub = {};
+	CONTEXT->Map(m_SB.Get(), 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &tMapSub);
+	memcpy(tMapSub.pData, _pData, _DataSize);
+	CONTEXT->Unmap(m_SB.Get(), 0);
+}
+
 void CStructuredBuffer::Binding(UINT _RegisterNum)
 {
+	CONTEXT->VSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
+	CONTEXT->HSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
+	CONTEXT->DSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
+	CONTEXT->GSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
+	CONTEXT->PSSetShaderResources(_RegisterNum, 1, m_SRV.GetAddressOf());
 }
 
 

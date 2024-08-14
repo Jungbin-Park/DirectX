@@ -4,20 +4,25 @@
 #include "CTransform.h"
 #include "CAssetMgr.h"
 
+#include "CStructuredBuffer.h"
+
 CTileMap::CTileMap()
 	: CRenderComponent(COMPONENT_TYPE::TILEMAP)
 	, m_Row(1)
 	, m_Col(1)
 	, m_AtlasMaxRow(0)
 	, m_AtlasMaxCol(0)
-	, m_ImgIdx(10)
+	, m_Buffer(nullptr)
 {
 	SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"TileMapMtrl"));
+
+	m_Buffer = new CStructuredBuffer;
 }
 
 CTileMap::~CTileMap()
 {
+	delete m_Buffer;
 }
 
 void CTileMap::FinalTick()
@@ -26,8 +31,11 @@ void CTileMap::FinalTick()
 
 void CTileMap::Render()
 {
+	// 타일의 정보를 구조화버퍼를 통해서 t 레지스터에 바인딩 시킨다.
+	m_Buffer->SetData(m_vecTileInfo.data(), sizeof(tTileInfo) * m_Row * m_Col);
+	m_Buffer->Binding(15);
+
 	GetMaterial()->SetTexParam(TEX_0, m_TileAtlas);
-	GetMaterial()->SetScalarParam(INT_0, m_ImgIdx);
 	GetMaterial()->SetScalarParam(INT_1, m_AtlasMaxRow);
 	GetMaterial()->SetScalarParam(INT_2, m_AtlasMaxCol);
 	GetMaterial()->SetScalarParam(VEC2_1, Vec2(m_Col, m_Row));
@@ -43,6 +51,21 @@ void CTileMap::SetRowCol(UINT _Row, UINT _Col)
 	m_Col = _Col;
 
 	ChangeTileMapSize();
+
+	// 타일 개수
+	UINT TileCount = m_Row * m_Col;
+
+	// 타일 정보를 저장하는 벡터가 타일개수보다 사이즈가 작으면 리사이즈
+	if (m_vecTileInfo.size() < TileCount)
+	{
+		m_vecTileInfo.resize(TileCount);
+	}
+
+	// 타일정보를 전달받아서 t 레지스터에 전달시킬 구조화버퍼가 타일 전체 데이터 사이즈보다 작으면 리사이즈
+	if (m_Buffer->GetElementSize() < sizeof(tTileInfo) * TileCount)
+	{
+		m_Buffer->Create(sizeof(tTileInfo), TileCount);
+	}
 }
 
 void CTileMap::SetTileSize(Vec2 _Size)
