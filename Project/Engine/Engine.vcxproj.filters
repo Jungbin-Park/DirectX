@@ -32,7 +32,7 @@
       <Filter>04. Manager\03. KeyMgr</Filter>
     </ClInclude>
     <ClInclude Include="CTaskMgr.h">
-      <Filter>04. Manager\TaskMgr</Filter>
+      <Filter>04. Manager\08. TaskMgr</Filter>
     </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>01. Header</Filter>
@@ -181,7 +181,7 @@
       <Filter>04. Manager\03. KeyMgr</Filter>
     </ClCompile>
     <ClCompile Include="CTaskMgr.cpp">
-      <Filter>04. Manager\TaskMgr</Filter>
+      <Filter>04. Manager\08. TaskMgr</Filter>
     </ClCompile>
     <ClCompile Include="CAsset.cpp">
       <Filter>06. Asset</Filter>
@@ -324,9 +324,6 @@
     <Filter Include="04. Manager\03. KeyMgr">
       <UniqueIdentifier>{6720d3df-23e5-49db-99b6-4189e6ac99bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Manager\TaskMgr">
-      <UniqueIdentifier>{1265647b-d08c-4cbb-be39-b278cdcb3d32}</UniqueIdentifier>
-    </Filter>
     <Filter Include="HLSL">
       <UniqueIdentifier>{efdd5d96-f795-4ea7-a29e-3f2b310578bd}</UniqueIdentifier>
     </Filter>
@@ -464,6 +461,9 @@
     </Filter>
     <Filter Include="08. Component\04. FlipBookComponent">
       <UniqueIdentifier>{5a16b607-b7a1-4bdc-bd4f-438c66407360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\08. TaskMgr">
+      <UniqueIdentifier>{1265647b-d08c-4cbb-be39-b278cdcb3d32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

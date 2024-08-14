@@ -5,6 +5,7 @@
 
 CLevel::CLevel()
 	: m_Layer{}
+	, m_State(LEVEL_STATE::STOP)
 {
 	for (int i = 0; i < MAX_LAYER; ++i)
 	{
@@ -16,8 +17,6 @@ CLevel::~CLevel()
 {
 	Delete_Array(m_Layer);
 }
-
-
 
 void CLevel::Begin()
 {
@@ -57,4 +56,9 @@ void CLevel::AddObject(int LayerIdx, CGameObject* _Object, bool _bMoveChild)
 	m_Layer[LayerIdx]->AddObject(_Object, _bMoveChild);
 }
 
+void CLevel::ChangeState(LEVEL_STATE _NestState)
+{
+	// Stop -> Play
+	// Begin
+}
 

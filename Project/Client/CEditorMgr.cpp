@@ -1,3 +1,11 @@
+#include "pch.h"
 #include "CEditorMgr.h"
 
-#include "pch.h"
+
+void CEditorMgr::Init()
+{
+}
+
+void CEditorMgr::Tick()
+{
+}

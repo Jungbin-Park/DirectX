@@ -26,8 +26,7 @@ private:
     int                     m_AtlasMaxCol;      // Atlas 텍스쳐가 보유하고 있는 타일의 최대 열 숫자
 
     vector<tTileInfo>       m_vecTileInfo;      // 각각의 타일의 정보
-
-    CStructuredBuffer*      m_Buffer;
+    CStructuredBuffer*      m_Buffer;           // 각각의 타일정보를 t 레지스터로 전달하기 위한 구조화버퍼
 
 public:
     void SetRowCol(UINT _Row, UINT _Col);

@@ -5,11 +5,11 @@
 class CEditorMgr :
     public CSingleton<CEditorMgr>
 {
-
     SINGLE(CEditorMgr);
 private:
 
 public:
-
+    void Init();
+    void Tick();
 };
 

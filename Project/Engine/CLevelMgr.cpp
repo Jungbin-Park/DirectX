@@ -139,7 +139,9 @@ void CLevelMgr::Init()
 
 void CLevelMgr::Progress()
 {
-	m_CurLevel->Tick();
+	if(m_CurLevel->GetState() == LEVEL_STATE::PLAY)
+		m_CurLevel->Tick();
+
 	m_CurLevel->ClearObject();
 	m_CurLevel->FinalTick();
 }
