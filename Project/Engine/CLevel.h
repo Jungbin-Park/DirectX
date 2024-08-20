@@ -17,7 +17,7 @@ public:
     LEVEL_STATE GetState() { return m_State; }
 
 private:
-    void ChangeState(LEVEL_STATE _NestState);
+    void ChangeState(LEVEL_STATE _NextState);
 
 public:
     void Begin();   // 레벨이 시작되는 순간 or 레벨에 추가(합류)하는 순간

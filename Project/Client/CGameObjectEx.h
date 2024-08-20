@@ -4,5 +4,7 @@
 class CGameObjectEx :
     public CGameObject
 {
+public:
+    virtual void FinalTick() override;
 };
 

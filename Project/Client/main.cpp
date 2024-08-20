@@ -4,6 +4,8 @@
 #include "framework.h"
 #include "Client.h"
 
+#include "CEditorMgr.h"
+
 
 // 전역 변수:
 HINSTANCE g_hInst = nullptr;
@@ -43,6 +45,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return 0;
     }
 
+#ifdef _DEBUG
+    // CEditorMgr 초기화
+    CEditorMgr::GetInst()->Init();
+#endif
+
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
     MSG msg = {};
     while (true)
@@ -61,6 +68,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             CEngine::GetInst()->Progress();
+
+#ifdef _DEBUG
+            CEditorMgr::GetInst()->Tick();
+#endif
         }
     }
 
