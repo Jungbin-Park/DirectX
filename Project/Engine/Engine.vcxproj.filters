@@ -157,6 +157,9 @@
     <ClInclude Include="CSetColorCS.h">
       <Filter>HLSL\03. Compute\01. SetColorShader</Filter>
     </ClInclude>
+    <ClInclude Include="CSound.h">
+      <Filter>06. Asset\06. Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -294,6 +297,9 @@
     </ClCompile>
     <ClCompile Include="CSetColorCS.cpp">
       <Filter>HLSL\03. Compute\01. SetColorShader</Filter>
+    </ClCompile>
+    <ClCompile Include="CSound.cpp">
+      <Filter>06. Asset\06. Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -59,10 +59,6 @@ int CDevice::Init(HWND _hWnd, UINT _Width, UINT _Height)
 		return E_FAIL;
 	}
 
-	// Output Merge State (출력 병합 단계)
-	m_Context->OMSetRenderTargets(1, m_RTTex->GetRTV().GetAddressOf(), m_DSTex->GetDSV().Get());
-
-
 	// ViewPort 설정
 	// 출력시킬 화면 윈도우 영역을 설정
 	D3D11_VIEWPORT viewport = {};

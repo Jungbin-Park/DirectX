@@ -63,7 +63,6 @@ void CEngine::Progress()
 	// Render
 	CDevice::GetInst()->Clear();
 	CRenderMgr::GetInst()->Tick();
-	CDevice::GetInst()->Present();
 
 	// TaskMgr
 	CTaskMgr::GetInst()->Tick();

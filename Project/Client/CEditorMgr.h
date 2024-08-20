@@ -16,6 +16,9 @@ public:
     void Tick();
 
 private:
+    void InitImGui();
+    void ImGuiProgress();
+    void ImGuiTick();
     void CreateEditorObject();
 };
 
