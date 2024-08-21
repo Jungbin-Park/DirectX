@@ -7,7 +7,7 @@ class Inspector :
 {
 private:
     class CGameObject*  m_TargetObject;
-    class ComponentUI* m_arrComUI[(UINT)COMPONENT_TYPE::END];
+    class ComponentUI*  m_arrComUI[(UINT)COMPONENT_TYPE::END];
 
 public:
     void SetTargetObject(CGameObject* _Object);

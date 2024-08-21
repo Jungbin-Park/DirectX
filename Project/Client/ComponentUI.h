@@ -5,14 +5,18 @@ class ComponentUI :
     public EditorUI
 {
 private:
-    class CGameObject* m_TargetObject;
+    class CGameObject*      m_TargetObject;
+    const COMPONENT_TYPE    m_Type;
 
 public:
-    void SetTargetObject(CGameObject* _Object) { m_TargetObject = _Object; }
+    void SetTargetObject(CGameObject* _Object);
     CGameObject* GetTargetObject() { return m_TargetObject; }
 
+protected:
+    void Title();
+
 public:
-    ComponentUI();
+    ComponentUI(COMPONENT_TYPE _Type);
     ~ComponentUI();
 };
 
