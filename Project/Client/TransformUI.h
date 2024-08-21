@@ -4,5 +4,11 @@
 class TransformUI :
     public ComponentUI
 {
+public:
+    virtual void Update() override;
+
+public:
+    TransformUI();
+    ~TransformUI();
 };
 

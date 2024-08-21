@@ -15,6 +15,10 @@ private:
 	EditorUI*			m_Parent;
 	vector<EditorUI*>	m_vecChildUI;
 
+	ImVec2				m_ChildSize;
+
+	bool				m_ChildBorder;
+
 public:
 	void AddChild(EditorUI* _UI);
 
@@ -31,6 +35,9 @@ public:
 	bool IsActive() { return m_Active; }
 	void Activate() { m_Active = true; }
 	void Deactivate() { m_Active = false; }
+
+	void SetChildBorder(bool _Set) { m_ChildBorder = _Set; }
+	void SetChildSize(ImVec2 _Size) { m_ChildSize = _Size; }
 
 public:
 	virtual void Tick();

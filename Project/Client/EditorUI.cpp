@@ -8,6 +8,7 @@ EditorUI::EditorUI()
 	: m_Active(true)
 	, m_Parent(nullptr)
 	, m_ID(m_GlobalID++)
+	, m_ChildBorder(false)
 {
 
 }
@@ -32,7 +33,13 @@ void EditorUI::Tick()
 
 		for (size_t i = 0; i < m_vecChildUI.size(); ++i)
 		{
+			if (m_vecChildUI[i]->m_ChildBorder)
+				ImGui::Separator();
+
 			m_vecChildUI[i]->Tick();
+
+			if (m_vecChildUI[i]->m_ChildBorder && i == m_vecChildUI.size() - 1)
+				ImGui::Separator();
 		}
 
 		ImGui::End();
@@ -47,7 +54,13 @@ void EditorUI::Tick()
 
 		for (size_t i = 0; i < m_vecChildUI.size(); ++i)
 		{
+			if (m_vecChildUI[i]->m_ChildBorder)
+				ImGui::Separator();
+
 			m_vecChildUI[i]->Tick();
+
+			if (m_vecChildUI[i]->m_ChildBorder && i == m_vecChildUI.size() - 1)
+				ImGui::Separator();
 		}
 
 		ImGui::EndChild();
