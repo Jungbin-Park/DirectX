@@ -4,5 +4,14 @@
 class Inspector :
     public EditorUI
 {
+private:
+
+
+public:
+    virtual void Update() override;
+
+public:
+    Inspector();
+    ~Inspector();
 };
 
