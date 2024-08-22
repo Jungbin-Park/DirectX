@@ -3,7 +3,8 @@
 
 
 CCameraMoveScript::CCameraMoveScript()
-	:m_CamSpeed(500.f)
+	: m_CamSpeed(500.f)
+	, m_FollowObj(nullptr)
 {
 }
 
@@ -64,7 +65,15 @@ void CCameraMoveScript::OrthoGraphicMove()
 		vPos.x += DT * Speed;
 	}
 
+	if (m_FollowObj != nullptr)
+	{
+		vPos = m_FollowObj->Transform()->GetRelativePos();
+	}
+
+
 	Transform()->SetRelativePos(vPos);
+
+	
 }
 
 void CCameraMoveScript::PerspectiveMove()

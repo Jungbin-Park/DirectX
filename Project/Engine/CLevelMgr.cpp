@@ -73,7 +73,7 @@ void CLevelMgr::Init()
 	CamObj->Camera()->SetFar(100000.f);
 	CamObj->Camera()->SetProjType(ORTHOGRAPHIC);
 
-
+	
 	m_CurLevel->AddObject(0, CamObj);
 
 	CGameObject* pObject = nullptr;
@@ -101,6 +101,7 @@ void CLevelMgr::Init()
 	pObject->FlipBookComponent()->Play(5, 10, true);
 
 	m_CurLevel->AddObject(3, pObject);
+
 
 	// Monster Object
 	/*CGameObject* pMonster = new CGameObject;
@@ -145,6 +146,8 @@ void CLevelMgr::Init()
 
 	// 레벨 시작
 	m_CurLevel->Begin();
+
+	
 }
 
 void CLevelMgr::Progress()

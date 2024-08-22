@@ -3,5 +3,11 @@
 class TileMapUI :
     public ComponentUI
 {
+private:
+    virtual void Update() override;
+
+public:
+    TileMapUI();
+    ~TileMapUI();
 };
 

@@ -31,13 +31,78 @@ void CameraUI::Update()
     LayerCheck();
 
     // 투영방식
-    //m_ProjType;
+    Projection();
 
-    //float                   m_Width;
-    //float                   m_Height;
-    //float                   m_AspectRatio;  // 종횡 비
-    //float                   m_Far;          // 카메라가 볼 수 있는 시야 거리
-    //float                   m_FOV; // Field Of View (시야 범위, 시야 각)
+    // 투영 범위
+    float Width = pCam->GetWidth();
+    ImGui::Text("Width");
+    ImGui::SameLine(100);
+    ImGui::InputFloat("##Width", &Width);
+    pCam->SetWidth(Width);
+    
+    float Height = pCam->GetHeight();
+    ImGui::Text("Height");
+    ImGui::SameLine(100);
+    ImGui::InputFloat("##Height", &Height);
+    pCam->SetHeight(Height);
+
+    float AR = pCam->GetAspectRatio();
+    ImGui::Text("AspectRatio");
+    ImGui::SameLine(100);
+    ImGui::InputFloat("##AspectRatio", &AR, ImGuiInputTextFlags_::ImGuiInputTextFlags_ReadOnly);
+
+    float Far = pCam->GetFar();
+    ImGui::Text("Far");
+    ImGui::SameLine(100);
+    ImGui::InputFloat("##Far", &Far);
+    pCam->SetFar(Far);
+
+    // Perspective 전용
+    float FOV = pCam->GetFOV();
+    FOV = (FOV / XM_PI) * 180.f;
+
+    if (pCam->GetProjType() != PROJ_TYPE::PERSPECTIVE)
+    {
+        ImGui::BeginDisabled();
+
+        ImGui::Text("FOV");
+        ImGui::SameLine(100);
+        ImGui::InputFloat("##FOV", &FOV);
+
+        ImGui::EndDisabled();
+    }
+    else
+    {
+        ImGui::Text("FOV");
+        ImGui::SameLine(100);
+        ImGui::InputFloat("##FOV", &FOV);
+    }
+
+    FOV = (FOV / 180.f) * XM_PI;
+    pCam->SetFOV(FOV);
+
+
+    // Orthograhpic 전용
+    if (pCam->GetProjType() != PROJ_TYPE::ORTHOGRAPHIC)
+    {
+        ImGui::BeginDisabled();
+
+        float Scale = pCam->GetScale();
+        ImGui::Text("Scale");
+        ImGui::SameLine(100);
+        ImGui::InputFloat("##Scale", &Scale);
+        pCam->SetScale(Scale);
+
+        ImGui::EndDisabled();
+    }
+    else
+    {
+        float Scale = pCam->GetScale();
+        ImGui::Text("Scale");
+        ImGui::SameLine(100);
+        ImGui::InputFloat("##Scale", &Scale);
+        pCam->SetScale(Scale);
+    }
 }
 
 void CameraUI::LayerCheck()
@@ -89,26 +154,35 @@ void CameraUI::LayerCheck()
     }
 }
 
+void CameraUI::Projection()
+{
+    CCamera* pCam = GetTargetObject()->Camera();
+    PROJ_TYPE Type = pCam->GetProjType();
 
+    const char* items[] = { "Orthographic", "Perspective" };
+    const char* combo_preview_value = items[Type];
 
-//const char* items[] = { "AAAA", "BBBB", "CCCC", "DDDD", "EEEE", "FFFF", "GGGG", "HHHH", "IIII", "JJJJ", "KKKK", "LLLLLLL", "MMMM", "OOOOOOO" };
-//static int item_current_idx = 0; // Here we store our selection data as an index.
-//
-//const char* combo_preview_value = items[item_current_idx];
-//
-//static bool bOpen = false;
-//
-//if (ImGui::BeginCombo("combo 1", combo_preview_value))
-//{
-//    for (int n = 0; n < IM_ARRAYSIZE(items); n++)
-//    {
-//        const bool is_selected = (item_current_idx == n);
-//        if (ImGui::Selectable(items[n], is_selected))
-//            item_current_idx = n;
-//
-//        // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-//        if (is_selected)
-//            ImGui::SetItemDefaultFocus();
-//    }
-//    ImGui::EndCombo();
-//}
+    ImGui::Text("Projection");
+    ImGui::SameLine(100);
+    ImGui::SetNextItemWidth(180);   // 다음 위젯의 크기 조정
+
+    if (ImGui::BeginCombo("##ProjectionCombo", combo_preview_value))
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            const bool is_selected = (Type == i);
+
+            if (ImGui::Selectable(items[i], is_selected))
+            {
+                Type = (PROJ_TYPE)i;
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
+
+    pCam->SetProjType(Type);
+}

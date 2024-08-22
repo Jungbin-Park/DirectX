@@ -12,6 +12,7 @@ private:
 
 private:
     void LayerCheck();
+    void Projection();
 
 public:
     CameraUI();
