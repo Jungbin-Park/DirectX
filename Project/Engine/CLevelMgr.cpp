@@ -73,10 +73,19 @@ void CLevelMgr::Init()
 	CamObj->Camera()->SetFar(100000.f);
 	CamObj->Camera()->SetProjType(ORTHOGRAPHIC);
 
-	
 	m_CurLevel->AddObject(0, CamObj);
 
+	
 	CGameObject* pObject = nullptr;
+
+	// 광원 오브젝트 추가
+	pObject = new CGameObject;
+	pObject->SetName(L"Directional");
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CLight2D);
+
+
+	m_CurLevel->AddObject(0, pObject);
 
 	// 플레이어 오브젝트
 	pObject = new CGameObject;

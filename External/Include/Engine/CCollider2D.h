@@ -17,6 +17,7 @@ public:
     void SetScale(Vec3 _Scale) { m_Scale = _Scale; }
     void SetIndependentScale(bool _Set) { m_IndependentScale = _Set; }
 
+    bool IsIndependentScale() { return m_IndependentScale; }
     Vec3 GetOffset() { return m_Offset; }
     Vec3 GetScale() { return m_Scale; }
     Vec3 GetWorldPos() { return m_matColWorld.Translation(); }

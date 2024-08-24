@@ -47,6 +47,7 @@ public:
     GET_COMPONENT(Collider2D, COLLIDER2D);
     GET_COMPONENT(FlipBookComponent, FLIPBOOKCOMPONENT);
     GET_COMPONENT(TileMap, TILEMAP);
+    GET_COMPONENT(Light2D, LIGHT2D);
 
 public:
     void Begin();

@@ -83,6 +83,7 @@ void CEditorMgr::CreateEditorUI()
     pUI = new ListUI;
     pUI->SetName("List");
     pUI->SetActive(false);
+    pUI->SetModal(true);
     m_mapUI.insert(make_pair(pUI->GetName(), pUI));
 
     // Inspector

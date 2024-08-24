@@ -33,6 +33,9 @@ public:
 	Ptr<CTexture> CreateTexture(wstring _strKey, ComPtr<ID3D11Texture2D> _Tex2D);
 
 public:
+	void GetAssetNames(ASSET_TYPE _Type, vector<string>& _vecOut);
+
+public:
 	void Init();
 private:
 	void CreateEngineMesh();
