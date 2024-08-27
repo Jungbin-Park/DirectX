@@ -42,6 +42,9 @@ public:
 
 	void SetModal(bool _Modal) { m_Modal = _Modal; }
 	bool IsModal() { return m_Modal; }
+
+	void SetFocus();
+
 private:
 	virtual void Activate() {}
 	virtual void Deactivate() {}
