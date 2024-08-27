@@ -34,6 +34,7 @@ public:
 
 public:
 	void GetAssetNames(ASSET_TYPE _Type, vector<string>& _vecOut);
+	const map<wstring, Ptr<CAsset>>& GetAssets(ASSET_TYPE _Type) { return m_mapAsset[(UINT)_Type]; }
 
 public:
 	void Init();

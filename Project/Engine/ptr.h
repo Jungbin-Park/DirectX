@@ -7,9 +7,9 @@ private:
 	T* Asset;
 
 public:
-	T* Get() { return Asset; }
-	T** GetAddressOf() { return &Asset; }
-	T* operator ->() { return Asset; }
+	T* Get() const { return Asset; }
+	T** GetAddressOf() const { return &Asset; }
+	T* operator ->() const { return Asset; }
 	// operator T* (){ return Asset;}
 
 public:
