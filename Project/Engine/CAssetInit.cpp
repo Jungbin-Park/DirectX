@@ -216,11 +216,11 @@ void CAssetMgr::CreateEngineMaterial()
 {
 	Ptr<CMaterial>	pMtrl = nullptr;
 
-
 	// Std2DMtrl
 	pMtrl = new CMaterial();
 	pMtrl->SetShader(FindAsset<CGraphicShader>(L"Std2DShader"));
 	AddAsset(L"Std2DMtrl", pMtrl);
+	//Load<CMaterial>(L"Std2DMtrl", L"material\\std2d.mtrl");
 
 	// Std2DAlphaBlendMtrl
 	pMtrl = new CMaterial();

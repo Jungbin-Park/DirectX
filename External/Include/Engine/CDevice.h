@@ -36,7 +36,6 @@ public:
 
 public:
 	int Init(HWND _hWnd, UINT _Width, UINT _Height);
-	void Clear();
 	void Present(){ m_SwapChain->Present(0, 0); }	// 백 버퍼와 프론트 버퍼 교체
 
 private:

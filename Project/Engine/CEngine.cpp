@@ -61,7 +61,6 @@ void CEngine::Progress()
 	CCollisionMgr::GetInst()->Tick();
 
 	// Render
-	CDevice::GetInst()->Clear();
 	CRenderMgr::GetInst()->Tick();
 
 	// TaskMgr

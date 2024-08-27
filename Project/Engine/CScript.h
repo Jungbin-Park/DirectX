@@ -10,7 +10,7 @@ class CScript :
     public CComponent
 {
 public:
-
+    CRenderComponent* GetRenderComponent() { return GetOwner()->GetRenderComponent(); }
 
 public:
     virtual void Tick() = 0;

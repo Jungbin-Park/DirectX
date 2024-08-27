@@ -1,6 +1,7 @@
 #include "pch.h"
 
 tTransform g_Trans = {};
+tGlobalData g_GlobalData = {};
 
 const char* ASSET_TYPE_STRING[] =
 {
@@ -24,6 +25,8 @@ const char* COMPONENT_TYPE_STRING[] =
 	"TRANSFORM",
 	"COLLIDER2D",
 	"COLLIDER3D",
+	"LIGHT2D",
+	"LIGHT3D",
 	"FLIPBOOKCOMPONENT",
 	"ANIMATOR3D",
 	"STATE_MACHINE",

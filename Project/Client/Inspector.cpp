@@ -9,6 +9,7 @@
 
 #include "TransformUI.h"
 #include "Collider2DUI.h"
+#include "Light2DUI.h"
 #include "CameraUI.h"
 #include "MeshRenderUI.h"
 #include "FlipBookComUI.h"
@@ -28,6 +29,11 @@ Inspector::Inspector()
 	m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D]->SetName("Collider2DUI");
 	m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D]->SetChildSize(ImVec2(0.f, 100.f));
 	AddChild(m_arrComUI[(UINT)COMPONENT_TYPE::COLLIDER2D]);
+
+	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D] = new Light2DUI;
+	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]->SetName("Light2DUI");
+	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]->SetChildSize(ImVec2(0.f, 200.f));
+	AddChild(m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]);
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA] = new CameraUI;
 	m_arrComUI[(UINT)COMPONENT_TYPE::CAMERA]->SetName("CameraUI");
@@ -78,6 +84,7 @@ void Inspector::Update()
 	{
 		SetTargetObject(CLevelMgr::GetInst()->FindObjectByName(L"Player"));
 		//SetTargetObject(CLevelMgr::GetInst()->FindObjectByName(L"MainCamera"));
+		//SetTargetObject(CLevelMgr::GetInst()->FindObjectByName(L"PointLight 1"));
 		return;
 	}
 

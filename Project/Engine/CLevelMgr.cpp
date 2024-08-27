@@ -80,10 +80,26 @@ void CLevelMgr::Init()
 
 	// 광원 오브젝트 추가
 	pObject = new CGameObject;
-	pObject->SetName(L"Directional");
+	pObject->SetName(L"PointLight 1"); 
 	pObject->AddComponent(new CTransform);
 	pObject->AddComponent(new CLight2D);
 
+	pObject->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	pObject->Light2D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
+	pObject->Light2D()->SetRadius(500.f);
+	pObject->Transform()->SetRelativePos(Vec3(-300.f, 0.f, 100.f));
+
+	m_CurLevel->AddObject(0, pObject);
+
+	pObject = new CGameObject;
+	pObject->SetName(L"PointLight 2");
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CLight2D);
+
+	pObject->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	pObject->Light2D()->SetLightColor(Vec3(0.2f, 0.2f, 0.8f));
+	pObject->Light2D()->SetRadius(500.f);
+	pObject->Transform()->SetRelativePos(Vec3(300.f, 0.f, 100.f));
 
 	m_CurLevel->AddObject(0, pObject);
 
@@ -153,8 +169,10 @@ void CLevelMgr::Init()
 	CCollisionMgr::GetInst()->CollisionCheck(3, 4); // Player vs Monster
 	CCollisionMgr::GetInst()->CollisionCheck(5, 4); // Player Projectile vs Monster
 
+	pMtrl->Save(L"material\\std2d.mtrl");
+
 	// 레벨 시작
-	m_CurLevel->Begin();
+	//m_CurLevel->Begin();
 
 	
 }

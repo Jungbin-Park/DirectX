@@ -29,9 +29,9 @@ private:
     }
 
     // AssetMgr를 통해 저장/로드가 가능하도록 private
+    virtual int Save(const wstring& _RelativePath) = 0;
     virtual int Load(const wstring& _FilePath) = 0;
-    virtual int Save(const wstring& _FilePath) = 0;
-
+    
 public:
     virtual CAsset* Clone() { return nullptr; }
 
