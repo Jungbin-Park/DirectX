@@ -47,6 +47,7 @@ private:
 	virtual void Deactivate() {}
 
 public:
+	virtual void Init() {}
 	virtual void Tick();
 	virtual void Update() = 0;
 

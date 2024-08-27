@@ -3,5 +3,11 @@
 class TextureUI :
     public AssetUI
 {
+public:
+    virtual void Update() override;
+
+public:
+    TextureUI();
+    ~TextureUI();
 };
 

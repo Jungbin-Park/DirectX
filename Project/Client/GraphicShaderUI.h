@@ -3,5 +3,11 @@
 class GraphicShaderUI :
     public AssetUI
 {
+public:
+    virtual void Update() override;
+
+public:
+    GraphicShaderUI();
+    ~GraphicShaderUI();
 };
 
