@@ -51,10 +51,14 @@ void CLevel::ClearObject()
 	}
 }
 
-
 void CLevel::AddObject(int LayerIdx, CGameObject* _Object, bool _bMoveChild)
 {
 	m_Layer[LayerIdx]->AddObject(_Object, _bMoveChild);
+}
+
+void CLevel::RegisterAsParent(int LayerIdx, CGameObject* _Object)
+{
+	m_Layer[LayerIdx]->RegisterAsParent(_Object);
 }
 
 CGameObject* CLevel::FindObjectByName(const wstring& _Name)

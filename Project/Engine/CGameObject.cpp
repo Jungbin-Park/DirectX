@@ -85,6 +85,21 @@ void CGameObject::AddChild(CGameObject* _ChildObject)
 	_ChildObject->m_Parent = this;
 }
 
+bool CGameObject::IsAncestor(CGameObject* _Object)
+{
+	CGameObject* pObject = m_Parent;
+
+	while (pObject)
+	{
+		if (pObject == _Object)
+			return true;
+		else
+			pObject = pObject->GetParent();
+	}
+
+	return false;
+}
+
 void CGameObject::DisConnenctWithLayer()
 {
 	if (nullptr == m_Parent)

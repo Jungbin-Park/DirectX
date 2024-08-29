@@ -33,6 +33,7 @@ public:
     const vector<CGameObject*>& GetChildren() { return m_vecChildren; }
     const vector<CScript*> GetScripts() { return m_vecScript; }
 
+    bool IsAncestor(CGameObject* _Object);
     bool IsDead() { return m_Dead; }
 
     void DisConnenctWithLayer();
