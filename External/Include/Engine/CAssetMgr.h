@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CPathMgr.h"
+#include "CTaskMgr.h"
 
 class CAsset;
 
@@ -10,7 +11,8 @@ class CAssetMgr
 	SINGLE(CAssetMgr);
 
 private:
-	map<wstring, Ptr<CAsset>> m_mapAsset[(UINT)ASSET_TYPE::END];
+	map<wstring, Ptr<CAsset>>	m_mapAsset[(UINT)ASSET_TYPE::END];
+	bool						m_Changed;
 
 public:
 	template<typename T>
@@ -35,9 +37,12 @@ public:
 public:
 	void GetAssetNames(ASSET_TYPE _Type, vector<string>& _vecOut);
 	const map<wstring, Ptr<CAsset>>& GetAssets(ASSET_TYPE _Type) { return m_mapAsset[(UINT)_Type]; }
+	bool IsChanged() { return m_Changed; }
 
 public:
 	void Init();
+	void Tick();
+
 private:
 	void CreateEngineMesh();
 	void CreateEngineMaterial();
@@ -45,6 +50,8 @@ private:
 	void CreateEngineSprite();
 	void CreateEngineGraphicShader();
 	void CreateEngineComputeShader();
+
+	friend class CTaskMgr;
 };
 
 template<typename T>
@@ -79,6 +86,10 @@ Ptr<T> CAssetMgr::Load(const wstring& _Key, const wstring& _RelativePath)
 	ASSET_TYPE type = GetAssetType<T>();
 	m_mapAsset[(UINT)type].insert(make_pair(_Key, Asset.Get()));
 
+	// Asset 변경 알림	
+	CTaskMgr::GetInst()->AddTask(tTask{ ASSET_CHANGED });
+
+
 	// 로딩된 에셋 주소 반환
 	return Asset;
 
@@ -106,6 +117,9 @@ inline void CAssetMgr::AddAsset(const wstring& _Key, Ptr<T> _Asset)
 
 	_Asset->SetKey(_Key);
 	m_mapAsset[(UINT)Type].insert(make_pair(_Key, _Asset.Get()));
+
+	// Asset 변경 알림	
+	CTaskMgr::GetInst()->AddTask(tTask{ ASSET_CHANGED });
 }
 
 // File에 Asset 참조정보 저장 불러오기
