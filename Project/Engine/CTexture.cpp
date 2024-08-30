@@ -96,6 +96,10 @@ int CTexture::Save(const wstring& _FilePath)
 	return 0;
 }
 
+// RENDER_TARGET | SHADER_RESOURCE
+// DEPTH_STENCIL
+// SHADER_RESOURCE | UNORDERED_ACESS
+
 int CTexture::Create(UINT _Width, UINT _Height, DXGI_FORMAT _PixelFormat, UINT _Flags, D3D11_USAGE _Usage)
 {
 	m_Desc.Width = _Width; // DepthStencil 텍스쳐는 렌더타겟 해상도와 반드시 일치해야한다.

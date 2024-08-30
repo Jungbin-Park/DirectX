@@ -55,13 +55,13 @@ private:
     bool        m_UseDrag;
     bool        m_UseDrop;
 
-    EditorUI* m_ClickedInst;
+    EditorUI*   m_ClickedInst;
     DELEGATE_1  m_ClickedFunc;
 
-    EditorUI* m_SelfDragDropInst;
+    EditorUI*   m_SelfDragDropInst;
     DELEGATE_2  m_SelfDragDropFunc;
 
-    EditorUI* m_DropInst;
+    EditorUI*   m_DropInst;
     DELEGATE_2  m_DropFunc;
     string      m_DropPayLoadName;
 

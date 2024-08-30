@@ -19,13 +19,18 @@ private:
 
 	// Light
 	vector<CLight2D*>       m_vecLight2D;
-	CStructuredBuffer* m_Light2DBuffer;
+	CStructuredBuffer*		m_Light2DBuffer;
+
+	// PostProcess
+	Ptr<CTexture>			m_PostProcessTex;
 
 public:
 	void RegisterCamera(CCamera* _Cam, int _CamPriority);
 	void RegisterEditorCamera(CCamera* _Cam) { m_EditorCamera = _Cam; }
 	void AddDebugShapeInfo(const tDebugShapeInfo& _Info) { m_DebugShapeList.push_back(_Info); }
 	void RegisterLight2D(CLight2D* _Light) { m_vecLight2D.push_back(_Light); }
+
+	void PostProcessCopy();
 
 private:
 	void RenderStart();

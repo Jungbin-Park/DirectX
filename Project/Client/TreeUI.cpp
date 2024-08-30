@@ -129,6 +129,10 @@ TreeUI::TreeUI()
 	, m_UseDrop(false)
 	, m_ClickedInst(nullptr)
 	, m_ClickedFunc(nullptr)
+	, m_DropFunc(nullptr)
+	, m_DropInst(nullptr)
+	, m_SelfDragDropFunc(nullptr)
+	, m_SelfDragDropInst(nullptr)
 {
 }
 

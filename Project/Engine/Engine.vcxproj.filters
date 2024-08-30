@@ -456,9 +456,6 @@
     <Filter Include="HLSL\02. Render\01. 2D">
       <UniqueIdentifier>{309e0dc3-a2d9-484b-a358-7546679e8954}</UniqueIdentifier>
     </Filter>
-    <Filter Include="HLSL\02. Render\02. 3D">
-      <UniqueIdentifier>{c2bb6ea6-8bbb-4098-92b3-5e47e2e3cb32}</UniqueIdentifier>
-    </Filter>
     <Filter Include="HLSL\02. Render\03.PostProcess">
       <UniqueIdentifier>{2b0ac7b1-f672-4d20-967d-ac68b28d1f48}</UniqueIdentifier>
     </Filter>
@@ -479,6 +476,9 @@
     </Filter>
     <Filter Include="04. Manager\09. FontMgr">
       <UniqueIdentifier>{2e9f19d0-343d-4f34-b2be-6ec8434842bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\02. Render\02. 3D">
+      <UniqueIdentifier>{c2bb6ea6-8bbb-4098-92b3-5e47e2e3cb32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
