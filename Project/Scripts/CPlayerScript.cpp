@@ -5,7 +5,8 @@
 
 
 CPlayerScript::CPlayerScript()
-	: m_Speed(400.f)
+	: CScript(UINT(SCRIPT_TYPE::PLAYERSCRIPT))
+	, m_Speed(400.f)
 {
 }
 
