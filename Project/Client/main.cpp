@@ -8,6 +8,8 @@
 #include <Engine/CDevice.h>
 #include "ImGui/imgui_impl_win32.h"
 
+#include "CTestLevel.h"
+
 
 // 전역 변수:
 HINSTANCE g_hInst = nullptr;
@@ -46,6 +48,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         MessageBox(nullptr, L"CEngine 초기화 실패", L"엔진 초기화 실패", MB_OK);
         return 0;
     }
+
+    // 테스트용 레벨 초기상태 만들기
+    CTestLevel::CreateTestLevel();
 
 #ifdef _DEBUG
     // CEditorMgr 초기화
