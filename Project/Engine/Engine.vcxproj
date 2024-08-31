@@ -224,6 +224,7 @@ call EngineHeaderCopy.bat</Command>
     <ClInclude Include="global.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ptr.h" />
+    <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />
   </ItemGroup>
@@ -296,6 +297,9 @@ call EngineHeaderCopy.bat</Command>
     <FxCompile Include="struct.fx" />
     <FxCompile Include="tilemap.fx" />
     <FxCompile Include="value.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

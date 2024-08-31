@@ -170,6 +170,10 @@ void CAssetMgr::CreateEngineGraphicShader()
 	pShader->SetDSType(DS_TYPE::LESS);
 	pShader->SetBSType(BS_TYPE::DEFAULT);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+
+	pShader->AddScalarParam(INT_0, "Test Parameter");
+	//pShader->AddTexParam(TEX_0, "OutputTexture");
+
 	AddAsset(L"Std2DShader", pShader);
 
 	// Std2DAlphaBlendShader

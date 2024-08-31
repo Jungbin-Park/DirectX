@@ -154,6 +154,9 @@
     <ClInclude Include="CFontMgr.h">
       <Filter>04. Manager\09. FontMgr</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleMath.h">
+      <Filter>Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -411,9 +414,6 @@
     <Filter Include="04. Manager\06. RenderMgr">
       <UniqueIdentifier>{b4b30c14-426e-4567-bf29-7571f2cffc86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts">
-      <UniqueIdentifier>{67960eda-1222-4028-96df-1892dd26dd5f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Manager\07. CollisionMgr">
       <UniqueIdentifier>{89205951-6db1-46aa-8df5-97a009cc0a2b}</UniqueIdentifier>
     </Filter>
@@ -488,5 +488,10 @@
     <FxCompile Include="setcolor.fx">
       <Filter>HLSL\03. Compute\01. SetColorShader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl">
+      <Filter>Module</Filter>
+    </None>
   </ItemGroup>
 </Project>

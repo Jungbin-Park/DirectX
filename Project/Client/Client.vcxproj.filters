@@ -106,6 +106,9 @@
     <Filter Include="EditorUI\01. Inspector\ComponentUI\09. ScriptUI">
       <UniqueIdentifier>{dd27be52-c2b9-437f-89d8-da62d60b244a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EditorUI\07. Module">
+      <UniqueIdentifier>{f52bfcc3-5ce2-4801-9fcf-d3c75515669b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -242,6 +245,9 @@
     </ClInclude>
     <ClInclude Include="ScriptUI.h">
       <Filter>EditorUI\01. Inspector\ComponentUI\09. ScriptUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamUI.h">
+      <Filter>EditorUI\07. Module</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -382,6 +388,9 @@
     </ClCompile>
     <ClCompile Include="ScriptUI.cpp">
       <Filter>EditorUI\01. Inspector\ComponentUI\09. ScriptUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamUI.cpp">
+      <Filter>EditorUI\07. Module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
