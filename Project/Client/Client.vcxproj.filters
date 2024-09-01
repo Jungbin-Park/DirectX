@@ -109,6 +109,9 @@
     <Filter Include="EditorUI\07. Module">
       <UniqueIdentifier>{f52bfcc3-5ce2-4801-9fcf-d3c75515669b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EditorUI\08. FilpBookEditorUI">
+      <UniqueIdentifier>{09f5235f-63e5-4c43-8cea-c976769fe376}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -248,6 +251,21 @@
     </ClInclude>
     <ClInclude Include="ParamUI.h">
       <Filter>EditorUI\07. Module</Filter>
+    </ClInclude>
+    <ClInclude Include="FlipBookEditor.h">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FE_FBDetail.h">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FE_FBViewer.h">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FE_SpriteList.h">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FE_Sub.h">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -391,6 +409,21 @@
     </ClCompile>
     <ClCompile Include="ParamUI.cpp">
       <Filter>EditorUI\07. Module</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipBookEditor.cpp">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FE_FBDetail.cpp">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FE_FBViewer.cpp">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FE_SpriteList.cpp">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FE_Sub.cpp">
+      <Filter>EditorUI\08. FilpBookEditorUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

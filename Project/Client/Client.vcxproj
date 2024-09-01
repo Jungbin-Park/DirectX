@@ -155,6 +155,11 @@
     <ClInclude Include="ComputeShaderUI.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="CTestLevel.h" />
+    <ClInclude Include="FE_FBDetail.h" />
+    <ClInclude Include="FE_FBViewer.h" />
+    <ClInclude Include="FE_SpriteList.h" />
+    <ClInclude Include="FE_Sub.h" />
+    <ClInclude Include="FlipBookEditor.h" />
     <ClInclude Include="FlipBookComUI.h" />
     <ClInclude Include="FlipBookUI.h" />
     <ClInclude Include="GraphicShaderUI.h" />
@@ -204,6 +209,11 @@
     <ClCompile Include="ComputeShaderUI.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="CTestLevel.cpp" />
+    <ClCompile Include="FE_FBDetail.cpp" />
+    <ClCompile Include="FE_FBViewer.cpp" />
+    <ClCompile Include="FE_SpriteList.cpp" />
+    <ClCompile Include="FE_Sub.cpp" />
+    <ClCompile Include="FlipBookEditor.cpp" />
     <ClCompile Include="FlipBookComUI.cpp" />
     <ClCompile Include="FlipBookUI.cpp" />
     <ClCompile Include="GraphicShaderUI.cpp" />

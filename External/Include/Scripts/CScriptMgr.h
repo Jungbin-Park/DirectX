@@ -6,8 +6,8 @@
 enum SCRIPT_TYPE
 {
 	CAMERAMOVESCRIPT,
-	PLAYERSCRIPT,
 	MISSILESCRIPT,
+	PLAYERSCRIPT,
 };
 
 using namespace std;
@@ -18,9 +18,7 @@ class CScriptMgr
 {
 public:
 	static void GetScriptInfo(vector<wstring>& _vec);
-	static CScript* GetScript(const wstring& _strScriptName);
-	static CScript* GetScript(UINT _iScriptType);
-	static const wchar_t* GetScriptName(CScript* _pScript);
-
+	static CScript * GetScript(const wstring& _strScriptName);
+	static CScript * GetScript(UINT _iScriptType);
+	static const wchar_t * GetScriptName(CScript * _pScript);
 };
-
