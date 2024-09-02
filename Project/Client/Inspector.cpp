@@ -52,7 +52,7 @@ void Inspector::SetTargetObject(CGameObject* _Object)
 		// 스크립트UI 개수가 부족하면 추가 생성
 		if (m_vecScriptUI.size() < vecScripts.size())
 		{
-			CreateScriptUI(vecScripts.size() - m_vecScriptUI.size());
+			CreateScriptUI((UINT)vecScripts.size() - m_vecScriptUI.size());
 		}
 
 		for (size_t i = 0; i < m_vecScriptUI.size(); ++i)

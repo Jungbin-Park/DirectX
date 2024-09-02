@@ -59,6 +59,7 @@ public:
 public:
     virtual CGameObject* Clone() { return new CGameObject(*this); }
     CGameObject();
+    CGameObject(const CGameObject& _Origin);
     ~CGameObject();
 
     friend class CLevel;

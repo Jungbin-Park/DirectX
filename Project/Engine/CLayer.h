@@ -32,6 +32,7 @@ public:
 public:
     virtual CLayer* Clone() { return new CLayer(*this); }
     CLayer(int _LayerIdx);
+    CLayer(const CLayer& _Origin);
     ~CLayer();
 };
 

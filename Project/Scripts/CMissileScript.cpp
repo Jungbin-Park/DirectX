@@ -11,6 +11,19 @@ CMissileScript::~CMissileScript()
 {
 }
 
+void CMissileScript::Begin()
+{
+	GetRenderComponent()->GetDynamicMaterial();
+
+	Ptr<CMaterial> pMtrl = GetRenderComponent()->GetMaterial();
+
+	if (nullptr != pMtrl)
+	{
+		Ptr<CTexture> pTexture = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Idle_Left.bmp", L"texture\\Idle_Left.bmp");
+		pMtrl->SetTexParam(TEX_0, pTexture);
+	}
+}
+
 void CMissileScript::Tick()
 {
 	Vec3 vPos = Transform()->GetRelativePos();

@@ -16,6 +16,7 @@ public:
     CGameObject* GetOwner() { return m_Owner; }
 
 public:
+    virtual void Init() {}
     virtual void Begin();
     virtual void Tick();
     virtual void FinalTick() = 0;
@@ -35,6 +36,7 @@ private:
 public:
     virtual CComponent* Clone() = 0;
     CComponent(COMPONENT_TYPE _Type);
+    CComponent(const CComponent& _Origin);
     ~CComponent();
 
     friend class CGameObject;

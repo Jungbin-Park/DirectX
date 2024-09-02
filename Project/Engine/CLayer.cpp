@@ -8,6 +8,16 @@ CLayer::CLayer(int _LayerIdx)
 {
 }
 
+CLayer::CLayer(const CLayer& _Origin)
+	: CEntity(_Origin)
+	, m_LayerIdx(_Origin.m_LayerIdx)
+{
+	for (size_t i = 0; i < _Origin.m_Parents.size(); ++i)
+	{
+		AddObject(_Origin.m_Parents[i]->Clone(), false);
+	}
+}
+
 CLayer::~CLayer()
 {
 	Delete_Vec(m_Parents);

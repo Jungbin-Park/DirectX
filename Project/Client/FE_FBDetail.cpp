@@ -4,6 +4,7 @@
 #include "FE_FBViewer.h"
 #include "FE_SpriteList.h"
 #include <Engine/CAssetMgr.h>
+#include <Engine/CTimeMgr.h>
 #include "CEditorMgr.h"
 #include "ListUI.h"
 

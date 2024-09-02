@@ -5,7 +5,9 @@ class CPlayerScript :
     public CScript
 {
 private:
-    float   m_Speed;
+    float           m_Speed;
+    Ptr<CTexture>   m_Texture;
+    Ptr<CPrefab>    m_MissilePref;
 
 public:
     virtual void Begin() override;

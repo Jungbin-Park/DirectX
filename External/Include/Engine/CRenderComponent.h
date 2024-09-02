@@ -28,6 +28,7 @@ public:
     virtual CRenderComponent* Clone() = 0;
 public:
     CRenderComponent(COMPONENT_TYPE _Type);
+    CRenderComponent(const CRenderComponent& _Origin);
     ~CRenderComponent();
 };
 

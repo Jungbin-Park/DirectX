@@ -10,3 +10,13 @@ CScript::CScript(UINT _ScriptType)
 CScript::~CScript() 
 {
 }
+
+void CScript::Instantiate(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, const wstring& _Name)
+{
+	CGameObject* pInst = _Pref->Instantiate();
+
+	pInst->SetName(_Name);
+	pInst->Transform()->SetRelativePos(_WorldPos);
+
+	CreateObject(pInst, _LayerIdx);
+}

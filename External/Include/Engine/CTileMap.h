@@ -39,12 +39,14 @@ private:
 
 
 public:
+    virtual void Init() override;
     virtual void FinalTick() override;
     virtual void Render() override;
 
 public:
     CLONE(CTileMap);
     CTileMap();
+    CTileMap(const CTileMap& _Origin);
     ~CTileMap();
 };
 
