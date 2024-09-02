@@ -8,7 +8,7 @@ private:
     class CScript* m_Script;
 
 public:
-    void SetTargetScript(CScript* _Script) { m_Script = _Script; }
+    void SetTargetScript(CScript* _Script);
     CScript* GetTargetScript() { return m_Script; }
 
 public:

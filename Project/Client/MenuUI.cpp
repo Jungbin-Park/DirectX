@@ -5,6 +5,11 @@
 #include <Engine/assets.h>
 
 #include <Scripts/CScriptMgr.h>
+#include <Engine/CGameObject.h>
+#include <Engine/CScript.h>
+
+#include "CEditorMgr.h"
+#include "Inspector.h"
 
 MenuUI::MenuUI()
 {
@@ -117,12 +122,19 @@ void MenuUI::AddScript()
 		{
 			if (ImGui::MenuItem(string(vecScriptsName[i].begin(), vecScriptsName[i].end()).c_str()))
 			{
+				//CScript* pScript = CScriptMgr::GetScript(vecScriptsName[i]);
+				
 				// 인스펙터
+				Inspector* pInspector = (Inspector*)CEditorMgr::GetInst()->FindEditorUI("Inspector");
 
 				// 타겟 오브젝트 알아냄
-
-				// 오브젝트에, 선택한 스크립트를 추가해줌
-				CScriptMgr::GetScript(vecScriptsName[i]);
+				CGameObject* pObject = pInspector->GetTargetObject();
+				if (nullptr != pObject)
+				{
+					// 오브젝트에, 선택한 스크립트를 추가해줌
+					CScript* pScript = CScriptMgr::GetScript(vecScriptsName[i]);
+					pObject->AddComponent(pScript);
+				}
 			}
 		}
 

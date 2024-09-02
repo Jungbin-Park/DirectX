@@ -9,6 +9,7 @@
 
 #include "ComponentUI.h"
 #include "AssetUI.h"
+#include "ScriptUI.h"
 
 
 Inspector::Inspector()
@@ -27,6 +28,7 @@ void Inspector::SetTargetObject(CGameObject* _Object)
 {
 	m_TargetObject = _Object;
 
+	// Object 가 보유하고 있는 컴포넌트에 대응하는 컴포넌트UI 가 활성화 됨
 	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
 	{
 		if (nullptr == m_arrComUI[i])
@@ -35,6 +37,34 @@ void Inspector::SetTargetObject(CGameObject* _Object)
 		m_arrComUI[i]->SetTargetObject(_Object);
 	}
 
+	// Object 가 보유하고 있는 Script 마다 ScriptUI 가 배정됨
+	if (nullptr == m_TargetObject)
+	{
+		for (size_t i = 0; i < m_vecScriptUI.size(); ++i)
+		{
+			m_vecScriptUI[i]->SetTargetScript(nullptr);
+		}
+	}
+	else
+	{
+		const vector<CScript*>& vecScripts = m_TargetObject->GetScripts();
+
+		// 스크립트UI 개수가 부족하면 추가 생성
+		if (m_vecScriptUI.size() < vecScripts.size())
+		{
+			CreateScriptUI(vecScripts.size() - m_vecScriptUI.size());
+		}
+
+		for (size_t i = 0; i < m_vecScriptUI.size(); ++i)
+		{
+			if (i < vecScripts.size())
+				m_vecScriptUI[i]->SetTargetScript(vecScripts[i]);
+			else
+				m_vecScriptUI[i]->SetTargetScript(nullptr);
+		}
+	}
+
+	// 에셋 UI 비활성화
 	m_TargetAsset = nullptr;
 	for (UINT i = 0; i < (UINT)ASSET_TYPE::END; ++i)
 	{
@@ -62,6 +92,8 @@ void Inspector::Update()
 {
 	if (nullptr == m_TargetObject)
 		return;
+
+	SetTargetObject(m_TargetObject);
 
 	// ===========
 	// Object Name
