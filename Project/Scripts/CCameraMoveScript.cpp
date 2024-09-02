@@ -125,3 +125,13 @@ void CCameraMoveScript::PerspectiveMove()
 		CKeyMgr::GetInst()->MouseCapture(false);
 	}
 }
+
+void CCameraMoveScript::SaveToFile(FILE* _File)
+{
+	fwrite(&m_CamSpeed, sizeof(float), 1, _File);
+}
+
+void CCameraMoveScript::LoadFromFile(FILE* _File)
+{
+	fread(&m_CamSpeed, sizeof(float), 1, _File);
+}

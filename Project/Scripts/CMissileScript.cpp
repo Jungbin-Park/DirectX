@@ -37,3 +37,13 @@ void CMissileScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _Other
 {
 	DeleteObject(_OtherObject);
 }
+
+void CMissileScript::SaveToFile(FILE* _File)
+{
+	fwrite(&m_Speed, 4, 1, _File);
+}
+
+void CMissileScript::LoadFromFile(FILE* _File)
+{
+	fread(&m_Speed, 4, 1, _File);
+}

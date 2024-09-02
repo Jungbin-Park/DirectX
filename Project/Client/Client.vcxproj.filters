@@ -112,6 +112,12 @@
     <Filter Include="EditorUI\08. FilpBookEditorUI">
       <UniqueIdentifier>{09f5235f-63e5-4c43-8cea-c976769fe376}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\03. LevelSaveLoad">
+      <UniqueIdentifier>{bf44a06f-939b-4c02-bdfa-7776fd9c585f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorUI\09. TileMapEditorUI">
+      <UniqueIdentifier>{6aabbcca-055d-4301-a5a3-0ca67f6cc0d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -266,6 +272,9 @@
     </ClInclude>
     <ClInclude Include="FE_Sub.h">
       <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CLevelSaveLoad.h">
+      <Filter>Manager\03. LevelSaveLoad</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="FE_Sub.cpp">
       <Filter>EditorUI\08. FilpBookEditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CLevelSaveLoad.cpp">
+      <Filter>Manager\03. LevelSaveLoad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

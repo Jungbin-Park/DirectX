@@ -76,3 +76,17 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 
 	Transform()->SetRelativeScale(vScale);
 }
+
+void CPlayerScript::SaveToFile(FILE* _File)
+{
+	fwrite(&m_Speed, sizeof(float), 1, _File);
+	SaveAssetRef(m_Texture, _File);
+	SaveAssetRef(m_MissilePref, _File);
+}
+
+void CPlayerScript::LoadFromFile(FILE* _File)
+{
+	fread(&m_Speed, sizeof(float), 1, _File);
+	LoadAssetRef(m_Texture, _File);
+	LoadAssetRef(m_MissilePref, _File);
+}

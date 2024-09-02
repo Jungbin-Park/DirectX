@@ -20,6 +20,8 @@ public:
     virtual void Begin();
     virtual void Tick();
     virtual void FinalTick() = 0;
+    virtual void SaveToFile(FILE* _File) = 0;   // 파일에 컴포넌트의 정보를 저장
+    virtual void LoadFromFile(FILE* _File) = 0; // 파일에 컴포넌트의 정보를 로드
 
     GET_OTHER_COMPONENT(Transform);
     GET_OTHER_COMPONENT(MeshRender);

@@ -27,10 +27,11 @@ public:
     Ptr<CFlipBook> FindFlipBook(const wstring& _Key);
     void Play(int _FlipBookIdx, float _FPS, bool _Repeat);
     Ptr<CSprite> GetCurSprite() { return m_CurFrmSprite; }
-
     void Reset();
     void Binding();
     static void Clear();
+    virtual void SaveToFile(FILE* _File) override;
+    virtual void LoadFromFile(FILE* _File) override;
 
 public:
     CLONE(CFlipBookComponent);

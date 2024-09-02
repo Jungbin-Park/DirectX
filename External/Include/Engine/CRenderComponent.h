@@ -26,6 +26,11 @@ public:
     virtual void FinalTick() = 0;
     virtual void Render() = 0;
     virtual CRenderComponent* Clone() = 0;
+
+protected:
+    void SaveDataToFile(FILE* _File);
+    void LoadDataFromFile(FILE* _File);
+
 public:
     CRenderComponent(COMPONENT_TYPE _Type);
     CRenderComponent(const CRenderComponent& _Origin);
