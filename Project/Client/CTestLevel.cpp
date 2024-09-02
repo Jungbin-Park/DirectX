@@ -31,14 +31,6 @@ void CTestLevel::CreateTestLevel()
 
 	CreatePrefab();
 
-	wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
-	StrLevelLoadPath += L"level\\Temp.lv";
-	CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath);
-
-	ChangeLevel(pLoadedLevel, LEVEL_STATE::PLAY);
-
-	return;
-
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
@@ -166,12 +158,7 @@ void CTestLevel::CreateTestLevel()
 	pLevel->AddObject(0, pGrayFilterObj);
 
 
-	// 레벨 지정
-	/*wstring strLevelPath = CPathMgr::GetInst()->GetContentPath();
-	strLevelPath += L"level\\Temp.lv";
-	CLevelSaveLoad::SaveLevel(strLevelPath, pLevel);
-
-	ChangeLevel(pLevel, LEVEL_STATE::PLAY);*/
+	ChangeLevel(pLevel, LEVEL_STATE::PLAY);
 
 	// 충돌 지정
 	CCollisionMgr::GetInst()->CollisionCheck(3, 4); // Player vs Monster

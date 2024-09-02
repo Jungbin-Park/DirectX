@@ -11,7 +11,7 @@
 
 void CLevelSaveLoad::SaveLevel(const wstring& _FilePath, CLevel* _Level)
 {
-	assert(_Level);
+	assert(_Level && _Level->GetState() == LEVEL_STATE::STOP);
 
 	FILE* File = nullptr;
 	_wfopen_s(&File, _FilePath.c_str(), L"wb");
