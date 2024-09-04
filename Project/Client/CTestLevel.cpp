@@ -26,7 +26,7 @@ void CTestLevel::CreateTestLevel()
 	Ptr<CMaterial> pAlphaBlendMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DAlphaBlendMtrl");
 	Ptr<CMaterial> pDebugShapeMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"DebugShapeMtrl");
 
-	Ptr<CTexture> pTexture = CAssetMgr::GetInst()->Load<CTexture>(L"PlayerTex", L"texture//Character.png");
+	Ptr<CTexture> pTexture = CAssetMgr::GetInst()->FindAsset<CTexture>(L"texture//Character.png");
 	pAlphaBlendMtrl->SetTexParam(TEX_0, pTexture);
 
 	CreatePrefab();
@@ -98,7 +98,8 @@ void CTestLevel::CreateTestLevel()
 	pPlayer->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pPlayer->MeshRender()->SetMaterial(pMtrl);
 
-	pPlayer->FlipBookComponent()->AddFlipBook(5, CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Link_MoveDown"));
+	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\Link_MoveDown.flip");
+	pPlayer->FlipBookComponent()->AddFlipBook(5, pFlipBook);
 	pPlayer->FlipBookComponent()->Play(5, 10, true);
 
 	pLevel->AddObject(3, pPlayer);
@@ -137,7 +138,7 @@ void CTestLevel::CreateTestLevel()
 	pTileMapObj->TileMap()->SetRowCol(20, 20);
 	pTileMapObj->TileMap()->SetTileSize(Vec2(64.f, 64.f));
 
-	Ptr<CTexture> pTileAtlas = CAssetMgr::GetInst()->Load<CTexture>(L"TileAtlasTex", L"texture\\TILE.bmp");
+	Ptr<CTexture> pTileAtlas = CAssetMgr::GetInst()->FindAsset<CTexture>(L"texture\\TILE.bmp");
 	pTileMapObj->TileMap()->SetAtlasTexture(pTileAtlas);
 	pTileMapObj->TileMap()->SetAtlasTileSize(Vec2(64.f, 64.f));
 
@@ -158,7 +159,7 @@ void CTestLevel::CreateTestLevel()
 	pLevel->AddObject(0, pGrayFilterObj);
 
 
-	ChangeLevel(pLevel, LEVEL_STATE::PLAY);
+	ChangeLevel(pLevel, LEVEL_STATE::STOP);
 
 	// 충돌 지정
 	CCollisionMgr::GetInst()->CollisionCheck(3, 4); // Player vs Monster

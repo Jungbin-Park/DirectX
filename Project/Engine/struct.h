@@ -45,6 +45,14 @@ struct tLightInfo
 	int			padding[3]; // 패딩
 };
 
+struct tPixel
+{
+	BYTE b;
+	BYTE g;
+	BYTE r;
+	BYTE a;
+};
+
 
 // ====================
 // 상수 버퍼 연동 구조체

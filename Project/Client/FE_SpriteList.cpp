@@ -137,7 +137,7 @@ void FE_SpriteList::ShowList()
 	ImGui::SetCursorPosX((ImGui::GetWindowSize().x * 0.5f) - 100.f);
 	if (ImGui::Button("Add", ImVec2(100.f, 18.f)))
 	{
-		ListUI* pListUI = (ListUI*)CEditorMgr::GetInst()->FindEditorUI("ListUI");
+		ListUI* pListUI = (ListUI*)CEditorMgr::GetInst()->FindEditorUI("List");
 		pListUI->SetShowNameOnly(true);
 		pListUI->SetName("Sprite");
 

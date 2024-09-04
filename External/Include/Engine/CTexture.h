@@ -23,6 +23,8 @@ public:
     ComPtr<ID3D11UnorderedAccessView>   GetUAV() { return m_UAV; }
     const D3D11_TEXTURE2D_DESC&         GetDesc() { return m_Desc; }
 
+    tPixel* GetPixels() { return (tPixel*)m_Image.GetPixels(); }
+
 public:
     UINT Width() { return m_Desc.Width; }
     UINT Height() { return m_Desc.Height; }

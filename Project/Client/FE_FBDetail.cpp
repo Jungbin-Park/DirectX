@@ -109,7 +109,7 @@ void FE_FBDetail::SelectMode()
 		if (ImGui::Button("Load", ImVec2(100.f, 18.f)))
 		{
 			m_Mode[1] = true;
-			ListUI* pListUI = (ListUI*)CEditorMgr::GetInst()->FindEditorUI("ListUI");
+			ListUI* pListUI = (ListUI*)CEditorMgr::GetInst()->FindEditorUI("List");
 			pListUI->SetShowNameOnly(true);
 			pListUI->SetName("FlipBook");
 

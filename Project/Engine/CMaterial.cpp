@@ -8,9 +8,13 @@
 #include "CPathMgr.h"
 
 
-CMaterial::CMaterial()
+CMaterial::CMaterial(bool _IsEngine)
 	: CAsset(ASSET_TYPE::MATERIAL)
 {
+		if (_IsEngine)
+		{
+			SetEngineAsset();
+		}
 }
 
 CMaterial::~CMaterial()

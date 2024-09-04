@@ -138,17 +138,20 @@ enum class DEBUG_SHAPE
 
 enum TASK_TYPE
 {
-	// Param_0 : Layer, Param_1 : Object Adress
+	// Param_0 : Layer, Param_1 : Object Address
 	CREATE_OBJECT,
 
-	// Param_0 : Delete Object Adress
+	// Param_0 : Delete Object Address
 	DELETE_OBJECT,
 
 	// Param_0 : Next Level State
 	CHANGE_LEVELSTATE,
 
-	// Param_0 : Level Adress, Param_1 : Level State
+	// Param_0 : Level Address, Param_1 : Level State
 	CHANGE_LEVEL,
+
+	// Param_0 : AssetAddress
+	DEL_ASSET,
 
 	LEVEL_CHANGED,
 	ASSET_CHANGED,

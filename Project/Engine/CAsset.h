@@ -8,13 +8,16 @@ private:
     wstring             m_Key;
     wstring             m_RelativePath;
     const ASSET_TYPE    m_Type;
-
     int                 m_RefCount;
+
+    bool                m_Engine;
 
 public:
     const wstring& GetKey() { return m_Key; }
     const wstring& GetRelativePath() { return m_RelativePath; }
     ASSET_TYPE GetAssetType() { return m_Type; }
+    UINT GetRefCount() { return m_RefCount; }
+    bool IsEngineAsset() { return m_Engine; }
 
 protected:
     void SetKey(const wstring& _Key) { m_Key = _Key; }
@@ -29,6 +32,10 @@ private:
             delete this;
     }
 
+protected:
+    void SetEngineAsset() { m_Engine = true; }
+
+private:
     // AssetMgr를 통해 저장/로드가 가능하도록 private
     virtual int Save(const wstring& _RelativePath) = 0;
     virtual int Load(const wstring& _FilePath) = 0;

@@ -50,6 +50,7 @@ void CAssetMgr::CreateEngineMesh()
 
 	pMesh = new CMesh;
 	pMesh->Create(arrVtx, 4, arrIdx, 6);
+	pMesh->SetEngineAsset();
 	AddAsset(L"RectMesh", pMesh);
 
 	// RectMesh_Debug
@@ -57,6 +58,7 @@ void CAssetMgr::CreateEngineMesh()
 
 	pMesh = new CMesh;
 	pMesh->Create(arrVtx, 4, arrIdx, 5);
+	pMesh->SetEngineAsset();
 	AddAsset(L"RectMesh_Debug", pMesh);
 
 
@@ -97,6 +99,7 @@ void CAssetMgr::CreateEngineMesh()
 
 	pMesh = new CMesh;
 	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->SetEngineAsset();
 	AddAsset(L"CircleMesh", pMesh);
 
 	// CircleMesh_Debug
@@ -108,6 +111,7 @@ void CAssetMgr::CreateEngineMesh()
 	
 	pMesh = new CMesh;
 	pMesh->Create(vecVtx.data(), (UINT)vecVtx.size(), vecIdx.data(), (UINT)vecIdx.size());
+	pMesh->SetEngineAsset();
 	AddAsset(L"CircleMesh_Debug", pMesh);
 }
 
@@ -115,18 +119,20 @@ void CAssetMgr::CreateEngineTexture()
 {
 	// PostProcess 용도 텍스쳐 생성
 	Vec2 Resolution = CDevice::GetInst()->GetResolution();
-	CreateTexture(L"PostProcessTex", (UINT)Resolution.x, (UINT)Resolution.y
+	Ptr<CTexture> pPostProcessTex = CreateTexture(
+		L"PostProcessTex"
+		, (UINT)Resolution.x, (UINT)Resolution.y
 		, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE);
 
 	// Noise Texture
-	Load<CTexture>(L"texture\\noise\\noise_01.png", L"texture\\noise\\noise_01.png");
+	/*Load<CTexture>(L"texture\\noise\\noise_01.png", L"texture\\noise\\noise_01.png");
 	Load<CTexture>(L"texture\\noise\\noise_02.png", L"texture\\noise\\noise_02.png");
-	Load<CTexture>(L"texture\\noise\\noise_03.jpg", L"texture\\noise\\noise_03.jpg");
+	Load<CTexture>(L"texture\\noise\\noise_03.jpg", L"texture\\noise\\noise_03.jpg");*/
 }
 
 void CAssetMgr::CreateEngineSprite()
 {
-	wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
+	//wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
 
 	//Ptr<CSprite> pSprite = nullptr;
 
@@ -141,7 +147,6 @@ void CAssetMgr::CreateEngineSprite()
 	//	pSprite->Save(strContentPath + L"Animation\\" + Buffer + L".sprite");
 	//}
 
-
 	//Ptr<CFlipBook> pFilpBook = new CFlipBook;
 
 	//for (int i = 0; i < 10; ++i)
@@ -154,8 +159,8 @@ void CAssetMgr::CreateEngineSprite()
 	//AddAsset(L"Link_MoveDown", pFilpBook);
 	//pFilpBook->Save(strContentPath + L"Animation\\" + L"Link_MoveDown" + L".flip");
 
-	Ptr<CFlipBook> pFilpBook = new CFlipBook;
-	Load<CFlipBook>(L"Link_MoveDown", L"Animation\\Link_MoveDown.flip");
+	//Ptr<CFlipBook> pFilpBook = new CFlipBook;
+	//Load<CFlipBook>(L"Link_MoveDown", L"Animation\\Link_MoveDown.flip");
 }
 
 void CAssetMgr::CreateEngineGraphicShader()
@@ -242,28 +247,28 @@ void CAssetMgr::CreateEngineMaterial()
 	Ptr<CMaterial>	pMtrl = nullptr;
 
 	// Std2DMtrl
-	pMtrl = new CMaterial();
+	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindAsset<CGraphicShader>(L"Std2DShader"));
 	AddAsset(L"Std2DMtrl", pMtrl);
 	//Load<CMaterial>(L"Std2DMtrl", L"material\\std2d.mtrl");
 
 	// Std2DAlphaBlendMtrl
-	pMtrl = new CMaterial();
+	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindAsset<CGraphicShader>(L"Std2DAlphaBlendShader"));
 	AddAsset(L"Std2DAlphaBlendMtrl", pMtrl);
 
 	// DebugShapeMtrl
-	pMtrl = new CMaterial();
+	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindAsset<CGraphicShader>(L"DebugShapeShader"));
 	AddAsset(L"DebugShapeMtrl", pMtrl);
 
 	// TileMapMtrl
-	pMtrl = new CMaterial();
+	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindAsset<CGraphicShader>(L"TileMapShader"));
 	AddAsset(L"TileMapMtrl", pMtrl);
 
 	// GrayFilterMtrl
-	pMtrl = new CMaterial();
+	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindAsset<CGraphicShader>(L"GrayFilterShader"));
 	pMtrl->SetTexParam(TEX_0, FindAsset<CTexture>(L"PostProcessTex"));
 	pMtrl->SetTexParam(TEX_1, FindAsset<CTexture>(L"texture\\noise\\noise_01.png"));
@@ -272,7 +277,7 @@ void CAssetMgr::CreateEngineMaterial()
 	AddAsset(L"GrayFilterMtrl", pMtrl);
 
 	// DistortionMtrl
-	pMtrl = new CMaterial();
+	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindAsset<CGraphicShader>(L"DistortionShader"));
 	pMtrl->SetTexParam(TEX_0, FindAsset<CTexture>(L"PostProcessTex"));
 	pMtrl->SetTexParam(TEX_1, FindAsset<CTexture>(L"texture\\noise\\noise_01.png"));

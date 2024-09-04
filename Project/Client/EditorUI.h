@@ -29,7 +29,6 @@ public:
 	const vector<EditorUI*>& GetChildren() { return m_vecChildUI; }
 
 	void SetName(const string& _Name);
-
 	const string& GetName() { return m_Name; }
 
 	UINT GetID() { return m_ID; }

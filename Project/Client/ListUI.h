@@ -12,6 +12,8 @@ private:
     EditorUI*       m_UI;
     DELEGATE_1      m_MemFunc;
 
+    bool            m_ShowNameOnly;
+
 public:
     void AddItem(const string& _item);
     void AddList(const vector<string>& _list);
@@ -22,7 +24,10 @@ public:
     }
 
     string GetSelectName() { return m_SelectedName; }
+    
+    void SetShowNameOnly(bool _Show) { m_ShowNameOnly = _Show; }
 
+public:
     virtual void Activate() override;
     virtual void Deactivate() override;
 

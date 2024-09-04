@@ -92,10 +92,19 @@ void CTaskMgr::ExecuteTask()
 		{
 			CAssetMgr::GetInst()->m_Changed = true;
 		}
+		break;
 
 		case TASK_TYPE::LEVEL_CHANGED:
 		{
 			CLevelMgr::GetInst()->m_LevelChanged = true;
+		}
+		break;
+
+		case TASK_TYPE::DEL_ASSET:
+		{
+			CAsset* pAsset = (CAsset*)task.Param_0;
+			ASSET_TYPE Type = pAsset->GetAssetType();
+			CAssetMgr::GetInst()->DeleteAsset(Type, pAsset->GetKey());
 		}
 		break;
 		}

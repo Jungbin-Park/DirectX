@@ -34,7 +34,7 @@ public:
 
 public:
     CLONE(CMaterial);
-    CMaterial();
+    CMaterial(bool _IsEngine = false);
     ~CMaterial();
 };
 
