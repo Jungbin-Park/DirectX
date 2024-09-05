@@ -136,8 +136,17 @@
     <Filter Include="EditorUI\09. FilpBookEditor\FE_Sub\FE_Detail">
       <UniqueIdentifier>{27b31243-6190-4e16-a6f7-aea57d608c01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="EditorUI\09. FilpBookEditor\FE_Sub\FE_AtlasView">
+    <Filter Include="EditorUI\10. TileMapEditor\TE_Sub">
+      <UniqueIdentifier>{6e914dce-5abe-4c2a-921f-6e341b980219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorUI\09. FilpBookEditor\FE_Sub\FE_FBViewer">
       <UniqueIdentifier>{51ad5823-b97d-47e8-93fa-536e617b43c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorUI\10. TileMapEditor\TE_Sub\TE_Detail">
+      <UniqueIdentifier>{e7a408f1-4dff-489f-93ad-720a1595a756}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorUI\10. TileMapEditor\TE_Sub\TE_Viewer">
+      <UniqueIdentifier>{45d52070-9d3f-4ddd-834d-ca2477a89903}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -307,7 +316,19 @@
       <Filter>EditorUI\09. FilpBookEditor\FE_Sub\FE_Detail</Filter>
     </ClInclude>
     <ClInclude Include="FE_FBViewer.h">
-      <Filter>EditorUI\09. FilpBookEditor\FE_Sub\FE_AtlasView</Filter>
+      <Filter>EditorUI\09. FilpBookEditor\FE_Sub\FE_FBViewer</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapEditor.h">
+      <Filter>EditorUI\10. TileMapEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="TE_Sub.h">
+      <Filter>EditorUI\10. TileMapEditor\TE_Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="TE_Detail.h">
+      <Filter>EditorUI\10. TileMapEditor\TE_Sub\TE_Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="TE_Viewer.h">
+      <Filter>EditorUI\10. TileMapEditor\TE_Sub\TE_Viewer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -480,7 +501,19 @@
       <Filter>EditorUI\09. FilpBookEditor\FE_Sub\FE_Detail</Filter>
     </ClCompile>
     <ClCompile Include="FE_FBViewer.cpp">
-      <Filter>EditorUI\09. FilpBookEditor\FE_Sub\FE_AtlasView</Filter>
+      <Filter>EditorUI\09. FilpBookEditor\FE_Sub\FE_FBViewer</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapEditor.cpp">
+      <Filter>EditorUI\10. TileMapEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="TE_Sub.cpp">
+      <Filter>EditorUI\10. TileMapEditor\TE_Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="TE_Detail.cpp">
+      <Filter>EditorUI\10. TileMapEditor\TE_Sub\TE_Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="TE_Viewer.cpp">
+      <Filter>EditorUI\10. TileMapEditor\TE_Sub\TE_Viewer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

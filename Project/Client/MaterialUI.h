@@ -17,6 +17,7 @@ private:
 
 private:
     void SelectShader(DWORD_PTR _ListUI);
+    void SaveMaterialToFile();
 
 public:
     MaterialUI();

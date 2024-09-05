@@ -197,6 +197,10 @@
     <ClInclude Include="SpriteEditor.h" />
     <ClInclude Include="SpriteUI.h" />
     <ClInclude Include="TextureUI.h" />
+    <ClInclude Include="TE_Detail.h" />
+    <ClInclude Include="TE_Sub.h" />
+    <ClInclude Include="TE_Viewer.h" />
+    <ClInclude Include="TileMapEditor.h" />
     <ClInclude Include="TileMapUI.h" />
     <ClInclude Include="TransformUI.h" />
     <ClInclude Include="EditorUI.h" />
@@ -272,6 +276,10 @@
     <ClCompile Include="SpriteEditor.cpp" />
     <ClCompile Include="SpriteUI.cpp" />
     <ClCompile Include="TextureUI.cpp" />
+    <ClCompile Include="TE_Detail.cpp" />
+    <ClCompile Include="TE_Sub.cpp" />
+    <ClCompile Include="TE_Viewer.cpp" />
+    <ClCompile Include="TileMapEditor.cpp" />
     <ClCompile Include="TileMapUI.cpp" />
     <ClCompile Include="TransformUI.cpp" />
     <ClCompile Include="EditorUI.cpp" />

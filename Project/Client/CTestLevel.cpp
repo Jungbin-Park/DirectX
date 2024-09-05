@@ -135,7 +135,7 @@ void CTestLevel::CreateTestLevel()
 
 	pTileMapObj->Transform()->SetRelativePos(Vec3(-500.f, 250.f, 500.f));
 
-	pTileMapObj->TileMap()->SetRowCol(20, 20);
+	pTileMapObj->TileMap()->SetRowCol(5, 5);
 	pTileMapObj->TileMap()->SetTileSize(Vec2(64.f, 64.f));
 
 	Ptr<CTexture> pTileAtlas = CAssetMgr::GetInst()->FindAsset<CTexture>(L"texture\\TILE.bmp");
@@ -146,7 +146,7 @@ void CTestLevel::CreateTestLevel()
 
 
 	// PostProcess Object
-	CGameObject* pGrayFilterObj = new CGameObject;
+	/*CGameObject* pGrayFilterObj = new CGameObject;
 	pGrayFilterObj->SetName(L"GrayFilter");
 	pGrayFilterObj->AddComponent(new CTransform);
 	pGrayFilterObj->AddComponent(new CMeshRender);
@@ -156,7 +156,7 @@ void CTestLevel::CreateTestLevel()
 	pGrayFilterObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pGrayFilterObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"DistortionMtrl"));
 
-	pLevel->AddObject(0, pGrayFilterObj);
+	pLevel->AddObject(0, pGrayFilterObj);*/
 
 
 	ChangeLevel(pLevel, LEVEL_STATE::STOP);
@@ -169,8 +169,8 @@ void CTestLevel::CreateTestLevel()
 
 void CTestLevel::CreatePrefab()
 {
-	CGameObject* pProto = new CGameObject;
-
+	/*CGameObject* pProto = new CGameObject;
+	pProto->SetName(L"Missile");
 	pProto->AddComponent(new CTransform);
 	pProto->AddComponent(new CMeshRender);
 	pProto->AddComponent(new CMissileScript);
@@ -184,4 +184,8 @@ void CTestLevel::CreatePrefab()
 	pPrefab->SetProtoObject(pProto);
 
 	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"MissilePref", pPrefab);
+
+	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
+	FilePath += L"prefab\\Missile.pref";
+	pPrefab->Save(FilePath);*/
 }

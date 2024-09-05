@@ -25,7 +25,7 @@ CEngine::~CEngine()
 
 }
 
-int CEngine::Init(HWND _wnd, POINT _ptResolution)
+int CEngine::Init(HWND _wnd, POINT _ptResolution, OBJECT_SAVE _SaveFunc, OBJECT_LOAD _LoadFunc)
 {
 	m_hWnd = _wnd;
 	m_ptResolution = _ptResolution;
@@ -45,7 +45,9 @@ int CEngine::Init(HWND _wnd, POINT _ptResolution)
 	CRenderMgr::GetInst()->Init();
 	CLevelMgr::GetInst()->Init();
 	
-
+	// Prefab Function µî·Ï
+	CPrefab::g_ObjectSaveFunc = _SaveFunc;
+	CPrefab::g_ObjectLoadFunc = _LoadFunc;
 
 	return S_OK;
 }

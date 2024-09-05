@@ -29,10 +29,19 @@ private:
     CStructuredBuffer*      m_Buffer;           // 각각의 타일정보를 t 레지스터로 전달하기 위한 구조화버퍼
 
 public:
-    void SetRowCol(UINT _Row, UINT _Col);
-    void SetTileSize(Vec2 _Size);
+    void SetRowCol(UINT _Row, UINT _Col);       // 행렬 개수 
+    void SetTileSize(Vec2 _Size);           
     void SetAtlasTexture(Ptr<CTexture> _Atlas);
     void SetAtlasTileSize(Vec2 _TileSize);
+
+    Vec2 GetRowCol() { return Vec2(m_Row, m_Col); }
+    Vec2 GetTileSize() { return m_TileSize; }
+
+    Ptr<CTexture> GetAtlasTexture() { return m_TileAtlas; }
+    Vec2 GetAtlasTileSize() { return m_AtlasTileSize; }
+    int GetAtlasMaxRow() { return m_AtlasMaxRow; }
+    int GetAtlasMaxCol() { return m_AtlasMaxCol; }
+    Vec2 GetAtlasResolution() { return m_AtlasResolution; }
 
 private:
     void ChangeTileMapSize();

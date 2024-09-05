@@ -13,13 +13,19 @@
 #include "Outliner.h"
 #include "ListUI.h"
 #include "MenuUI.h"
+
 #include "SpriteEditor.h"
 #include "SE_AtlasView.h"
 #include "SE_Detail.h"
+
 #include "FlipBookEditor.h"
 #include "FE_FBDetail.h"
 #include "FE_FBViewer.h"
 #include "FE_SpriteList.h"
+
+#include "TileMapEditor.h"
+#include "TE_Detail.h"
+#include "TE_Viewer.h"
 
 void CEditorMgr::InitImGui()
 {
@@ -167,6 +173,25 @@ void CEditorMgr::CreateEditorUI()
     pUI = new FlipBookEditor;
     pUI->Init();
     pUI->SetName("FlipBookEditor");
+    pUI->SetActive(false);
+    m_mapUI.insert(make_pair(pUI->GetName(), pUI));
+
+    // TE_Viewer
+    pUI = new TE_Viewer;
+    pUI->Init();
+    pUI->SetName("TE_Viewer");
+    m_mapUI.insert(make_pair(pUI->GetName(), pUI));
+
+    // TE_Detail
+    pUI = new TE_Detail;
+    pUI->Init();
+    pUI->SetName("TE_Detail");
+    m_mapUI.insert(make_pair(pUI->GetName(), pUI));
+
+    // TileMapEditor
+    pUI = new TileMapEditor;
+    pUI->Init();
+    pUI->SetName("TileMapEditor");
     pUI->SetActive(false);
     m_mapUI.insert(make_pair(pUI->GetName(), pUI));
 }

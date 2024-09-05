@@ -20,6 +20,7 @@ Content::Content()
 	m_Tree->UseDrag(true);		// Tree Drag 기능 ON
 	m_Tree->ShowNameOnly(true);	// 노드의 이름에서 경로 및 확장자는 제외하고 파일이름만 보이기
 	m_Tree->AddClickedDelegate(this, (DELEGATE_1)&Content::AssetClicked);
+	m_Tree->AddPopupDelegate(this, (DELEGATE_1)&Content::PopupMenu);
 
 	// Asset 상태를 Content 의 TreeUI 에 반영
 	RenewContent();
@@ -77,7 +78,7 @@ void Content::AssetClicked(DWORD_PTR _Param)
 
 	Inspector* pInspector = (Inspector*)CEditorMgr::GetInst()->FindEditorUI("Inspector");
 	pInspector->SetTargetAsset(pAsset);
-	ImGui::SetWindowFocus(nullptr);
+	//ImGui::SetWindowFocus(nullptr);
 }
 
 void Content::Reload()
@@ -181,4 +182,29 @@ void Content::LoadAsset(const path& _Path)
 		CAssetMgr::GetInst()->Load<CSprite>(_Path, _Path);
 	else if (ext == L".flip")
 		CAssetMgr::GetInst()->Load<CFlipBook>(_Path, _Path);
+}
+
+void Content::PopupMenu(DWORD_PTR _Param)
+{
+	TreeNode* pTargetNode = (TreeNode*)_Param;
+
+	Ptr<CAsset> pAsset = (CAsset*)pTargetNode->GetData();
+
+	if (pAsset->GetAssetType() == ASSET_TYPE::PREFAB)
+	{
+		if (ImGui::MenuItem("Instantiate"))
+		{
+			Ptr<CPrefab> pPrefab = (CPrefab*)pAsset.Get();
+
+			CGameObject* CloneObj = pPrefab->Instantiate();
+
+			CreateObject(CloneObj, 0);
+
+			ImGui::CloseCurrentPopup();
+		}
+	}
+
+	//if (ImGui::Button("Close"))
+	//ImGui::CloseCurrentPopup();
+	ImGui::EndPopup();
 }

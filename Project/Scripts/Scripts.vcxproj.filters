@@ -8,7 +8,7 @@
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="CScriptMgr.h">
-      <Filter>ScriptMgr</Filter>
+      <Filter>Default\ScriptMgr</Filter>
     </ClInclude>
     <ClInclude Include="CCameraMoveScript.h">
       <Filter>Scripts</Filter>
@@ -28,7 +28,7 @@
       <Filter>Default</Filter>
     </ClCompile>
     <ClCompile Include="CScriptMgr.cpp">
-      <Filter>ScriptMgr</Filter>
+      <Filter>Default\ScriptMgr</Filter>
     </ClCompile>
     <ClCompile Include="CCameraMoveScript.cpp">
       <Filter>Scripts</Filter>
@@ -47,7 +47,7 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{1cbd77c3-9754-4b44-8e3d-b9b705eed3a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ScriptMgr">
+    <Filter Include="Default\ScriptMgr">
       <UniqueIdentifier>{f1247b0a-64be-43a1-be14-1971e3cff587}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

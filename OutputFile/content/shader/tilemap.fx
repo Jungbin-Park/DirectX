@@ -61,7 +61,7 @@ float4 PS_TileMap(VS_OUT _in) : SV_Target
     if (IsAtlasBind)
     {
         // 픽셀쉐이더에서 본인의 타일이 몇번째 타일인지 알아내야한다.
-        float2 CurColRow = floor(_in.vUV);
+        float2 CurColRow = floor(_in.vUV); // 작거나 같은 정수 반환
         int Idx = TileColRow.x * CurColRow.y + CurColRow.x;
         
         // 그 정보로 g_Buffer 에 전달된 각 타일정보중 본인의 정보에 접근해서 ImgIdx 를 알아낸다.
@@ -70,7 +70,7 @@ float4 PS_TileMap(VS_OUT _in) : SV_Target
         int col = g_Buffer[Idx].ImgIdx % AtlasMaxCol;
         float2 vLeftTopUV = float2(col, row) * TileSliceUV;
         
-        float2 vUV = vLeftTopUV + frac(_in.vUV) * TileSliceUV;
+        float2 vUV = vLeftTopUV + frac(_in.vUV) * TileSliceUV;  // 소수 부분 반환
         vOutColor = AtlasTex.Sample(g_sam_1, vUV);
     }
     else
