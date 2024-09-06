@@ -6,7 +6,7 @@ class SE_Detail :
 {
 private:
     Ptr<CTexture>   m_AtlasTex;
-    CSprite*        m_CurSprite;
+    Ptr<CSprite>    m_CurSprite;
     ImVec2          m_SpriteLT;
     ImVec2          m_SpriteRB;
     ImVec2          m_SpriteSize;

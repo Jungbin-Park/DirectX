@@ -8,6 +8,7 @@
 TileMapEditor::TileMapEditor()
 	: m_Viewer(nullptr)
 	, m_Detail(nullptr)
+	, m_TargetTile(nullptr)
 {
 	UseMenuBar(true);
 }
@@ -18,11 +19,11 @@ TileMapEditor::~TileMapEditor()
 
 void TileMapEditor::Init()
 {
-	m_Viewer = (TE_Viewer*)CEditorMgr::GetInst()->FindEditorUI("TE_Viewer");
-	m_Detail = (TE_Detail*)CEditorMgr::GetInst()->FindEditorUI("TE_Detail");
+	m_Viewer = (TE_Viewer*)CEditorMgr::GetInst()->FindEditorUI("2TE_Viewer");
+	m_Detail = (TE_Detail*)CEditorMgr::GetInst()->FindEditorUI("3TE_Detail");
 
 	m_Viewer->SetMove(false);
-	m_Detail->SetModal(false);
+	m_Detail->SetMove(false);
 
 	m_Viewer->m_Owner = this;
 	m_Detail->m_Owner = this;

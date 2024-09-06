@@ -291,9 +291,6 @@
     <ClInclude Include="FlipBookEditor.h">
       <Filter>EditorUI\09. FilpBookEditor</Filter>
     </ClInclude>
-    <ClInclude Include="FE_SpriteList.h">
-      <Filter>EditorUI\09. FilpBookEditor</Filter>
-    </ClInclude>
     <ClInclude Include="CLevelSaveLoad.h">
       <Filter>Manager\03. LevelSaveLoad</Filter>
     </ClInclude>
@@ -329,6 +326,9 @@
     </ClInclude>
     <ClInclude Include="TE_Viewer.h">
       <Filter>EditorUI\10. TileMapEditor\TE_Sub\TE_Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="FE_SpriteList.h">
+      <Filter>EditorUI\09. FilpBookEditor\FE_Sub</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -476,9 +476,6 @@
     <ClCompile Include="FlipBookEditor.cpp">
       <Filter>EditorUI\09. FilpBookEditor</Filter>
     </ClCompile>
-    <ClCompile Include="FE_SpriteList.cpp">
-      <Filter>EditorUI\09. FilpBookEditor</Filter>
-    </ClCompile>
     <ClCompile Include="CLevelSaveLoad.cpp">
       <Filter>Manager\03. LevelSaveLoad</Filter>
     </ClCompile>
@@ -514,6 +511,9 @@
     </ClCompile>
     <ClCompile Include="TE_Viewer.cpp">
       <Filter>EditorUI\10. TileMapEditor\TE_Sub\TE_Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="FE_SpriteList.cpp">
+      <Filter>EditorUI\09. FilpBookEditor\FE_Sub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

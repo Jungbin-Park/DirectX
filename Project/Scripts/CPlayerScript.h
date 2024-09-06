@@ -5,9 +5,10 @@ class CPlayerScript :
     public CScript
 {
 private:
-    float           m_Speed;
-    Ptr<CTexture>   m_Texture;
-    Ptr<CPrefab>    m_MissilePref;
+    float                   m_Speed;
+    Ptr<CTexture>           m_Texture;
+    Ptr<CPrefab>            m_MissilePref;
+    CFlipBookComponent*     m_FlipBookComponent;
 
 public:
     virtual void Begin() override;

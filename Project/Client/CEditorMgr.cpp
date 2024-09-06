@@ -90,7 +90,7 @@ void CEditorMgr::EditorObjectProgress()
 
 void CEditorMgr::ImGuiTick()
 {
-    ImGui::ShowDemoWindow();
+    //ImGui::ShowDemoWindow();
 
     for (const auto& pair : m_mapUI)
     {

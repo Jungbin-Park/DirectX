@@ -26,8 +26,8 @@ void CTestLevel::CreateTestLevel()
 	Ptr<CMaterial> pAlphaBlendMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DAlphaBlendMtrl");
 	Ptr<CMaterial> pDebugShapeMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"DebugShapeMtrl");
 
-	Ptr<CTexture> pTexture = CAssetMgr::GetInst()->FindAsset<CTexture>(L"texture//Character.png");
-	pAlphaBlendMtrl->SetTexParam(TEX_0, pTexture);
+	//Ptr<CTexture> pTexture = CAssetMgr::GetInst()->FindAsset<CTexture>(L"texture//Character.png");
+	//pAlphaBlendMtrl->SetTexParam(TEX_0, pTexture);
 
 	CreatePrefab();
 
@@ -98,7 +98,7 @@ void CTestLevel::CreateTestLevel()
 	pPlayer->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pPlayer->MeshRender()->SetMaterial(pMtrl);
 
-	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\Link_MoveDown.flip");
+	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\idle.flip");
 	pPlayer->FlipBookComponent()->AddFlipBook(5, pFlipBook);
 	pPlayer->FlipBookComponent()->Play(5, 10, true);
 

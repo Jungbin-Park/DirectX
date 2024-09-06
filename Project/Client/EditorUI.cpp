@@ -2,6 +2,7 @@
 #include "EditorUI.h"
 
 
+
 UINT EditorUI::m_GlobalID = 0;
 
 EditorUI::EditorUI()

@@ -179,19 +179,19 @@ void CEditorMgr::CreateEditorUI()
     // TE_Viewer
     pUI = new TE_Viewer;
     pUI->Init();
-    pUI->SetName("TE_Viewer");
+    pUI->SetName("2TE_Viewer");
     m_mapUI.insert(make_pair(pUI->GetName(), pUI));
 
     // TE_Detail
     pUI = new TE_Detail;
     pUI->Init();
-    pUI->SetName("TE_Detail");
+    pUI->SetName("3TE_Detail");
     m_mapUI.insert(make_pair(pUI->GetName(), pUI));
 
     // TileMapEditor
     pUI = new TileMapEditor;
     pUI->Init();
-    pUI->SetName("TileMapEditor");
+    pUI->SetName("1TileMapEditor");
     pUI->SetActive(false);
     m_mapUI.insert(make_pair(pUI->GetName(), pUI));
 }

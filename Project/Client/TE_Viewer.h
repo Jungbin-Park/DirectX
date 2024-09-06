@@ -11,6 +11,7 @@ private:
 
 
 public:
+    CTileMap* GetTileMap() { return m_Tile; }
 
 private:
     void DrawTile();
