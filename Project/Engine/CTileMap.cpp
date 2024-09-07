@@ -175,3 +175,33 @@ void CTileMap::LoadFromFile(FILE* _File)
 		SetAtlasTexture(m_TileAtlas);
 	}
 }
+
+int CTileMap::Save(const wstring& _FilePath)
+{
+	FILE* File = nullptr;
+	_wfopen_s(&File, _FilePath.c_str(), L"wb");
+
+	if (nullptr == File)
+		return E_FAIL;
+
+	SaveToFile(File);
+
+	fclose(File);
+
+	return S_OK;
+}
+
+int CTileMap::Load(const wstring& _FilePath)
+{
+	FILE* File = nullptr;
+	_wfopen_s(&File, _FilePath.c_str(), L"rb");
+
+	if (nullptr == File)
+		return E_FAIL;
+
+	LoadFromFile(File);
+
+	fclose(File);
+
+	return S_OK;
+}

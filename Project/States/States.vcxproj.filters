@@ -4,6 +4,9 @@
     <Filter Include="01. Manager">
       <UniqueIdentifier>{4f375c5d-e0eb-4429-accd-28593866d01c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. States">
+      <UniqueIdentifier>{2dc39483-7af1-4d63-8f59-f24f34e98225}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CStateMgr.h">

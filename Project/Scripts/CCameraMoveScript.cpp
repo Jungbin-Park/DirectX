@@ -23,13 +23,13 @@ void CCameraMoveScript::Tick()
 		PerspectiveMove();
 	}
 
-	if (KEY_TAP(KEY::P))
+	/*if (KEY_TAP(KEY::P))
 	{
 		if (PROJ_TYPE::ORTHOGRAPHIC == Camera()->GetProjType())
 			Camera()->SetProjType(PROJ_TYPE::PERSPECTIVE);
 		else
 			Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
-	}
+	}*/
 
 }
 
@@ -37,15 +37,15 @@ void CCameraMoveScript::OrthoGraphicMove()
 {
 	float Speed = m_CamSpeed;
 
-	if (KEY_PRESSED(KEY::LSHIFT))
+	/*if (KEY_PRESSED(KEY::LSHIFT))
 	{
 		Speed *= 3.f;
-	}
+	}*/
 
 	Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 	Vec3 vPos = Transform()->GetRelativePos();
 
-	if (KEY_PRESSED(KEY::W))
+	/*if (KEY_PRESSED(KEY::W))
 	{
 		vPos.y += DT * Speed;
 	}
@@ -63,7 +63,7 @@ void CCameraMoveScript::OrthoGraphicMove()
 	if (KEY_PRESSED(KEY::D))
 	{
 		vPos.x += DT * Speed;
-	}
+	}*/
 
 	Transform()->SetRelativePos(vPos);
 

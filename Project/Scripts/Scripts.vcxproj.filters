@@ -10,15 +10,16 @@
     <ClInclude Include="CScriptMgr.h">
       <Filter>Default\ScriptMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>Scripts\Player</Filter>
+    </ClInclude>
     <ClInclude Include="CCameraMoveScript.h">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CMissileScript.h">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Object</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
+    <ClInclude Include="CMarkerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -30,15 +31,16 @@
     <ClCompile Include="CScriptMgr.cpp">
       <Filter>Default\ScriptMgr</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>Scripts\Player</Filter>
+    </ClCompile>
     <ClCompile Include="CCameraMoveScript.cpp">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CMissileScript.cpp">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Object</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
+    <ClCompile Include="CMarkerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -49,6 +51,15 @@
     </Filter>
     <Filter Include="Default\ScriptMgr">
       <UniqueIdentifier>{f1247b0a-64be-43a1-be14-1971e3cff587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Player">
+      <UniqueIdentifier>{0d8188e4-3245-45c9-9f8a-fe9671ac2c2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Camera">
+      <UniqueIdentifier>{9f2ac381-0f06-43c5-9f9d-ff94ca2da475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Object">
+      <UniqueIdentifier>{6e2e0431-2b61-4626-a63f-5815fa01acab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

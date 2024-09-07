@@ -33,6 +33,7 @@ public:
     void SetTileSize(Vec2 _Size);           
     void SetAtlasTexture(Ptr<CTexture> _Atlas);
     void SetAtlasTileSize(Vec2 _TileSize);
+    void SetTileInfo(float _vecIdx, float _ImgIdx) { m_vecTileInfo[_vecIdx].ImgIdx = _ImgIdx; }
 
     Vec2 GetRowCol() { return Vec2(m_Row, m_Col); }
     Vec2 GetTileSize() { return m_TileSize; }
@@ -42,6 +43,7 @@ public:
     int GetAtlasMaxRow() { return m_AtlasMaxRow; }
     int GetAtlasMaxCol() { return m_AtlasMaxCol; }
     Vec2 GetAtlasResolution() { return m_AtlasResolution; }
+    vector<tTileInfo>& GetTileInfo() { return m_vecTileInfo; }
 
 private:
     void ChangeTileMapSize();
@@ -54,6 +56,9 @@ public:
 
     virtual void SaveToFile(FILE* _File) override;
     virtual void LoadFromFile(FILE* _File) override;
+
+    int Save(const wstring& _FilePath);
+    int Load(const wstring& _FilePath);
 
 public:
     CLONE(CTileMap);

@@ -2,6 +2,7 @@
 #include "CPlayerScript.h"
 
 #include "CMissileScript.h"
+#include <Engine/CFlipBookComponent.h>
 
 
 CPlayerScript::CPlayerScript()
@@ -20,7 +21,14 @@ CPlayerScript::~CPlayerScript()
 void CPlayerScript::Begin()
 {
 	GetRenderComponent()->GetDynamicMaterial();
-	
+	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\idle.flip");
+	FlipBookComponent()->AddFlipBook(0, pFlipBook);
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\moveup.flip");
+	FlipBookComponent()->AddFlipBook(1, pFlipBook);
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\movedown.flip");
+	FlipBookComponent()->AddFlipBook(2, pFlipBook);
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\moveright.flip");
+	FlipBookComponent()->AddFlipBook(3, pFlipBook);
 	//m_MissilePref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"MissilePref");
 }
 
@@ -30,24 +38,29 @@ void CPlayerScript::Tick()
 	
 	if (KEY_PRESSED(KEY::A))
 	{
-		
 		vPos.x -= DT * m_Speed;
 	}
-		
 	if (KEY_PRESSED(KEY::D))
 	{
+		FlipBookComponent()->FindFlipBook(L"moveright");
+		FlipBookComponent()->Play(3, 10, true);
 		vPos.x += DT * m_Speed;
 	}
-		
 	if (KEY_PRESSED(KEY::W))
 	{
+		FlipBookComponent()->FindFlipBook(L"moveup");
+		FlipBookComponent()->Play(1, 10, true);
 		vPos.y += DT * m_Speed;
 	}
-		
 	if (KEY_PRESSED(KEY::S))
 	{
 		FlipBookComponent()->FindFlipBook(L"movedown");
+		FlipBookComponent()->Play(2, 10, true);
 		vPos.y -= DT * m_Speed;
+	}
+	else
+	{
+
 	}
 		
 

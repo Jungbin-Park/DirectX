@@ -5,6 +5,8 @@ class TileMapUI :
     public ComponentUI
 {
 private:
+
+private:
     virtual void Update() override;
 
 public:

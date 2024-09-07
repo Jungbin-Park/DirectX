@@ -182,6 +182,7 @@ void Content::LoadAsset(const path& _Path)
 		CAssetMgr::GetInst()->Load<CSprite>(_Path, _Path);
 	else if (ext == L".flip")
 		CAssetMgr::GetInst()->Load<CFlipBook>(_Path, _Path);
+
 }
 
 void Content::PopupMenu(DWORD_PTR _Param)

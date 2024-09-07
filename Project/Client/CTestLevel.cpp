@@ -15,6 +15,7 @@
 #include <Scripts/CPlayerScript.h>
 #include <Scripts/CMissileScript.h>
 #include <Scripts/CCameraMoveScript.h>
+#include <Scripts/CMArkerScript.h>
 
 #include "CLevelSaveLoad.h"
 
@@ -99,8 +100,24 @@ void CTestLevel::CreateTestLevel()
 	pPlayer->MeshRender()->SetMaterial(pMtrl);
 
 	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\idle.flip");
-	pPlayer->FlipBookComponent()->AddFlipBook(5, pFlipBook);
-	pPlayer->FlipBookComponent()->Play(5, 10, true);
+	pPlayer->FlipBookComponent()->AddFlipBook(0, pFlipBook);
+	pPlayer->FlipBookComponent()->Play(0, 10, true);
+
+	// È­»ìÇ¥
+	CGameObject* pMarker = new CGameObject;
+	pMarker->SetName(L"pMarker");
+
+	pMarker->AddComponent(new CTransform);
+	pMarker->AddComponent(new CMeshRender);
+	pMarker->AddComponent(new CMarkerScript);
+
+	pMarker->Transform()->SetRelativePos(0.f, 0.f, 0.f);
+	pMarker->Transform()->SetRelativeScale(1.f, 1.f, 1.f);
+
+	pMarker->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pMarker->MeshRender()->SetMaterial(pMtrl);
+
+	pPlayer->AddChild(pMarker);
 
 	pLevel->AddObject(3, pPlayer);
 
@@ -130,17 +147,22 @@ void CTestLevel::CreateTestLevel()
 	CGameObject* pTileMapObj = new CGameObject;
 	pTileMapObj->SetName(L"TileMap");
 
+	wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
+	CTileMap* pTile = new CTileMap;
 	pTileMapObj->AddComponent(new CTransform);
-	pTileMapObj->AddComponent(new CTileMap);
+	pTileMapObj->AddComponent(pTile);
 
+	pTile->Load(strContentPath + L"tilemap\\black.tile");
 	pTileMapObj->Transform()->SetRelativePos(Vec3(-500.f, 250.f, 500.f));
 
-	pTileMapObj->TileMap()->SetRowCol(5, 5);
+	/*pTileMapObj->TileMap()->SetRowCol(5, 5);
 	pTileMapObj->TileMap()->SetTileSize(Vec2(64.f, 64.f));
 
 	Ptr<CTexture> pTileAtlas = CAssetMgr::GetInst()->FindAsset<CTexture>(L"texture\\TILE.bmp");
 	pTileMapObj->TileMap()->SetAtlasTexture(pTileAtlas);
-	pTileMapObj->TileMap()->SetAtlasTileSize(Vec2(64.f, 64.f));
+	pTileMapObj->TileMap()->SetAtlasTileSize(Vec2(128.f, 128.f));
+
+	pTile->Save(strContentPath + L"tilemap\\test1.tile");*/
 
 	pLevel->AddObject(2, pTileMapObj);
 
@@ -188,4 +210,8 @@ void CTestLevel::CreatePrefab()
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
 	FilePath += L"prefab\\Missile.pref";
 	pPrefab->Save(FilePath);*/
+
+	/*CTileMap* pTile = new CTileMap;
+	pTile->SetName(L"map1");*/
+
 }

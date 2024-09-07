@@ -157,6 +157,9 @@
     <ClInclude Include="SimpleMath.h">
       <Filter>Module</Filter>
     </ClInclude>
+    <ClInclude Include="CFSM.h">
+      <Filter>08. Component\09. FSM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -291,6 +294,9 @@
     </ClCompile>
     <ClCompile Include="CFontMgr.cpp">
       <Filter>04. Manager\09. FontMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CFSM.cpp">
+      <Filter>08. Component\09. FSM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -461,6 +467,9 @@
     </Filter>
     <Filter Include="HLSL\02. Render\02. 3D">
       <UniqueIdentifier>{c2bb6ea6-8bbb-4098-92b3-5e47e2e3cb32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\09. FSM">
+      <UniqueIdentifier>{84bd8840-8363-4a83-bc6d-92f38a70e1e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
