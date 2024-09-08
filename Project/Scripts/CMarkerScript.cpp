@@ -22,13 +22,14 @@ void CMarkerScript::Tick()
 	CKeyMgr::GetInst()->MouseCapture(true);
 
 	Vec2 vMousePos = CKeyMgr::GetInst()->GetMousePos();
+	vMousePos -= Vec2(640.f, 384.f);
 
 	Vec2 pPos = Vec2(Transform()->GetRelativePos().x, Transform()->GetRelativePos().y);
 
 	Vec2 vMouseDir = vMousePos - pPos;
-	//vMouseDir.Normalize();
+	vMouseDir.Normalize();
 
-	float angle = atan2(vMouseDir.y, vMouseDir.x);
+	float angle = atan2(vMouseDir.y, -vMouseDir.x);
 
 	Vec3 vRot = Transform()->GetRelativeRotation();
 	vRot.z = angle;
