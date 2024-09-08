@@ -24,9 +24,11 @@ void CTestLevel::CreateTestLevel()
 {
 	// Material
 	Ptr<CMaterial> pMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl");
+	Ptr<CMaterial> pmMtrl = CAssetMgr::GetInst()->Load<CMaterial>(L"material\\std2d.mtrl", L"material\\std2d.mtrl");
 	Ptr<CMaterial> pAlphaBlendMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DAlphaBlendMtrl");
 	Ptr<CMaterial> pDebugShapeMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"DebugShapeMtrl");
 
+	//pmMtrl->SetTexParam(TEX_0, CAssetMgr::GetInst()->FindAsset<CTexture>(L"PlayerMarker.png"));
 	//Ptr<CTexture> pTexture = CAssetMgr::GetInst()->FindAsset<CTexture>(L"texture//Character.png");
 	//pAlphaBlendMtrl->SetTexParam(TEX_0, pTexture);
 
@@ -111,11 +113,11 @@ void CTestLevel::CreateTestLevel()
 	pMarker->AddComponent(new CMeshRender);
 	pMarker->AddComponent(new CMarkerScript);
 
-	pMarker->Transform()->SetRelativePos(0.f, 0.f, 0.f);
-	pMarker->Transform()->SetRelativeScale(1.f, 1.f, 1.f);
+	pMarker->Transform()->SetRelativePos(0.f, -0.3f, 0.f);
+	pMarker->Transform()->SetRelativeScale(0.6f, 0.6f, 0.f);
 
 	pMarker->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pMarker->MeshRender()->SetMaterial(pMtrl);
+	pMarker->MeshRender()->SetMaterial(pmMtrl);
 
 	pPlayer->AddChild(pMarker);
 
