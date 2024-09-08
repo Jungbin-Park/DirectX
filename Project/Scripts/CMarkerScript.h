@@ -1,5 +1,5 @@
 #pragma once
-#include "C:\DirectX\DirectX\External\Include\Engine\CScript.h"
+#include <Engine/CScript.h>
 
 class CMarkerScript :
     public CScript

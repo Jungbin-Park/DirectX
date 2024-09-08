@@ -13,6 +13,7 @@ private:
 
 public:
 	HWND GetMainWnd() { return m_hWnd; }
+	POINT GetResolution() { return m_ptResolution; }
 
 public:
 	int Init(HWND _wnd, POINT _ptResolution, OBJECT_SAVE _SaveFunc, OBJECT_LOAD _LoadFunc);
