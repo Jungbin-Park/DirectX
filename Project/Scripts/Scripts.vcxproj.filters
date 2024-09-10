@@ -16,10 +16,15 @@
     <ClInclude Include="CCameraMoveScript.h">
       <Filter>Scripts\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CMissileScript.h">
+    <ClInclude Include="CSlashScript.h">
       <Filter>Scripts\Object</Filter>
     </ClInclude>
-    <ClInclude Include="CMarkerScript.h" />
+    <ClInclude Include="CursorScript.h">
+      <Filter>Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CMarkerScript.h">
+      <Filter>Scripts\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -37,10 +42,15 @@
     <ClCompile Include="CCameraMoveScript.cpp">
       <Filter>Scripts\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CMissileScript.cpp">
+    <ClCompile Include="CSlashScript.cpp">
       <Filter>Scripts\Object</Filter>
     </ClCompile>
-    <ClCompile Include="CMarkerScript.cpp" />
+    <ClCompile Include="CursorScript.cpp">
+      <Filter>Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CMarkerScript.cpp">
+      <Filter>Scripts\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">

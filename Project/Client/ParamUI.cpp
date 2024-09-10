@@ -274,3 +274,8 @@ bool ParamUI::InputPrefab(Ptr<CPrefab>& _CurPrefab, const string& _Desc, EditorU
 
 	return false;
 }
+
+bool ParamUI::InputObject(CGameObject& _CurObj, const string& _Desc, EditorUI* _Inst, DELEGATE_1 _MemFunc)
+{
+	return false;
+}

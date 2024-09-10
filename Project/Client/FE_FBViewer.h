@@ -20,6 +20,7 @@ private:
 
     bool            m_ShowFrame;
     bool            m_ShowGrid;
+    bool            m_FlipHorizontal;
 
 private:
     void SetImage();
@@ -28,6 +29,7 @@ private:
 
 public:
     void SetCurSprite(Ptr<CSprite> _Sprite) { m_CurSprite = _Sprite; }
+    void SetFlip(bool _FlipHorizontal) { m_FlipHorizontal = _FlipHorizontal; }
 
 public:
     virtual void Init() override;

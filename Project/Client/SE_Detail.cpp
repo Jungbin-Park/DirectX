@@ -16,6 +16,7 @@
 SE_Detail::SE_Detail()
 	: m_CurSprite(nullptr)
 	, m_Active(false)
+	, m_FlipHorizontal(false)
 {
 }
 
@@ -132,8 +133,18 @@ void SE_Detail::SelectedSpriteInfo()
 	ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 	ImVec4 border_col = ImVec4(0.7f, 0.7f, 0.7f, 1.0f);
 
-	ImGui::Image(m_AtlasTex->GetSRV().Get(), ImVec2(100.f, 100.f)
-		, uv_min, uv_max, tint_col, border_col);
+	if (m_FlipHorizontal)
+	{
+		ImGui::Image(m_AtlasTex->GetSRV().Get(), ImVec2(100.f, 100.f)
+			, ImVec2(uv_max.x, uv_min.y), ImVec2(uv_min.x, uv_max.y), tint_col, border_col);
+	}
+	else
+	{
+		ImGui::Image(m_AtlasTex->GetSRV().Get(), ImVec2(100.f, 100.f)
+			, uv_min, uv_max, tint_col, border_col);
+	}
+
+	
 
 	// Sprite Info
 	float ArrSpriteLT[] = { m_SpriteLT.x, m_SpriteLT.y };
@@ -146,6 +157,14 @@ void SE_Detail::SelectedSpriteInfo()
 	ImGui::InputFloat2("Size", ArrSpriteSize);
 
 	ImGui::Spacing();
+
+	if (ImGui::Button("Flip Horizontal", ImVec2(100.f, 18.f)))
+	{
+		if (m_FlipHorizontal)
+			m_FlipHorizontal = false;
+		else
+			m_FlipHorizontal = true;
+	}
 
 	ImGui::SetCursorPosX((ImGui::GetWindowSize().x * 0.5f) + 50.f);
 	ImGui::SetCursorPosY((ImGui::GetWindowSize().y * 0.5f));
@@ -215,7 +234,14 @@ void SE_Detail::SaveSprite()
 			Vec2 vSpriteLT = { m_SpriteLT.x, m_SpriteLT.y };
 			Vec2 vSpriteSize = { m_SpriteSize.x, m_SpriteSize.y };
 
-			m_CurSprite->Create(m_AtlasTex, vSpriteLT, vSpriteSize);
+			if (m_FlipHorizontal)
+			{
+				m_CurSprite->Create(m_AtlasTex, vSpriteLT, vSpriteSize, true);
+			}
+			else
+			{
+				m_CurSprite->Create(m_AtlasTex, vSpriteLT, vSpriteSize);
+			}
 			CalcBackgroundSize(vSpriteSize);
 			m_CurSprite->SetBackground(Vec2(m_Background.x, m_Background.y));
 

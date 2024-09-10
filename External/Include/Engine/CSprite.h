@@ -18,6 +18,7 @@ public:
     void SetSlice(Vec2 _Slice);
     void SetBackground(Vec2 _Background);
     void SetOffset(Vec2 _Offset);
+    void FlipHorizontal(Vec2 _LeftTopPixel, Vec2 _SlicePixel);
 
     Vec2 GetLeftTopUV() { return m_LeftTopUV; }
     Vec2 GetSliceUV() { return m_SliceUV; }
@@ -25,7 +26,7 @@ public:
     Vec2 GetOffsetUV() { return m_OffsetUV; }
 
 public:
-    void Create(Ptr<CTexture> _Atlas, Vec2 _LeftTopPixel, Vec2 _SlicePixel);
+    void Create(Ptr<CTexture> _Atlas, Vec2 _LeftTopPixel, Vec2 _SlicePixel, bool _FlipHorizontal = false);
 
     virtual int Save(const wstring& _FilePath) override;
     virtual int Load(const wstring& _FilePath) override;

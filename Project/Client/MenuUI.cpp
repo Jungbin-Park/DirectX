@@ -84,7 +84,7 @@ void MenuUI::Level()
 			if (LEVEL_STATE::STOP == State)
 			{
 				wstring strLevelPath = CPathMgr::GetInst()->GetContentPath();
-				strLevelPath += L"level\\Temp.lv";
+				strLevelPath += L"level\\Home.lv";
 				CLevelSaveLoad::SaveLevel(strLevelPath, pCurLevel);
 			}
 
@@ -103,7 +103,7 @@ void MenuUI::Level()
 		if (ImGui::MenuItem("Stop"))
 		{
 			wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
-			StrLevelLoadPath += L"level\\Temp.lv";
+			StrLevelLoadPath += L"level\\Home.lv";
 			CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath);
 			ChangeLevel(pLoadedLevel, LEVEL_STATE::STOP);
 

@@ -22,6 +22,8 @@ private:
     bool               m_IsPlaying;
     float              m_AccTime;
 
+    bool               m_FlipHorizontal;
+
 public:
     virtual void Init() override;
     virtual void Update() override;

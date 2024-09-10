@@ -27,7 +27,7 @@ void SpriteEditor::Init()
 	m_AtlasView->m_Owner = this;
 	m_Detail->m_Owner = this;
 
-	m_Detail->SetAtlasTex(CAssetMgr::GetInst()->Load<CTexture>(L"texture\\character\\Wizard1.png", L"texture\\character\\Wizard1.png"));
+	m_Detail->SetAtlasTex(CAssetMgr::GetInst()->Load<CTexture>(L"texture\\character\\wizardSprites.png", L"texture\\character\\wizardSprites.png"));
 }
 
 void SpriteEditor::Update()

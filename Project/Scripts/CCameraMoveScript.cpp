@@ -1,15 +1,25 @@
 #include "pch.h"
 #include "CCameraMoveScript.h"
 
+#include <Engine/CCamera.h>
+#include <Engine/CGameObject.h>
+
 
 CCameraMoveScript::CCameraMoveScript()
 	: CScript(UINT(SCRIPT_TYPE::CAMERAMOVESCRIPT))
 	, m_CamSpeed(500.f)
+	, m_FollowObj(nullptr)
 {
+	//AddScriptParam(SCRIPT_PARAM::PREFAB, "FollowObject", &m_FollowObj);
 }
 
 CCameraMoveScript::~CCameraMoveScript()
 {
+}
+
+void CCameraMoveScript::Begin()
+{
+
 }
 
 void CCameraMoveScript::Tick()
@@ -23,50 +33,17 @@ void CCameraMoveScript::Tick()
 		PerspectiveMove();
 	}
 
-	/*if (KEY_TAP(KEY::P))
-	{
-		if (PROJ_TYPE::ORTHOGRAPHIC == Camera()->GetProjType())
-			Camera()->SetProjType(PROJ_TYPE::PERSPECTIVE);
-		else
-			Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
-	}*/
+	Vec3 vPos = Transform()->GetRelativePos();
+	CGameObject* pFollowObj = GetOwner()->Camera()->GetFollowObj();
+	Vec3 objPos = pFollowObj->Transform()->GetRelativePos();
 
+	vPos = objPos;
+
+	Transform()->SetRelativePos(vPos);
 }
 
 void CCameraMoveScript::OrthoGraphicMove()
 {
-	float Speed = m_CamSpeed;
-
-	/*if (KEY_PRESSED(KEY::LSHIFT))
-	{
-		Speed *= 3.f;
-	}*/
-
-	Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
-	Vec3 vPos = Transform()->GetRelativePos();
-
-	/*if (KEY_PRESSED(KEY::W))
-	{
-		vPos.y += DT * Speed;
-	}
-
-	if (KEY_PRESSED(KEY::S))
-	{
-		vPos.y -= DT * Speed;
-	}
-
-	if (KEY_PRESSED(KEY::A))
-	{
-		vPos.x -= DT * Speed;
-	}
-
-	if (KEY_PRESSED(KEY::D))
-	{
-		vPos.x += DT * Speed;
-	}*/
-
-	Transform()->SetRelativePos(vPos);
-
 	
 }
 

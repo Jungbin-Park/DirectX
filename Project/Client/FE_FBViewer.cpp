@@ -8,6 +8,7 @@ FE_FBViewer::FE_FBViewer()
 	, m_FrameColor(0.7f, 0.7f, 0.7f, 1.0f)
 	, m_ShowFrame(true)
 	, m_ShowGrid(true)
+	, m_FlipHorizontal(false)
 {
 }
 
@@ -75,9 +76,21 @@ void FE_FBViewer::SetImage()
 			crop.y *= ratio;
 		}
 
-		m_StartUV = ImVec2((m_StartUV.x + (m_SliceUV.x / 2.f)) - (m_BackgroundUV.x / 2.f)
-						 , (m_StartUV.y + (m_SliceUV.y / 2.f)) - (m_BackgroundUV.y / 2.f));
-		m_EndUV = ImVec2(m_StartUV.x + m_BackgroundUV.x, m_StartUV.y + m_BackgroundUV.y);
+		if (m_FlipHorizontal)
+		{
+			m_StartUV = ImVec2((m_StartUV.x + (m_SliceUV.x / 2.f)) - (m_BackgroundUV.x / 2.f)
+				, (m_StartUV.y + (m_SliceUV.y / 2.f)) - (m_BackgroundUV.y / 2.f));
+
+			m_EndUV = ImVec2(m_StartUV.x, m_StartUV.y + m_BackgroundUV.y);
+			m_StartUV.x = m_StartUV.x + m_BackgroundUV.x; 
+		}
+		else
+		{
+			m_StartUV = ImVec2((m_StartUV.x + (m_SliceUV.x / 2.f)) - (m_BackgroundUV.x / 2.f)
+				, (m_StartUV.y + (m_SliceUV.y / 2.f)) - (m_BackgroundUV.y / 2.f));
+			m_EndUV = ImVec2(m_StartUV.x + m_BackgroundUV.x, m_StartUV.y + m_BackgroundUV.y);
+		}
+
 
 		ImGui::Image(m_AtlasTex->GetSRV().Get(), crop, m_StartUV, m_EndUV, tint_col, m_FrameColor);
 	}

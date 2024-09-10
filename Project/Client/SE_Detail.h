@@ -14,6 +14,7 @@ private:
     Vec2            m_Background;
 
     bool            m_Active;
+    bool            m_FlipHorizontal;
 
 private:
     void Atlas();

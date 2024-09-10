@@ -41,6 +41,8 @@ void TE_Viewer::DrawTile()
     int atlasRow = m_Tile->GetAtlasMaxRow();
     int atlasCol = m_Tile->GetAtlasMaxCol();
 
+    ImDrawList* drawList = ImGui::GetWindowDrawList();
+
     // 기존 타일 정보 그리기
     for (int r = 0; r < row; ++r)
     {
@@ -81,6 +83,8 @@ void TE_Viewer::DrawTile()
             {
                 // 넘겨 받은 idx 정보로 변경
                 m_Tile->SetTileInfo((r * col) + c, m_ClickedIdx);
+                //drawList->AddImage(tileAtlas->GetSRV().Get(), tilesize, uv_min, uv_max);
+            
             }
         }
     }

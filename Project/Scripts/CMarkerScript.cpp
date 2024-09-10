@@ -28,16 +28,25 @@ void CMarkerScript::Tick()
 	vMousePos -= Vec2(vResoltuion.x / 2.f, vResoltuion.y / 2.f);
 	vMousePos = Vec2(vMousePos.x, -vMousePos.y);
 	Vec3 vPlayerPos = GetOwner()->GetParent()->Transform()->GetRelativePos();
+	Vec3 vPlayerRot = GetOwner()->GetParent()->Transform()->GetRelativeRotation();
 
 	Vec2 pPos = Vec2(vPlayerPos.x, vPlayerPos.y);
 	
 	Vec2 vMouseDir = vMousePos - pPos;
 	vMouseDir.Normalize();
 
-	float angle = atan2(vMouseDir.y, vMouseDir.x);
+	float angle;
+
+	if (vPlayerRot.y == XM_PI)
+		angle = atan2(vMouseDir.y, -vMouseDir.x);
+	else
+		angle = atan2(vMouseDir.y, vMouseDir.x);
 
 	Vec3 vRot = Transform()->GetRelativeRotation();
 	vRot.z = angle;
+
+	
+
 	Transform()->SetRelativeRotation(vRot);
 }
 

@@ -16,6 +16,7 @@ FE_FBDetail::FE_FBDetail()
 	, m_CurFlipBookName("")
 	, m_MaxSpriteIndex(0)
 	, m_IsActive(0)
+	, m_FlipHorizontal(false)
 {
 }
 
@@ -340,6 +341,22 @@ void FE_FBDetail::SpriteInfo()
 	
 
 	ImGui::Text("");
+
+	if (ImGui::Button("Flip Horizontal", ImVec2(100.f, 18.f)))
+	{
+		if (m_FlipHorizontal)
+		{
+			m_FlipHorizontal = false;
+			GetViewer()->SetFlip(false);
+		}
+			
+		else
+		{
+			m_FlipHorizontal = true;
+			GetViewer()->SetFlip(true);
+		}
+			
+	}
 
 	if (!m_IsActive)
 		ImGui::EndDisabled();

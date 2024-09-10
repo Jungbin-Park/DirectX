@@ -37,7 +37,16 @@ void CSprite::SetOffset(Vec2 _Offset)
 	m_OffsetUV = _Offset / AtlasResolution;
 }
 
-void CSprite::Create(Ptr<CTexture> _Atlas, Vec2 _LeftTopPixel, Vec2 _SlicePixel)
+void CSprite::FlipHorizontal(Vec2 _LeftTopPixel, Vec2 _SlicePixel)
+{
+	UINT width = m_Atlas->Width();
+	UINT height = m_Atlas->Height();
+
+	m_LeftTopUV = Vec2((_LeftTopPixel.x + _SlicePixel.x) / (float)width, _LeftTopPixel.y / (float)height);
+	m_SliceUV = Vec2(-_SlicePixel.x / (float)width, _SlicePixel.y / (float)height);
+}
+
+void CSprite::Create(Ptr<CTexture> _Atlas, Vec2 _LeftTopPixel, Vec2 _SlicePixel, bool _FlipHorizontal)
 {
 	m_Atlas = _Atlas;
 	assert(m_Atlas);
@@ -46,8 +55,17 @@ void CSprite::Create(Ptr<CTexture> _Atlas, Vec2 _LeftTopPixel, Vec2 _SlicePixel)
 	UINT height = m_Atlas->Height();
 
 	// UV º¯È¯
-	m_LeftTopUV = Vec2(_LeftTopPixel.x / (float)width, _LeftTopPixel.y / (float)height);	
-	m_SliceUV = Vec2(_SlicePixel.x / (float)width, _SlicePixel.y / (float)height);
+	if (_FlipHorizontal)
+	{
+		m_LeftTopUV = Vec2((_LeftTopPixel.x + _SlicePixel.x) / (float)width, _LeftTopPixel.y / (float)height);
+		m_SliceUV = Vec2(-_SlicePixel.x / (float)width, _SlicePixel.y / (float)height);
+	}
+	else
+	{
+		m_LeftTopUV = Vec2(_LeftTopPixel.x / (float)width, _LeftTopPixel.y / (float)height);
+		m_SliceUV = Vec2(_SlicePixel.x / (float)width, _SlicePixel.y / (float)height);
+	}
+	
 }
 
 int CSprite::Save(const wstring& _FilePath)

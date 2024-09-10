@@ -13,20 +13,22 @@ class CCamera :
     public CComponent
 {
 private:
-    int         m_Priority;
-    UINT        m_LayerCheck;       // 원하는 레이어만 카메라에 찍히도록 설정
+    int             m_Priority;
+    UINT            m_LayerCheck;       // 원하는 레이어만 카메라에 찍히도록 설정
 
-    PROJ_TYPE   m_ProjType;
+    PROJ_TYPE       m_ProjType;
 
-    float       m_Width;
-    float       m_Height;
-    float       m_AspectRatio;      // 종횡 비
-    float       m_Far;              // 카메라가 볼 수 있는 시야 거리
-    float       m_FOV;              // Field Of View(시야 범위, 시야 각)
-    float       m_ProjectionScale;
+    float           m_Width;
+    float           m_Height;
+    float           m_AspectRatio;      // 종횡 비
+    float           m_Far;              // 카메라가 볼 수 있는 시야 거리
+    float           m_FOV;              // Field Of View(시야 범위, 시야 각)
+    float           m_ProjectionScale;
 
-    Matrix      m_matView;
-    Matrix      m_matProj;
+    Matrix          m_matView;
+    Matrix          m_matProj;
+        
+    CGameObject*    m_FollowObj;
 
     vector<CGameObject*>    m_vecOpaque;        // 불투명
     vector<CGameObject*>    m_vecMasked;        // 불투명, 투명
@@ -76,6 +78,9 @@ public:
 
     void SetScale(float _Scale) { m_ProjectionScale = _Scale; }
     float GetScale() { return m_ProjectionScale; }
+
+    void SetFollowObj(CGameObject* _FollowObj) { m_FollowObj = _FollowObj; }
+    CGameObject* GetFollowObj() { return m_FollowObj; }
 
 private:
     void SortGameObject();

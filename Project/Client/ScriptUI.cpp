@@ -111,3 +111,7 @@ void ScriptUI::SelectPrefab(DWORD_PTR _ListUI)
 
 	*m_SelectedPrefab = pPrefab;
 }
+
+void ScriptUI::SelectObject(DWORD_PTR _ListUI)
+{
+}

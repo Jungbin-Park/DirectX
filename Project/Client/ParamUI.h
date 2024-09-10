@@ -24,5 +24,7 @@ public:
 
 	static bool InputTexture(Ptr<CTexture>& _CurTex, const string& _Desc, EditorUI* _Inst = nullptr, DELEGATE_1 _MemFunc = nullptr);
 	static bool InputPrefab(Ptr<CPrefab>& _CurPrefab, const string& _Desc, EditorUI* _Inst = nullptr, DELEGATE_1 _MemFunc = nullptr);
+
+	static bool InputObject(CGameObject& _CurObj, const string& _Desc, EditorUI* _Inst = nullptr, DELEGATE_1 _MemFunc = nullptr);
 };
 

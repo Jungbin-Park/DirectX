@@ -12,6 +12,7 @@
 
 #include "CTimeMgr.h"
 #include "CKeyMgr.h"
+#include "CPathMgr.h"
 #include "CTransform.h"
 
 CCamera::CCamera()
@@ -24,6 +25,7 @@ CCamera::CCamera()
 	, m_Far(100000.f)
 	, m_FOV(XM_PI / 2.f)
 	, m_ProjectionScale(1.f)
+	, m_FollowObj(nullptr)
 {
 	Vec2 vResolution = CDevice::GetInst()->GetResolution();
 	m_Width = vResolution.x;
@@ -208,6 +210,7 @@ void CCamera::SaveToFile(FILE* _File)
 	fwrite(&m_Far, sizeof(float), 1, _File);
 	fwrite(&m_FOV, sizeof(float), 1, _File);
 	fwrite(&m_ProjectionScale, sizeof(float), 1, _File);
+	fwrite(&m_FollowObj, sizeof(CGameObject), 1, _File);
 }
 
 void CCamera::LoadFromFile(FILE* _File)
@@ -221,4 +224,5 @@ void CCamera::LoadFromFile(FILE* _File)
 	fread(&m_Far, sizeof(float), 1, _File);
 	fread(&m_FOV, sizeof(float), 1, _File);
 	fread(&m_ProjectionScale, sizeof(float), 1, _File);
+	fread(&m_FollowObj, sizeof(CGameObject), 1, _File);
 }

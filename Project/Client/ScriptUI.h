@@ -7,7 +7,8 @@ class ScriptUI :
 private:
     class CScript*  m_Script;
     UINT            m_UIHeight;
-    Ptr<CPrefab>* m_SelectedPrefab;
+    Ptr<CPrefab>*   m_SelectedPrefab;
+    CGameObject**   m_SelectedObject;
 
 public:
     void SetTargetScript(CScript* _Script);
@@ -15,6 +16,7 @@ public:
 
 private:
     void SelectPrefab(DWORD_PTR _ListUI);
+    void SelectObject(DWORD_PTR _ListUI);
 
 public:
     virtual void Update() override;

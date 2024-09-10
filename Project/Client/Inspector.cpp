@@ -98,6 +98,7 @@ void Inspector::Update()
 	// ===========
 	// Object Name
 	// ===========
+	
 	string strObjectName = string(m_TargetObject->GetName().begin(), m_TargetObject->GetName().end());
 	ImGui::Text("Object Name");
 	ImGui::SameLine(108);

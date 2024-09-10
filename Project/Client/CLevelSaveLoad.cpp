@@ -146,6 +146,9 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 	LoadWString(Name, _File);
 	pObject->SetName(Name);
 
+	if (Name == L"Missile")
+		return nullptr;
+
 	// Component 정보 로드
 	COMPONENT_TYPE Type = COMPONENT_TYPE::END;
 	while (true)
@@ -179,6 +182,8 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 
 		// 읽은 Script 이름으로 이름에 해당하는 Script 생성
 		CScript* pScript = CScriptMgr::GetScript(ScriptName);
+
+
 		pScript->LoadFromFile(_File);
 
 		pObject->AddComponent(pScript);
