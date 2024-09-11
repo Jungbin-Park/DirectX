@@ -15,20 +15,28 @@ public:
         DASH,
     };
 
+    enum class AtkState
+    {
+        NONE,
+        ATTACK1,
+        ATTACK2,
+    };
+
 private:
     float                   m_Speed;
     float                   m_DashSpeed;
     float                   m_DashTime;
     float                   m_DashDuration;
+    float                   m_AtkDashSpeed;
+    float                   m_AtkDashTime;
+    float                   m_AtkDashDuration;
     int                     m_Attribute;
-
-    float                   m_CursorAngle;
-    Vec3                    m_SlashPos;
 
     Ptr<CTexture>           m_Texture;
     Ptr<CPrefab>            m_SlashPref;
 
     eState                  m_State;
+    AtkState                m_AtkState;
     eDirection              m_Direction;
 
 private:
@@ -40,7 +48,7 @@ private:
     void LoadFlipBook();
 
 public:
-    void SetCursorAngle(float _Angle) {m_CursorAngle = _Angle; }
+    
 
 public:
     virtual void Begin() override;

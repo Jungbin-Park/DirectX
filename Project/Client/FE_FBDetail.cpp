@@ -327,7 +327,10 @@ void FE_FBDetail::SpriteInfo()
 	ImGui::Text("Sprite Size");
 	ImGui::SameLine(120);
 	ImGui::SetNextItemWidth(180);
-	ImGui::InputFloat2("##CurSpriteSize", size, "%.2f");
+	if (ImGui::InputFloat2("##CurSpriteSize", size, "%.2f"))
+	{
+		m_CurSprite->SetBackground(Vec2(size[0], size[1]));
+	}
 
 	ImGui::Text("Offset");
 	ImGui::SameLine(120);

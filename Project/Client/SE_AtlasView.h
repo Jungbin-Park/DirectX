@@ -8,6 +8,7 @@ private:
     Ptr<CTexture>   m_AtlasTex;
     
     ImVec2          ImageRectMin;   // Image 위젯 좌상단 실제 위치
+    ImVec2          ImageRectMax;
 
     ImVec2          m_MousePos;     // 실제 마우스 위치
 

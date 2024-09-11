@@ -79,6 +79,8 @@ void SE_AtlasView::SelectCheck()
 {
 	// Image 위젯 좌상단 좌표(윈도우 좌표 기준)
 	ImageRectMin = ImGui::GetItemRectMin();
+	ImageRectMax = ImGui::GetItemRectMax();
+
 	float ArrImageMin[] = { ImageRectMin.x, ImageRectMin.y };
 	ImGui::InputFloat2("ImageMin", ArrImageMin);
 
@@ -95,23 +97,31 @@ void SE_AtlasView::SelectCheck()
 	float PixelPos[] = { vDiff.x, vDiff.y };
 	ImGui::InputFloat2("PixelPos", PixelPos);
 
-	//// 마우스 왼쪽 Tap 체크
-	//if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
-	//{
-	//	m_MouseLT = ImGui::GetMousePos();
-	//	ImVec2 vDiff = ImVec2(m_MouseLT.x - ImageRectMin.x, m_MouseLT.y - ImageRectMin.y);
-	//	m_MouseLT = ImVec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
-	//}
-	//// 마우스 누르고 있을 때
-	//if (ImGui::IsMouseDown(ImGuiMouseButton_Left))
-	//{
-	//	m_MouseRB = ImGui::GetMousePos();
-	//	ImVec2 vDiff = ImVec2(m_MouseRB.x - ImageRectMin.x, m_MouseRB.y - ImageRectMin.y);
-	//	m_MouseRB = ImVec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
-	//}
+
+	if (m_MousePos.x > 1000.f)
+	{
+	}
+	else
+	{
+		// 마우스 왼쪽 Tap 체크
+		if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+		{
+			m_MouseLT = ImGui::GetMousePos();
+			ImVec2 vDiff = ImVec2(m_MouseLT.x - ImageRectMin.x, m_MouseLT.y - ImageRectMin.y);
+			m_MouseLT = ImVec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
+		}
+		// 마우스 누르고 있을 때
+		if (ImGui::IsMouseDown(ImGuiMouseButton_Left))
+		{
+			m_MouseRB = ImGui::GetMousePos();
+			ImVec2 vDiff = ImVec2(m_MouseRB.x - ImageRectMin.x, m_MouseRB.y - ImageRectMin.y);
+			m_MouseRB = ImVec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
+		}
+	}
+	
 
 	// 마우스 왼쪽 클릭 체크
-	if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+	/*if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 	{
 		Vec2 vPixelPos = Vec2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
 		ImVec2 vDiff = ImVec2(vPixelPos.x - ImageRectMin.x, vPixelPos.y - ImageRectMin.y);
@@ -122,7 +132,7 @@ void SE_AtlasView::SelectCheck()
 		{
 			CalcSpriteSize(vPixelPos);
 		}
-	}
+	}*/
 }
 
 void SE_AtlasView::DrawSelectRect()

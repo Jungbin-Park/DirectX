@@ -27,8 +27,6 @@ private:
 
     Matrix          m_matView;
     Matrix          m_matProj;
-        
-    CGameObject*    m_FollowObj;
 
     vector<CGameObject*>    m_vecOpaque;        // 불투명
     vector<CGameObject*>    m_vecMasked;        // 불투명, 투명
@@ -79,8 +77,6 @@ public:
     void SetScale(float _Scale) { m_ProjectionScale = _Scale; }
     float GetScale() { return m_ProjectionScale; }
 
-    void SetFollowObj(CGameObject* _FollowObj) { m_FollowObj = _FollowObj; }
-    CGameObject* GetFollowObj() { return m_FollowObj; }
 
 private:
     void SortGameObject();

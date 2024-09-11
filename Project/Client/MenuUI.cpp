@@ -49,16 +49,24 @@ void MenuUI::Update()
 
 void MenuUI::File()
 {
+	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+
 	if (ImGui::BeginMenu("File"))
 	{
 		if (ImGui::MenuItem("Level Save"))
 		{
-
+			wstring levelName = pCurLevel->GetName();
+			wstring strLevelPath = CPathMgr::GetInst()->GetContentPath();
+			strLevelPath += (L"level\\" + levelName + L".lv");
+			CLevelSaveLoad::SaveLevel(strLevelPath, pCurLevel);
 		}
 
 		if (ImGui::MenuItem("Level Load"))
 		{
-
+			wstring levelName = pCurLevel->GetName();
+			wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
+			StrLevelLoadPath += (L"level\\" + levelName + L".lv");
+			CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath);
 		}
 
 		ImGui::EndMenu();
@@ -83,8 +91,9 @@ void MenuUI::Level()
 			// Stop->Play 전환 시에만 저장
 			if (LEVEL_STATE::STOP == State)
 			{
+				wstring levelName = pCurLevel->GetName();
 				wstring strLevelPath = CPathMgr::GetInst()->GetContentPath();
-				strLevelPath += L"level\\Home.lv";
+				strLevelPath += (L"level\\" + levelName +  L".lv");
 				CLevelSaveLoad::SaveLevel(strLevelPath, pCurLevel);
 			}
 
@@ -102,8 +111,9 @@ void MenuUI::Level()
 		ImGui::BeginDisabled(LEVEL_STATE::STOP == State);
 		if (ImGui::MenuItem("Stop"))
 		{
+			wstring levelName = pCurLevel->GetName();
 			wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
-			StrLevelLoadPath += L"level\\Home.lv";
+			StrLevelLoadPath += (L"level\\" + levelName + L".lv");
 			CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath);
 			ChangeLevel(pLoadedLevel, LEVEL_STATE::STOP);
 

@@ -3,6 +3,7 @@
 
 #include <Engine/define.h>
 #include <Engine/CDevice.h>
+#include "CSlashScript.h"
 
 CMarkerScript::CMarkerScript()
 	: CScript(SCRIPT_TYPE::MARKERSCRIPT)
@@ -27,11 +28,13 @@ void CMarkerScript::Tick()
 
 	vMousePos -= Vec2(vResoltuion.x / 2.f, vResoltuion.y / 2.f);
 	vMousePos = Vec2(vMousePos.x, -vMousePos.y);
+
 	Vec3 vPlayerPos = GetOwner()->GetParent()->Transform()->GetRelativePos();
 	Vec3 vPlayerRot = GetOwner()->GetParent()->Transform()->GetRelativeRotation();
 
 	Vec2 pPos = Vec2(vPlayerPos.x, vPlayerPos.y);
-	
+	vMousePos += pPos;
+
 	Vec2 vMouseDir = vMousePos - pPos;
 	vMouseDir.Normalize();
 
@@ -44,8 +47,6 @@ void CMarkerScript::Tick()
 
 	Vec3 vRot = Transform()->GetRelativeRotation();
 	vRot.z = angle;
-
-	
 
 	Transform()->SetRelativeRotation(vRot);
 }

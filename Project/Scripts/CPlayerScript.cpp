@@ -3,6 +3,7 @@
 
 #include "CSlashScript.h"
 #include <Engine/CFlipBookComponent.h>
+#include <Engine/CTransform.h>
 
 
 CPlayerScript::CPlayerScript()
@@ -12,8 +13,12 @@ CPlayerScript::CPlayerScript()
 	, m_DashTime(0.f)
 	, m_DashDuration(0.2f)
 	, m_Attribute(0)
-	, m_CursorAngle(0.f)
-	, m_SlashPos(Vec3(0.f, 0.f, 0.f))
+	, m_AtkState(AtkState::NONE)
+	, m_State(eState::IDLE)
+	, m_Direction(eDirection::DOWN)
+	, m_AtkDashSpeed(1000.f)
+	, m_AtkDashTime(0.f)
+	, m_AtkDashDuration(0.2f)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
@@ -155,6 +160,36 @@ void CPlayerScript::Move()
 		}
 	}
 
+	if (KEY_TAP(KEY::LBTN))
+	{
+		if (m_AtkDashTime >= m_AtkDashDuration)
+		{
+			m_DashTime = 0.f;
+		}
+		else
+		{
+			switch (m_Direction)
+			{
+			case eDirection::UP:
+				vPos.y += DT * m_AtkDashSpeed;
+				break;
+			case eDirection::DOWN:
+				vPos.y -= DT * m_AtkDashSpeed;
+				break;
+			case eDirection::LEFT:
+				vPos.x -= DT * m_AtkDashSpeed;
+				break;
+			case eDirection::RIGHT:
+				vPos.x += DT * m_AtkDashSpeed;
+				break;
+			default:
+				break;
+			}
+
+			m_DashTime += DT;
+		}
+	}
+
 	if (KEY_TAP(KEY::SPACE))
 	{
 		m_State = eState::DASH;
@@ -166,15 +201,71 @@ void CPlayerScript::Move()
 
 void CPlayerScript::Skill()
 {
-	if (KEY_TAP(KEY::LBTN))
+	if (KEY_TAP(KEY::LBTN)) 
 	{
-		Instantiate(m_SlashPref, 5, m_SlashPos, L"Slash");
+		if (m_AtkState == AtkState::NONE)
+			m_AtkState = AtkState::ATTACK1;
+		else if (m_AtkState == AtkState::ATTACK1)
+			m_AtkState = AtkState::ATTACK2;
+		else if (m_AtkState == AtkState::ATTACK2)
+			m_AtkState = AtkState::ATTACK1;
+
+		Instantiate(m_SlashPref, 5, Transform()->GetRelativePos(), L"Slash");
+
+		switch (m_AtkState)
+		{
+		case CPlayerScript::AtkState::ATTACK1:
+		{
+			switch (m_Direction)
+			{
+			case eDirection::UP:
+				FlipBookComponent()->Play(10, 15, false);
+				break;
+			case eDirection::DOWN:
+				FlipBookComponent()->Play(6, 15, false);
+				break;
+			case eDirection::LEFT:
+				FlipBookComponent()->Play(8, 15, false);
+				break;
+			case eDirection::RIGHT:
+				FlipBookComponent()->Play(8, 15, false);
+				break;
+			default:
+				break;
+			}
+		}
+			break;
+		case CPlayerScript::AtkState::ATTACK2:
+		{
+			switch (m_Direction)
+			{
+			case eDirection::UP:
+				FlipBookComponent()->Play(11, 15, false);
+				break;
+			case eDirection::DOWN:
+				FlipBookComponent()->Play(7, 15, false);
+				break;
+			case eDirection::LEFT:
+				FlipBookComponent()->Play(9, 15, false);
+				break;
+			case eDirection::RIGHT:
+				FlipBookComponent()->Play(9, 15, false);
+				break;
+			default:
+				break;
+			}
+		}
+			break;
+		default:
+			break;
+		}
+
+
 	}
 }
 
 void CPlayerScript::CursorDirCheck()
 {
-	m_CursorAngle;
 }
 
 void CPlayerScript::LoadFlipBook()

@@ -14,6 +14,9 @@ private:
     class CGameObject* m_ProtoObject;
 
 public:
+
+
+public:
     void SetProtoObject(CGameObject* _Object) { m_ProtoObject = _Object; }
     CGameObject* Instantiate();
 

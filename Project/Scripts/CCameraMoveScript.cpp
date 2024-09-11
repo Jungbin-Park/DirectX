@@ -3,6 +3,8 @@
 
 #include <Engine/CCamera.h>
 #include <Engine/CGameObject.h>
+#include <Engine/CLevel.h>
+#include <Engine/CLevelMgr.h>
 
 
 CCameraMoveScript::CCameraMoveScript()
@@ -19,7 +21,7 @@ CCameraMoveScript::~CCameraMoveScript()
 
 void CCameraMoveScript::Begin()
 {
-
+	m_FollowObj = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
 }
 
 void CCameraMoveScript::Tick()
@@ -34,8 +36,7 @@ void CCameraMoveScript::Tick()
 	}
 
 	Vec3 vPos = Transform()->GetRelativePos();
-	CGameObject* pFollowObj = GetOwner()->Camera()->GetFollowObj();
-	Vec3 objPos = pFollowObj->Transform()->GetRelativePos();
+	Vec3 objPos = m_FollowObj->Transform()->GetRelativePos();
 
 	vPos = objPos;
 

@@ -10,6 +10,13 @@ private:
     float   m_Age;
     float   m_Life;
 
+    float   m_CursorAngle;
+    Vec3    m_SlashPos;
+
+public:
+    void SetCursorAngle(float _Angle) { m_CursorAngle = _Angle; }
+    void SetSlashPos(Vec2 _Pos) { m_SlashPos = Vec3(_Pos.x, _Pos.y, 1.f); }
+
 public:
     virtual void Begin() override;
     virtual void Tick() override;

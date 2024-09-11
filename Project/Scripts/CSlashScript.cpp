@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "CSlashScript.h"
 
+#include <Engine/CFlipBookComponent.h>
+#include <Engine/CFlipBook.h>
+
 CSlashScript::CSlashScript()
 	: CScript(UINT(SCRIPT_TYPE::SLASHSCRIPT))
 	, m_Speed(1000.f)
@@ -17,19 +20,19 @@ void CSlashScript::Begin()
 {
 	GetRenderComponent()->GetDynamicMaterial();
 
-	Ptr<CMaterial> pMtrl = GetRenderComponent()->GetMaterial();
+	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\WindSlash1.flip");
+	FlipBookComponent()->AddFlipBook(0, pFlipBook);
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\WindSlash2.flip");
+	FlipBookComponent()->AddFlipBook(1, pFlipBook);
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\WindSlash3.flip");
+	FlipBookComponent()->AddFlipBook(2, pFlipBook);
 
-	if (nullptr != pMtrl)
-	{
-		Ptr<CTexture> pTexture = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Idle_Left.bmp", L"texture\\Idle_Left.bmp");
-		pMtrl->SetTexParam(TEX_0, pTexture);
-	}
+	FlipBookComponent()->Play(2, 10, false);
 }
 
 void CSlashScript::Tick()
 {
-	m_Age += DT;
-	if (m_Age >= m_Life)
+	if (FlipBookComponent()->IsFinish())
 		DeleteObject(GetOwner());
 }
 

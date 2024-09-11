@@ -38,6 +38,8 @@ void CTestLevel::CreateTestLevel()
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
+	pLevel->SetName(L"Home");
+
 	//// 레벨 지정
 	//ChangeLevel(pLevel, LEVEL_STATE::PLAY);
 
@@ -138,8 +140,6 @@ void CTestLevel::CreateTestLevel()
 
 	pLevel->AddObject(3, pPlayer);
 
-	CamObj->Camera()->SetFollowObj(pPlayer);
-
 	/*Ptr<CPrefab> pPrefab = new CPrefab;
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
 	FilePath += L"prefab\\Player.pref";
@@ -232,9 +232,11 @@ void CTestLevel::CreatePrefab()
 	pProto->SetName(L"Slash");
 	pProto->AddComponent(new CTransform);
 	pProto->AddComponent(new CMeshRender);
+	pProto->AddComponent(new CFlipBookComponent);
 	pProto->AddComponent(new CSlashScript);
+	pProto->AddComponent(new CCollider2D);
 
-	pProto->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
+	pProto->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
 
 	pProto->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pProto->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\Slash.mtrl", L"material\\Slash.mtrl"));
