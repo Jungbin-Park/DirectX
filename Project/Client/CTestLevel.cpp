@@ -26,6 +26,7 @@ void CTestLevel::CreateTestLevel()
 	// Material
 	Ptr<CMaterial> pMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl");
 	Ptr<CMaterial> pmMtrl = CAssetMgr::GetInst()->Load<CMaterial>(L"material\\std2d.mtrl", L"material\\std2d.mtrl");
+	Ptr<CMaterial> pCursorMtrl = CAssetMgr::GetInst()->Load<CMaterial>(L"material\\Cursor.mtrl", L"material\\Cursor.mtrl");
 	Ptr<CMaterial> pAlphaBlendMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DAlphaBlendMtrl");
 	Ptr<CMaterial> pDebugShapeMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"DebugShapeMtrl");
 
@@ -96,6 +97,7 @@ void CTestLevel::CreateTestLevel()
 	pCursor->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
 
 	pCursor->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pCursor->MeshRender()->SetMaterial(pCursorMtrl);
 
 	pLevel->AddObject(10, pCursor);
 	

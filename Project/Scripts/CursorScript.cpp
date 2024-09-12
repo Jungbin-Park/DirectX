@@ -2,6 +2,8 @@
 #include "CursorScript.h"
 
 #include <Engine/CDevice.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
 
 CursorScript::CursorScript()
 	:CScript(SCRIPT_TYPE::CURSORSCRIPT)
@@ -25,6 +27,12 @@ void CursorScript::Tick()
 
 	vMousePos -= Vec2(vResoltuion.x / 2.f, vResoltuion.y / 2.f);
 	vMousePos = Vec2(vMousePos.x, -vMousePos.y);
+
+	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+	Vec3 vPlayerPos = pCurLevel->FindObjectByName(L"Player")->Transform()->GetRelativePos();
+
+	Vec2 pPos = Vec2(vPlayerPos.x, vPlayerPos.y);
+	vMousePos += pPos;
 
 	Transform()->SetRelativePos(Vec3(vMousePos.x, vMousePos.y, 0.f));
 }
