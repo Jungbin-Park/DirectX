@@ -122,6 +122,7 @@ void CGameObject::AddChild(CGameObject* _ChildObject)
 	CLevelMgr::GetInst()->LevelChanged();
 }
 
+
 bool CGameObject::IsAncestor(CGameObject* _Object)
 {
 	CGameObject* pObject = m_Parent;

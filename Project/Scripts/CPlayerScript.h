@@ -32,7 +32,8 @@ private:
     eDirection              m_PrevDirection;
     eDirection              m_Direction;
     eDirection              m_AttackDir;
-    Vec2                    m_MousePos;
+    Vec2                    m_MouseDir;
+    Vec2                    m_MovedPos;
 
     float                   m_Speed;
     float                   m_DashSpeed;
@@ -45,6 +46,7 @@ private:
     float                   m_AtkDashDuration;
     bool                    m_AttackFinish;
     Vec3                    m_SlashPos;
+    Vec3                    m_SlashRot;
 
     
     int                     m_KeyTapCount;

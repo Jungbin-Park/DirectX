@@ -115,7 +115,7 @@ void CTestLevel::CreateTestLevel()
 
 	pPlayer->Collider2D()->SetIndependentScale(false);
 	pPlayer->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pPlayer->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
+	pPlayer->Collider2D()->SetScale(Vec3(0.5f, 0.7f, 1.f));
 
 	pPlayer->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pPlayer->MeshRender()->SetMaterial(pMtrl);
@@ -238,7 +238,11 @@ void CTestLevel::CreatePrefab()
 	pProto->AddComponent(new CSlashScript);
 	pProto->AddComponent(new CCollider2D);
 
-	pProto->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
+	pProto->Transform()->SetRelativeScale(300.f, 200.f, 1.f);
+
+	pProto->Collider2D()->SetIndependentScale(false);
+	pProto->Collider2D()->SetOffset(Vec3(0.f, 0.1f, 0.f));
+	pProto->Collider2D()->SetScale(Vec3(0.3f, 0.3f, 1.f));
 
 	pProto->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pProto->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\Slash.mtrl", L"material\\Slash.mtrl"));

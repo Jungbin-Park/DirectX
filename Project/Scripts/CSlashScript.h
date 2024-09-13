@@ -5,17 +5,12 @@ class CSlashScript :
     public CScript
 {
 private:
-    float   m_Speed;
-
-    float   m_Age;
-    float   m_Life;
-
-    float   m_CursorAngle;
-    Vec3    m_SlashPos;
+    float           m_Speed;
+    int             m_AnimIdx;
+    int static      m_SlashIdx;
 
 public:
-    void SetCursorAngle(float _Angle) { m_CursorAngle = _Angle; }
-    void SetSlashPos(Vec2 _Pos) { m_SlashPos = Vec3(_Pos.x, _Pos.y, 1.f); }
+    void SetAnimIdx(int _Idx) { m_AnimIdx = _Idx; }
 
 public:
     virtual void Begin() override;

@@ -19,14 +19,16 @@ CPlayerScript::CPlayerScript()
 	, m_State(eState::IDLE)
 	, m_Direction(eDirection::DOWN)
 	, m_AttackDir(eDirection::RIGHT)
-	, m_AtkDashSpeed(1000.f)
+	, m_AtkDashSpeed(500.f)
 	, m_AtkDashTime(0.f)
-	, m_AtkDashDuration(0.5f)
+	, m_AtkDashDuration(0.2f)
 	, m_AttackFinish(true)
 	, m_DashFinish(true)
 	, m_KeyTapCount(0)
 	, m_AttackCount(0)
 	, m_SlashPos(Vec3(0.f, 0.f, 0.f))
+	, m_MovedPos(Vec2(0.f, 0.f))
+	, m_SlashRot(Vec3(0.f, 0.f, 0.f))
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
@@ -276,18 +278,22 @@ void CPlayerScript::KeyInput()
 
 	if (KEY_TAP(KEY::LBTN))
 	{
-		MousePosCheck();
-
 		m_State = eState::ATTACK;
+
+		MousePosCheck();
 
 		m_AtkDashTime = 0.f;
 
+		// Attack State 변경 
 		if (m_AtkState == AtkState::NONE) m_AtkState = AtkState::ATTACK1;
 		else if (m_AtkState == AtkState::ATTACK1) m_AtkState = AtkState::ATTACK2;
 		else if (m_AtkState == AtkState::ATTACK2) m_AtkState = AtkState::ATTACK1;
 
-		Instantiate(m_SlashPref, 5, Transform()->GetRelativePos(), L"Slash");
+		// Slash 프리팹 생성
+		m_SlashPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 100.f);
+		Instantiate(m_SlashPref, 5, m_SlashPos, m_SlashRot, L"Slash");
 
+		// 애니메이션 재생
 		switch (m_AtkState)
 		{
 		case CPlayerScript::AtkState::ATTACK1:
@@ -295,16 +301,19 @@ void CPlayerScript::KeyInput()
 			switch (m_AttackDir)
 			{
 			case eDirection::UP:
+				m_Direction = eDirection::UP;
 				FlipBookComponent()->Play(10, 40, false);
 				break;
 			case eDirection::DOWN:
+				m_Direction = eDirection::DOWN;
 				FlipBookComponent()->Play(6, 40, false);
 				break;
 			case eDirection::LEFT:
-				Transform()->SetRelativeRotation(Vec3(0.f, XM_PI, 0.f));
+				m_Direction = eDirection::LEFT;
 				FlipBookComponent()->Play(8, 40, false);
 				break;
 			case eDirection::RIGHT:
+				m_Direction = eDirection::RIGHT;
 				FlipBookComponent()->Play(8, 40, false);
 				break;
 			default:
@@ -317,16 +326,19 @@ void CPlayerScript::KeyInput()
 			switch (m_AttackDir)
 			{
 			case eDirection::UP:
+				m_Direction = eDirection::UP;
 				FlipBookComponent()->Play(11, 40, false);
 				break;
 			case eDirection::DOWN:
+				m_Direction = eDirection::DOWN;
 				FlipBookComponent()->Play(7, 40, false);
 				break;
 			case eDirection::LEFT:
-				Transform()->SetRelativeRotation(Vec3(0.f, XM_PI, 0.f));
+				m_Direction = eDirection::LEFT;
 				FlipBookComponent()->Play(9, 40, false);
 				break;
 			case eDirection::RIGHT:
+				m_Direction = eDirection::RIGHT;
 				FlipBookComponent()->Play(9, 40, false);
 				break;
 			default:
@@ -340,10 +352,12 @@ void CPlayerScript::KeyInput()
 	if (KEY_TAP(KEY::SPACE))
 	{
 		m_State = eState::DASH;
+
 		m_DashFinish = false;
 
 		m_DashTime = 0.f;
 
+		// 애니메이션 재생
 		switch (m_Direction)
 		{
 		case eDirection::UP:
@@ -441,70 +455,47 @@ void CPlayerScript::Attack()
 	{
 		m_AtkDashTime = 0.f;
 
-		if (FlipBookComponent()->IsFinish())
+		m_AttackFinish = true;
+
+		// 누르고 있는 키가 없으면
+		if (m_KeyTapCount == 0)
 		{
-			m_AttackFinish = true;
+			m_State = eState::IDLE;
+		}
+		// 다른 키를 누르고 있을 경우
+		else
+		{
+			m_State = eState::MOVE;
 
-			// 누르고 있는 키가 없으면
-			if (m_KeyTapCount == 0)
+			switch (m_Direction)
 			{
-				m_State = eState::IDLE;
-				//FlipBookComponent()->Play(1, 10, true);
+			case eDirection::UP:
+				FlipBookComponent()->Play(5, 10, true);
+				break;
+			case eDirection::DOWN:
+				FlipBookComponent()->Play(3, 10, true);
+				break;
+			case eDirection::LEFT:
+				FlipBookComponent()->Play(4, 10, true);
+				break;
+			case eDirection::RIGHT:
+				FlipBookComponent()->Play(4, 10, true);
+				break;
+			default:
+				break;
 			}
-			// 다른 키를 누르고 있을 경우
-			else
-			{
-				m_State = eState::MOVE;
-
-				switch (m_Direction)
-				{
-				case eDirection::UP:
-					FlipBookComponent()->Play(5, 10, true);
-					break;
-				case eDirection::DOWN:
-					FlipBookComponent()->Play(3, 10, true);
-					break;
-				case eDirection::LEFT:
-					FlipBookComponent()->Play(4, 10, true);
-					break;
-				case eDirection::RIGHT:
-					FlipBookComponent()->Play(4, 10, true);
-					break;
-				default:
-					break;
-				}
-			}
-
 		}
 	}
 	// 공격 시
 	else
 	{
-		// 공격 방향으로 살짝 이동
-		switch (m_AttackDir)
-		{
-		case eDirection::UP:
-			vPos.y += DT * m_AtkDashSpeed;
-			break;
-		case eDirection::DOWN:
-			vPos.y -= DT * m_AtkDashSpeed;
-			break;
-		case eDirection::LEFT:
-			vPos.x -= DT * m_AtkDashSpeed;
-			break;
-		case eDirection::RIGHT:
-			vPos.x += DT * m_AtkDashSpeed;
-			break;
-		default:
-			break;
-		}
+		m_MouseDir.Normalize();
+		m_MovedPos = vPos + m_MouseDir * DT * m_AtkDashSpeed;
 
 		m_AtkDashTime += DT;
 	}
 
-	
-
-	Transform()->SetRelativePos(vPos);
+	Transform()->SetRelativePos(Vec3(m_MovedPos.x, m_MovedPos.y, vPos.z));
 }
 
 void CPlayerScript::Dash()
@@ -604,21 +595,28 @@ void CPlayerScript::MousePosCheck()
 	Vec2 pPos = Vec2(vPos.x, vPos.y);
 	vMousePos += pPos;
 
+	// 마우스와 플레이어 사이의 방향 벡터
 	Vec2 vMouseDir = vMousePos - pPos;
 	vMouseDir.Normalize();
+	m_MouseDir = vMouseDir;
 
 	float angle;
 
-	if (vRot.y == XM_PI)
+	/*if (vRot.y == XM_PI)
 		angle = atan2(vMouseDir.y, -vMouseDir.x);
 	else
-		angle = atan2(vMouseDir.y, vMouseDir.x);
+		angle = atan2(vMouseDir.y, vMouseDir.x);*/
+
+	angle = atan2(vMouseDir.y, vMouseDir.x);
+	m_SlashRot.z = angle - XM_PI/2.f;
 
 	// 라디안 -> 도
 	angle = angle * (180.f / XM_PI);
-
+	
 	if (angle < 0)
 		angle += 360.0f;
+
+	
 
 	// 각도에 따른 공격 방향 설정
 	if (angle >= 45.0f && angle < 135.0f)

@@ -20,3 +20,14 @@ void CScript::Instantiate(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, con
 
 	CreateObject(pInst, _LayerIdx);
 }
+
+void CScript::Instantiate(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, Vec3 _WorldRot, const wstring& _Name)
+{
+	CGameObject* pInst = _Pref->Instantiate();
+
+	pInst->SetName(_Name);
+	pInst->Transform()->SetRelativePos(_WorldPos);
+	pInst->Transform()->SetRelativeRotation(_WorldRot);
+
+	CreateObject(pInst, _LayerIdx);
+}
