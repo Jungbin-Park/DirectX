@@ -205,10 +205,32 @@ void SE_Detail::SelectTexture(DWORD_PTR _ListUI)
 
 void SE_Detail::CalcBackgroundSize(Vec2 _SpriteSize)
 {
-	if(_SpriteSize.x <= 45.f && _SpriteSize.y <= 45.f)
+
+	if (_SpriteSize.x <= 45.f && _SpriteSize.y <= 45.f)
 		m_Background = Vec2(45.f, 45.f);
-	else
+	else if (45.f < _SpriteSize.x && _SpriteSize.x <= 50.f &&
+		45.f < _SpriteSize.y && _SpriteSize.y <= 50.f)
+		m_Background = Vec2(50.f, 50.f);
+	else if (50.f < _SpriteSize.x && _SpriteSize.x <= 60.f &&
+		50.f < _SpriteSize.y && _SpriteSize.y <= 60.f)
+		m_Background = Vec2(60.f, 60.f);
+	else if (60.f < _SpriteSize.x && _SpriteSize.x <= 70.f &&
+		60.f < _SpriteSize.y && _SpriteSize.y <= 70.f)
+		m_Background = Vec2(70.f, 70.f);
+	else if (70.f < _SpriteSize.x && _SpriteSize.x <= 80.f &&
+		70.f < _SpriteSize.y && _SpriteSize.y <= 80.f)
+		m_Background = Vec2(80.f, 80.f);
+	else if (80.f < _SpriteSize.x && _SpriteSize.x <= 90.f &&
+		80.f < _SpriteSize.y && _SpriteSize.y <= 90.f)
+		m_Background = Vec2(90.f, 90.f);
+	else if (90.f < _SpriteSize.x && _SpriteSize.x <= 100.f &&
+		90.f < _SpriteSize.y && _SpriteSize.y <= 100.f)
 		m_Background = Vec2(100.f, 100.f);
+	else if (100.f < _SpriteSize.x && _SpriteSize.x <= 150.f &&
+		100.f < _SpriteSize.y && _SpriteSize.y <= 150.f)
+		m_Background = Vec2(150.f, 150.f);
+	else
+		m_Background = Vec2(200.f, 200.f);
 }
 
 void SE_Detail::SaveSprite()

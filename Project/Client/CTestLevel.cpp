@@ -17,6 +17,7 @@
 #include <Scripts/CCameraMoveScript.h>
 #include <Scripts/CMarkerScript.h>
 #include <Scripts/CursorScript.h>
+#include <Scripts/CGhoulScript.h>
 
 #include "CLevelSaveLoad.h"
 
@@ -164,23 +165,25 @@ void CTestLevel::CreateTestLevel()
 
 
 	// Monster Object
-	/*CGameObject* pMonster = new CGameObject;
+	CGameObject* pMonster = new CGameObject;
 	pMonster->SetName(L"Monster");
 
 	pMonster->AddComponent(new CTransform);
 	pMonster->AddComponent(new CMeshRender);
 	pMonster->AddComponent(new CCollider2D);
+	pMonster->AddComponent(new CFlipBookComponent);
+	pMonster->AddComponent(new CGhoulScript);
 
-	pMonster->Transform()->SetRelativePos(-400.f, 0.f, 100.f);
+	pMonster->Transform()->SetRelativePos(300.f, 0.f, 100.f);
 	pMonster->Transform()->SetRelativeScale(150.f, 150.f, 1.f);	
 
 	pMonster->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pMonster->Collider2D()->SetScale(Vec3(1.2f, 1.2f, 1.f));
+	pMonster->Collider2D()->SetScale(Vec3(0.7, 0.7f, 1.f));
 
 	pMonster->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pMonster->MeshRender()->SetMaterial(pMtrl);
 
-	pLevel->AddObject(4, pMonster);*/
+	pLevel->AddObject(4, pMonster);
 
 	// TileMap Object
 	CGameObject* pTileMapObj = new CGameObject;
@@ -191,7 +194,7 @@ void CTestLevel::CreateTestLevel()
 	pTileMapObj->AddComponent(new CTransform);
 	pTileMapObj->AddComponent(pTile);
 
-	pTile->Load(strContentPath + L"tilemap\\black.tile");
+	pTile->Load(strContentPath + L"tilemap\\Ice.tile");
 	pTileMapObj->Transform()->SetRelativePos(Vec3(-870.f, 1700.f, 500.f));
 
 	/*pTileMapObj->TileMap()->SetRowCol(5, 5);

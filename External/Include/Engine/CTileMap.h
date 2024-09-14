@@ -37,13 +37,14 @@ public:
 
     Vec2 GetRowCol() { return Vec2(m_Row, m_Col); }
     Vec2 GetTileSize() { return m_TileSize; }
+    vector<tTileInfo>& GetTileInfo() { return m_vecTileInfo; }
 
     Ptr<CTexture> GetAtlasTexture() { return m_TileAtlas; }
     Vec2 GetAtlasTileSize() { return m_AtlasTileSize; }
     int GetAtlasMaxRow() { return m_AtlasMaxRow; }
     int GetAtlasMaxCol() { return m_AtlasMaxCol; }
     Vec2 GetAtlasResolution() { return m_AtlasResolution; }
-    vector<tTileInfo>& GetTileInfo() { return m_vecTileInfo; }
+    
 
 private:
     void ChangeTileMapSize();

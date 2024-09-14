@@ -25,6 +25,9 @@
     <ClInclude Include="CMarkerScript.h">
       <Filter>Scripts\Player</Filter>
     </ClInclude>
+    <ClInclude Include="CGhoulScript.h">
+      <Filter>Scripts\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -51,6 +54,9 @@
     <ClCompile Include="CMarkerScript.cpp">
       <Filter>Scripts\Player</Filter>
     </ClCompile>
+    <ClCompile Include="CGhoulScript.cpp">
+      <Filter>Scripts\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -70,6 +76,9 @@
     </Filter>
     <Filter Include="Scripts\Object">
       <UniqueIdentifier>{6e2e0431-2b61-4626-a63f-5815fa01acab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Monster">
+      <UniqueIdentifier>{ebc74458-1c23-4c9b-86da-b5b71620c88a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

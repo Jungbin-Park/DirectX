@@ -2,6 +2,7 @@
 #include "CScriptMgr.h"
 
 #include "CCameraMoveScript.h"
+#include "CGhoulScript.h"
 #include "CMarkerScript.h"
 #include "CPlayerScript.h"
 #include "CSlashScript.h"
@@ -10,6 +11,7 @@
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CCameraMoveScript");
+	_vec.push_back(L"CGhoulScript");
 	_vec.push_back(L"CMarkerScript");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CSlashScript");
@@ -20,6 +22,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 {
 	if (L"CCameraMoveScript" == _strScriptName)
 		return new CCameraMoveScript;
+	if (L"CGhoulScript" == _strScriptName)
+		return new CGhoulScript;
 	if (L"CMarkerScript" == _strScriptName)
 		return new CMarkerScript;
 	if (L"CPlayerScript" == _strScriptName)
@@ -37,6 +41,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	{
 	case (UINT)SCRIPT_TYPE::CAMERAMOVESCRIPT:
 		return new CCameraMoveScript;
+		break;
+	case (UINT)SCRIPT_TYPE::GHOULSCRIPT:
+		return new CGhoulScript;
 		break;
 	case (UINT)SCRIPT_TYPE::MARKERSCRIPT:
 		return new CMarkerScript;
@@ -60,6 +67,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 	{
 	case SCRIPT_TYPE::CAMERAMOVESCRIPT:
 		return L"CCameraMoveScript";
+		break;
+
+	case SCRIPT_TYPE::GHOULSCRIPT:
+		return L"CGhoulScript";
 		break;
 
 	case SCRIPT_TYPE::MARKERSCRIPT:

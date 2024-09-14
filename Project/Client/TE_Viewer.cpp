@@ -79,7 +79,7 @@ void TE_Viewer::DrawTile()
             ImGui::Image(tileAtlas->GetSRV().Get(), tilesize, uv_min, uv_max);
 
             // 마우스로 타일 클릭 시 처리
-            if (ImGui::IsItemClicked())
+            if (ImGui::IsItemClicked() /*|| ImGui::IsMouseDown(ImGuiMouseButton_Left)*/)
             {
                 // 넘겨 받은 idx 정보로 변경
                 m_Tile->SetTileInfo((r * col) + c, m_ClickedIdx);
