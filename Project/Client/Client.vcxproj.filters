@@ -100,9 +100,6 @@
     <Filter Include="EditorUI\06. MenuUI">
       <UniqueIdentifier>{a2d36a50-245f-4473-ae44-d7c8d56f52bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\02. TestLevel">
-      <UniqueIdentifier>{4b6220a9-1716-4991-a4b2-dd38738e2094}</UniqueIdentifier>
-    </Filter>
     <Filter Include="EditorUI\01. Inspector\ComponentUI\09. ScriptUI">
       <UniqueIdentifier>{dd27be52-c2b9-437f-89d8-da62d60b244a}</UniqueIdentifier>
     </Filter>
@@ -147,6 +144,18 @@
     </Filter>
     <Filter Include="EditorUI\10. TileMapEditor\TE_Sub\TE_Viewer">
       <UniqueIdentifier>{45d52070-9d3f-4ddd-834d-ca2477a89903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels">
+      <UniqueIdentifier>{21a3a411-c294-427a-b923-7ee3ff39629b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels\00. TestLevel">
+      <UniqueIdentifier>{4b6220a9-1716-4991-a4b2-dd38738e2094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels\01. Home">
+      <UniqueIdentifier>{4f3d9361-b539-46df-a56b-a480b87064d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels\02. Town">
+      <UniqueIdentifier>{7e552492-9cf9-4376-b0b3-9817377653a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -280,7 +289,7 @@
       <Filter>EditorUI\06. MenuUI</Filter>
     </ClInclude>
     <ClInclude Include="CTestLevel.h">
-      <Filter>Manager\02. TestLevel</Filter>
+      <Filter>Levels\00. TestLevel</Filter>
     </ClInclude>
     <ClInclude Include="ScriptUI.h">
       <Filter>EditorUI\01. Inspector\ComponentUI\09. ScriptUI</Filter>
@@ -465,7 +474,7 @@
       <Filter>EditorUI\06. MenuUI</Filter>
     </ClCompile>
     <ClCompile Include="CTestLevel.cpp">
-      <Filter>Manager\02. TestLevel</Filter>
+      <Filter>Levels\00. TestLevel</Filter>
     </ClCompile>
     <ClCompile Include="ScriptUI.cpp">
       <Filter>EditorUI\01. Inspector\ComponentUI\09. ScriptUI</Filter>

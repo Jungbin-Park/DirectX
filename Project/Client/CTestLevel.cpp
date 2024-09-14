@@ -191,8 +191,8 @@ void CTestLevel::CreateTestLevel()
 	pTileMapObj->AddComponent(new CTransform);
 	pTileMapObj->AddComponent(pTile);
 
-	pTile->Load(strContentPath + L"tilemap\\home.tile");
-	pTileMapObj->Transform()->SetRelativePos(Vec3(-500.f, 250.f, 500.f));
+	pTile->Load(strContentPath + L"tilemap\\black.tile");
+	pTileMapObj->Transform()->SetRelativePos(Vec3(-870.f, 1700.f, 500.f));
 
 	/*pTileMapObj->TileMap()->SetRowCol(5, 5);
 	pTileMapObj->TileMap()->SetTileSize(Vec2(64.f, 64.f));

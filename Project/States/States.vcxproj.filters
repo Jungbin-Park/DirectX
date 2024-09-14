@@ -7,9 +7,6 @@
     <Filter Include="02. States">
       <UniqueIdentifier>{2dc39483-7af1-4d63-8f59-f24f34e98225}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. States\Player">
-      <UniqueIdentifier>{3e68dafc-9a27-4c1c-94fa-5275f23813ac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. States\Monster">
       <UniqueIdentifier>{9fc9f4f4-d80a-45a4-8dc1-e9a71ef33a8f}</UniqueIdentifier>
     </Filter>

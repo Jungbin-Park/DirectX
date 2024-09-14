@@ -11,10 +11,23 @@
 
 // TODO: 여기에 미리 컴파일하려는 헤더 추가
 
-#include <Windows.h>
-#include <vector>
-#include <string>
+//#include <Windows.h>
+//#include <vector>
+//#include <string>
+//
+//using namespace std;
 
-using namespace std;
+#include "framework.h"
+
+#ifdef _DEBUG
+#pragma comment(lib, "Engine\\Engine_D")
+#else
+#pragma comment(lib, "Engine\\Engine")
+#endif
+
+#include <Engine/global.h>
+#include <Engine/CEngine.h>
+
+#include "CStateMgr.h"
 
 #endif //PCH_H

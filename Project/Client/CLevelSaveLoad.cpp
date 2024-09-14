@@ -146,9 +146,6 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 	LoadWString(Name, _File);
 	pObject->SetName(Name);
 
-	if (Name == L"Missile")
-		return nullptr;
-
 	// Component 정보 로드
 	COMPONENT_TYPE Type = COMPONENT_TYPE::END;
 	while (true)

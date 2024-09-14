@@ -160,6 +160,9 @@
     <ClInclude Include="CFSM.h">
       <Filter>08. Component\09. FSM</Filter>
     </ClInclude>
+    <ClInclude Include="CState.h">
+      <Filter>08. Component\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -297,6 +300,9 @@
     </ClCompile>
     <ClCompile Include="CFSM.cpp">
       <Filter>08. Component\09. FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="CState.cpp">
+      <Filter>08. Component\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -470,6 +476,9 @@
     </Filter>
     <Filter Include="08. Component\09. FSM">
       <UniqueIdentifier>{84bd8840-8363-4a83-bc6d-92f38a70e1e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Component\State">
+      <UniqueIdentifier>{2b0f72ca-3afb-42ca-9e37-bf4761d00076}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
