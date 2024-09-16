@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "IdleState.h"
 
-IdleState::IdleState(UINT _StateType)
+#include <Engine/CFlipBookComponent.h>
+
+IdleState::IdleState()
 	:CState(STATE_TYPE::IDLESTATE)
 {
 }
@@ -12,6 +14,7 @@ IdleState::~IdleState()
 
 void IdleState::Enter()
 {
+	//GetOwner()->FlipBookComponent()->Play(0, 10, false);
 }
 
 void IdleState::FinalTick()

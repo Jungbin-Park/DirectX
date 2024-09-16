@@ -25,11 +25,11 @@ CGhoulScript::~CGhoulScript()
 
 void CGhoulScript::Begin()
 {
-	FSM()->AddState(L"IdleState", new IdleState(STATE_TYPE::IDLESTATE));
-	FSM()->AddState(L"AttackState", new AttackState(STATE_TYPE::ATTACKSTATE));
-	FSM()->AddState(L"MoveState", new MoveState(STATE_TYPE::MOVESTATE));
-	FSM()->AddState(L"HitState", new HitState(STATE_TYPE::HITSTATE));
-	FSM()->AddState(L"DeadState", new DeadState(STATE_TYPE::DEADSTATE));
+	/*FSM()->AddState(L"IdleState", new IdleState);
+	FSM()->AddState(L"AttackState", new AttackState);
+	FSM()->AddState(L"MoveState", new MoveState);
+	FSM()->AddState(L"HitState", new HitState);
+	FSM()->AddState(L"DeadState", new DeadState);*/
 
 	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhoulIdleLeft.flip");
 	FlipBookComponent()->AddFlipBook(0, pFlipBook);
@@ -48,12 +48,13 @@ void CGhoulScript::Begin()
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhouldDeadRight.flip");
 	FlipBookComponent()->AddFlipBook(7, pFlipBook);
 
-	FlipBookComponent()->Play(0, 10, false);
+	//FlipBookComponent()->Play(0, 10, false);
 	FSM()->ChangeState(L"IdleState");
 }
 
 void CGhoulScript::Tick()
 {
+	// State º¯°æ
 }
 
 void CGhoulScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)

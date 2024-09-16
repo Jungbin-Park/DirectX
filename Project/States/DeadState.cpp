@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "DeadState.h"
 
-DeadState::DeadState(UINT _StateType)
+DeadState::DeadState()
 	:CState(STATE_TYPE::DEADSTATE)
 {
 }

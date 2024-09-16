@@ -10,12 +10,7 @@ public:
 	virtual void Exit();
 
 public:
-	virtual void SaveToFile(FILE* _File) override;
-	virtual void LoadFromFile(FILE* _File) override;
-
-public:
-	CLONE_DISABLE(HitState);
-	HitState(UINT _StateType);
+	HitState();
 	~HitState();
 };
 

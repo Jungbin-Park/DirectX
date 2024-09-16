@@ -19,15 +19,15 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 CState * CStateMgr::GetState(const wstring& _strStateName)
 {
 	if (L"AttackState" == _strStateName)
-		return new AttackState(STATE_TYPE::ATTACKSTATE);
+		return new AttackState;
 	if (L"DeadState" == _strStateName)
-		return new DeadState(STATE_TYPE::DEADSTATE);
+		return new DeadState;
 	if (L"HitState" == _strStateName)
-		return new HitState(STATE_TYPE::HITSTATE);
+		return new HitState;
 	if (L"IdleState" == _strStateName)
-		return new IdleState(STATE_TYPE::IDLESTATE);
+		return new IdleState;
 	if (L"MoveState" == _strStateName)
-		return new MoveState(STATE_TYPE::MOVESTATE);
+		return new MoveState;
 	return nullptr;
 }
 
@@ -36,19 +36,19 @@ CState * CStateMgr::GetState(UINT _iStateType)
 	switch (_iStateType)
 	{
 	case (UINT)STATE_TYPE::ATTACKSTATE:
-		return new AttackState(STATE_TYPE::ATTACKSTATE);
+		return new AttackState;
 		break;
 	case (UINT)STATE_TYPE::DEADSTATE:
-		return new DeadState(STATE_TYPE::DEADSTATE);
+		return new DeadState;
 		break;
 	case (UINT)STATE_TYPE::HITSTATE:
-		return new HitState(STATE_TYPE::HITSTATE);
+		return new HitState;
 		break;
 	case (UINT)STATE_TYPE::IDLESTATE:
-		return new IdleState(STATE_TYPE::IDLESTATE);
+		return new IdleState;
 		break;
 	case (UINT)STATE_TYPE::MOVESTATE:
-		return new MoveState(STATE_TYPE::MOVESTATE);
+		return new MoveState;
 		break;
 	}
 	return nullptr;

@@ -44,5 +44,7 @@ public:
     CFSM();
     CFSM(const CFSM& _Other);
     ~CFSM();
+
+    friend class CState;
 };
 

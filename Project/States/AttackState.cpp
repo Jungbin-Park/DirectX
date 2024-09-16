@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "AttackState.h"
 
-AttackState::AttackState(UINT _StateType)
+AttackState::AttackState()
 	: CState(STATE_TYPE::ATTACKSTATE)
 {
 }

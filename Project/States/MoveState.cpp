@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "MoveState.h"
 
-MoveState::MoveState(UINT _StateType)
-	: CState(STATE_TYPE::MOVESTATE)
+MoveState::MoveState()
+	:CState(STATE_TYPE::MOVESTATE)
 {
 }
 

@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "HitState.h"
 
-HitState::HitState(UINT _StateType)
-	: CState(STATE_TYPE::HITSTATE)
+HitState::HitState()
+	:CState(STATE_TYPE::HITSTATE)
 {
 }
 
