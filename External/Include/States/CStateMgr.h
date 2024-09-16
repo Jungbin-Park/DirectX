@@ -5,10 +5,11 @@
 
 enum STATE_TYPE
 {
-	IDLE,
-	MOVE,
-	ATTACK,
-	HIT,
+	ATTACKSTATE,
+	DEADSTATE,
+	HITSTATE,
+	IDLESTATE,
+	MOVESTATE,
 };
 
 using namespace std;

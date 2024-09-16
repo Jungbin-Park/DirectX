@@ -4,10 +4,12 @@
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
 #include <Engine/CLayer.h>
+#include <Engine/CState.h>
 #include <Engine/CGameObject.h>
 #include <Engine/components.h>
 
 #include <Scripts/CScriptMgr.h>
+#include <States/CStateMgr.h>
 
 void CLevelSaveLoad::SaveLevel(const wstring& _FilePath, CLevel* _Level)
 {
@@ -224,7 +226,8 @@ CComponent* CLevelSaveLoad::GetComponent(COMPONENT_TYPE _Type)
 	case COMPONENT_TYPE::ANIMATOR3D:
 		break;
 
-	case COMPONENT_TYPE::STATE_MACHINE:
+	case COMPONENT_TYPE::FSM:
+		return new CFSM;
 		break;
 
 	case COMPONENT_TYPE::RIGIDBODY:

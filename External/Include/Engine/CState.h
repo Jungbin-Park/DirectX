@@ -25,13 +25,13 @@ protected:
 
 	void ChangeState(const wstring& _strStateName);
 
-	virtual void SaveToFile(FILE* _File) {}
-	virtual void LoadFromFile(FILE* _File) {}
-
 public:
 	virtual void Enter() = 0;
 	virtual void FinalTick() = 0;
 	virtual void Exit() = 0;
+
+	virtual void SaveToFile(FILE* _File) {}
+	virtual void LoadFromFile(FILE* _File) {}
 
 public:
 	CLONE_DISABLE(CState);

@@ -6,6 +6,12 @@ class CGhoulScript :
 {
 private:
     float                   m_Speed;
+    float                   m_HP;
+    float                   m_Cooldown;
+
+    float                   m_DetectRange;
+    float                   m_AttackRange;
+
 
 public:
     virtual void Begin() override;

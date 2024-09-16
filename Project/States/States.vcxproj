@@ -164,12 +164,22 @@ call CodeGen.exe
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AttackState.h" />
     <ClInclude Include="CStateMgr.h" />
+    <ClInclude Include="DeadState.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="HitState.h" />
+    <ClInclude Include="IdleState.h" />
+    <ClInclude Include="MoveState.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
+    <ClCompile Include="DeadState.cpp" />
+    <ClCompile Include="HitState.cpp" />
+    <ClCompile Include="IdleState.cpp" />
+    <ClCompile Include="MoveState.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

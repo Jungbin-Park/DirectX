@@ -30,6 +30,7 @@ public:
     GET_OTHER_COMPONENT(FlipBookComponent);
     GET_OTHER_COMPONENT(TileMap);
     GET_OTHER_COMPONENT(Light2D);
+    GET_OTHER_COMPONENT(FSM);
 
 
 private:

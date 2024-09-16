@@ -61,6 +61,7 @@ public:
     GET_COMPONENT(FlipBookComponent, FLIPBOOKCOMPONENT);
     GET_COMPONENT(TileMap, TILEMAP);
     GET_COMPONENT(Light2D, LIGHT2D);
+    GET_COMPONENT(FSM, FSM);
 
 public:
     void Begin();

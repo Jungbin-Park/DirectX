@@ -173,6 +173,7 @@ void CTestLevel::CreateTestLevel()
 	pMonster->AddComponent(new CCollider2D);
 	pMonster->AddComponent(new CFlipBookComponent);
 	pMonster->AddComponent(new CGhoulScript);
+	pMonster->AddComponent(new CFSM);
 
 	pMonster->Transform()->SetRelativePos(300.f, 0.f, 100.f);
 	pMonster->Transform()->SetRelativeScale(150.f, 150.f, 1.f);	

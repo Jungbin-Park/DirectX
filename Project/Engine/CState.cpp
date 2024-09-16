@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "CState.h"
 
-
-
 CState::CState(UINT _StateType)
 	: m_StateType(_StateType)
 	, m_Owner(nullptr)

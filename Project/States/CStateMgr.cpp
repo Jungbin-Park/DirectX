@@ -1,14 +1,33 @@
 #include "pch.h"
 #include "CStateMgr.h"
 
-#include <Engine/CState.h>
+#include "AttackState.h"
+#include "DeadState.h"
+#include "HitState.h"
+#include "IdleState.h"
+#include "MoveState.h"
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
+	_vec.push_back(L"AttackState");
+	_vec.push_back(L"DeadState");
+	_vec.push_back(L"HitState");
+	_vec.push_back(L"IdleState");
+	_vec.push_back(L"MoveState");
 }
 
 CState * CStateMgr::GetState(const wstring& _strStateName)
 {
+	if (L"AttackState" == _strStateName)
+		return new AttackState(STATE_TYPE::ATTACKSTATE);
+	if (L"DeadState" == _strStateName)
+		return new DeadState(STATE_TYPE::DEADSTATE);
+	if (L"HitState" == _strStateName)
+		return new HitState(STATE_TYPE::HITSTATE);
+	if (L"IdleState" == _strStateName)
+		return new IdleState(STATE_TYPE::IDLESTATE);
+	if (L"MoveState" == _strStateName)
+		return new MoveState(STATE_TYPE::MOVESTATE);
 	return nullptr;
 }
 
@@ -16,6 +35,21 @@ CState * CStateMgr::GetState(UINT _iStateType)
 {
 	switch (_iStateType)
 	{
+	case (UINT)STATE_TYPE::ATTACKSTATE:
+		return new AttackState(STATE_TYPE::ATTACKSTATE);
+		break;
+	case (UINT)STATE_TYPE::DEADSTATE:
+		return new DeadState(STATE_TYPE::DEADSTATE);
+		break;
+	case (UINT)STATE_TYPE::HITSTATE:
+		return new HitState(STATE_TYPE::HITSTATE);
+		break;
+	case (UINT)STATE_TYPE::IDLESTATE:
+		return new IdleState(STATE_TYPE::IDLESTATE);
+		break;
+	case (UINT)STATE_TYPE::MOVESTATE:
+		return new MoveState(STATE_TYPE::MOVESTATE);
+		break;
 	}
 	return nullptr;
 }
@@ -24,6 +58,26 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 {
 	switch ((STATE_TYPE)_pState->GetStateType())
 	{
+	case STATE_TYPE::ATTACKSTATE:
+		return L"AttackState";
+		break;
+
+	case STATE_TYPE::DEADSTATE:
+		return L"DeadState";
+		break;
+
+	case STATE_TYPE::HITSTATE:
+		return L"HitState";
+		break;
+
+	case STATE_TYPE::IDLESTATE:
+		return L"IdleState";
+		break;
+
+	case STATE_TYPE::MOVESTATE:
+		return L"MoveState";
+		break;
+
 	}
 	return nullptr;
 }

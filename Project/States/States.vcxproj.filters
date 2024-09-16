@@ -10,19 +10,60 @@
     <Filter Include="02. States\Monster">
       <UniqueIdentifier>{9fc9f4f4-d80a-45a4-8dc1-e9a71ef33a8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{9a1c85cf-877c-4c36-b074-df5f7ac3f177}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CStateMgr.h">
       <Filter>01. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="framework.h" />
+    <ClInclude Include="IdleState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="HitState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CStateMgr.cpp">
       <Filter>01. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="States.cpp" />
-    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="IdleState.cpp">
+      <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackState.cpp">
+      <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadState.cpp">
+      <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="HitState.cpp">
+      <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveState.cpp">
+      <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="States.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
