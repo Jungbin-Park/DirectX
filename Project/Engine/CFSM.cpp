@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "CFSM.h"
 
-#include <States/CStateMgr.h>
-
 #include "CPathMgr.h"
 #include "CTaskMgr.h"
 #include "CState.h"
+
+
 
 CFSM::CFSM()
 	: CComponent(COMPONENT_TYPE::FSM)

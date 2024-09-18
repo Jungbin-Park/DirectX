@@ -1,5 +1,1 @@
-AttackState
-DeadState
-HitState
-IdleState
-MoveState
+CIdleState

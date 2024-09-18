@@ -9,6 +9,7 @@
 #include <Engine/CLayer.h>
 #include <Engine/CGameObject.h>
 #include <Engine/components.h>
+#include <Engine/CState.h>
 
 #include <Engine/CCollisionMgr.h>
 
@@ -18,6 +19,8 @@
 #include <Scripts/CMarkerScript.h>
 #include <Scripts/CursorScript.h>
 #include <Scripts/CGhoulScript.h>
+
+#include<States/CIdleState.h>
 
 #include "CLevelSaveLoad.h"
 
@@ -183,6 +186,12 @@ void CTestLevel::CreateTestLevel()
 
 	pMonster->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pMonster->MeshRender()->SetMaterial(pMtrl);
+
+	//pMonster->FSM()->AddState(L"IdleState", new CIdleState);
+	/*pMonster->FSM()->AddState(L"AttackState", new AttackState);
+	pMonster->FSM()->AddState(L"MoveState", new MoveState);
+	pMonster->FSM()->AddState(L"HitState", new HitState);
+	pMonster->FSM()->AddState(L"DeadState", new DeadState);*/
 
 	pLevel->AddObject(4, pMonster);
 

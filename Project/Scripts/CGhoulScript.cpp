@@ -1,13 +1,11 @@
 #include "pch.h"
 #include "CGhoulScript.h"
 
-#include <States/CStateMgr.h>
-#include <States/IdleState.h>
-#include <States/AttackState.h>
-#include <States/MoveState.h>
-#include <States/HitState.h>
-#include <States/DeadState.h>
+#include <Engine/CState.h>
+#include <Engine/CFSM.h>
 
+#include <States/CIdleState.h>
+#include <States/CStateMgr.h>
 
 CGhoulScript::CGhoulScript()
 	: CScript(SCRIPT_TYPE::GHOULSCRIPT)
@@ -25,11 +23,9 @@ CGhoulScript::~CGhoulScript()
 
 void CGhoulScript::Begin()
 {
-	/*FSM()->AddState(L"IdleState", new IdleState);
-	FSM()->AddState(L"AttackState", new AttackState);
-	FSM()->AddState(L"MoveState", new MoveState);
-	FSM()->AddState(L"HitState", new HitState);
-	FSM()->AddState(L"DeadState", new DeadState);*/
+	FSM()->AddState(L"IdleState", new CIdleState);
+
+	//CState* pState = new CIdleState;
 
 	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhoulIdleLeft.flip");
 	FlipBookComponent()->AddFlipBook(0, pFlipBook);
@@ -48,8 +44,8 @@ void CGhoulScript::Begin()
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhouldDeadRight.flip");
 	FlipBookComponent()->AddFlipBook(7, pFlipBook);
 
-	//FlipBookComponent()->Play(0, 10, false);
-	FSM()->ChangeState(L"IdleState");
+	FlipBookComponent()->Play(0, 10, false);
+	//FSM()->ChangeState(L"IdleState");
 }
 
 void CGhoulScript::Tick()

@@ -18,52 +18,28 @@
     <ClInclude Include="CStateMgr.h">
       <Filter>01. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="IdleState.h">
-      <Filter>02. States\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveState.h">
-      <Filter>02. States\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackState.h">
-      <Filter>02. States\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="DeadState.h">
-      <Filter>02. States\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="HitState.h">
-      <Filter>02. States\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>Default</Filter>
     </ClInclude>
+    <ClInclude Include="CIdleState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CStateMgr.cpp">
       <Filter>01. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="IdleState.cpp">
-      <Filter>02. States\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackState.cpp">
-      <Filter>02. States\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="DeadState.cpp">
-      <Filter>02. States\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="HitState.cpp">
-      <Filter>02. States\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveState.cpp">
-      <Filter>02. States\Monster</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Default</Filter>
     </ClCompile>
     <ClCompile Include="States.cpp">
       <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="CIdleState.cpp">
+      <Filter>02. States\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -369,12 +369,12 @@ void CPlayerScript::KeyInput()
 		case eDirection::LEFT:
 		case eDirection::UP_LEFT:
 		case eDirection::DOWN_LEFT:
-			FlipBookComponent()->Play(13, 40, false);
+			FlipBookComponent()->Play(13, 50, false);
 			break;
 		case eDirection::RIGHT:
 		case eDirection::UP_RIGHT:
 		case eDirection::DOWN_RIGHT:
-			FlipBookComponent()->Play(13, 40, false);
+			FlipBookComponent()->Play(13, 50, false);
 			break;
 		}
 	}
