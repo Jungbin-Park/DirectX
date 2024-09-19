@@ -123,6 +123,19 @@ void CGameObject::AddChild(CGameObject* _ChildObject)
 }
 
 
+CScript* CGameObject::GetScriptByName(const wstring& _ScriptName)
+{
+	vector<CScript*>::iterator iter = m_vecScript.begin();
+
+	for (; iter != m_vecScript.end(); ++iter)
+	{
+		if ((*iter)->GetName() == _ScriptName)
+		{
+			return *iter;
+		}
+	}
+}
+
 bool CGameObject::IsAncestor(CGameObject* _Object)
 {
 	CGameObject* pObject = m_Parent;

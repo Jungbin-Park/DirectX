@@ -27,6 +27,8 @@
 #include "TE_Detail.h"
 #include "TE_Viewer.h"
 
+#include "PlatformEditor.h"
+
 void CEditorMgr::InitImGui()
 {
     // Setup Dear ImGui context
@@ -192,6 +194,13 @@ void CEditorMgr::CreateEditorUI()
     pUI = new TileMapEditor;
     pUI->Init();
     pUI->SetName("1TileMapEditor");
+    pUI->SetActive(false);
+    m_mapUI.insert(make_pair(pUI->GetName(), pUI));
+
+    // PlatformEditor
+    pUI = new PlatformEditor;
+    pUI->Init();
+    pUI->SetName("PlatformEditor");
     pUI->SetActive(false);
     m_mapUI.insert(make_pair(pUI->GetName(), pUI));
 }

@@ -5,9 +5,11 @@
 #include <Engine/CLevel.h>
 #include <Engine/CAssetMgr.h>
 #include <Engine/assets.h>
-#include <Scripts/CScriptMgr.h>
 #include <Engine/CGameObject.h>
 #include <Engine/CScript.h>
+
+#include <Scripts/CScriptMgr.h>
+#include <Scripts/CPlatformScript.h>
 
 #include "CEditorMgr.h"
 #include "Inspector.h"
@@ -148,6 +150,23 @@ void MenuUI::GameObject()
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::MenuItem("Create Platform"))
+		{
+			CGameObject* pPlatform = new CGameObject;
+			pPlatform->SetName(L"Platform");
+			pPlatform->AddComponent(new CTransform);
+			pPlatform->AddComponent(new CCollider2D);
+			pPlatform->AddComponent(new CFlipBookComponent);
+			pPlatform->AddComponent(new CPlatformScript);
+			pPlatform->Transform()->SetRelativePos(0.f, 0.f, 100.f);
+			pPlatform->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
+
+			pPlatform->Collider2D()->SetIndependentScale(false);
+			pPlatform->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+			pPlatform->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
+			CLevelMgr::GetInst()->GetCurrentLevel()->AddObject(1, pPlatform);
+		}
+
 		AddScript();
 
 		ImGui::EndMenu();
@@ -212,6 +231,20 @@ void MenuUI::Assets()
 		if (ImGui::MenuItem("FlipBook Editor", nullptr, &IsActiveFE))
 		{
 			CEditorMgr::GetInst()->FindEditorUI("FlipBookEditor")->SetActive(IsActiveFE);
+		}
+
+		EditorUI* pPlatformEditor = CEditorMgr::GetInst()->FindEditorUI("PlatformEditor");
+		bool IsActivePE = pPlatformEditor->IsActive();
+
+		bool IsLevelStop = false;
+		if (CLevelMgr::GetInst()->GetCurrentLevel()->GetState() == LEVEL_STATE::STOP)
+			IsLevelStop = true;
+		else
+			IsLevelStop = false;
+
+		if (ImGui::MenuItem("Platform Editor", nullptr, &IsActivePE, IsLevelStop))
+		{
+			CEditorMgr::GetInst()->FindEditorUI("PlatformEditor")->SetActive(IsActivePE);
 		}
 
 		ImGui::EndMenu();

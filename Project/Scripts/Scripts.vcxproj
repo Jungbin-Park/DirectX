@@ -73,13 +73,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)External\Library\Scripts\</OutDir>
     <TargetName>$(ProjectName)_D</TargetName>
-    <IncludePath>$(SolutionDir)External\Include\;$(ProjectDir);C:\DirectX\DirectX\External\Library\States\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\;C:\DirectX\DirectX\External\Library\States\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)External\Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)External\Library\Scripts\</OutDir>
-    <IncludePath>$(SolutionDir)External\Include\;$(ProjectDir);C:\DirectX\DirectX\External\Library\States\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\;C:\DirectX\DirectX\External\Library\States\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)External\Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -169,6 +169,7 @@ call CodeGen.exe
     <ClInclude Include="CCameraMoveScript.h" />
     <ClInclude Include="CGhoulScript.h" />
     <ClInclude Include="CMarkerScript.h" />
+    <ClInclude Include="CPlatformScript.h" />
     <ClInclude Include="CSlashScript.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CScriptMgr.h" />
@@ -180,6 +181,7 @@ call CodeGen.exe
     <ClCompile Include="CCameraMoveScript.cpp" />
     <ClCompile Include="CGhoulScript.cpp" />
     <ClCompile Include="CMarkerScript.cpp" />
+    <ClCompile Include="CPlatformScript.cpp" />
     <ClCompile Include="CSlashScript.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />

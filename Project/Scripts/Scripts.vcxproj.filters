@@ -28,6 +28,9 @@
     <ClInclude Include="CGhoulScript.h">
       <Filter>Scripts\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="CPlatformScript.h">
+      <Filter>Scripts\Platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -57,6 +60,9 @@
     <ClCompile Include="CGhoulScript.cpp">
       <Filter>Scripts\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="CPlatformScript.cpp">
+      <Filter>Scripts\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -79,6 +85,9 @@
     </Filter>
     <Filter Include="Scripts\Monster">
       <UniqueIdentifier>{ebc74458-1c23-4c9b-86da-b5b71620c88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Platform">
+      <UniqueIdentifier>{bbceb966-9f82-4200-8af1-5246bd6a5095}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

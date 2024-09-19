@@ -44,8 +44,8 @@ void CGhoulScript::Begin()
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhouldDeadRight.flip");
 	FlipBookComponent()->AddFlipBook(7, pFlipBook);
 
-	FlipBookComponent()->Play(0, 10, false);
-	//FSM()->ChangeState(L"IdleState");
+	
+	FSM()->ChangeState(L"IdleState");
 }
 
 void CGhoulScript::Tick()

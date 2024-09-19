@@ -106,9 +106,6 @@
     <Filter Include="EditorUI\07. Module">
       <UniqueIdentifier>{f52bfcc3-5ce2-4801-9fcf-d3c75515669b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\03. LevelSaveLoad">
-      <UniqueIdentifier>{bf44a06f-939b-4c02-bdfa-7776fd9c585f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="EditorUI\09. FilpBookEditor">
       <UniqueIdentifier>{09f5235f-63e5-4c43-8cea-c976769fe376}</UniqueIdentifier>
     </Filter>
@@ -156,6 +153,15 @@
     </Filter>
     <Filter Include="Levels\02. Town">
       <UniqueIdentifier>{7e552492-9cf9-4376-b0b3-9817377653a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\02. LevelSaveLoad">
+      <UniqueIdentifier>{bf44a06f-939b-4c02-bdfa-7776fd9c585f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\03. LevelMgr">
+      <UniqueIdentifier>{f1ac53c1-f12d-47cd-941a-783eca02bcb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorUI\11. PlatformEditor">
+      <UniqueIdentifier>{c7e9db6f-26f1-424b-9aae-971f89e7ecdd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -301,7 +307,7 @@
       <Filter>EditorUI\09. FilpBookEditor</Filter>
     </ClInclude>
     <ClInclude Include="CLevelSaveLoad.h">
-      <Filter>Manager\03. LevelSaveLoad</Filter>
+      <Filter>Manager\02. LevelSaveLoad</Filter>
     </ClInclude>
     <ClInclude Include="SpriteEditor.h">
       <Filter>EditorUI\08. SpriteEditor</Filter>
@@ -338,6 +344,9 @@
     </ClInclude>
     <ClInclude Include="FE_SpriteList.h">
       <Filter>EditorUI\09. FilpBookEditor\FE_Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformEditor.h">
+      <Filter>EditorUI\11. PlatformEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -486,7 +495,7 @@
       <Filter>EditorUI\09. FilpBookEditor</Filter>
     </ClCompile>
     <ClCompile Include="CLevelSaveLoad.cpp">
-      <Filter>Manager\03. LevelSaveLoad</Filter>
+      <Filter>Manager\02. LevelSaveLoad</Filter>
     </ClCompile>
     <ClCompile Include="SpriteEditor.cpp">
       <Filter>EditorUI\08. SpriteEditor</Filter>
@@ -523,6 +532,9 @@
     </ClCompile>
     <ClCompile Include="FE_SpriteList.cpp">
       <Filter>EditorUI\09. FilpBookEditor\FE_Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformEditor.cpp">
+      <Filter>EditorUI\11. PlatformEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

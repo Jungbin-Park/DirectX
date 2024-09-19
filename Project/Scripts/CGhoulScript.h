@@ -14,6 +14,9 @@ private:
 
 
 public:
+    float GetSpeed() { return m_Speed; }
+
+public:
     virtual void Begin() override;
     virtual void Tick() override;
 

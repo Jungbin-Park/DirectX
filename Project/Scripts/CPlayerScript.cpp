@@ -2,6 +2,7 @@
 #include "CPlayerScript.h"
 
 #include "CSlashScript.h"
+#include "CPlatformScript.h"
 
 #include <Engine/CDevice.h>
 #include <Engine/CFlipBookComponent.h>
@@ -29,6 +30,8 @@ CPlayerScript::CPlayerScript()
 	, m_SlashPos(Vec3(0.f, 0.f, 0.f))
 	, m_MovedPos(Vec2(0.f, 0.f))
 	, m_SlashRot(Vec3(0.f, 0.f, 0.f))
+	, m_CollisionDir(CollisionDir::NONE)
+	, m_CollisionCount(0)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
@@ -415,28 +418,32 @@ void CPlayerScript::Move()
 	{
 		//m_Direction = eDirection::LEFT;
 		m_State = eState::MOVE;
-		vPos.x -= DT * m_Speed;
+		if(m_CollisionDir != CollisionDir::RIGHT)
+			vPos.x -= DT * m_Speed;
 	}
 	
 	if (KEY_PRESSED(KEY::D))
 	{
 		//m_Direction = eDirection::RIGHT;
 		m_State = eState::MOVE;
-		vPos.x += DT * m_Speed;
+		if (m_CollisionDir != CollisionDir::LEFT)
+			vPos.x += DT * m_Speed;
 	}
 
 	if (KEY_PRESSED(KEY::W))
 	{
 		//m_Direction = eDirection::UP;
 		m_State = eState::MOVE;
-		vPos.y += DT * m_Speed;
+		if (m_CollisionDir != CollisionDir::DOWN)
+			vPos.y += DT * m_Speed;
 	}
 
 	if (KEY_PRESSED(KEY::S))
 	{
 		//m_Direction = eDirection::DOWN;
 		m_State = eState::MOVE;
-		vPos.y -= DT * m_Speed;
+		if (m_CollisionDir != CollisionDir::UP)
+			vPos.y -= DT * m_Speed;
 	}
 
 
@@ -490,6 +497,31 @@ void CPlayerScript::Attack()
 	else
 	{
 		m_MouseDir.Normalize();
+
+		switch (m_CollisionDir)
+		{
+		case CPlayerScript::CollisionDir::NONE:
+			break;
+		case CPlayerScript::CollisionDir::RIGHT:
+			if (m_MouseDir.x < 0)
+				m_MouseDir.x = 0;
+			break;
+		case CPlayerScript::CollisionDir::LEFT:
+			if (m_MouseDir.x > 0)
+				m_MouseDir.x = 0;
+			break;
+		case CPlayerScript::CollisionDir::UP:
+			if (m_MouseDir.y < 0)
+				m_MouseDir.y = 0;
+			break;
+		case CPlayerScript::CollisionDir::DOWN:
+			if (m_MouseDir.y > 0)
+				m_MouseDir.y = 0;
+			break;
+		default:
+			break;
+		}
+
 		m_MovedPos = vPos + m_MouseDir * DT * m_AtkDashSpeed;
 
 		m_AtkDashTime += DT;
@@ -546,31 +578,56 @@ void CPlayerScript::Dash()
 	}
 	else
 	{
-		if(m_Direction == eDirection::UP) vPos.y += DT * m_DashSpeed;
-		if(m_Direction == eDirection::DOWN) vPos.y -= DT * m_DashSpeed;
-		if(m_Direction == eDirection::LEFT) vPos.x -= DT * m_DashSpeed;
-		if(m_Direction == eDirection::RIGHT) vPos.x += DT * m_DashSpeed;
+
+		if (m_Direction == eDirection::UP)
+		{
+			if(m_CollisionDir != CollisionDir::DOWN)
+				vPos.y += DT * m_DashSpeed;
+		}
+		if (m_Direction == eDirection::DOWN)
+		{
+			if (m_CollisionDir != CollisionDir::UP)
+				vPos.y -= DT * m_DashSpeed;
+		}
+		if (m_Direction == eDirection::LEFT)
+		{
+			if (m_CollisionDir != CollisionDir::RIGHT)
+				vPos.x -= DT * m_DashSpeed;
+		}
+		if (m_Direction == eDirection::RIGHT) 
+		{
+			if (m_CollisionDir != CollisionDir::LEFT)
+				vPos.x += DT * m_DashSpeed;
+		}
 
 		// 대각선 방향
 		if (m_Direction == eDirection::UP_LEFT)
 		{
-			vPos.y += DT * m_DashSpeed * 0.707f;  // 45도일 때 √2/2 ≈ 0.707
-			vPos.x -= DT * m_DashSpeed * 0.707f;
+			if (m_CollisionDir != CollisionDir::DOWN)
+				vPos.y += DT * m_DashSpeed * 0.707f;  // 45도일 때 √2/2 ≈ 0.707
+			if (m_CollisionDir != CollisionDir::RIGHT)
+				vPos.x -= DT * m_DashSpeed * 0.707f;
 		}
 		if (m_Direction == eDirection::UP_RIGHT)
 		{
-			vPos.y += DT * m_DashSpeed * 0.707f;
-			vPos.x += DT * m_DashSpeed * 0.707f;
+			if (m_CollisionDir != CollisionDir::DOWN)
+				vPos.y += DT * m_DashSpeed * 0.707f;
+			if (m_CollisionDir != CollisionDir::LEFT)
+				vPos.x += DT * m_DashSpeed * 0.707f;
 		}
 		if (m_Direction == eDirection::DOWN_LEFT)
 		{
-			vPos.y -= DT * m_DashSpeed * 0.707f;
-			vPos.x -= DT * m_DashSpeed * 0.707f;
+			if (m_CollisionDir != CollisionDir::UP)
+				vPos.y -= DT * m_DashSpeed * 0.707f;
+			if (m_CollisionDir != CollisionDir::RIGHT)
+				vPos.x -= DT * m_DashSpeed * 0.707f;
 		}
 		if (m_Direction == eDirection::DOWN_RIGHT)
 		{
-			vPos.y -= DT * m_DashSpeed * 0.707f;
-			vPos.x += DT * m_DashSpeed * 0.707f;
+			if (m_CollisionDir != CollisionDir::UP)
+				vPos.y -= DT * m_DashSpeed * 0.707f;
+			if (m_CollisionDir != CollisionDir::LEFT)
+				vPos.x += DT * m_DashSpeed * 0.707f;
 		}
 
 		m_DashTime += DT;
@@ -669,17 +726,74 @@ void CPlayerScript::LoadFlipBook()
 }
 
 
-
 void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
-	DeleteObject(_OtherObject);
+	if (_OtherObject->GetName() == L"Platform")
+	{
+		m_CollisionCount += 1;
+		Vec3 vWallPos = _OtherObject->Transform()->GetRelativePos();
+		Vec3 vPos = Transform()->GetRelativePos();
 
-	Vec3 vScale = Transform()->GetRelativeScale();
+		float halfColX = (Transform()->GetRelativeScale().x * _OwnCollider->GetScale().x) / 2;
+		float halfColY = (Transform()->GetRelativeScale().y * _OwnCollider->GetScale().y) / 2;
 
-	vScale += Vec3(10.f, 10.f, 0.f);
-	Collider2D()->SetScale(Collider2D()->GetScale() + Vec3(10.f, 10.f, 0.f));
+		float fWallLeft = vWallPos.x - (_OtherObject->Transform()->GetRelativeScale().x / 2);
+		float fWallRight = vWallPos.x + (_OtherObject->Transform()->GetRelativeScale().x / 2);
+		float fWallUp = vWallPos.y + (_OtherObject->Transform()->GetRelativeScale().y / 2);
+		float fWallDown = vWallPos.y - (_OtherObject->Transform()->GetRelativeScale().y / 2);
 
-	Transform()->SetRelativeScale(vScale);
+		// 플레이어가 벽 오른쪽
+		if (vPos.x > vWallPos.x)
+		{
+			// 벽 아랫면
+			if (floor(vPos.y + halfColY) <= fWallDown)
+			{
+				m_CollisionDir = CollisionDir::DOWN;
+			}
+			// 벽 윗면
+			else if (ceil(vPos.y - halfColY) >= fWallUp)
+			{
+				m_CollisionDir = CollisionDir::UP;
+			}
+			// 오른쪽
+			else
+			{
+				m_CollisionDir = CollisionDir::RIGHT;
+			}
+		}
+		// 플레이어가 벽 왼쪽
+		else
+		{
+			// 벽 아랫면
+			if (floor(vPos.y + halfColY) <= fWallDown)
+			{
+				m_CollisionDir = CollisionDir::DOWN;
+			}
+			// 벽 윗면
+			else if (ceil(vPos.y - halfColY) >= fWallUp)
+			{
+				m_CollisionDir = CollisionDir::UP;
+			}
+			// 왼쪽
+			else
+			{
+				m_CollisionDir = CollisionDir::LEFT;
+			}
+		}
+	}
+}
+
+void CPlayerScript::Overlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
+{
+	
+}
+
+void CPlayerScript::EndOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
+{
+	m_CollisionCount -= 1;
+
+	if (m_CollisionCount == 0)
+		m_CollisionDir = CollisionDir::NONE;
 }
 
 void CPlayerScript::ChangeAttribute(int _data)

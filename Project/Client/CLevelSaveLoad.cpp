@@ -7,6 +7,7 @@
 #include <Engine/CState.h>
 #include <Engine/CGameObject.h>
 #include <Engine/components.h>
+#include <Engine/CCollisionMgr.h>
 
 #include <Scripts/CScriptMgr.h>
 #include <States/CStateMgr.h>
@@ -95,6 +96,23 @@ void CLevelSaveLoad::SaveGameObject(FILE* _File, CGameObject* _Object)
 	{
 		SaveGameObject(_File, vecChild[i]);
 	}
+}
+
+void CLevelSaveLoad::LevelInit()
+{
+	CLevel* pLevel = new CLevel;
+
+	wstring levelName = L"Home";
+	wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
+	StrLevelLoadPath += (L"level\\" + levelName + L".lv");
+	pLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath);
+
+	//pLevel->FindObjectByName(L"Monster")->SetName(L"Ghoul");
+	//
+	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // Platform vs Player
+	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // Platform vs Monster
+
+	ChangeLevel(pLevel, LEVEL_STATE::STOP);
 }
 
 

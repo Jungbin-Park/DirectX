@@ -10,10 +10,19 @@
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 
+
+// Engine
 #ifdef _DEBUG
 #pragma comment(lib, "Engine\\Engine_D")
 #else
 #pragma comment(lib, "Engine\\Engine")
+#endif
+
+// States
+#ifdef _DEBUG
+#pragma comment(lib, "States\\States_D")
+#else
+#pragma comment(lib, "States\\States")
 #endif
 
 #include <Engine/global.h>

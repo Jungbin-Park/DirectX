@@ -1,6 +1,7 @@
 CCameraMoveScript
 CGhoulScript
 CMarkerScript
+CPlatformScript
 CPlayerScript
 CSlashScript
 CursorScript

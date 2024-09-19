@@ -22,6 +22,15 @@ public:
         ATTACK2,
     };
 
+    enum class CollisionDir
+    {
+        NONE,
+        RIGHT,
+        LEFT,
+        UP,
+        DOWN,
+    };
+
 private:
     Ptr<CTexture>           m_Texture;
     Ptr<CPrefab>            m_SlashPref;
@@ -54,6 +63,9 @@ private:
 
     int                     m_Attribute;
 
+    CollisionDir            m_CollisionDir;
+    int                     m_CollisionCount;
+
 private:
     void ChangeAttribute(int _data);
 
@@ -67,13 +79,16 @@ private:
     void LoadFlipBook();
 
 public:
-    
+    float GetSpeed() { return m_Speed; }
+    void SetSpeed(float _Speed) { m_Speed = _Speed; }
 
 public:
     virtual void Begin() override;
     virtual void Tick() override;
 
     virtual void BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider) override;
+    virtual void Overlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider) override;
+    virtual void EndOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider) override;
 
     virtual void SaveToFile(FILE* _File) override;
     virtual void LoadFromFile(FILE* _File) override;

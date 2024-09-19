@@ -17,5 +17,12 @@
 #pragma comment(lib, "Scripts\\Scripts")
 #endif
 
+// States
+#ifdef _DEBUG
+#pragma comment(lib, "States\\States_D")
+#else
+#pragma comment(lib, "States\\States")
+#endif
+
 #include <set>
 using std::set;

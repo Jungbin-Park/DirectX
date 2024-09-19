@@ -44,6 +44,7 @@ public:
     void AddChild(CGameObject* _ChildObject);
     const vector<CGameObject*>& GetChildren() { return m_vecChildren; }
     const vector<CScript*> GetScripts() { return m_vecScript; }
+    CScript* GetScriptByName(const wstring& _ScriptName);
 
     bool IsAncestor(CGameObject* _Object);
     bool IsDead() { return m_Dead; }
