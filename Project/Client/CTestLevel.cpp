@@ -188,6 +188,8 @@ void CTestLevel::CreateTestLevel()
 		pMonster->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		pMonster->MeshRender()->SetMaterial(pMtrl);
 
+		
+
 		pLevel->AddObject(4, pMonster);
 
 		// TileMap Object
@@ -266,5 +268,10 @@ void CTestLevel::CreatePrefab()
 
 	/*CTileMap* pTile = new CTileMap;
 	pTile->SetName(L"map1");*/
+
+}
+
+void CTestLevel::LevelInit()
+{
 
 }

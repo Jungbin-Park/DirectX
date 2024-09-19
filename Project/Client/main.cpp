@@ -7,6 +7,7 @@
 #include "CEditorMgr.h"
 #include <Engine/CDevice.h>
 #include <Engine/CPathMgr.h>
+#include <Engine/CLevelMgr.h>
 #include "ImGui/imgui_impl_win32.h"
 
 #include "CLevelSaveLoad.h"
@@ -27,7 +28,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(412);
+    //_CrtSetBreakAlloc(18805);
 
     g_hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
@@ -70,7 +71,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (msg.message == WM_QUIT)
+            {
                 break;
+            }
+                
 
             if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
             {

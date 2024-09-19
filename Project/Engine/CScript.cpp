@@ -9,6 +9,7 @@ CScript::CScript(UINT _ScriptType)
 
 CScript::~CScript() 
 {
+
 }
 
 void CScript::Instantiate(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, const wstring& _Name)

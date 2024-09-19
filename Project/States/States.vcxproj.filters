@@ -27,6 +27,18 @@
     <ClInclude Include="CIdleState.h">
       <Filter>02. States\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="CMoveState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttackState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CDeadState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CHitState.h">
+      <Filter>02. States\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CStateMgr.cpp">
@@ -39,6 +51,18 @@
       <Filter>Default</Filter>
     </ClCompile>
     <ClCompile Include="CIdleState.cpp">
+      <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttackState.cpp">
+      <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CDeadState.cpp">
+      <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CHitState.cpp">
+      <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CMoveState.cpp">
       <Filter>02. States\Monster</Filter>
     </ClCompile>
   </ItemGroup>
