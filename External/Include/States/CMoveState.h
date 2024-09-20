@@ -5,7 +5,11 @@ class CMoveState :
     public CState
 {
 private:
+	float	m_Speed;
+	bool	m_bPlayRightAnim;
+	bool	m_bPlayLeftAnim;
 
+	float	m_AttackRange;
 
 public:
 	virtual void Enter();

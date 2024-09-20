@@ -12,6 +12,8 @@ private:
     float                   m_DetectRange;
     float                   m_AttackRange;
 
+    CGameObject*            m_Target;
+
 
 public:
     float GetSpeed() { return m_Speed; }

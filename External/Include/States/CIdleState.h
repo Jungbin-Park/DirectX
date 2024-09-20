@@ -5,7 +5,8 @@ class CIdleState :
     public CState
 {
 private:
-	
+	float	m_DetectRange;
+
 
 public:
 	virtual void Enter();

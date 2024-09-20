@@ -3,8 +3,14 @@
 
 #include <Engine/CState.h>
 #include <Engine/CFSM.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
 
 #include <States/CIdleState.h>
+#include <States/CMoveState.h>
+#include <States/CAttackState.h>
+#include <States/CHitState.h>
+#include <States/CDeadState.h>
 #include <States/CStateMgr.h>
 
 CGhoulScript::CGhoulScript()
@@ -24,8 +30,10 @@ CGhoulScript::~CGhoulScript()
 void CGhoulScript::Begin()
 {
 	FSM()->AddState(L"IdleState", new CIdleState);
-
-	//CState* pState = new CIdleState;
+	FSM()->AddState(L"MoveState", new CMoveState);
+	FSM()->AddState(L"AttackState", new CAttackState);
+	FSM()->AddState(L"HitState", new CHitState);
+	FSM()->AddState(L"DeadState", new CDeadState);
 
 	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhoulIdleLeft.flip");
 	FlipBookComponent()->AddFlipBook(0, pFlipBook);
@@ -44,13 +52,16 @@ void CGhoulScript::Begin()
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhouldDeadRight.flip");
 	FlipBookComponent()->AddFlipBook(7, pFlipBook);
 
-	
 	FSM()->ChangeState(L"IdleState");
+
+	m_Target = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
+
 }
 
 void CGhoulScript::Tick()
 {
-	// State º¯°æ
+	
+	
 }
 
 void CGhoulScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)

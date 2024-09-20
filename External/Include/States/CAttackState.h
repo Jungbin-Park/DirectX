@@ -5,7 +5,10 @@ class CAttackState :
     public CState
 {
 private:
+	float	m_AttackRange;
 
+	bool	m_bPlayRightAnim;
+	bool	m_bPlayLeftAnim;
 
 public:
 	virtual void Enter();
