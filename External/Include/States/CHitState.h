@@ -5,7 +5,7 @@ class CHitState :
     public CState
 {
 private:
-
+	float	m_HitTime;
 
 public:
 	virtual void Enter();

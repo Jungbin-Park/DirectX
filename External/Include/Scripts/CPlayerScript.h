@@ -60,6 +60,7 @@ private:
     
     int                     m_KeyTapCount;
     int                     m_AttackCount;
+    float                   m_AttackCooldown;
 
     int                     m_Attribute;
 

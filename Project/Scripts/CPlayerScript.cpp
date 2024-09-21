@@ -20,9 +20,9 @@ CPlayerScript::CPlayerScript()
 	, m_State(eState::IDLE)
 	, m_Direction(eDirection::DOWN)
 	, m_AttackDir(eDirection::RIGHT)
-	, m_AtkDashSpeed(300.f)
+	, m_AtkDashSpeed(150.f)
 	, m_AtkDashTime(0.f)
-	, m_AtkDashDuration(0.2f)
+	, m_AtkDashDuration(0.3f)
 	, m_AttackFinish(true)
 	, m_DashFinish(true)
 	, m_KeyTapCount(0)
@@ -32,6 +32,7 @@ CPlayerScript::CPlayerScript()
 	, m_SlashRot(Vec3(0.f, 0.f, 0.f))
 	, m_CollisionDir(CollisionDir::NONE)
 	, m_CollisionCount(0)
+	, m_AttackCooldown(0.f)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
@@ -89,267 +90,291 @@ void CPlayerScript::Tick()
 
 void CPlayerScript::KeyInput()
 {
-	if (KEY_TAP(KEY::A))
+	// W,S,A,D
 	{
-		m_KeyTapCount += 1;
+		if (KEY_TAP(KEY::A))
+		{
+			m_KeyTapCount += 1;
 
-		m_State = eState::MOVE;
+			m_State = eState::MOVE;
 
-		if (m_KeyTapCount == 2)
-		{
-			if (m_PrevDirection == eDirection::UP) m_Direction = eDirection::UP_LEFT;
-			if (m_PrevDirection == eDirection::DOWN) m_Direction = eDirection::DOWN_LEFT;
-			m_PrevDirection = m_Direction;
+			if (m_KeyTapCount == 2)
+			{
+				if (m_PrevDirection == eDirection::UP) m_Direction = eDirection::UP_LEFT;
+				if (m_PrevDirection == eDirection::DOWN) m_Direction = eDirection::DOWN_LEFT;
+				m_PrevDirection = m_Direction;
+			}
+			else
+			{
+				m_Direction = eDirection::LEFT;
+				m_PrevDirection = m_Direction;
+			}
+			FlipBookComponent()->Play(4, 10, true);
 		}
-		else
+		if (KEY_RELEASED(KEY::A))
 		{
-			m_Direction = eDirection::LEFT;
-			m_PrevDirection = m_Direction;
-		}
-		FlipBookComponent()->Play(4, 10, true);
-	}
-	if (KEY_RELEASED(KEY::A))
-	{
-		m_KeyTapCount -= 1;
+			m_KeyTapCount -= 1;
 
-		if (m_KeyTapCount == 0)
-		{
-			m_State = eState::IDLE;
-			m_Direction = eDirection::LEFT;
-			m_PrevDirection = m_Direction;
-			FlipBookComponent()->Play(1, 10, true);
+			if (m_KeyTapCount == 0)
+			{
+				m_State = eState::IDLE;
+				m_Direction = eDirection::LEFT;
+				m_PrevDirection = m_Direction;
+				FlipBookComponent()->Play(1, 10, true);
+			}
+			if (m_KeyTapCount == 1)
+			{
+				if (m_Direction == eDirection::UP_LEFT)
+				{
+					m_Direction = eDirection::UP;
+					m_PrevDirection = m_Direction;
+					FlipBookComponent()->Play(5, 10, true);
+				}
+				if (m_Direction == eDirection::DOWN_LEFT)
+				{
+					m_Direction = eDirection::DOWN;
+					m_PrevDirection = m_Direction;
+					FlipBookComponent()->Play(3, 10, true);
+				}
+			}
 		}
-		if (m_KeyTapCount == 1)
+
+		if (KEY_TAP(KEY::D))
 		{
-			if (m_Direction == eDirection::UP_LEFT)
+			m_KeyTapCount += 1;
+
+			m_State = eState::MOVE;
+
+			if (m_KeyTapCount == 2)
+			{
+				if (m_PrevDirection == eDirection::UP) m_Direction = eDirection::UP_RIGHT;
+				if (m_PrevDirection == eDirection::DOWN) m_Direction = eDirection::DOWN_RIGHT;
+				m_PrevDirection = m_Direction;
+			}
+			else
+			{
+				m_Direction = eDirection::RIGHT;
+				m_PrevDirection = m_Direction;
+			}
+			FlipBookComponent()->Play(4, 10, true);
+		}
+		if (KEY_RELEASED(KEY::D))
+		{
+			m_KeyTapCount -= 1;
+
+			if (m_KeyTapCount == 0)
+			{
+				m_State = eState::IDLE;
+				m_Direction = eDirection::RIGHT;
+				m_PrevDirection = m_Direction;
+				FlipBookComponent()->Play(1, 10, true);
+			}
+			if (m_KeyTapCount == 1)
+			{
+				if (m_Direction == eDirection::UP_RIGHT)
+				{
+					m_Direction = eDirection::UP;
+					m_PrevDirection = m_Direction;
+					FlipBookComponent()->Play(5, 10, true);
+				}
+				if (m_Direction == eDirection::DOWN_RIGHT)
+				{
+					m_Direction = eDirection::DOWN;
+					m_PrevDirection = m_Direction;
+					FlipBookComponent()->Play(3, 10, true);
+				}
+			}
+		}
+
+		if (KEY_TAP(KEY::W))
+		{
+			m_KeyTapCount += 1;
+
+			m_State = eState::MOVE;
+
+			if (m_KeyTapCount == 2)
+			{
+				if (m_PrevDirection == eDirection::RIGHT) m_Direction = eDirection::UP_RIGHT;
+				if (m_PrevDirection == eDirection::LEFT) m_Direction = eDirection::UP_LEFT;
+			}
+			else
 			{
 				m_Direction = eDirection::UP;
 				m_PrevDirection = m_Direction;
+			}
+
+			if (m_KeyTapCount == 1)
 				FlipBookComponent()->Play(5, 10, true);
+		}
+		if (KEY_RELEASED(KEY::W))
+		{
+			m_KeyTapCount -= 1;
+
+			if (m_KeyTapCount == 0)
+			{
+				m_State = eState::IDLE;
+				m_Direction = eDirection::UP;
+				m_PrevDirection = m_Direction;
+				FlipBookComponent()->Play(2, 10, true);
 			}
-			if (m_Direction == eDirection::DOWN_LEFT)
+			if (m_KeyTapCount == 1)
+			{
+				if (m_Direction == eDirection::UP_RIGHT)
+				{
+					m_Direction = eDirection::RIGHT;
+					m_PrevDirection = m_Direction;
+					FlipBookComponent()->Play(4, 10, true);
+				}
+				if (m_Direction == eDirection::UP_LEFT)
+				{
+					m_Direction = eDirection::LEFT;
+					m_PrevDirection = m_Direction;
+					FlipBookComponent()->Play(4, 10, true);
+				}
+			}
+		}
+
+		if (KEY_TAP(KEY::S))
+		{
+			m_KeyTapCount += 1;
+
+			m_State = eState::MOVE;
+
+			if (m_KeyTapCount == 2)
+			{
+				if (m_PrevDirection == eDirection::RIGHT) m_Direction = eDirection::DOWN_RIGHT;
+				if (m_PrevDirection == eDirection::LEFT) m_Direction = eDirection::DOWN_LEFT;
+			}
+			else
 			{
 				m_Direction = eDirection::DOWN;
 				m_PrevDirection = m_Direction;
+			}
+
+			if (m_KeyTapCount == 1)
 				FlipBookComponent()->Play(3, 10, true);
-			}
-		}
-	}
 
-	if (KEY_TAP(KEY::D))
-	{
-		m_KeyTapCount += 1;
-
-		m_State = eState::MOVE;
-
-		if (m_KeyTapCount == 2)
-		{
-			if (m_PrevDirection == eDirection::UP) m_Direction = eDirection::UP_RIGHT;
-			if (m_PrevDirection == eDirection::DOWN) m_Direction = eDirection::DOWN_RIGHT;
-			m_PrevDirection = m_Direction;
 		}
-		else
+		if (KEY_RELEASED(KEY::S))
 		{
-			m_Direction = eDirection::RIGHT;
-			m_PrevDirection = m_Direction;
-		}
-		FlipBookComponent()->Play(4, 10, true);
-	}
-	if (KEY_RELEASED(KEY::D))
-	{
-		m_KeyTapCount -= 1;
+			m_KeyTapCount -= 1;
 
-		if (m_KeyTapCount == 0)
-		{
-			m_State = eState::IDLE;
-			m_Direction = eDirection::RIGHT;
-			m_PrevDirection = m_Direction;
-			FlipBookComponent()->Play(1, 10, true);
-		}
-		if (m_KeyTapCount == 1)
-		{
-			if (m_Direction == eDirection::UP_RIGHT)
+			if (m_KeyTapCount == 0)
 			{
-				m_Direction = eDirection::UP;
-				m_PrevDirection = m_Direction;
-				FlipBookComponent()->Play(5, 10, true);
-			}
-			if (m_Direction == eDirection::DOWN_RIGHT)
-			{
+				m_State = eState::IDLE;
 				m_Direction = eDirection::DOWN;
-				m_PrevDirection = m_Direction;
-				FlipBookComponent()->Play(3, 10, true);
+				FlipBookComponent()->Play(0, 10, true);
+			}
+			if (m_KeyTapCount == 1)
+			{
+				if (m_Direction == eDirection::DOWN_RIGHT)
+				{
+					m_Direction = eDirection::RIGHT;
+					m_PrevDirection = m_Direction;
+					FlipBookComponent()->Play(4, 10, true);
+				}
+				if (m_Direction == eDirection::DOWN_LEFT)
+				{
+					m_Direction = eDirection::LEFT;
+					m_PrevDirection = m_Direction;
+					FlipBookComponent()->Play(4, 10, true);
+				}
 			}
 		}
 	}
 
-	if (KEY_TAP(KEY::W))
+	// Mouse
 	{
-		m_KeyTapCount += 1;
-
-		m_State = eState::MOVE;
-
-		if (m_KeyTapCount == 2)
+		if (m_AttackCount >= 3)
 		{
-			if (m_PrevDirection == eDirection::RIGHT) m_Direction = eDirection::UP_RIGHT;
-			if (m_PrevDirection == eDirection::LEFT) m_Direction = eDirection::UP_LEFT;
-		}
-		else
-		{
-			m_Direction = eDirection::UP;
-			m_PrevDirection = m_Direction;
-		}
-
-		if (m_KeyTapCount == 1)
-			FlipBookComponent()->Play(5, 10, true);
-	}
-	if (KEY_RELEASED(KEY::W))
-	{
-		m_KeyTapCount -= 1;
-
-		if (m_KeyTapCount == 0)
-		{
-			m_State = eState::IDLE;
-			m_Direction = eDirection::UP;
-			m_PrevDirection = m_Direction;
-			FlipBookComponent()->Play(2, 10, true);
-		}
-		if (m_KeyTapCount == 1)
-		{
-			if (m_Direction == eDirection::UP_RIGHT)
+			m_AttackCooldown += DT;
+			if (m_AttackCooldown >= 0.5f)
 			{
-				m_Direction = eDirection::RIGHT;
-				m_PrevDirection = m_Direction;
-				FlipBookComponent()->Play(4, 10, true);
+				m_AttackCount = 0;
+				m_AttackCooldown = 0.f;
 			}
-			if (m_Direction == eDirection::UP_LEFT)
+				
+		}
+
+		if (m_AttackCount < 3)
+		{
+			if (KEY_TAP(KEY::LBTN))
 			{
-				m_Direction = eDirection::LEFT;
-				m_PrevDirection = m_Direction;
-				FlipBookComponent()->Play(4, 10, true);
-			}
-		}
-	}
+				m_State = eState::ATTACK;
 
-	if (KEY_TAP(KEY::S))
-	{
-		m_KeyTapCount += 1;
+				MousePosCheck();
 
-		m_State = eState::MOVE;
+				m_AttackCount += 1;
+				m_AtkDashTime = 0.f;
 
-		if (m_KeyTapCount == 2)
-		{
-			if (m_PrevDirection == eDirection::RIGHT) m_Direction = eDirection::DOWN_RIGHT;
-			if (m_PrevDirection == eDirection::LEFT) m_Direction = eDirection::DOWN_LEFT;
-		}
-		else
-		{
-			m_Direction = eDirection::DOWN;
-			m_PrevDirection = m_Direction;
-		}
+				// Attack State 변경 
+				if (m_AtkState == AtkState::NONE) m_AtkState = AtkState::ATTACK1;
+				else if (m_AtkState == AtkState::ATTACK1) m_AtkState = AtkState::ATTACK2;
+				else if (m_AtkState == AtkState::ATTACK2) m_AtkState = AtkState::ATTACK1;
 
-		if (m_KeyTapCount == 1)
-			FlipBookComponent()->Play(3, 10, true);
+				// Slash 프리팹 생성
+				m_SlashPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 100.f);
+				Instantiate(m_SlashPref, 5, m_SlashPos, m_SlashRot, L"Slash");
 
-	}
-	if (KEY_RELEASED(KEY::S))
-	{
-		m_KeyTapCount -= 1;
-
-		if (m_KeyTapCount == 0)
-		{
-			m_State = eState::IDLE;
-			m_Direction = eDirection::DOWN;
-			FlipBookComponent()->Play(0, 10, true);
-		}
-		if (m_KeyTapCount == 1)
-		{
-			if (m_Direction == eDirection::DOWN_RIGHT)
-			{
-				m_Direction = eDirection::RIGHT;
-				m_PrevDirection = m_Direction;
-				FlipBookComponent()->Play(4, 10, true);
-			}
-			if (m_Direction == eDirection::DOWN_LEFT)
-			{
-				m_Direction = eDirection::LEFT;
-				m_PrevDirection = m_Direction;
-				FlipBookComponent()->Play(4, 10, true);
+				// 애니메이션 재생
+				switch (m_AtkState)
+				{
+				case CPlayerScript::AtkState::ATTACK1:
+				{
+					switch (m_AttackDir)
+					{
+					case eDirection::UP:
+						m_Direction = eDirection::UP;
+						FlipBookComponent()->Play(10, 15, false);
+						break;
+					case eDirection::DOWN:
+						m_Direction = eDirection::DOWN;
+						FlipBookComponent()->Play(6, 15, false);
+						break;
+					case eDirection::LEFT:
+						m_Direction = eDirection::LEFT;
+						FlipBookComponent()->Play(8, 15, false);
+						break;
+					case eDirection::RIGHT:
+						m_Direction = eDirection::RIGHT;
+						FlipBookComponent()->Play(8, 15, false);
+						break;
+					default:
+						break;
+					}
+				}
+				break;
+				case CPlayerScript::AtkState::ATTACK2:
+				{
+					switch (m_AttackDir)
+					{
+					case eDirection::UP:
+						m_Direction = eDirection::UP;
+						FlipBookComponent()->Play(11, 15, false);
+						break;
+					case eDirection::DOWN:
+						m_Direction = eDirection::DOWN;
+						FlipBookComponent()->Play(7, 15, false);
+						break;
+					case eDirection::LEFT:
+						m_Direction = eDirection::LEFT;
+						FlipBookComponent()->Play(9, 15, false);
+						break;
+					case eDirection::RIGHT:
+						m_Direction = eDirection::RIGHT;
+						FlipBookComponent()->Play(9, 15, false);
+						break;
+					default:
+						break;
+					}
+				}
+				break;
+				}
 			}
 		}
-	}
+		
 
-	if (KEY_TAP(KEY::LBTN))
-	{
-		m_State = eState::ATTACK;
 
-		MousePosCheck();
-
-		m_AtkDashTime = 0.f;
-
-		// Attack State 변경 
-		if (m_AtkState == AtkState::NONE) m_AtkState = AtkState::ATTACK1;
-		else if (m_AtkState == AtkState::ATTACK1) m_AtkState = AtkState::ATTACK2;
-		else if (m_AtkState == AtkState::ATTACK2) m_AtkState = AtkState::ATTACK1;
-
-		// Slash 프리팹 생성
-		m_SlashPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 100.f);
-		Instantiate(m_SlashPref, 5, m_SlashPos, m_SlashRot, L"Slash");
-
-		// 애니메이션 재생
-		switch (m_AtkState)
-		{
-		case CPlayerScript::AtkState::ATTACK1:
-		{
-			switch (m_AttackDir)
-			{
-			case eDirection::UP:
-				m_Direction = eDirection::UP;
-				FlipBookComponent()->Play(10, 40, false);
-				break;
-			case eDirection::DOWN:
-				m_Direction = eDirection::DOWN;
-				FlipBookComponent()->Play(6, 40, false);
-				break;
-			case eDirection::LEFT:
-				m_Direction = eDirection::LEFT;
-				FlipBookComponent()->Play(8, 40, false);
-				break;
-			case eDirection::RIGHT:
-				m_Direction = eDirection::RIGHT;
-				FlipBookComponent()->Play(8, 40, false);
-				break;
-			default:
-				break;
-			}
-		}
-		break;
-		case CPlayerScript::AtkState::ATTACK2:
-		{
-			switch (m_AttackDir)
-			{
-			case eDirection::UP:
-				m_Direction = eDirection::UP;
-				FlipBookComponent()->Play(11, 40, false);
-				break;
-			case eDirection::DOWN:
-				m_Direction = eDirection::DOWN;
-				FlipBookComponent()->Play(7, 40, false);
-				break;
-			case eDirection::LEFT:
-				m_Direction = eDirection::LEFT;
-				FlipBookComponent()->Play(9, 40, false);
-				break;
-			case eDirection::RIGHT:
-				m_Direction = eDirection::RIGHT;
-				FlipBookComponent()->Play(9, 40, false);
-				break;
-			default:
-				break;
-			}
-		}
-		break;
-		}
 	}
 
 	if (KEY_TAP(KEY::SPACE))
@@ -818,3 +843,5 @@ void CPlayerScript::LoadFromFile(FILE* _File)
 	LoadAssetRef(m_SlashPref, _File);
 	//fread(&m_FlipBookComponent, sizeof(CFlipBookComponent), 1, _File);
 }
+
+

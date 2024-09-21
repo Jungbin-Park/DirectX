@@ -109,6 +109,7 @@ void CLevelSaveLoad::LevelInit()
 
 	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // Platform vs Player
 	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // Platform vs Monster
+	CCollisionMgr::GetInst()->CollisionCheck(5, 4); // playerprojectile vs Monster
 
 	ChangeLevel(pLevel, LEVEL_STATE::STOP);
 }

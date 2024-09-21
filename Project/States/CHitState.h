@@ -5,7 +5,10 @@ class CHitState :
     public CState
 {
 private:
+	float	m_HitTime;
 
+private:
+	void KnockBack();
 
 public:
 	virtual void Enter();

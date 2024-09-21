@@ -31,6 +31,9 @@
     <ClInclude Include="CPlatformScript.h">
       <Filter>Scripts\Platform</Filter>
     </ClInclude>
+    <ClInclude Include="CMAttackScript.h">
+      <Filter>Scripts\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -62,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="CPlatformScript.cpp">
       <Filter>Scripts\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="CMAttackScript.cpp">
+      <Filter>Scripts\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
