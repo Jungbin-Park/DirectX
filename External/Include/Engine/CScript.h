@@ -62,4 +62,3 @@ public:
     CScript(UINT _Type);
     ~CScript();
 };
-

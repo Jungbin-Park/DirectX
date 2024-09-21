@@ -78,6 +78,7 @@ void CGhoulScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 {
 	if (_OtherObject->GetLayerIdx() == 5)
 	{
+		
 		FSM()->ChangeState(L"HitState");
 	}
 }
