@@ -20,6 +20,7 @@
 #include <Scripts/CursorScript.h>
 #include <Scripts/CGhoulScript.h>
 #include <Scripts/CPlatformScript.h>
+#include <Scripts/CManagerScript.h>
 
 #include<States/CIdleState.h>
 
@@ -106,6 +107,13 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(0, CamObj);
 
 		CGameObject* pObject = nullptr;
+
+		// 게임 매니저 오브젝트
+		pObject = new CGameObject;
+		pObject->SetName(L"GameManager");
+		pObject->AddComponent(new CManagerScript);
+
+		pLevel->AddObject(0, pObject);
 
 
 		// 광원 오브젝트 추가
@@ -205,7 +213,7 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(2, pProto);
 
 		// 게이트 수직
-		pProto = new CGameObject;
+		/*pProto = new CGameObject;
 		pProto->SetName(L"GateVertical");
 		pProto->AddComponent(new CTransform);
 		pProto->AddComponent(new CMeshRender);
@@ -230,7 +238,7 @@ void CTestLevel::CreateTestLevel()
 
 		pProto->AddChild(pPlatform);
 
-		pLevel->AddObject(2, pProto);
+		pLevel->AddObject(2, pProto);*/
 
 		
 		// 프리팹화
@@ -321,14 +329,15 @@ void CTestLevel::CreateTestLevel()
 	ChangeLevel(pLevel, LEVEL_STATE::STOP);
 
 	// 충돌 지정
-	CCollisionMgr::GetInst()->CollisionCheck(3, 4); // Player vs Monster
+	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // platform vs Monster
 	CCollisionMgr::GetInst()->CollisionCheck(5, 4); // Player Projectile vs Monster
+	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // platform vs player;
 
 }
 
 void CTestLevel::CreatePrefab()
 {
-	CGameObject* pProto = new CGameObject;
+	/*CGameObject* pProto = new CGameObject;
 	pProto->SetName(L"GateVertical");
 	pProto->AddComponent(new CTransform);
 	pProto->AddComponent(new CMeshRender);
@@ -360,7 +369,7 @@ void CTestLevel::CreatePrefab()
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
 	FilePath += L"prefab\\GateVertical.pref";
-	pPrefab->Save(FilePath);
+	pPrefab->Save(FilePath);*/
 
 	/*CTileMap* pTile = new CTileMap;
 	pTile->SetName(L"map1");*/

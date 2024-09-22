@@ -40,6 +40,9 @@
     <ClInclude Include="CTriggerScript.h">
       <Filter>Scripts\Platform</Filter>
     </ClInclude>
+    <ClInclude Include="CManagerScript.h">
+      <Filter>Scripts\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -81,6 +84,9 @@
     <ClCompile Include="CTriggerScript.cpp">
       <Filter>Scripts\Platform</Filter>
     </ClCompile>
+    <ClCompile Include="CManagerScript.cpp">
+      <Filter>Scripts\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -106,6 +112,9 @@
     </Filter>
     <Filter Include="Scripts\Platform">
       <UniqueIdentifier>{bbceb966-9f82-4200-8af1-5246bd6a5095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Manager">
+      <UniqueIdentifier>{8286fd11-b312-4fec-a75b-f02988cc0d77}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

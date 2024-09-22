@@ -168,6 +168,7 @@ call CodeGen.exe
   <ItemGroup>
     <ClInclude Include="CCameraMoveScript.h" />
     <ClInclude Include="CGhoulScript.h" />
+    <ClInclude Include="CManagerScript.h" />
     <ClInclude Include="CMarkerScript.h" />
     <ClInclude Include="CMAttackScript.h" />
     <ClInclude Include="CPlatformScript.h" />
@@ -183,6 +184,7 @@ call CodeGen.exe
   <ItemGroup>
     <ClCompile Include="CCameraMoveScript.cpp" />
     <ClCompile Include="CGhoulScript.cpp" />
+    <ClCompile Include="CManagerScript.cpp" />
     <ClCompile Include="CMarkerScript.cpp" />
     <ClCompile Include="CMAttackScript.cpp" />
     <ClCompile Include="CPlatformScript.cpp" />

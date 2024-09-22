@@ -14,6 +14,7 @@
 #include <States/CStateMgr.h>
 
 #include "CPlayerScript.h"
+#include "CManagerScript.h"
 
 CGhoulScript::CGhoulScript()
 	: CScript(SCRIPT_TYPE::GHOULSCRIPT)
@@ -90,6 +91,9 @@ void CGhoulScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 			{
 				FSM()->ChangeState(L"DeadState");
 				m_Dead = true;
+				CGameObject* pManager = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"GameManager");
+				CManagerScript* pScript = (CManagerScript*)pManager->GetScriptByName(L"ManagerScript");
+				pScript->AddScore(1);
 			}
 			else
 			{
