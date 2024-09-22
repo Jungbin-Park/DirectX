@@ -63,6 +63,7 @@ public:
     GET_COMPONENT(TileMap, TILEMAP);
     GET_COMPONENT(Light2D, LIGHT2D);
     GET_COMPONENT(FSM, FSM);
+    GET_COMPONENT(ParticleSystem, PARTICLESYSTEM);
 
 public:
     void Begin();

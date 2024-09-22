@@ -163,6 +163,9 @@
     <ClInclude Include="CState.h">
       <Filter>08. Component\State</Filter>
     </ClInclude>
+    <ClInclude Include="CParticleTickCS.h">
+      <Filter>HLSL\03. Compute\02. ParticleTick</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -303,6 +306,9 @@
     </ClCompile>
     <ClCompile Include="CState.cpp">
       <Filter>08. Component\State</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticleTickCS.cpp">
+      <Filter>HLSL\03. Compute\02. ParticleTick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -480,6 +486,9 @@
     <Filter Include="08. Component\State">
       <UniqueIdentifier>{2b0f72ca-3afb-42ca-9e37-bf4761d00076}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HLSL\03. Compute\02. ParticleTick">
+      <UniqueIdentifier>{7a5799b3-11a8-4e96-bb42-ddc9704a6d2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="func.fx">
@@ -505,6 +514,12 @@
     </FxCompile>
     <FxCompile Include="setcolor.fx">
       <Filter>HLSL\03. Compute\01. SetColorShader</Filter>
+    </FxCompile>
+    <FxCompile Include="particletick.fx">
+      <Filter>HLSL\03. Compute\02. ParticleTick</Filter>
+    </FxCompile>
+    <FxCompile Include="particle.fx">
+      <Filter>HLSL\02. Render\01. 2D</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

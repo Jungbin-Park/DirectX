@@ -34,6 +34,9 @@
     <ClInclude Include="CMAttackScript.h">
       <Filter>Scripts\Object</Filter>
     </ClInclude>
+    <ClInclude Include="CSpawnerScript.h">
+      <Filter>Scripts\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -67,6 +70,9 @@
       <Filter>Scripts\Platform</Filter>
     </ClCompile>
     <ClCompile Include="CMAttackScript.cpp">
+      <Filter>Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpawnerScript.cpp">
       <Filter>Scripts\Object</Filter>
     </ClCompile>
   </ItemGroup>

@@ -42,7 +42,7 @@ enum class COMPONENT_TYPE
 
 	MESHRENDER,
 	TILEMAP,
-	PARTICLE_SYSTEM,
+	PARTICLESYSTEM,
 	DECAL,
 	SKYBOX,
 	LANDSCAPE,
@@ -75,15 +75,20 @@ enum class DS_TYPE
 {
 	LESS,				// 가까운 통과
 	LESS_EQUAL,			// 가깝거나 같은 경우 통과
+
 	GREATER,			// 더 멀면 통과
+
 	NO_TEST,			// 깊이 판정 X
+	NO_WRITE,
 	NO_TEST_NO_WRITE,	// 깊이 판정 X, 기록 X
+
 	END,
 };
 
 enum class BS_TYPE
 {
 	DEFAULT,
+	ALPHABLEND_COVERAGE,
 	ALPHABLEND,
 	ONE_ONE,
 	END,
@@ -125,6 +130,7 @@ enum SHADER_DOMAIN
 	DOMAIN_POSTPROCESS, // 후처리
 	DOMAIN_UI,			// UI
 	DOMAIN_DEBUG,		// 디버그
+	DOMAIN_NONE,		// 미설정
 };
 
 enum class DEBUG_SHAPE

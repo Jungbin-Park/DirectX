@@ -8,6 +8,7 @@
 CIdleState::CIdleState()
 	: CState(STATE_TYPE::IDLESTATE)
 	, m_DetectRange(300.f)
+	, m_AttackRange(100.f)
 {
 }
 
@@ -29,7 +30,9 @@ void CIdleState::FinalTick()
 	float Dist = sqrt(vDir.x * vDir.x + vDir.y * vDir.y);
 
 	// ChangeState
-	if (Dist <= m_DetectRange)
+	if (Dist <= m_AttackRange)
+		GetFSM()->ChangeState(L"AttackState");
+	else if (Dist <= m_DetectRange)
 		GetFSM()->ChangeState(L"MoveState");
 }
 

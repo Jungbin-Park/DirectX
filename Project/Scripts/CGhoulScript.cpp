@@ -13,6 +13,8 @@
 #include <States/CDeadState.h>
 #include <States/CStateMgr.h>
 
+#include "CPlayerScript.h"
+
 CGhoulScript::CGhoulScript()
 	: CScript(SCRIPT_TYPE::GHOULSCRIPT)
 	, m_Speed(300.f)
@@ -53,24 +55,20 @@ void CGhoulScript::Begin()
 	FlipBookComponent()->AddFlipBook(6, pFlipBook);
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhoulHitRight.flip");
 	FlipBookComponent()->AddFlipBook(7, pFlipBook);
-	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhouldDeadLeft.flip");
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhoulDeadLeft.flip");
 	FlipBookComponent()->AddFlipBook(8, pFlipBook);
-	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhouldDeadRight.flip");
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\GhoulDeadRight.flip");
 	FlipBookComponent()->AddFlipBook(9, pFlipBook);
 
 	FSM()->ChangeState(L"IdleState");
 
-	m_Target = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
-
+	CGameObject* pTarget = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
+	if (pTarget != nullptr)
+		m_Target = pTarget;
 }
 
 void CGhoulScript::Tick()
 {
-	if (FSM()->GetCurState()->GetStateType() == STATE_TYPE::ATTACKSTATE)
-	{
-		if (FlipBookComponent()->IsFinish())
-			FSM()->ChangeState(L"IdleState");
-	}	
 	
 }
 
@@ -78,8 +76,17 @@ void CGhoulScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 {
 	if (_OtherObject->GetLayerIdx() == 5)
 	{
-		
-		FSM()->ChangeState(L"HitState");
+		if (_OtherObject->GetName() == L"Slash")
+		{
+			CPlayerScript* TargetScript = (CPlayerScript*)m_Target->GetScriptByName(L"CPlayerScript");
+			int slashDmg = TargetScript->GetSlashDamage();
+			m_HP -= slashDmg;
+		}
+
+		if (m_HP <= 0.f)
+			FSM()->ChangeState(L"DeadState");
+		else
+			FSM()->ChangeState(L"HitState");
 	}
 }
 

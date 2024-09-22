@@ -32,6 +32,10 @@ public:
     };
 
 private:
+    float                   m_HP;
+    float                   m_MP;
+    int                     m_SlashDmg;
+
     Ptr<CTexture>           m_Texture;
     Ptr<CPrefab>            m_SlashPref;
 
@@ -81,7 +85,10 @@ private:
 
 public:
     float GetSpeed() { return m_Speed; }
+    int GetSlashDamage() { return m_SlashDmg; }
+
     void SetSpeed(float _Speed) { m_Speed = _Speed; }
+
 
 public:
     virtual void Begin() override;

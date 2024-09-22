@@ -174,6 +174,7 @@ call CodeGen.exe
     <ClInclude Include="CSlashScript.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CScriptMgr.h" />
+    <ClInclude Include="CSpawnerScript.h" />
     <ClInclude Include="CursorScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -187,6 +188,7 @@ call CodeGen.exe
     <ClCompile Include="CSlashScript.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />
+    <ClCompile Include="CSpawnerScript.cpp" />
     <ClCompile Include="CursorScript.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

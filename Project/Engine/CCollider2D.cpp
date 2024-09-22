@@ -8,6 +8,7 @@ CCollider2D::CCollider2D()
 	: CComponent(COMPONENT_TYPE::COLLIDER2D)
 	, m_OverlapCount(0)
 	, m_IndependentScale(false)
+	, m_Active(true)
 {
 }
 
@@ -46,6 +47,7 @@ void CCollider2D::FinalTick()
 		DrawDebugRect(m_matColWorld, Vec4(1.f, 0.f, 0.f, 1.f), 0.f, false);
 	else
 		DrawDebugRect(m_matColWorld, Vec4(0.f, 1.f, 0.f, 1.f), 0.f, false);
+	
 }
 
 

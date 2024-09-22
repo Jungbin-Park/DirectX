@@ -11,6 +11,7 @@ CAttackState::CAttackState()
 	, m_AttackRange(100.f)
 	, m_bPlayRightAnim(false)
 	, m_bPlayLeftAnim(false)
+	, m_AttackCoolDown(0.f)
 {
 }
 
@@ -22,6 +23,7 @@ void CAttackState::Enter()
 {
 	m_bPlayLeftAnim = false;
 	m_bPlayRightAnim = false;
+	m_AttackCoolDown = 0.f;
 }
 
 void CAttackState::FinalTick()
@@ -58,13 +60,19 @@ void CAttackState::FinalTick()
 		}
 	}
 
-	// ChangeState
-	if (Dist > m_AttackRange)
-		GetFSM()->ChangeState(L"MoveState");
+	if (GetOwner()->FlipBookComponent()->IsFinish())
+	{
+		m_AttackCoolDown += DT;
+
+		if(m_AttackCoolDown > 1.f)
+			GetFSM()->ChangeState(L"IdleState");
+	}
+	
 }
 
 void CAttackState::Exit()
 {
+	GetOwner()->FlipBookComponent()->Reset();
 }
 
 

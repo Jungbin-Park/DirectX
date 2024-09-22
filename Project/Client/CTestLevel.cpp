@@ -22,6 +22,9 @@
 
 #include<States/CIdleState.h>
 
+#include <Engine/CSetColorCS.h>
+#include <Engine/CStructuredBuffer.h>
+
 #include "CLevelSaveLoad.h"
 
 
@@ -40,10 +43,34 @@ void CTestLevel::CreateTestLevel()
 
 	CreatePrefab();
 
+	// 컴퓨트 쉐이더 테스트용 텍스쳐 생성
+	Ptr<CTexture> pTestTex = CAssetMgr::GetInst()->CreateTexture(L"ComputeShaderTestTex"
+		, 1026, 1026, DXGI_FORMAT_R8G8B8A8_UNORM
+		, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+
+	CSetColorCS cs;
+	cs.SetTargetTexture(pTestTex);
+	cs.SetClearColor(Vec4(0.f, 1.f, 0.f, 1.f));
+	cs.Execute();
+	pMtrl->SetTexParam(TEX_0, pTestTex);
+
+	CStructuredBuffer* pBuffer = new CStructuredBuffer;
+	pBuffer->Create(sizeof(tParticle), 1, SB_TYPE::SRV_UAV, true);
+
+	tParticle Particle = {};
+	tParticle Particle2 = {};
+
+	Particle.Active = true;
+	Particle.vColor = Vec4(1.f, 0.f, 0.f, 1.f);
+	pBuffer->SetData(&Particle);
+
+	pBuffer->GetData(&Particle2);
+	delete pBuffer;
+
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
-	pLevel->SetName(L"Home");
+	pLevel->SetName(L"Test");
 
 	//// 레벨 지정
 	//ChangeLevel(pLevel, LEVEL_STATE::PLAY);
@@ -93,7 +120,7 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(0, pObject);
 
 		// 커서 오브젝트
-		CGameObject* pCursor = new CGameObject;
+		/*CGameObject* pCursor = new CGameObject;
 		pCursor->SetName(L"Cursor");
 		pCursor->AddComponent(new CTransform);
 		pCursor->AddComponent(new CMeshRender);
@@ -104,7 +131,7 @@ void CTestLevel::CreateTestLevel()
 		pCursor->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		pCursor->MeshRender()->SetMaterial(pCursorMtrl);
 
-		pLevel->AddObject(10, pCursor);
+		pLevel->AddObject(10, pCursor);*/
 
 
 		// 플레이어 오브젝트
@@ -130,7 +157,7 @@ void CTestLevel::CreateTestLevel()
 		pPlayer->FlipBookComponent()->Play(0, 10, true);
 
 		// 화살표
-		CGameObject* pMarker = new CGameObject;
+		/*CGameObject* pMarker = new CGameObject;
 		pMarker->SetName(L"pMarker");
 
 		pMarker->AddComponent(new CTransform);
@@ -143,7 +170,7 @@ void CTestLevel::CreateTestLevel()
 		pMarker->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		pMarker->MeshRender()->SetMaterial(pmMtrl);
 
-		pPlayer->AddChild(pMarker);
+		pPlayer->AddChild(pMarker);*/
 
 		pLevel->AddObject(3, pPlayer);
 
@@ -169,7 +196,7 @@ void CTestLevel::CreateTestLevel()
 
 
 		// Monster Object
-		CGameObject* pMonster = new CGameObject;
+		/*CGameObject* pMonster = new CGameObject;
 		pMonster->SetName(L"Ghoul");
 
 		pMonster->AddComponent(new CTransform);
@@ -190,10 +217,10 @@ void CTestLevel::CreateTestLevel()
 
 		
 
-		pLevel->AddObject(4, pMonster);
+		pLevel->AddObject(4, pMonster);*/
 
 		// TileMap Object
-		CGameObject* pTileMapObj = new CGameObject;
+		/*CGameObject* pTileMapObj = new CGameObject;
 		pTileMapObj->SetName(L"TileMap");
 
 		wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
@@ -202,7 +229,20 @@ void CTestLevel::CreateTestLevel()
 		pTileMapObj->AddComponent(pTile);
 
 		pTile->Load(strContentPath + L"tilemap\\Ice.tile");
-		pTileMapObj->Transform()->SetRelativePos(Vec3(-870.f, 1700.f, 500.f));
+		pTileMapObj->Transform()->SetRelativePos(Vec3(-870.f, 1700.f, 500.f));*/
+
+		//pLevel->AddObject(2, pTileMapObj);
+
+		// Particle Object
+		CGameObject* pParticleObj = new CGameObject;
+		pParticleObj->SetName(L"Particle");
+
+		pParticleObj->AddComponent(new CTransform);
+		pParticleObj->AddComponent(new CParticleSystem);
+
+		pParticleObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 0.f));
+
+		pLevel->AddObject(0, pParticleObj);
 
 		/*pTileMapObj->TileMap()->SetRowCol(5, 5);
 		pTileMapObj->TileMap()->SetTileSize(Vec2(64.f, 64.f));
@@ -213,7 +253,7 @@ void CTestLevel::CreateTestLevel()
 
 		pTile->Save(strContentPath + L"tilemap\\test1.tile");*/
 
-		pLevel->AddObject(2, pTileMapObj);
+		
 
 
 		// PostProcess Object
@@ -230,7 +270,7 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(0, pGrayFilterObj);*/
 	}
 
-	ChangeLevel(pLevel, LEVEL_STATE::STOP);
+	ChangeLevel(pLevel, LEVEL_STATE::PLAY);
 
 	// 충돌 지정
 	CCollisionMgr::GetInst()->CollisionCheck(3, 4); // Player vs Monster
@@ -240,31 +280,32 @@ void CTestLevel::CreateTestLevel()
 
 void CTestLevel::CreatePrefab()
 {
-	/*CGameObject* pProto = new CGameObject;
-	pProto->SetName(L"Slash");
+	CGameObject* pProto = new CGameObject;
+	pProto->SetName(L"Ghoul");
 	pProto->AddComponent(new CTransform);
 	pProto->AddComponent(new CMeshRender);
-	pProto->AddComponent(new CFlipBookComponent);
-	pProto->AddComponent(new CSlashScript);
 	pProto->AddComponent(new CCollider2D);
+	pProto->AddComponent(new CFlipBookComponent);
+	pProto->AddComponent(new CGhoulScript);
+	pProto->AddComponent(new CFSM);
 
-	pProto->Transform()->SetRelativeScale(300.f, 200.f, 1.f);
+	pProto->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
 
 	pProto->Collider2D()->SetIndependentScale(false);
 	pProto->Collider2D()->SetOffset(Vec3(0.f, 0.1f, 0.f));
-	pProto->Collider2D()->SetScale(Vec3(0.3f, 0.3f, 1.f));
+	pProto->Collider2D()->SetScale(Vec3(0.7f, 0.7f, 1.f));
 
 	pProto->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pProto->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\Slash.mtrl", L"material\\Slash.mtrl"));
+	pProto->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\std2d.mtrl", L"material\\std2d.mtrl"));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
 	pPrefab->SetProtoObject(pProto);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"SlashPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"GhoulPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\Slash.pref";
-	pPrefab->Save(FilePath);*/
+	FilePath += L"prefab\\Ghoul.pref";
+	pPrefab->Save(FilePath);
 
 	/*CTileMap* pTile = new CTileMap;
 	pTile->SetName(L"map1");*/

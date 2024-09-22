@@ -11,11 +11,13 @@ private:
     int     m_OverlapCount;
 
     bool    m_IndependentScale; // 오브젝트의 크기에 영향을 받을지 여부
+    bool    m_Active;
 
 public:
     void SetOffset(Vec3 _Offset) { m_Offset = _Offset; }
     void SetScale(Vec3 _Scale) { m_Scale = _Scale; }
     void SetIndependentScale(bool _Set) { m_IndependentScale = _Set; }
+    void SetActive(bool _Set) { m_Active = _Set; }
 
     bool IsIndependentScale() { return m_IndependentScale; }
     Vec3 GetOffset() { return m_Offset; }
@@ -24,6 +26,7 @@ public:
     const Matrix& GetWorldMat() { return m_matColWorld; }
 
     int  GetOverlapCount() { return m_OverlapCount; }
+    bool IsActive() { return m_Active; }
 
 public:
     virtual void BeginOverlap(CCollider2D* _Other);

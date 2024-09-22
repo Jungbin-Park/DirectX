@@ -6,6 +6,7 @@ class CHitState :
 {
 private:
 	float	m_HitTime;
+	float	m_AttackRange;
 
 	float	m_KnockBackSpeed;
 	float	m_KnockBackTime;

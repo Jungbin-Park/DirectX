@@ -12,6 +12,8 @@
 #include <Scripts/CScriptMgr.h>
 #include <States/CStateMgr.h>
 
+#include "CTestLevel.h"
+
 void CLevelSaveLoad::SaveLevel(const wstring& _FilePath, CLevel* _Level)
 {
 	assert(_Level && _Level->GetState() == LEVEL_STATE::STOP);
@@ -105,7 +107,7 @@ void CLevelSaveLoad::LevelInit()
 	StrLevelLoadPath += (L"level\\" + levelName + L".lv");
 	CLevel* pLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath);
 
-	//pLevel->FindObjectByName(L"Monster")->SetName(L"Ghoul");
+	//CTestLevel::CreatePrefab();
 
 	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // Platform vs Player
 	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // Platform vs Monster
@@ -113,8 +115,6 @@ void CLevelSaveLoad::LevelInit()
 
 	ChangeLevel(pLevel, LEVEL_STATE::STOP);
 }
-
-
 
 CLevel* CLevelSaveLoad::LoadLevel(const wstring& _FilePath)
 {
@@ -259,7 +259,7 @@ CComponent* CLevelSaveLoad::GetComponent(COMPONENT_TYPE _Type)
 	case COMPONENT_TYPE::TILEMAP:
 		return  new CTileMap;
 
-	case COMPONENT_TYPE::PARTICLE_SYSTEM:
+	case COMPONENT_TYPE::PARTICLESYSTEM:
 		break;
 
 	case COMPONENT_TYPE::DECAL:

@@ -33,11 +33,13 @@ CPlayerScript::CPlayerScript()
 	, m_CollisionDir(CollisionDir::NONE)
 	, m_CollisionCount(0)
 	, m_AttackCooldown(0.f)
+	, m_SlashDmg(50)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
 	AddScriptParam(SCRIPT_PARAM::TEXTURE, "Test", &m_Texture);
 	AddScriptParam(SCRIPT_PARAM::PREFAB, "Slash", &m_SlashPref);
+	SetName(L"CPlayerScript");
 }
 
 CPlayerScript::~CPlayerScript()

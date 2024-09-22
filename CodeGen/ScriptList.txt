@@ -5,4 +5,5 @@ CMAttackScript
 CPlatformScript
 CPlayerScript
 CSlashScript
+CSpawnerScript
 CursorScript

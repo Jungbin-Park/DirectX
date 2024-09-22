@@ -7,6 +7,8 @@ class CGhoulScript :
 private:
     float                   m_Speed;
     float                   m_HP;
+
+
     float                   m_Cooldown;
 
     float                   m_DetectRange;

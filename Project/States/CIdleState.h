@@ -6,6 +6,7 @@ class CIdleState :
 {
 private:
 	float	m_DetectRange;
+	float	m_AttackRange;
 
 
 public:

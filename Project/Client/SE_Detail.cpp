@@ -226,6 +226,9 @@ void SE_Detail::CalcBackgroundSize(Vec2 _SpriteSize)
 	else if (90.f < _SpriteSize.x && _SpriteSize.x <= 100.f &&
 		90.f < _SpriteSize.y && _SpriteSize.y <= 100.f)
 		m_Background = Vec2(100.f, 100.f);
+	else if (100.f < _SpriteSize.x && _SpriteSize.x <= 130.f &&
+		100.f < _SpriteSize.y && _SpriteSize.y <= 130.f)
+		m_Background = Vec2(130.f, 130.f);
 	else if (100.f < _SpriteSize.x && _SpriteSize.x <= 150.f &&
 		100.f < _SpriteSize.y && _SpriteSize.y <= 150.f)
 		m_Background = Vec2(150.f, 150.f);

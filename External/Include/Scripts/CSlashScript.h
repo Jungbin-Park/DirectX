@@ -6,6 +6,7 @@ class CSlashScript :
 {
 private:
     float           m_Speed;
+
     int             m_AnimIdx;
     int static      m_SlashIdx;
 

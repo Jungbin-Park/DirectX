@@ -10,6 +10,9 @@ private:
 	bool	m_bPlayRightAnim;
 	bool	m_bPlayLeftAnim;
 
+	float	m_AttackCoolDown;
+
+
 public:
 	virtual void Enter();
 	virtual void FinalTick();
