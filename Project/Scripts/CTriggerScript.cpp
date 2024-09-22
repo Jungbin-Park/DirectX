@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "CTriggerScript.h"
 
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
+
+#include "CManagerScript.h"
+
 CTriggerScript::CTriggerScript()
 	: CScript(SCRIPT_TYPE::TRIGGERSCRIPT)
 {
@@ -29,6 +34,10 @@ void CTriggerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _Other
 	Instantiate(CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\GhoulSpawner.pref"), 2, vRT, L"GhoulSpawner");
 	Instantiate(CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\GhoulSpawner.pref"), 2, vLB, L"GhoulSpawner");
 	Instantiate(CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\GhoulSpawner.pref"), 2, vRB, L"GhoulSpawner");
+
+	CGameObject* pManager = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"GameManager");
+	CManagerScript* pScript = (CManagerScript*)pManager->GetScriptByName(L"ManagerScript");
+	pScript->GateClose();
 
 	DeleteObject(GetOwner());
 }

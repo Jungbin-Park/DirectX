@@ -7,6 +7,15 @@ class CManagerScript :
 private:
     int     m_Score;
 
+    bool    m_bGate;
+
+    Ptr<CPrefab>            m_GateHPref;
+    Ptr<CPrefab>            m_GateVPref;
+
+public:
+    void GateClose();
+    void GateOpen();
+
 public:
     int GetScore() { return m_Score; }
 

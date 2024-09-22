@@ -10,6 +10,8 @@
 #include <Engine/CCollisionMgr.h>
 
 #include <Scripts/CScriptMgr.h>
+#include <Scripts/CManagerScript.h>
+
 #include <States/CStateMgr.h>
 
 #include "CTestLevel.h"
@@ -106,6 +108,11 @@ void CLevelSaveLoad::LevelInit()
 	wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
 	StrLevelLoadPath += (L"level\\" + levelName + L".lv");
 	CLevel* pLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath); 
+
+	//CGameObject* pObject = new CGameObject;
+	//pObject->SetName(L"GameManager");
+	//pObject->AddComponent(new CManagerScript);
+	//pLevel->AddObject(0, pObject);
 
 	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // Platform vs Player
 	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // Platform vs Monster
