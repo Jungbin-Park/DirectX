@@ -10,6 +10,8 @@
 
 #include <Scripts/CScriptMgr.h>
 #include <Scripts/CPlatformScript.h>
+#include <Scripts/CSpawnerScript.h>
+#include <Scripts/CTriggerScript.h>
 
 #include "CEditorMgr.h"
 #include "Inspector.h"
@@ -165,6 +167,25 @@ void MenuUI::GameObject()
 			pPlatform->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
 			pPlatform->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
 			CLevelMgr::GetInst()->GetCurrentLevel()->AddObject(1, pPlatform);
+		}
+
+		if (ImGui::MenuItem("Create Trigger"))
+		{
+			CGameObject* pSpawner = new CGameObject;
+			pSpawner->SetName(L"Trigger");
+			pSpawner->AddComponent(new CTransform);
+			pSpawner->AddComponent(new CCollider2D);
+			pSpawner->AddComponent(new CFlipBookComponent);
+			pSpawner->AddComponent(new CTriggerScript);
+
+			pSpawner->Transform()->SetRelativePos(0.f, 0.f, 100.f);
+			pSpawner->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
+
+			pSpawner->Collider2D()->SetIndependentScale(false);
+			pSpawner->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+			pSpawner->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
+
+			CLevelMgr::GetInst()->GetCurrentLevel()->AddObject(1, pSpawner);
 		}
 
 		AddScript();

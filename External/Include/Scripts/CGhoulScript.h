@@ -7,7 +7,7 @@ class CGhoulScript :
 private:
     float                   m_Speed;
     float                   m_HP;
-
+    bool                    m_Dead;
 
     float                   m_Cooldown;
 

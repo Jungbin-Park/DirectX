@@ -37,6 +37,9 @@
     <ClInclude Include="CSpawnerScript.h">
       <Filter>Scripts\Object</Filter>
     </ClInclude>
+    <ClInclude Include="CTriggerScript.h">
+      <Filter>Scripts\Platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="CSpawnerScript.cpp">
       <Filter>Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CTriggerScript.cpp">
+      <Filter>Scripts\Platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

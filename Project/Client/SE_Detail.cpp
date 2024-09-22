@@ -234,6 +234,8 @@ void SE_Detail::CalcBackgroundSize(Vec2 _SpriteSize)
 		m_Background = Vec2(150.f, 150.f);
 	else
 		m_Background = Vec2(200.f, 200.f);
+
+	
 }
 
 void SE_Detail::SaveSprite()

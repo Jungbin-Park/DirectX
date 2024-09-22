@@ -7,6 +7,8 @@
 #include <Engine/CDevice.h>
 #include <Engine/CFlipBookComponent.h>
 #include <Engine/CTransform.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
 
 
 CPlayerScript::CPlayerScript()

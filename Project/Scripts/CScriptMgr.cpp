@@ -9,6 +9,7 @@
 #include "CPlayerScript.h"
 #include "CSlashScript.h"
 #include "CSpawnerScript.h"
+#include "CTriggerScript.h"
 #include "CursorScript.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
@@ -21,6 +22,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CSlashScript");
 	_vec.push_back(L"CSpawnerScript");
+	_vec.push_back(L"CTriggerScript");
 	_vec.push_back(L"CursorScript");
 }
 
@@ -42,6 +44,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CSlashScript;
 	if (L"CSpawnerScript" == _strScriptName)
 		return new CSpawnerScript;
+	if (L"CTriggerScript" == _strScriptName)
+		return new CTriggerScript;
 	if (L"CursorScript" == _strScriptName)
 		return new CursorScript;
 	return nullptr;
@@ -74,6 +78,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::SPAWNERSCRIPT:
 		return new CSpawnerScript;
+		break;
+	case (UINT)SCRIPT_TYPE::TRIGGERSCRIPT:
+		return new CTriggerScript;
 		break;
 	case (UINT)SCRIPT_TYPE::CURSORSCRIPT:
 		return new CursorScript;
@@ -116,6 +123,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::SPAWNERSCRIPT:
 		return L"CSpawnerScript";
+		break;
+
+	case SCRIPT_TYPE::TRIGGERSCRIPT:
+		return L"CTriggerScript";
 		break;
 
 	case SCRIPT_TYPE::CURSORSCRIPT:

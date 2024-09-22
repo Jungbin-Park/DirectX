@@ -4,6 +4,11 @@
 class CSpawnerScript :
     public CScript
 {
+private:
+    bool            m_Finish;
+
+    Ptr<CPrefab>    m_GhoulPref;
+
 public:
     virtual void Begin() override;
     virtual void Tick() override;

@@ -6,4 +6,5 @@ CPlatformScript
 CPlayerScript
 CSlashScript
 CSpawnerScript
+CTriggerScript
 CursorScript

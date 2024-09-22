@@ -22,6 +22,7 @@ CGhoulScript::CGhoulScript()
 	, m_Cooldown(3.f)
 	, m_DetectRange(500.f)
 	, m_AttackRange(100.f)
+	, m_Dead(false)
 { 
 }
 
@@ -74,20 +75,30 @@ void CGhoulScript::Tick()
 
 void CGhoulScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
-	if (_OtherObject->GetLayerIdx() == 5)
+	if (!m_Dead)
 	{
-		if (_OtherObject->GetName() == L"Slash")
+		if (_OtherObject->GetLayerIdx() == 5)
 		{
-			CPlayerScript* TargetScript = (CPlayerScript*)m_Target->GetScriptByName(L"CPlayerScript");
-			int slashDmg = TargetScript->GetSlashDamage();
-			m_HP -= slashDmg;
-		}
+			if (_OtherObject->GetName() == L"Slash")
+			{
+				CPlayerScript* TargetScript = (CPlayerScript*)m_Target->GetScriptByName(L"CPlayerScript");
+				int slashDmg = TargetScript->GetSlashDamage();
+				m_HP -= slashDmg;
+			}
 
-		if (m_HP <= 0.f)
-			FSM()->ChangeState(L"DeadState");
-		else
-			FSM()->ChangeState(L"HitState");
+			if (m_HP <= 0.f)
+			{
+				FSM()->ChangeState(L"DeadState");
+				m_Dead = true;
+			}
+			else
+			{
+				FSM()->ChangeState(L"HitState");
+			}
+				
+		}
 	}
+	
 }
 
 void CGhoulScript::SaveToFile(FILE* _File)

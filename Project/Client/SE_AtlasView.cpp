@@ -103,36 +103,36 @@ void SE_AtlasView::SelectCheck()
 	}
 	else
 	{
-		// 마우스 왼쪽 Tap 체크
-		if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
-		{
-			m_MouseLT = ImGui::GetMousePos();
-			ImVec2 vDiff = ImVec2(m_MouseLT.x - ImageRectMin.x, m_MouseLT.y - ImageRectMin.y);
-			m_MouseLT = ImVec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
-		}
-		// 마우스 누르고 있을 때
-		if (ImGui::IsMouseDown(ImGuiMouseButton_Left))
-		{
-			m_MouseRB = ImGui::GetMousePos();
-			ImVec2 vDiff = ImVec2(m_MouseRB.x - ImageRectMin.x, m_MouseRB.y - ImageRectMin.y);
-			m_MouseRB = ImVec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
-		}
+		//// 마우스 왼쪽 Tap 체크
+		//if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+		//{
+		//	m_MouseLT = ImGui::GetMousePos();
+		//	ImVec2 vDiff = ImVec2(m_MouseLT.x - ImageRectMin.x, m_MouseLT.y - ImageRectMin.y);
+		//	m_MouseLT = ImVec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
+		//}
+		//// 마우스 누르고 있을 때
+		//if (ImGui::IsMouseDown(ImGuiMouseButton_Left))
+		//{
+		//	m_MouseRB = ImGui::GetMousePos();
+		//	ImVec2 vDiff = ImVec2(m_MouseRB.x - ImageRectMin.x, m_MouseRB.y - ImageRectMin.y);
+		//	m_MouseRB = ImVec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
+		//}
 	}
 	
 
-	//// 마우스 왼쪽 클릭 체크
-	//if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
-	//{
-	//	Vec2 vPixelPos = Vec2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-	//	ImVec2 vDiff = ImVec2(vPixelPos.x - ImageRectMin.x, vPixelPos.y - ImageRectMin.y);
-	//	vPixelPos = Vec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
+	// 마우스 왼쪽 클릭 체크
+	if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+	{
+		Vec2 vPixelPos = Vec2(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+		ImVec2 vDiff = ImVec2(vPixelPos.x - ImageRectMin.x, vPixelPos.y - ImageRectMin.y);
+		vPixelPos = Vec2(vDiff.x / m_Ratio, vDiff.y / m_Ratio);
 
-	//	if (0.f <= vPixelPos.x && vPixelPos.x < m_AtlasTex->Width()
-	//		&& 0.f <= vPixelPos.y && vPixelPos.y < m_AtlasTex->Height())
-	//	{
-	//		CalcSpriteSize(vPixelPos);
-	//	}
-	//}
+		if (0.f <= vPixelPos.x && vPixelPos.x < m_AtlasTex->Width()
+			&& 0.f <= vPixelPos.y && vPixelPos.y < m_AtlasTex->Height())
+		{
+			CalcSpriteSize(vPixelPos);
+		}
+	}
 }
 
 void SE_AtlasView::DrawSelectRect()

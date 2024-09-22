@@ -70,10 +70,9 @@ void CTestLevel::CreateTestLevel()
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
-	pLevel->SetName(L"Test");
+	pLevel->SetName(L"Ice");
 
 	//// 레벨 지정
-	//ChangeLevel(pLevel, LEVEL_STATE::PLAY);
 
 	pLevel->GetLayer(0)->SetName(L"Default");
 	pLevel->GetLayer(1)->SetName(L"Background");
@@ -120,7 +119,7 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(0, pObject);
 
 		// 커서 오브젝트
-		/*CGameObject* pCursor = new CGameObject;
+		CGameObject* pCursor = new CGameObject;
 		pCursor->SetName(L"Cursor");
 		pCursor->AddComponent(new CTransform);
 		pCursor->AddComponent(new CMeshRender);
@@ -131,7 +130,7 @@ void CTestLevel::CreateTestLevel()
 		pCursor->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		pCursor->MeshRender()->SetMaterial(pCursorMtrl);
 
-		pLevel->AddObject(10, pCursor);*/
+		pLevel->AddObject(10, pCursor);
 
 
 		// 플레이어 오브젝트
@@ -157,7 +156,7 @@ void CTestLevel::CreateTestLevel()
 		pPlayer->FlipBookComponent()->Play(0, 10, true);
 
 		// 화살표
-		/*CGameObject* pMarker = new CGameObject;
+		CGameObject* pMarker = new CGameObject;
 		pMarker->SetName(L"pMarker");
 
 		pMarker->AddComponent(new CTransform);
@@ -170,18 +169,11 @@ void CTestLevel::CreateTestLevel()
 		pMarker->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		pMarker->MeshRender()->SetMaterial(pmMtrl);
 
-		pPlayer->AddChild(pMarker);*/
+		pPlayer->AddChild(pMarker);
 
 		pLevel->AddObject(3, pPlayer);
 
-		/*Ptr<CPrefab> pPrefab = new CPrefab;
-		wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-		FilePath += L"prefab\\Player.pref";
-		pPrefab->Load(FilePath);
-		CGameObject* pPlayerPref = pPrefab->Instantiate();
-		CreateObject(pPlayerPref, 3);*/
-
-
+		
 		// 프리팹화
 		/*Ptr<CPrefab> pPrefab = new CPrefab;
 		pPrefab->SetProtoObject(pPlayer);
@@ -220,8 +212,8 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(4, pMonster);*/
 
 		// TileMap Object
-		/*CGameObject* pTileMapObj = new CGameObject;
-		pTileMapObj->SetName(L"TileMap");
+		CGameObject* pTileMapObj = new CGameObject;
+		pTileMapObj->SetName(L"IceTile");
 
 		wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
 		CTileMap* pTile = new CTileMap;
@@ -229,12 +221,12 @@ void CTestLevel::CreateTestLevel()
 		pTileMapObj->AddComponent(pTile);
 
 		pTile->Load(strContentPath + L"tilemap\\Ice.tile");
-		pTileMapObj->Transform()->SetRelativePos(Vec3(-870.f, 1700.f, 500.f));*/
+		pTileMapObj->Transform()->SetRelativePos(Vec3(-1750.f, 2100.f, 500.f));
 
-		//pLevel->AddObject(2, pTileMapObj);
+		pLevel->AddObject(2, pTileMapObj);
 
 		// Particle Object
-		CGameObject* pParticleObj = new CGameObject;
+		/*CGameObject* pParticleObj = new CGameObject;
 		pParticleObj->SetName(L"Particle");
 
 		pParticleObj->AddComponent(new CTransform);
@@ -242,7 +234,7 @@ void CTestLevel::CreateTestLevel()
 
 		pParticleObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 0.f));
 
-		pLevel->AddObject(0, pParticleObj);
+		pLevel->AddObject(0, pParticleObj);*/
 
 		/*pTileMapObj->TileMap()->SetRowCol(5, 5);
 		pTileMapObj->TileMap()->SetTileSize(Vec2(64.f, 64.f));
@@ -252,9 +244,6 @@ void CTestLevel::CreateTestLevel()
 		pTileMapObj->TileMap()->SetAtlasTileSize(Vec2(128.f, 128.f));
 
 		pTile->Save(strContentPath + L"tilemap\\test1.tile");*/
-
-		
-
 
 		// PostProcess Object
 		/*CGameObject* pGrayFilterObj = new CGameObject;
@@ -270,7 +259,7 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(0, pGrayFilterObj);*/
 	}
 
-	ChangeLevel(pLevel, LEVEL_STATE::PLAY);
+	ChangeLevel(pLevel, LEVEL_STATE::STOP);
 
 	// 충돌 지정
 	CCollisionMgr::GetInst()->CollisionCheck(3, 4); // Player vs Monster
@@ -289,10 +278,11 @@ void CTestLevel::CreatePrefab()
 	pProto->AddComponent(new CGhoulScript);
 	pProto->AddComponent(new CFSM);
 
+	
 	pProto->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
 
 	pProto->Collider2D()->SetIndependentScale(false);
-	pProto->Collider2D()->SetOffset(Vec3(0.f, 0.1f, 0.f));
+	pProto->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
 	pProto->Collider2D()->SetScale(Vec3(0.7f, 0.7f, 1.f));
 
 	pProto->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
