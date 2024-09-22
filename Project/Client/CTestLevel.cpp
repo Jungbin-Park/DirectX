@@ -19,6 +19,7 @@
 #include <Scripts/CMarkerScript.h>
 #include <Scripts/CursorScript.h>
 #include <Scripts/CGhoulScript.h>
+#include <Scripts/CPlatformScript.h>
 
 #include<States/CIdleState.h>
 
@@ -34,6 +35,8 @@ void CTestLevel::CreateTestLevel()
 	Ptr<CMaterial> pMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl");
 	Ptr<CMaterial> pmMtrl = CAssetMgr::GetInst()->Load<CMaterial>(L"material\\std2d.mtrl", L"material\\std2d.mtrl");
 	Ptr<CMaterial> pCursorMtrl = CAssetMgr::GetInst()->Load<CMaterial>(L"material\\Cursor.mtrl", L"material\\Cursor.mtrl");
+	Ptr<CMaterial> pGateVMtrl = CAssetMgr::GetInst()->Load<CMaterial>(L"material\\GateVertical.mtrl", L"material\\GateVertical.mtrl");
+	Ptr<CMaterial> pGateHMtrl = CAssetMgr::GetInst()->Load<CMaterial>(L"material\\GateHorizontal.mtrl", L"material\\GateHorizontal.mtrl");
 	Ptr<CMaterial> pAlphaBlendMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DAlphaBlendMtrl");
 	Ptr<CMaterial> pDebugShapeMtrl = CAssetMgr::GetInst()->FindAsset<CMaterial>(L"DebugShapeMtrl");
 
@@ -70,7 +73,7 @@ void CTestLevel::CreateTestLevel()
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
-	pLevel->SetName(L"Ice");
+	pLevel->SetName(L"Test");
 
 	//// 레벨 지정
 
@@ -173,6 +176,62 @@ void CTestLevel::CreateTestLevel()
 
 		pLevel->AddObject(3, pPlayer);
 
+		// 게이트 수평
+		CGameObject* pProto = new CGameObject;
+		pProto->SetName(L"GateHorizontal");
+		pProto->AddComponent(new CTransform);
+		pProto->AddComponent(new CMeshRender);
+
+		pProto->Transform()->SetRelativePos(10.f, 470.f, 100.f);
+		pProto->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
+
+		pProto->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pProto->MeshRender()->SetMaterial(pGateHMtrl);
+
+		CGameObject* pPlatform = new CGameObject;
+		pPlatform->SetName(L"Platform");
+		pPlatform->AddComponent(new CTransform);
+		pPlatform->AddComponent(new CCollider2D);
+		pPlatform->AddComponent(new CPlatformScript);
+		pPlatform->Transform()->SetRelativePos(0.f, 0.f, 100.f);
+		pPlatform->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
+
+		pPlatform->Collider2D()->SetIndependentScale(true);
+		pPlatform->Collider2D()->SetOffset(Vec3(0.f, 45.f, 0.f));
+		pPlatform->Collider2D()->SetScale(Vec3(200.f, 100.f, 1.f));
+		
+		pProto->AddChild(pPlatform);
+
+		pLevel->AddObject(2, pProto);
+
+		// 게이트 수직
+		pProto = new CGameObject;
+		pProto->SetName(L"GateVertical");
+		pProto->AddComponent(new CTransform);
+		pProto->AddComponent(new CMeshRender);
+
+		pProto->Transform()->SetRelativePos(-390.f, 20.f, 100.f);
+		pProto->Transform()->SetRelativeScale(50.f, 320.f, 1.f);
+
+		pProto->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pProto->MeshRender()->SetMaterial(pGateVMtrl);
+
+		pPlatform = new CGameObject;
+		pPlatform->SetName(L"Platform");
+		pPlatform->AddComponent(new CTransform);
+		pPlatform->AddComponent(new CCollider2D);
+		pPlatform->AddComponent(new CPlatformScript);
+		pPlatform->Transform()->SetRelativePos(0.f, 0.f, 100.f);
+		pPlatform->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
+
+		pPlatform->Collider2D()->SetIndependentScale(true);
+		pPlatform->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+		pPlatform->Collider2D()->SetScale(Vec3(35.f, 325.f, 1.f));
+
+		pProto->AddChild(pPlatform);
+
+		pLevel->AddObject(2, pProto);
+
 		
 		// 프리팹화
 		/*Ptr<CPrefab> pPrefab = new CPrefab;
@@ -270,31 +329,37 @@ void CTestLevel::CreateTestLevel()
 void CTestLevel::CreatePrefab()
 {
 	CGameObject* pProto = new CGameObject;
-	pProto->SetName(L"Ghoul");
+	pProto->SetName(L"GateVertical");
 	pProto->AddComponent(new CTransform);
 	pProto->AddComponent(new CMeshRender);
-	pProto->AddComponent(new CCollider2D);
-	pProto->AddComponent(new CFlipBookComponent);
-	pProto->AddComponent(new CGhoulScript);
-	pProto->AddComponent(new CFSM);
 
-	
-	pProto->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
-
-	pProto->Collider2D()->SetIndependentScale(false);
-	pProto->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pProto->Collider2D()->SetScale(Vec3(0.7f, 0.7f, 1.f));
+	pProto->Transform()->SetRelativePos(-390.f, 20.f, 100.f);
+	pProto->Transform()->SetRelativeScale(50.f, 320.f, 1.f);
 
 	pProto->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pProto->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\std2d.mtrl", L"material\\std2d.mtrl"));
+	pProto->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\GateVertical.mtrl", L"material\\GateVertical.mtrl"));
+
+	CGameObject* pPlatform = new CGameObject;
+	pPlatform->SetName(L"Platform");
+	pPlatform->AddComponent(new CTransform);
+	pPlatform->AddComponent(new CCollider2D);
+	pPlatform->AddComponent(new CPlatformScript);
+	pPlatform->Transform()->SetRelativePos(0.f, 0.f, 100.f);
+	pPlatform->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
+
+	pPlatform->Collider2D()->SetIndependentScale(true);
+	pPlatform->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pPlatform->Collider2D()->SetScale(Vec3(35.f, 325.f, 1.f));
+
+	pProto->AddChild(pPlatform);
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
 	pPrefab->SetProtoObject(pProto);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"GhoulPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"GateVerticalPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\Ghoul.pref";
+	FilePath += L"prefab\\GateVertical.pref";
 	pPrefab->Save(FilePath);
 
 	/*CTileMap* pTile = new CTileMap;
