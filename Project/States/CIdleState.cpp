@@ -6,7 +6,7 @@
 #include <Engine/CTransform.h>
 
 CIdleState::CIdleState()
-	: CState(STATE_TYPE::IDLESTATE)
+	: CState(STATE_TYPE::BOSSIDLESTATE)
 	, m_DetectRange(300.f)
 	, m_AttackRange(100.f)
 {

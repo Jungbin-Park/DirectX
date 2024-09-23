@@ -142,8 +142,9 @@ void Content::FindAssetName(const wstring& _FolderPath, const wstring& _Filter)
 	while (FindNextFile(hFinder, &tFindData))
 	{
 		wstring strFindName = tFindData.cFileName;
-
-		if (tFindData.dwFileAttributes == FILE_ATTRIBUTE_DIRECTORY)
+		if (strFindName == L"spawn16.sprite")
+			int a = 0;
+		if (tFindData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
 			if (strFindName == L"..")
 				continue;

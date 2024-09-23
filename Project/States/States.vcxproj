@@ -166,6 +166,15 @@ call CodeGen.exe
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BDashState.h" />
+    <ClInclude Include="BDeadState.h" />
+    <ClInclude Include="BHitState.h" />
+    <ClInclude Include="BIdleState.h" />
+    <ClInclude Include="BLanceState.h" />
+    <ClInclude Include="BReadyState.h" />
+    <ClInclude Include="BSlashState.h" />
+    <ClInclude Include="BSpawnState.h" />
+    <ClInclude Include="BWaterState.h" />
     <ClInclude Include="CAttackState.h" />
     <ClInclude Include="CDeadState.h" />
     <ClInclude Include="CHitState.h" />
@@ -176,6 +185,15 @@ call CodeGen.exe
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BDashState.cpp" />
+    <ClCompile Include="BDeadState.cpp" />
+    <ClCompile Include="BHitState.cpp" />
+    <ClCompile Include="BIdleState.cpp" />
+    <ClCompile Include="BLanceState.cpp" />
+    <ClCompile Include="BReadyState.cpp" />
+    <ClCompile Include="BSlashState.cpp" />
+    <ClCompile Include="BSpawnState.cpp" />
+    <ClCompile Include="BWaterState.cpp" />
     <ClCompile Include="CAttackState.cpp" />
     <ClCompile Include="CDeadState.cpp" />
     <ClCompile Include="CHitState.cpp" />

@@ -21,6 +21,11 @@
 #include <Scripts/CGhoulScript.h>
 #include <Scripts/CPlatformScript.h>
 #include <Scripts/CManagerScript.h>
+#include <Scripts/CBossScript.h>
+#include <Scripts/CCrystalScript.h>
+#include <Scripts/CWaterScript.h>
+#include <Scripts/CBSlashScript.h>
+#include <Scripts/CLanceScript.h>
 
 #include<States/CIdleState.h>
 
@@ -74,7 +79,7 @@ void CTestLevel::CreateTestLevel()
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
-	pLevel->SetName(L"Test");
+	pLevel->SetName(L"Boss");
 
 	//// 레벨 지정
 
@@ -85,6 +90,7 @@ void CTestLevel::CreateTestLevel()
 	pLevel->GetLayer(4)->SetName(L"Monster");
 	pLevel->GetLayer(5)->SetName(L"PlayerProjectile");
 	pLevel->GetLayer(6)->SetName(L"MonsterProjectile");
+	pLevel->GetLayer(7)->SetName(L"Object");
 	pLevel->GetLayer(10)->SetName(L"UI");
 
 	// 오브젝트 추가
@@ -152,6 +158,7 @@ void CTestLevel::CreateTestLevel()
 		pPlayer->AddComponent(new CCollider2D);
 		pPlayer->AddComponent(new CFlipBookComponent);
 		pPlayer->AddComponent(new CPlayerScript);
+
 		pPlayer->Transform()->SetRelativePos(0.f, 0.f, 100.f);
 		pPlayer->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
 
@@ -184,8 +191,84 @@ void CTestLevel::CreateTestLevel()
 
 		pLevel->AddObject(3, pPlayer);
 
+		// 보스
+		CGameObject* pBoss = new CGameObject;
+		pBoss->SetName(L"Boss");
+
+		pBoss->AddComponent(new CTransform);
+		pBoss->AddComponent(new CMeshRender);
+		pBoss->AddComponent(new CCollider2D);
+		pBoss->AddComponent(new CFlipBookComponent);
+		pBoss->AddComponent(new CBossScript);
+		pBoss->AddComponent(new CFSM);
+
+		pBoss->Transform()->SetRelativePos(0.f, 200.f, 100.f);
+		pBoss->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
+		
+		pBoss->Collider2D()->SetIndependentScale(false);
+		pBoss->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+		pBoss->Collider2D()->SetScale(Vec3(0.5f, 0.7f, 1.f));
+		
+		pBoss->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pBoss->MeshRender()->SetMaterial(pMtrl);
+
+		pLevel->AddObject(4, pBoss);
+
+		// Water
+		/*CGameObject* pWater = new CGameObject;
+		pWater->SetName(L"WaterBall");
+
+		pWater->AddComponent(new CTransform);
+		pWater->AddComponent(new CMeshRender);
+		pWater->AddComponent(new CCollider2D);
+		pWater->AddComponent(new CFlipBookComponent);
+		pWater->AddComponent(new CWaterScript);
+
+		pWater->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
+
+		pWater->Collider2D()->SetIndependentScale(false);
+		pWater->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+		pWater->Collider2D()->SetScale(Vec3(0.3f, 0.3f, 1.f));
+
+		pWater->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pWater->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\WaterBall.mtrl", L"material\\WaterBall.mtrl"));
+
+		pLevel->AddObject(6, pWater);*/
+
+		// Crystal
+		/*CGameObject* pCrystal = new CGameObject;
+		pCrystal->SetName(L"Crystal");
+
+		pCrystal->AddComponent(new CTransform);
+		pCrystal->AddComponent(new CMeshRender);
+		pCrystal->AddComponent(new CFlipBookComponent);
+		pCrystal->AddComponent(new CCrystalScript);
+
+		pCrystal->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
+		pCrystal->Transform()->SetRelativePos(0.f, 300.f, 1.f);
+
+		pCrystal->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pCrystal->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\Crystal.mtrl", L"material\\Crystal.mtrl"));
+
+		pLevel->AddObject(7, pCrystal);*/
+
+
+		// ArchWay
+		CGameObject* pArchWay = new CGameObject;
+		pArchWay->SetName(L"ArchWay");
+		pArchWay->AddComponent(new CTransform);
+		pArchWay->AddComponent(new CMeshRender);
+
+		pArchWay->Transform()->SetRelativePos(Vec3(0.f, 310.f, 100.f));
+		pArchWay->Transform()->SetRelativeScale(Vec3(300.f, 300.f, 0.f));
+
+		pArchWay->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pArchWay->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\ArchWay.mtrl", L"material\\ArchWay.mtrl"));
+
+		pLevel->AddObject(2, pArchWay);
+
 		// 게이트 수평
-		CGameObject* pProto = new CGameObject;
+		/*CGameObject* pProto = new CGameObject;
 		pProto->SetName(L"GateHorizontal");
 		pProto->AddComponent(new CTransform);
 		pProto->AddComponent(new CMeshRender);
@@ -210,7 +293,7 @@ void CTestLevel::CreateTestLevel()
 		
 		pProto->AddChild(pPlatform);
 
-		pLevel->AddObject(2, pProto);
+		pLevel->AddObject(2, pProto);*/
 
 		// 게이트 수직
 		/*pProto = new CGameObject;
@@ -287,8 +370,8 @@ void CTestLevel::CreateTestLevel()
 		pTileMapObj->AddComponent(new CTransform);
 		pTileMapObj->AddComponent(pTile);
 
-		pTile->Load(strContentPath + L"tilemap\\Ice.tile");
-		pTileMapObj->Transform()->SetRelativePos(Vec3(-1750.f, 2100.f, 500.f));
+		pTile->Load(strContentPath + L"tilemap\\IceBoss.tile");
+		pTileMapObj->Transform()->SetRelativePos(Vec3(-1570.f, 2830.f, 500.f));
 
 		pLevel->AddObject(2, pTileMapObj);
 
@@ -332,43 +415,38 @@ void CTestLevel::CreateTestLevel()
 	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // platform vs Monster
 	CCollisionMgr::GetInst()->CollisionCheck(5, 4); // Player Projectile vs Monster
 	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // platform vs player;
+	CCollisionMgr::GetInst()->CollisionCheck(5, 1); // Player Projectile vs platform
+	CCollisionMgr::GetInst()->CollisionCheck(6, 1); // Monster Projectile vs platform
 
 }
 
 void CTestLevel::CreatePrefab()
 {
-	/*CGameObject* pProto = new CGameObject;
-	pProto->SetName(L"GateVertical");
-	pProto->AddComponent(new CTransform);
-	pProto->AddComponent(new CMeshRender);
+	/*CGameObject* pWater = new CGameObject;
+	pWater->SetName(L"WaterBall");
 
-	pProto->Transform()->SetRelativePos(-390.f, 20.f, 100.f);
-	pProto->Transform()->SetRelativeScale(50.f, 320.f, 1.f);
+	pWater->AddComponent(new CTransform);
+	pWater->AddComponent(new CMeshRender);
+	pWater->AddComponent(new CCollider2D);
+	pWater->AddComponent(new CFlipBookComponent);
+	pWater->AddComponent(new CWaterScript);
 
-	pProto->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pProto->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\GateVertical.mtrl", L"material\\GateVertical.mtrl"));
+	pWater->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
 
-	CGameObject* pPlatform = new CGameObject;
-	pPlatform->SetName(L"Platform");
-	pPlatform->AddComponent(new CTransform);
-	pPlatform->AddComponent(new CCollider2D);
-	pPlatform->AddComponent(new CPlatformScript);
-	pPlatform->Transform()->SetRelativePos(0.f, 0.f, 100.f);
-	pPlatform->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
+	pWater->Collider2D()->SetIndependentScale(false);
+	pWater->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pWater->Collider2D()->SetScale(Vec3(0.3f, 0.3f, 1.f));
 
-	pPlatform->Collider2D()->SetIndependentScale(true);
-	pPlatform->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pPlatform->Collider2D()->SetScale(Vec3(35.f, 325.f, 1.f));
-
-	pProto->AddChild(pPlatform);
+	pWater->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pWater->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\WaterBall.mtrl", L"material\\WaterBall.mtrl"));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
-	pPrefab->SetProtoObject(pProto);
+	pPrefab->SetProtoObject(pWater);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"GateVerticalPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"WaterBallPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\GateVertical.pref";
+	FilePath += L"prefab\\WaterBall.pref";
 	pPrefab->Save(FilePath);*/
 
 	/*CTileMap* pTile = new CTileMap;

@@ -206,7 +206,7 @@ void SE_Detail::SelectTexture(DWORD_PTR _ListUI)
 void SE_Detail::CalcBackgroundSize(Vec2 _SpriteSize)
 {
 
-	if (_SpriteSize.x <= 45.f && _SpriteSize.y <= 45.f)
+	/*if (_SpriteSize.x <= 45.f && _SpriteSize.y <= 45.f)
 		m_Background = Vec2(45.f, 45.f);
 	else if (45.f < _SpriteSize.x && _SpriteSize.x <= 50.f &&
 		45.f < _SpriteSize.y && _SpriteSize.y <= 50.f)
@@ -233,9 +233,9 @@ void SE_Detail::CalcBackgroundSize(Vec2 _SpriteSize)
 		100.f < _SpriteSize.y && _SpriteSize.y <= 150.f)
 		m_Background = Vec2(150.f, 150.f);
 	else
-		m_Background = Vec2(200.f, 200.f);
+		m_Background = Vec2(200.f, 200.f);*/
 
-	
+	m_Background = Vec2(45.f, 45.f);
 }
 
 void SE_Detail::SaveSprite()

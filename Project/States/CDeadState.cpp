@@ -8,7 +8,7 @@
 #include <Engine/CCollider2D.h>
 
 CDeadState::CDeadState()
-	:CState(STATE_TYPE::DEADSTATE)
+	:CState(STATE_TYPE::BOSSDEADSTATE)
 {
 }
 

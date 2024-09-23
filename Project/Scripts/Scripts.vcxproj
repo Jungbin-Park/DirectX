@@ -166,8 +166,12 @@ call CodeGen.exe
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBossScript.h" />
+    <ClInclude Include="CBSlashScript.h" />
     <ClInclude Include="CCameraMoveScript.h" />
+    <ClInclude Include="CCrystalScript.h" />
     <ClInclude Include="CGhoulScript.h" />
+    <ClInclude Include="CLanceScript.h" />
     <ClInclude Include="CManagerScript.h" />
     <ClInclude Include="CMarkerScript.h" />
     <ClInclude Include="CMAttackScript.h" />
@@ -178,12 +182,17 @@ call CodeGen.exe
     <ClInclude Include="CSpawnerScript.h" />
     <ClInclude Include="CTriggerScript.h" />
     <ClInclude Include="CursorScript.h" />
+    <ClInclude Include="CWaterScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBossScript.cpp" />
+    <ClCompile Include="CBSlashScript.cpp" />
     <ClCompile Include="CCameraMoveScript.cpp" />
+    <ClCompile Include="CCrystalScript.cpp" />
     <ClCompile Include="CGhoulScript.cpp" />
+    <ClCompile Include="CLanceScript.cpp" />
     <ClCompile Include="CManagerScript.cpp" />
     <ClCompile Include="CMarkerScript.cpp" />
     <ClCompile Include="CMAttackScript.cpp" />
@@ -194,6 +203,7 @@ call CodeGen.exe
     <ClCompile Include="CSpawnerScript.cpp" />
     <ClCompile Include="CTriggerScript.cpp" />
     <ClCompile Include="CursorScript.cpp" />
+    <ClCompile Include="CWaterScript.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

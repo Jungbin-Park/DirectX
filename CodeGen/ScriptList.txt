@@ -1,5 +1,9 @@
+CBossScript
+CBSlashScript
 CCameraMoveScript
+CCrystalScript
 CGhoulScript
+CLanceScript
 CManagerScript
 CMarkerScript
 CMAttackScript
@@ -9,3 +13,4 @@ CSlashScript
 CSpawnerScript
 CTriggerScript
 CursorScript
+CWaterScript

@@ -10,7 +10,7 @@
 #include <Engine/CRenderComponent.h>
 
 CHitState::CHitState()
-	: CState(STATE_TYPE::HITSTATE)
+	: CState(STATE_TYPE::BOSSHITSTATE)
 	, m_HitTime(0.f)
 	, m_KnockBackSpeed(100.f)
 	, m_KnockBackTime(0.2f)

@@ -13,6 +13,9 @@
     <Filter Include="Default">
       <UniqueIdentifier>{9a1c85cf-877c-4c36-b074-df5f7ac3f177}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. States\Boss">
+      <UniqueIdentifier>{52457d42-ae94-4053-8ac6-cc57b0c12a34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CStateMgr.h">
@@ -39,6 +42,33 @@
     <ClInclude Include="CHitState.h">
       <Filter>02. States\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="BWaterState.h">
+      <Filter>02. States\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BDashState.h">
+      <Filter>02. States\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BDeadState.h">
+      <Filter>02. States\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BHitState.h">
+      <Filter>02. States\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BIdleState.h">
+      <Filter>02. States\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BLanceState.h">
+      <Filter>02. States\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BReadyState.h">
+      <Filter>02. States\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BSlashState.h">
+      <Filter>02. States\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BSpawnState.h">
+      <Filter>02. States\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CStateMgr.cpp">
@@ -64,6 +94,33 @@
     </ClCompile>
     <ClCompile Include="CMoveState.cpp">
       <Filter>02. States\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BDashState.cpp">
+      <Filter>02. States\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BDeadState.cpp">
+      <Filter>02. States\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BHitState.cpp">
+      <Filter>02. States\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BIdleState.cpp">
+      <Filter>02. States\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BLanceState.cpp">
+      <Filter>02. States\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BReadyState.cpp">
+      <Filter>02. States\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BSlashState.cpp">
+      <Filter>02. States\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BWaterState.cpp">
+      <Filter>02. States\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BSpawnState.cpp">
+      <Filter>02. States\Boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

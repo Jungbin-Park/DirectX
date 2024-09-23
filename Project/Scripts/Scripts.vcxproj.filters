@@ -16,9 +16,6 @@
     <ClInclude Include="CCameraMoveScript.h">
       <Filter>Scripts\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CSlashScript.h">
-      <Filter>Scripts\Object</Filter>
-    </ClInclude>
     <ClInclude Include="CursorScript.h">
       <Filter>Scripts\Object</Filter>
     </ClInclude>
@@ -31,9 +28,6 @@
     <ClInclude Include="CPlatformScript.h">
       <Filter>Scripts\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="CMAttackScript.h">
-      <Filter>Scripts\Object</Filter>
-    </ClInclude>
     <ClInclude Include="CSpawnerScript.h">
       <Filter>Scripts\Object</Filter>
     </ClInclude>
@@ -42,6 +36,27 @@
     </ClInclude>
     <ClInclude Include="CManagerScript.h">
       <Filter>Scripts\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CBossScript.h">
+      <Filter>Scripts\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="CCrystalScript.h">
+      <Filter>Scripts\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlashScript.h">
+      <Filter>Scripts\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="CMAttackScript.h">
+      <Filter>Scripts\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CWaterScript.h">
+      <Filter>Scripts\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="CLanceScript.h">
+      <Filter>Scripts\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="CBSlashScript.h">
+      <Filter>Scripts\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +75,6 @@
     <ClCompile Include="CCameraMoveScript.cpp">
       <Filter>Scripts\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CSlashScript.cpp">
-      <Filter>Scripts\Object</Filter>
-    </ClCompile>
     <ClCompile Include="CursorScript.cpp">
       <Filter>Scripts\Object</Filter>
     </ClCompile>
@@ -75,9 +87,6 @@
     <ClCompile Include="CPlatformScript.cpp">
       <Filter>Scripts\Platform</Filter>
     </ClCompile>
-    <ClCompile Include="CMAttackScript.cpp">
-      <Filter>Scripts\Object</Filter>
-    </ClCompile>
     <ClCompile Include="CSpawnerScript.cpp">
       <Filter>Scripts\Object</Filter>
     </ClCompile>
@@ -86,6 +95,27 @@
     </ClCompile>
     <ClCompile Include="CManagerScript.cpp">
       <Filter>Scripts\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossScript.cpp">
+      <Filter>Scripts\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CCrystalScript.cpp">
+      <Filter>Scripts\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlashScript.cpp">
+      <Filter>Scripts\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="CMAttackScript.cpp">
+      <Filter>Scripts\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CWaterScript.cpp">
+      <Filter>Scripts\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CBSlashScript.cpp">
+      <Filter>Scripts\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CLanceScript.cpp">
+      <Filter>Scripts\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +145,12 @@
     </Filter>
     <Filter Include="Scripts\Manager">
       <UniqueIdentifier>{8286fd11-b312-4fec-a75b-f02988cc0d77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Boss">
+      <UniqueIdentifier>{61188843-beb6-4135-8bf4-d858eb066698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Skill">
+      <UniqueIdentifier>{a994a062-a508-40d8-917a-bf16a9e1c0a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

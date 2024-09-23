@@ -35,7 +35,7 @@ CPlayerScript::CPlayerScript()
 	, m_CollisionDir(CollisionDir::NONE)
 	, m_CollisionCount(0)
 	, m_AttackCooldown(0.f)
-	, m_SlashDmg(50)
+	, m_SlashDmg(10)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
@@ -54,7 +54,7 @@ void CPlayerScript::Begin()
 
 	GetRenderComponent()->GetDynamicMaterial();
 
-	LoadFlipBook();
+	LoadFlipBook(); 
 }
 
 void CPlayerScript::Tick()
@@ -376,9 +376,6 @@ void CPlayerScript::KeyInput()
 				}
 			}
 		}
-		
-
-
 	}
 
 	if (KEY_TAP(KEY::SPACE))
