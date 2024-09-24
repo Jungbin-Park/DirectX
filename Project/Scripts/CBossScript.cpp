@@ -19,6 +19,9 @@
 #include "CPlayerScript.h"
 #include "CManagerScript.h"
 
+#include "CWaterScript.h"
+#include "CLanceScript.h"
+
 
 CBossScript::CBossScript()
 	: CScript(SCRIPT_TYPE::BOSSSCRIPT)
@@ -26,7 +29,7 @@ CBossScript::CBossScript()
 	, m_Target(nullptr)
 	, m_Dead(false)
 	, m_HP(1000.f)
-	, m_WaterSpacing(100.f)
+	, m_Angle(0.f)
 {
 }
 
@@ -53,18 +56,12 @@ void CBossScript::Begin()
 	m_CrystalPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Crystal.pref");
 	Instantiate(m_CrystalPref, 3, Transform()->GetRelativePos(), L"Crystal");
 
-	FSM()->ChangeState(L"BSpawnState");
-
 	CGameObject* pTarget = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
 	if (pTarget != nullptr)
 		m_Target = pTarget;
 
-	// WaterBall
-	Ptr<CPrefab> WaterBallPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\WaterBall.pref");
-	for (int i = 0; i < 6; i++)
-	{
-		m_vecWater.push_back(WaterBallPref);
-	}
+
+	FSM()->ChangeState(L"BSpawnState");
 
 	
 }
@@ -87,7 +84,14 @@ void CBossScript::Tick()
 	}
 
 	if (KEY_TAP(KEY::_4))
-		WaterBall();
+	{
+		FSM()->ChangeState(L"BLanceState");
+		//FSM()->ChangeState(L"BWaterState");
+		//InitWaterBall();
+	}
+
+	
+
 }
 
 void CBossScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
@@ -116,24 +120,6 @@ void CBossScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObj
 				FSM()->ChangeState(L"BHitState");
 			}
 		}
-	}
-}
-
-void CBossScript::WaterBall()
-{
-	Vec3 vPos = Transform()->GetRelativePos();
-
-	float angle = 0.f;
-	float xPos;
-	float yPos;
-
-	vector<Ptr<CPrefab>>::iterator iter = m_vecWater.begin();
-	for (; iter != m_vecWater.end(); ++iter)
-	{
-		xPos = vPos.x + (cos(angle) * m_WaterSpacing);
-		yPos = vPos.y + (sin(angle) * m_WaterSpacing);
-		Instantiate(*iter, 6, Vec3(xPos, yPos, 100.f), L"WaterBall");
-		angle += (XM_2PI / 6.f);
 	}
 }
 

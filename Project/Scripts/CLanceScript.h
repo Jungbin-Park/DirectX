@@ -4,6 +4,10 @@
 class CLanceScript :
     public CScript
 {
+private:
+    CGameObject* m_Boss;
+
+
 public:
     virtual void Begin() override;
     virtual void Tick() override;

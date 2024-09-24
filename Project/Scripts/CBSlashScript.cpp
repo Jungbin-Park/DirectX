@@ -12,6 +12,9 @@ CBSlashScript::~CBSlashScript()
 
 void CBSlashScript::Begin()
 {
+	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\IceSwordSpawn.flip");
+	FlipBookComponent()->AddFlipBook(0, pFlipBook);
+	FlipBookComponent()->Play(0, 5, false);
 }
 
 void CBSlashScript::Tick()

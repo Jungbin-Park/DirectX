@@ -6,19 +6,16 @@ class CBossScript :
 {
 private:
     CGameObject*            m_Target;
-
     float                   m_HP;
     bool                    m_Dead;
 
     Ptr<CPrefab>	        m_CrystalPref;
 
-    vector<Ptr<CPrefab>>    m_vecWater;
-    float                   m_WaterSpacing;
-
+    // Lance
     vector<Ptr<CPrefab>>    m_vecLance;
+    float                   m_Angle;
 
-public:
-    void WaterBall();
+    // Slash
 
 private:
     void LoadAnimation();

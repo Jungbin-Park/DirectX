@@ -32,3 +32,15 @@ void CScript::Instantiate(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, Vec
 
 	CreateObject(pInst, _LayerIdx);
 }
+
+CGameObject* CScript::InstantiateSkill(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, const wstring& _Name)
+{
+	CGameObject* pInst = _Pref->Instantiate();
+
+	pInst->SetName(_Name);
+	pInst->Transform()->SetRelativePos(_WorldPos);
+
+	CreateObject(pInst, _LayerIdx);
+
+	return pInst;
+}

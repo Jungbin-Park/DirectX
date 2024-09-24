@@ -27,7 +27,6 @@
 #include <Scripts/CBSlashScript.h>
 #include <Scripts/CLanceScript.h>
 
-#include<States/CIdleState.h>
 
 #include <Engine/CSetColorCS.h>
 #include <Engine/CStructuredBuffer.h>
@@ -214,6 +213,48 @@ void CTestLevel::CreateTestLevel()
 
 		pLevel->AddObject(4, pBoss);
 
+		// IceSword
+		/*CGameObject* pSword = new CGameObject;
+		pSword->SetName(L"IceSword");
+		
+		pSword->AddComponent(new CTransform);
+		pSword->AddComponent(new CMeshRender);
+		pSword->AddComponent(new CCollider2D);
+		pSword->AddComponent(new CFlipBookComponent);
+		pSword->AddComponent(new CBSlashScript);
+		
+		pSword->Transform()->SetRelativeScale(100.f, 300.f, 0.f);
+		
+		pSword->Collider2D()->SetIndependentScale(false);
+		pSword->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+		pSword->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
+		
+		pSword->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pSword->MeshRender()->SetMaterial(pMtrl);
+
+		pLevel->AddObject(6, pSword);*/
+
+		// Lance
+		/*CGameObject* pLance = new CGameObject;
+		pLance->SetName(L"IceLance");
+
+		pLance->AddComponent(new CTransform);
+		pLance->AddComponent(new CMeshRender);
+		pLance->AddComponent(new CCollider2D);
+		pLance->AddComponent(new CFlipBookComponent);
+		pLance->AddComponent(new CLanceScript);
+		
+		pLance->Transform()->SetRelativeScale(30.f, 150.f, 0.f);
+
+		pLance->Collider2D()->SetIndependentScale(false);
+		pLance->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+		pLance->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
+
+		pLance->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pLance->MeshRender()->SetMaterial(pMtrl);
+
+		pLevel->AddObject(6, pLance);*/
+
 		// Water
 		/*CGameObject* pWater = new CGameObject;
 		pWater->SetName(L"WaterBall");
@@ -254,7 +295,7 @@ void CTestLevel::CreateTestLevel()
 
 
 		// ArchWay
-		CGameObject* pArchWay = new CGameObject;
+		/*CGameObject* pArchWay = new CGameObject;
 		pArchWay->SetName(L"ArchWay");
 		pArchWay->AddComponent(new CTransform);
 		pArchWay->AddComponent(new CMeshRender);
@@ -265,7 +306,7 @@ void CTestLevel::CreateTestLevel()
 		pArchWay->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		pArchWay->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\ArchWay.mtrl", L"material\\ArchWay.mtrl"));
 
-		pLevel->AddObject(2, pArchWay);
+		pLevel->AddObject(2, pArchWay);*/
 
 		// 게이트 수평
 		/*CGameObject* pProto = new CGameObject;
@@ -422,32 +463,34 @@ void CTestLevel::CreateTestLevel()
 
 void CTestLevel::CreatePrefab()
 {
-	/*CGameObject* pWater = new CGameObject;
-	pWater->SetName(L"WaterBall");
-
-	pWater->AddComponent(new CTransform);
-	pWater->AddComponent(new CMeshRender);
-	pWater->AddComponent(new CCollider2D);
-	pWater->AddComponent(new CFlipBookComponent);
-	pWater->AddComponent(new CWaterScript);
-
-	pWater->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
-
-	pWater->Collider2D()->SetIndependentScale(false);
-	pWater->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pWater->Collider2D()->SetScale(Vec3(0.3f, 0.3f, 1.f));
-
-	pWater->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pWater->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\WaterBall.mtrl", L"material\\WaterBall.mtrl"));
+	
+	/*CGameObject* pSword = new CGameObject;
+	pSword->SetName(L"IceSword");
+	
+	pSword->AddComponent(new CTransform);
+	pSword->AddComponent(new CMeshRender);
+	pSword->AddComponent(new CCollider2D);
+	pSword->AddComponent(new CFlipBookComponent);
+	pSword->AddComponent(new CBSlashScript);
+	
+	pSword->Transform()->SetRelativeScale(100.f, 300.f, 0.f);
+	
+	pSword->Collider2D()->SetIndependentScale(false);
+	pSword->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pSword->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
+	
+	pSword->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pSword->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
-	pPrefab->SetProtoObject(pWater);
+	pPrefab->SetProtoObject(pSword);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"WaterBallPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"IceSwordPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\WaterBall.pref";
+	FilePath += L"prefab\\IceSword.pref";
 	pPrefab->Save(FilePath);*/
+	
 
 	/*CTileMap* pTile = new CTileMap;
 	pTile->SetName(L"map1");*/

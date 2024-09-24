@@ -5,21 +5,31 @@ class CWaterScript :
     public CScript
 {
 private:
-    bool        m_bShoot;
-    Vec2        m_Dir;
+    CGameObject*    m_Boss;
 
-    float       m_XPos;
-    float       m_YPos;
-    float       m_Angle;
+    bool            m_bRotate;
+    bool            m_bShoot;
+    bool            m_bHit;
+    bool            m_bCountStart;
 
-    float       m_rotationSpeed;
+    float           m_Speed;
+    Vec3            m_Dir;
+
+    float           m_XPos;
+    float           m_YPos;
+    float           m_Angle;
+    float           m_Dist;
+
+    float           m_ShootInitTime;
+    float           m_ShootWaterSpacing;
+
+    float           m_rotationSpeed;
 
 public:
-    void ShootWater(bool _Set, Vec2 _Dir) 
-    { 
-        m_bShoot = _Set; 
-        m_Dir = _Dir;
-    }
+    void ShootWater();
+
+    void SetShootTime(float _Time); 
+    
 
 public:
     virtual void Begin() override;

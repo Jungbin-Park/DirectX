@@ -46,6 +46,7 @@ protected:
 
     void Instantiate(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, const wstring& _Name = L"");
     void Instantiate(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, Vec3 _WorldRot, const wstring& _Name = L"");
+    CGameObject* InstantiateSkill(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, const wstring& _Name = L"");
 
 public:
     virtual void Begin() override {}

@@ -24,6 +24,7 @@ protected:
 	CFSM* GetFSM() { return m_Owner; }
 
 	void ChangeState(const wstring& _strStateName);
+	CGameObject* InstantiateSkill(Ptr<CPrefab> _Pref, int _LayerIdx, Vec3 _WorldPos, const wstring& _Name = L"");
 
 public:
 	virtual void Enter() = 0;
