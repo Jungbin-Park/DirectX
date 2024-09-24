@@ -43,6 +43,7 @@ public:
     int GetLayerIdx() { return m_LayerIdx; }
     void AddChild(CGameObject* _ChildObject);
     const vector<CGameObject*>& GetChildren() { return m_vecChildren; }
+    CGameObject* GetChild(const wstring& _ChildName);
     const vector<CScript*> GetScripts() { return m_vecScript; }
     CScript* GetScriptByName(const wstring& _ScriptName);
 

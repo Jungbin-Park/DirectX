@@ -34,6 +34,20 @@ void BLanceState::Enter()
 
 void BLanceState::FinalTick()
 {
+	/*CGameObject* pLanceGroup = GetOwner()->GetChild(L"LanceGroup");
+	Vec3 vPlayerPos = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player")->Transform()->GetRelativePos();
+	Vec3 vGroupPos = pLanceGroup->Transform()->GetRelativePos();
+	Vec3 vGroupRot = pLanceGroup->Transform()->GetRelativeRotation();
+
+	Vec3 vPDir = vPlayerPos - vGroupPos;
+	vPDir.Normalize();
+
+	float angle;
+	angle = atan2(vPDir.y, vPDir.x);
+
+	vGroupRot.z = angle - XM_PI / 2.f;
+
+	pLanceGroup->Transform()->SetRelativeRotation(vGroupRot);*/
 }
 
 void BLanceState::InitLance()
@@ -53,8 +67,8 @@ void BLanceState::InitLance()
 	{
 		CGameObject* pLance = InstantiateSkill(m_LancePref, 2, Vec3(xPos, yPos, 100.f), L"IceLance");
 		m_vecSpawnedLance.push_back(pLance);
+		//GetOwner()->GetChild(L"LanceGroup")->AddChild(pLance);
 		xPos += 100.f;
-		//angle += (XM_2PI / (float)m_LanceCount);
 	}
 }
 

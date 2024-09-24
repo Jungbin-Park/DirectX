@@ -5,7 +5,12 @@ class CLanceScript :
     public CScript
 {
 private:
-    CGameObject* m_Boss;
+    CGameObject*    m_Boss;
+
+    bool            m_bRotate;
+
+    float           m_Angle;
+    float           m_Dist;
 
 
 public:

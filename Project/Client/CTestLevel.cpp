@@ -78,7 +78,7 @@ void CTestLevel::CreateTestLevel()
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
-	pLevel->SetName(L"Boss");
+	pLevel->SetName(L"Test");
 
 	//// 레벨 지정
 
@@ -211,7 +211,14 @@ void CTestLevel::CreateTestLevel()
 		pBoss->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		pBoss->MeshRender()->SetMaterial(pMtrl);
 
+		CGameObject* pLanceGroup = new CGameObject;
+		pLanceGroup->SetName(L"LanceGroup");
+		pLanceGroup->AddComponent(new CTransform);
+		pBoss->AddChild(pLanceGroup);
+
 		pLevel->AddObject(4, pBoss);
+
+		
 
 		// IceSword
 		/*CGameObject* pSword = new CGameObject;

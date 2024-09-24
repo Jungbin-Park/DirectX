@@ -122,6 +122,19 @@ void CGameObject::AddChild(CGameObject* _ChildObject)
 	CLevelMgr::GetInst()->LevelChanged();
 }
 
+CGameObject* CGameObject::GetChild(const wstring& _ChildName)
+{
+	vector<CGameObject*>::iterator iter = m_vecChildren.begin();
+
+	for (; iter != m_vecChildren.end(); ++iter)
+	{
+		if ((*iter)->GetName() == _ChildName)
+		{
+			return *iter;
+		}
+	}
+}
+
 
 CScript* CGameObject::GetScriptByName(const wstring& _ScriptName)
 {

@@ -7,6 +7,9 @@
 
 CLanceScript::CLanceScript()
 	: CScript(SCRIPT_TYPE::LANCESCRIPT)
+	, m_Angle(0.f)
+	, m_Dist(0.f)
+	, m_bRotate(true)
 {
 }
 
@@ -20,31 +23,52 @@ void CLanceScript::Begin()
 	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\IceLanceSpawn.flip");
 	FlipBookComponent()->AddFlipBook(0, pFlipBook);
 	
-	FlipBookComponent()->Play(0, 5, false);
+	FlipBookComponent()->Play(0, 10, false);
 
 	CGameObject* pBoss = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Boss");
 	if (pBoss != nullptr)
 		m_Boss = pBoss;
 
-	
+	Vec3 vBPos = m_Boss->Transform()->GetRelativePos();
+	Vec3 vPos = Transform()->GetRelativePos();
+	Vec3 vRelativePos = vPos - vBPos;
+
+	m_Angle = atan2(vRelativePos.y, vRelativePos.x);
+	m_Dist = sqrt(vRelativePos.x * vRelativePos.x + vRelativePos.y * vRelativePos.y);
 }
 
 void CLanceScript::Tick()
 {
-	/*Vec3 vPlayerPos = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player")->Transform()->GetRelativePos();
+	Vec3 vPlayerPos = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player")->Transform()->GetRelativePos();
 	Vec3 vBPos = m_Boss->Transform()->GetRelativePos();
+	Vec3 vBRot = m_Boss->Transform()->GetRelativeRotation();
 	Vec3 vPos = Transform()->GetRelativePos();
+	Vec3 vPDir = vPlayerPos - vPos;
+	Vec3 vBPDir = vPlayerPos - vBPos;
 
-	Vec3 vDir = vPlayerPos - vBPos;
-	Vec3 vRelativePos = vPos - vBPos;
+	vPDir.Normalize();
+	vBPDir.Normalize();
+	
+	// 전체 회전
+	//m_Angle = atan2(vBPDir.y, vBPDir.x);
+	m_Angle;
 
-	Vec2 vPerpendicular = Vec2(vDir.y, -vDir.x);
+	float newX = vBPos.x + m_Dist * cosf(m_Angle);
+	float newY = vBPos.y + m_Dist * sinf(m_Angle);
 
-	Vec3 newPos = vBPos + (vPos.x * vPerpendicular);
-	Transform()->SetRelativePos(Vec3(newPos.x, newPos.y, 100.f));*/
+	GetOwner()->Transform()->SetRelativePos(Vec3(newX, newY, 0.f));
 
-	/*m_Angle = atan2(vRelativePos.y, vRelativePos.x);
-	m_Dist = sqrt(vRelativePos.x * vRelativePos.x + vRelativePos.y * vRelativePos.y);*/
+	// 본인 기준 회전
+	float angle;
+	angle = atan2(vPDir.y, vPDir.x);
+
+	Vec3 vRot = Transform()->GetRelativeRotation();
+	vRot.z = angle - XM_PI / 2.f;
+
+	Transform()->SetRelativeRotation(vRot);
+
+
+	
 }
 
 void CLanceScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
