@@ -58,6 +58,9 @@
     <ClInclude Include="CBSlashScript.h">
       <Filter>Scripts\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="CHitSparkScript.h">
+      <Filter>Scripts\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -116,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="CLanceScript.cpp">
       <Filter>Scripts\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CHitSparkScript.cpp">
+      <Filter>Scripts\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

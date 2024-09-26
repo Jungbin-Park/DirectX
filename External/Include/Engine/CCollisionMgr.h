@@ -20,10 +20,12 @@ class CCollisionMgr :
 private:
 	UINT					m_Matrix[MAX_LAYER];
 	map<ULONGLONG, bool>	m_mapCollisionInfo;
+	Vec3					outCollisionPoint;
 
 public:
 	void CollisionCheck(UINT _Layer1, UINT _Layer2);
 	void CollisionCheckClear() { memset(m_Matrix, 0, sizeof(UINT) * MAX_LAYER); }
+	Vec3 GetCollisionPoint() { return outCollisionPoint; }
 
 private:
 	void CollisionBtwLayer(UINT _Left, UINT _Right);

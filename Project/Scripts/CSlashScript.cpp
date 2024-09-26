@@ -20,6 +20,8 @@ void CSlashScript::Begin()
 {
 	GetRenderComponent()->GetDynamicMaterial();
 
+	m_SparkPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\HitSpark.pref");
+
 	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\WindSlash1.flip");
 	FlipBookComponent()->AddFlipBook(0, pFlipBook);
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\WindSlash2.flip");
@@ -45,6 +47,11 @@ void CSlashScript::Tick()
 void CSlashScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
 	//DeleteObject(_OtherObject);
+	if (_OtherObject->GetLayerIdx() == 4)
+	{
+		Vec3 vPos = _OwnCollider->GetCollisionPoint();
+		Instantiate(m_SparkPref, 0, vPos, L"HitSpark");
+	}
 }
 
 void CSlashScript::SaveToFile(FILE* _File)

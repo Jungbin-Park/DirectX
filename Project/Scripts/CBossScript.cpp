@@ -83,15 +83,6 @@ void CBossScript::Tick()
 		Transform()->SetRelativeRotation(Vec3(0.f, XM_PI, 0.f));
 	}
 
-	if (KEY_TAP(KEY::_4))
-	{
-		FSM()->ChangeState(L"BLanceState");
-		//FSM()->ChangeState(L"BWaterState");
-		//InitWaterBall();
-	}
-
-	
-
 }
 
 void CBossScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)

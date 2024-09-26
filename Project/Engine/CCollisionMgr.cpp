@@ -112,7 +112,9 @@ void CCollisionMgr::CollisionBtwLayer(UINT _Left, UINT _Right)
 				// 이전에는 충돌중이 아니었다.
 				else
 				{
+					pLeftCol->SetCollisionPoint(outCollisionPoint);
 					pLeftCol->BeginOverlap(pRightCol);
+					pRightCol->SetCollisionPoint(outCollisionPoint);
 					pRightCol->BeginOverlap(pLeftCol);
 				}
 
@@ -168,6 +170,9 @@ bool CCollisionMgr::IsCollision(CCollider2D* _Left, CCollider2D* _Right)
 	// 충돌체의 중심을 잇는 벡터
 	Vec3 vCenter = XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), matLeft) - XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), matRight);
 
+	float minOverlap = FLT_MAX;
+	Vec3 minOverlapAxis;
+
 	// 투영
 	for (int i = 0; i < 4; ++i)
 	{
@@ -182,9 +187,23 @@ bool CCollisionMgr::IsCollision(CCollider2D* _Left, CCollider2D* _Right)
 
 		float fCenter = fabs(vCenter.Dot(vProj));
 
+		float overlap = dot - fCenter;
 		if (dot < fCenter)
 			return false;
+
+		if (overlap < minOverlap)  // 최소 침투 축 업데이트
+		{
+			minOverlap = overlap;
+			minOverlapAxis = vProj;
+		}
 	}
+
+	// 충돌이 발생한 경우, 충돌 지점 계산
+	Vec3 leftCenter = XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), matLeft);
+	Vec3 rightCenter = XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), matRight);
+
+	// 충돌 지점 계산: 두 중심을 잇는 벡터와 최소 침투 축을 이용해 추정
+	outCollisionPoint = (leftCenter + rightCenter) * 0.5f + minOverlapAxis * minOverlap * 0.5f;
 
 	return true;
 }

@@ -5,7 +5,13 @@ class BLanceState :
     public CState
 {
 private:
-	CGameObject*	m_Target;
+	CGameObject*			m_Target;
+
+	float					m_Timer;
+	float					m_ShootTime;
+	bool					m_bCountStart;
+	bool					m_IsShoot;
+	bool					m_ChangeState;
 
 	vector<CGameObject*>    m_vecSpawnedLance;
 	Ptr<CPrefab>            m_LancePref;

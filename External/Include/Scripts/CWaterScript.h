@@ -5,6 +5,8 @@ class CWaterScript :
     public CScript
 {
 private:
+    Ptr<CPrefab>    m_SparkPref;
+
     CGameObject*    m_Boss;
 
     bool            m_bRotate;

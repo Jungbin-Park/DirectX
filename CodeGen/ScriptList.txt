@@ -3,6 +3,7 @@ CBSlashScript
 CCameraMoveScript
 CCrystalScript
 CGhoulScript
+CHitSparkScript
 CLanceScript
 CManagerScript
 CMarkerScript

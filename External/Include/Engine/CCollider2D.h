@@ -13,17 +13,21 @@ private:
     bool    m_IndependentScale; // 오브젝트의 크기에 영향을 받을지 여부
     bool    m_Active;
 
+    Vec3    m_CollisionPoint;
+
 public:
     void SetOffset(Vec3 _Offset) { m_Offset = _Offset; }
     void SetScale(Vec3 _Scale) { m_Scale = _Scale; }
     void SetIndependentScale(bool _Set) { m_IndependentScale = _Set; }
     void SetActive(bool _Set) { m_Active = _Set; }
+    void SetCollisionPoint(Vec3 _Point) { m_CollisionPoint = _Point; }
 
     bool IsIndependentScale() { return m_IndependentScale; }
     Vec3 GetOffset() { return m_Offset; }
     Vec3 GetScale() { return m_Scale; }
     Vec3 GetWorldPos() { return m_matColWorld.Translation(); }
     const Matrix& GetWorldMat() { return m_matColWorld; }
+    Vec3 GetCollisionPoint() { return m_CollisionPoint; }
 
     int  GetOverlapCount() { return m_OverlapCount; }
     bool IsActive() { return m_Active; }

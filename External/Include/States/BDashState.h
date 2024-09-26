@@ -4,6 +4,9 @@
 class BDashState :
     public CState
 {
+private:
+	Vec3 m_Dir;
+
 public:
 	virtual void Enter();
 	virtual void FinalTick();

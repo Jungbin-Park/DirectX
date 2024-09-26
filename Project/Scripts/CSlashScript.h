@@ -5,6 +5,8 @@ class CSlashScript :
     public CScript
 {
 private:
+    Ptr<CPrefab>    m_SparkPref;
+
     float           m_Speed;
 
     int             m_AnimIdx;

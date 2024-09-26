@@ -7,12 +7,19 @@
 #include <Engine/CLevel.h>
 #include <Engine/CAssetMgr.h>
 
+#include <Scripts/CLanceScript.h>
+
 BLanceState::BLanceState()
 	: CState(STATE_TYPE::BOSSLANCESTATE)
 	, m_vecSpawnedLance{}
 	, m_LancePref(nullptr)
 	, m_LanceSpacing(100.f)
 	, m_LanceCount(3)
+	, m_Timer(0.f)
+	, m_IsShoot(false)
+	, m_ShootTime(2.f)
+	, m_bCountStart(true)
+	, m_ChangeState(false)
 {
 }
 
@@ -29,25 +36,41 @@ void BLanceState::Enter()
 	if (pTarget != nullptr)
 		m_Target = pTarget;
 
+	m_bCountStart = true;
+
 	InitLance();
 }
 
 void BLanceState::FinalTick()
 {
-	/*CGameObject* pLanceGroup = GetOwner()->GetChild(L"LanceGroup");
-	Vec3 vPlayerPos = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player")->Transform()->GetRelativePos();
-	Vec3 vGroupPos = pLanceGroup->Transform()->GetRelativePos();
-	Vec3 vGroupRot = pLanceGroup->Transform()->GetRelativeRotation();
+	if (m_bCountStart)
+	{
+		m_Timer += DT;
 
-	Vec3 vPDir = vPlayerPos - vGroupPos;
-	vPDir.Normalize();
+		if (m_Timer >= m_ShootTime)
+		{
+			m_bCountStart = false;
+			m_IsShoot = true;
+			m_Timer = 0.f;
+		}
+	}
+	
+	if (m_IsShoot)
+	{
+		m_IsShoot = false;
+		GetOwner()->FlipBookComponent()->Reset();
+		ShootLance();
+	}
 
-	float angle;
-	angle = atan2(vPDir.y, vPDir.x);
+	if (m_ChangeState)
+	{
+		m_Timer += DT;
 
-	vGroupRot.z = angle - XM_PI / 2.f;
-
-	pLanceGroup->Transform()->SetRelativeRotation(vGroupRot);*/
+		if (m_Timer >= 3.f)
+		{
+			GetOwner()->FSM()->ChangeState(L"BIdleState");
+		}
+	}
 }
 
 void BLanceState::InitLance()
@@ -67,7 +90,6 @@ void BLanceState::InitLance()
 	{
 		CGameObject* pLance = InstantiateSkill(m_LancePref, 2, Vec3(xPos, yPos, 100.f), L"IceLance");
 		m_vecSpawnedLance.push_back(pLance);
-		//GetOwner()->GetChild(L"LanceGroup")->AddChild(pLance);
 		xPos += 100.f;
 	}
 }
@@ -78,11 +100,34 @@ void BLanceState::ShootLance()
 	//GetOwner()->FlipBookComponent()->Play(11, 5, false);
 	//GetOwner()->FlipBookComponent()->Play(13, 5, false);
 
+	if (!m_vecSpawnedLance.empty())
+	{
+		//vector<CGameObject*>::iterator iter = m_vecSpawnedLance.begin();
+		vector<CGameObject*>::reverse_iterator iter = m_vecSpawnedLance.rbegin();
 
+		for (; iter != m_vecSpawnedLance.rend(); ++iter)
+		{
+			if ((*iter) == nullptr)
+				continue;
+
+			CLanceScript* vScript = (CLanceScript*)(*iter)->GetScriptByName(L"CLanceScript");
+
+			if (vScript != nullptr)
+			{
+				vScript->ShootLance();
+			}
+		}
+	}
+
+	m_ChangeState = true;
 }
 
 void BLanceState::Exit()
 {
+	GetOwner()->FlipBookComponent()->Reset();
+
+	m_ChangeState = false;
+	m_Timer = 0.f;
 }
 
 

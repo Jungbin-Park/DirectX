@@ -9,6 +9,8 @@ private:
 
 	float					m_Timer;
 	bool					m_IsShoot;
+	bool					m_bCountStart;
+	bool					m_ChangeState;
 
 	// Water
 	vector<CGameObject*>    m_vecSpawnedWater;

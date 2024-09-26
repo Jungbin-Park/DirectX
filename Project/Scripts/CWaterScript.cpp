@@ -35,6 +35,8 @@ void CWaterScript::Begin()
 {
 	SetName(L"CWaterScript");
 
+	m_SparkPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\HitSpark.pref");
+
 	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\WaterBounce.flip");
 	FlipBookComponent()->AddFlipBook(0, pFlipBook);
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\WaterExplosion.flip");
@@ -120,8 +122,23 @@ void CWaterScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 		FlipBookComponent()->Play(1, 10, false);
 		m_bShoot = false;
 		m_bHit = true;
+
+		Vec3 vPos = _OwnCollider->GetCollisionPoint();
+		Instantiate(m_SparkPref, 0, vPos, L"HitSpark");
 	}
-}
+
+	if (_OtherObject->GetName() == L"Player")
+	{
+		FlipBookComponent()->Play(1, 10, false);
+		m_bShoot = false;
+		m_bHit = true;
+
+		Vec3 vPos = _OwnCollider->GetCollisionPoint();
+		Instantiate(m_SparkPref, 0, vPos, L"HitSpark");
+	}
+
+
+} 
 
 void CWaterScript::SaveToFile(FILE* _File)
 {

@@ -26,6 +26,7 @@
 #include <Scripts/CWaterScript.h>
 #include <Scripts/CBSlashScript.h>
 #include <Scripts/CLanceScript.h>
+#include <Scripts/CHitSparkScript.h>
 
 
 #include <Engine/CSetColorCS.h>
@@ -211,14 +212,24 @@ void CTestLevel::CreateTestLevel()
 		pBoss->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		pBoss->MeshRender()->SetMaterial(pMtrl);
 
-		CGameObject* pLanceGroup = new CGameObject;
-		pLanceGroup->SetName(L"LanceGroup");
-		pLanceGroup->AddComponent(new CTransform);
-		pBoss->AddChild(pLanceGroup);
-
 		pLevel->AddObject(4, pBoss);
 
+
+		// HitSpark
+		/*CGameObject* pHit = new CGameObject;
+		pHit->SetName(L"HitSpark");
+
+		pHit->AddComponent(new CTransform);
+		pHit->AddComponent(new CMeshRender);
+		pHit->AddComponent(new CFlipBookComponent);
+		pHit->AddComponent(new CHitSparkScript);
+
+		pHit->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
+
+		pHit->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pHit->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 		
+		pLevel->AddObject(1, pHit);*/
 
 		// IceSword
 		/*CGameObject* pSword = new CGameObject;
@@ -462,41 +473,38 @@ void CTestLevel::CreateTestLevel()
 	// 충돌 지정
 	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // platform vs Monster
 	CCollisionMgr::GetInst()->CollisionCheck(5, 4); // Player Projectile vs Monster
+	CCollisionMgr::GetInst()->CollisionCheck(2, 3);
 	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // platform vs player;
 	CCollisionMgr::GetInst()->CollisionCheck(5, 1); // Player Projectile vs platform
 	CCollisionMgr::GetInst()->CollisionCheck(6, 1); // Monster Projectile vs platform
+	CCollisionMgr::GetInst()->CollisionCheck(6, 3); // Monster Projectile vs player
+
 
 }
 
 void CTestLevel::CreatePrefab()
 {
-	
-	/*CGameObject* pSword = new CGameObject;
-	pSword->SetName(L"IceSword");
-	
-	pSword->AddComponent(new CTransform);
-	pSword->AddComponent(new CMeshRender);
-	pSword->AddComponent(new CCollider2D);
-	pSword->AddComponent(new CFlipBookComponent);
-	pSword->AddComponent(new CBSlashScript);
-	
-	pSword->Transform()->SetRelativeScale(100.f, 300.f, 0.f);
-	
-	pSword->Collider2D()->SetIndependentScale(false);
-	pSword->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pSword->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
-	
-	pSword->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pSword->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+	CGameObject* pHit = new CGameObject;
+	pHit->SetName(L"HitSpark");
+
+	pHit->AddComponent(new CTransform);
+	pHit->AddComponent(new CMeshRender);
+	pHit->AddComponent(new CFlipBookComponent);
+	pHit->AddComponent(new CHitSparkScript);
+
+	pHit->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
+
+	pHit->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pHit->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
-	pPrefab->SetProtoObject(pSword);
+	pPrefab->SetProtoObject(pHit);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"IceSwordPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"HitSparkPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\IceSword.pref";
-	pPrefab->Save(FilePath);*/
+	FilePath += L"prefab\\HitSpark.pref";
+	pPrefab->Save(FilePath);
 	
 
 	/*CTileMap* pTile = new CTileMap;

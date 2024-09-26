@@ -17,6 +17,8 @@ BWaterState::BWaterState()
 	, m_WaterSpacing(100.f)
 	, m_Timer(0.f)
 	, m_IsShoot(false)
+	, m_bCountStart(true)
+	, m_ChangeState(false)
 {
 }
 
@@ -35,28 +37,44 @@ void BWaterState::Enter()
 	if (pTarget != nullptr)
 		m_Target = pTarget;
 
+	m_bCountStart = true;
+
 	InitWaterBall();
 }
 
 void BWaterState::FinalTick()
 {
-	m_Timer += DT;
-
-	if (m_Timer >= 2.f)
+	if (m_bCountStart)
 	{
-		m_IsShoot = true;
+		m_Timer += DT;
+
+		if (m_Timer >= 2.f)
+		{
+			m_bCountStart = false;
+			m_IsShoot = true;
+			m_Timer = 0.f;
+		}
 	}
 
 	if (m_IsShoot)
 	{
 		m_IsShoot = false;
+		GetOwner()->FlipBookComponent()->Reset();
 		ShootWaterBall();
+	}
+
+	if (m_ChangeState)
+	{
+		m_Timer += DT;
+
+		if (m_Timer >= 3.f)
+		{
+			GetOwner()->FSM()->ChangeState(L"BIdleState");
+		}
 	}
 }
 
-void BWaterState::Exit()
-{
-}
+
 
 void BWaterState::InitWaterBall()
 {
@@ -83,7 +101,7 @@ void BWaterState::InitWaterBall()
 
 void BWaterState::ShootWaterBall()
 {
-	GetOwner()->FlipBookComponent()->Play(17, 5, false);
+	GetOwner()->FlipBookComponent()->Play(17, 10, false);
 
 	if (!m_vecSpawnedWater.empty())
 	{
@@ -107,7 +125,15 @@ void BWaterState::ShootWaterBall()
 			shootTime += 0.3f;
 		}
 	}
-	
+
+	m_ChangeState = true;
 }
 
 
+void BWaterState::Exit()
+{
+	GetOwner()->FlipBookComponent()->Reset();
+
+	m_ChangeState = false;
+	m_Timer = 0.f;
+}
