@@ -53,6 +53,7 @@ private:
     float                   m_DashTime;
     float                   m_DashDuration;
     bool                    m_DashFinish;
+    bool                    m_DashCooldown;
 
     float                   m_AtkDashSpeed;
     float                   m_AtkDashTime;

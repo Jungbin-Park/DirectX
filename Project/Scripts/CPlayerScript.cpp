@@ -14,7 +14,7 @@
 CPlayerScript::CPlayerScript()
 	: CScript(UINT(SCRIPT_TYPE::PLAYERSCRIPT))
 	, m_Speed(400.f)
-	, m_DashSpeed(1500.f)
+	, m_DashSpeed(1700.f)
 	, m_DashTime(0.f)
 	, m_DashDuration(0.2f)
 	, m_Attribute(0)
@@ -36,6 +36,7 @@ CPlayerScript::CPlayerScript()
 	, m_CollisionCount(0)
 	, m_AttackCooldown(0.f)
 	, m_SlashDmg(10)
+	, m_DashCooldown(true)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
@@ -406,6 +407,8 @@ void CPlayerScript::KeyInput()
 			FlipBookComponent()->Play(13, 50, false);
 			break;
 		}
+
+		FlipBookComponent()->Reset();
 	}
 }
 
@@ -560,14 +563,19 @@ void CPlayerScript::Dash()
 {
 	Vec3 vPos = Transform()->GetRelativePos();
 
-	// 대쉬 끝났을 때
 	if (m_DashTime >= m_DashDuration)
 	{
-		m_DashTime = 0.f;
-
-		if (FlipBookComponent()->IsFinish())
+		if (m_DashCooldown)
 		{
+			m_DashCooldown = false;
+			FlipBookComponent()->Play(15, 20, false);
+		}
+
+		if (m_DashTime >= 1.f)
+		{
+			m_DashTime = 0.f;
 			m_DashFinish = true;
+			m_DashCooldown = true;
 
 			// 아무 키도 안눌려 있으면
 			if (m_KeyTapCount == 0)
@@ -599,15 +607,15 @@ void CPlayerScript::Dash()
 					break;
 				}
 			}
+
 		}
-		
 	}
 	else
 	{
-
+		// 상하좌우
 		if (m_Direction == eDirection::UP)
 		{
-			if(m_CollisionDir != CollisionDir::DOWN)
+			if (m_CollisionDir != CollisionDir::DOWN)
 				vPos.y += DT * m_DashSpeed;
 		}
 		if (m_Direction == eDirection::DOWN)
@@ -620,7 +628,7 @@ void CPlayerScript::Dash()
 			if (m_CollisionDir != CollisionDir::RIGHT)
 				vPos.x -= DT * m_DashSpeed;
 		}
-		if (m_Direction == eDirection::RIGHT) 
+		if (m_Direction == eDirection::RIGHT)
 		{
 			if (m_CollisionDir != CollisionDir::LEFT)
 				vPos.x += DT * m_DashSpeed;
@@ -630,30 +638,30 @@ void CPlayerScript::Dash()
 		if (m_Direction == eDirection::UP_LEFT)
 		{
 			if (m_CollisionDir != CollisionDir::DOWN)
-				vPos.y += DT * m_DashSpeed * 0.707f;  // 45도일 때 √2/2 ≈ 0.707
+				vPos.y += DT * m_DashSpeed * 0.7f;  // 45도일 때 √2/2 ≈ 0.707
 			if (m_CollisionDir != CollisionDir::RIGHT)
-				vPos.x -= DT * m_DashSpeed * 0.707f;
+				vPos.x -= DT * m_DashSpeed * 0.7f;
 		}
 		if (m_Direction == eDirection::UP_RIGHT)
 		{
 			if (m_CollisionDir != CollisionDir::DOWN)
-				vPos.y += DT * m_DashSpeed * 0.707f;
+				vPos.y += DT * m_DashSpeed * 0.7f;
 			if (m_CollisionDir != CollisionDir::LEFT)
-				vPos.x += DT * m_DashSpeed * 0.707f;
+				vPos.x += DT * m_DashSpeed * 0.7f;
 		}
 		if (m_Direction == eDirection::DOWN_LEFT)
 		{
 			if (m_CollisionDir != CollisionDir::UP)
-				vPos.y -= DT * m_DashSpeed * 0.707f;
+				vPos.y -= DT * m_DashSpeed * 0.7f;
 			if (m_CollisionDir != CollisionDir::RIGHT)
-				vPos.x -= DT * m_DashSpeed * 0.707f;
+				vPos.x -= DT * m_DashSpeed * 0.7f;
 		}
 		if (m_Direction == eDirection::DOWN_RIGHT)
 		{
 			if (m_CollisionDir != CollisionDir::UP)
-				vPos.y -= DT * m_DashSpeed * 0.707f;
+				vPos.y -= DT * m_DashSpeed * 0.7f;
 			if (m_CollisionDir != CollisionDir::LEFT)
-				vPos.x += DT * m_DashSpeed * 0.707f;
+				vPos.x += DT * m_DashSpeed * 0.7f;
 		}
 
 		m_DashTime += DT;
@@ -744,10 +752,12 @@ void CPlayerScript::LoadFlipBook()
 	FlipBookComponent()->AddFlipBook(11, pFlipBook);
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\DashDown.flip");
 	FlipBookComponent()->AddFlipBook(12, pFlipBook);
-	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\DashRight.flip");
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\pDashRight1.flip");
 	FlipBookComponent()->AddFlipBook(13, pFlipBook);
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\DashUp.flip");
 	FlipBookComponent()->AddFlipBook(14, pFlipBook);
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\pDashRight2.flip");
+	FlipBookComponent()->AddFlipBook(15, pFlipBook);
 
 }
 
@@ -806,6 +816,12 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 				m_CollisionDir = CollisionDir::LEFT;
 			}
 		}
+	}
+
+	if (_OtherObject->GetLayerIdx() == 2 || _OtherObject->GetLayerIdx() == 6)
+	{
+		// Hit
+
 	}
 }
 

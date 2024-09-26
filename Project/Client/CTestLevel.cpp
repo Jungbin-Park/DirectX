@@ -484,26 +484,33 @@ void CTestLevel::CreateTestLevel()
 
 void CTestLevel::CreatePrefab()
 {
-	CGameObject* pHit = new CGameObject;
-	pHit->SetName(L"HitSpark");
+	CGameObject* pBoss = new CGameObject;
+	pBoss->SetName(L"Boss");
 
-	pHit->AddComponent(new CTransform);
-	pHit->AddComponent(new CMeshRender);
-	pHit->AddComponent(new CFlipBookComponent);
-	pHit->AddComponent(new CHitSparkScript);
+	pBoss->AddComponent(new CTransform);
+	pBoss->AddComponent(new CMeshRender);
+	pBoss->AddComponent(new CCollider2D);
+	pBoss->AddComponent(new CFlipBookComponent);
+	pBoss->AddComponent(new CBossScript);
+	pBoss->AddComponent(new CFSM);
 
-	pHit->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
+	pBoss->Transform()->SetRelativePos(0.f, 200.f, 100.f);
+	pBoss->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
 
-	pHit->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pHit->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+	pBoss->Collider2D()->SetIndependentScale(false);
+	pBoss->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pBoss->Collider2D()->SetScale(Vec3(0.5f, 0.7f, 1.f));
+
+	pBoss->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pBoss->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
-	pPrefab->SetProtoObject(pHit);
+	pPrefab->SetProtoObject(pBoss);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"HitSparkPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"BossPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\HitSpark.pref";
+	FilePath += L"prefab\\Boss.pref";
 	pPrefab->Save(FilePath);
 	
 

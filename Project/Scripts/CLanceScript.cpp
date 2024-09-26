@@ -14,7 +14,7 @@ CLanceScript::CLanceScript()
 	, m_bShoot(false)
 	, m_BCountStart(false)
 	, m_Dir(Vec3(0.f, 0.f, 0.f))
-	, m_Speed(500.f)
+	, m_Speed(700.f)
 	, m_bHit(false)
 {
 }

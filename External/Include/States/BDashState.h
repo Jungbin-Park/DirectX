@@ -5,7 +5,12 @@ class BDashState :
     public CState
 {
 private:
-	Vec3 m_Dir;
+	Vec3	 m_Dir;
+	Vec3	 m_TargetPos;
+
+	bool	 m_bTimerStart;
+	bool	 m_bDash;
+	float	 m_Time;
 
 public:
 	virtual void Enter();

@@ -42,7 +42,7 @@ void BIdleState::FinalTick()
 			else if (m_bSword)
 			{
 				m_bSword = false;
-				GetOwner()->FSM()->ChangeState(L"BSlashState");
+				GetOwner()->FSM()->ChangeState(L"BDashState");
 			}
 			else if (m_bWater)
 			{

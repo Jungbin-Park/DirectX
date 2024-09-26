@@ -101,7 +101,7 @@ void BWaterState::InitWaterBall()
 
 void BWaterState::ShootWaterBall()
 {
-	GetOwner()->FlipBookComponent()->Play(17, 10, false);
+	GetOwner()->FlipBookComponent()->Play(17, 5, false);
 
 	if (!m_vecSpawnedWater.empty())
 	{
@@ -122,7 +122,7 @@ void BWaterState::ShootWaterBall()
 				vScript->SetShootTime(shootTime);
 			}
 
-			shootTime += 0.3f;
+			shootTime += 0.2f;
 		}
 	}
 

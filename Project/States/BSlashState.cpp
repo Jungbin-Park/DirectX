@@ -15,7 +15,7 @@ BSlashState::BSlashState()
 	, m_bIsSlash(false)
 	, m_SwordPref(nullptr)
 	, m_bCountStart(true)
-	, m_SlashTime(2.f)
+	, m_SlashTime(1.f)
 	, m_SpawnedSword(nullptr)
 	, m_ChangeState(false)
 {
@@ -73,21 +73,14 @@ void BSlashState::FinalTick()
 
 void BSlashState::IceSword()
 {
-	GetOwner()->FlipBookComponent()->Play(14, 5, false);
+	GetOwner()->FlipBookComponent()->Play(14, 10, false);
 
 	Vec3 vRot = GetOwner()->Transform()->GetRelativeRotation();
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 
 	vPos.y += 100.f;
 
-	if (vRot.y == 0.f)
-	{
-		m_SpawnedSword = InstantiateSkill(m_SwordPref, 6, vPos, L"IceSword");
-	}
-	else
-	{
-		m_SpawnedSword = InstantiateSkill(m_SwordPref, 6, vPos, L"IceSword");
-	}
+	m_SpawnedSword = InstantiateSkill(m_SwordPref, 6, vPos, L"IceSword");
 }
 
 void BSlashState::Slash()
