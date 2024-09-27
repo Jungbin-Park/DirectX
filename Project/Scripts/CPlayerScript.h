@@ -37,6 +37,7 @@ private:
     float                   m_MP;
     int                     m_SlashDmg;
     bool                    m_IsDead;
+    Ptr<CPrefab>            m_TeleportPref;
 
     Ptr<CTexture>           m_Texture;
     Ptr<CPrefab>            m_SlashPref;

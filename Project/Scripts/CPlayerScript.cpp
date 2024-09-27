@@ -60,12 +60,13 @@ CPlayerScript::~CPlayerScript()
 void CPlayerScript::Begin()
 {
 	m_SlashPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Slash.pref");
+	m_TeleportPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Teleport.pref");
 
 	GetRenderComponent()->GetDynamicMaterial();
 
 	LoadFlipBook();
 
-	FSM()->AddState(L"PDeadState", new PDeadState);
+	//FSM()->AddState(L"PDeadState", new PDeadState);
 }
 
 void CPlayerScript::Tick()
@@ -866,7 +867,15 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 
 void CPlayerScript::Overlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
-
+	if (_OtherObject->GetName() == L"Portal")
+	{
+		if (KEY_TAP(KEY::F))
+		{
+			Vec3 vPos = Transform()->GetRelativePos();
+			vPos.y += 300.f;
+			Instantiate(m_TeleportPref, 0, vPos, L"Teleport");
+		}
+	}
 }
 
 void CPlayerScript::EndOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)

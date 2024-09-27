@@ -204,7 +204,7 @@ void MenuUI::GameObject()
 			pPortal->Transform()->SetRelativeScale(200.f, 150.f, 0.f);
 
 			pPortal->Collider2D()->SetIndependentScale(false);
-			pPortal->Collider2D()->SetOffset(Vec3(0.0f, 0.8f, 0.f));
+			pPortal->Collider2D()->SetOffset(Vec3(0.0f, 0.7f, 0.f));
 			pPortal->Collider2D()->SetScale(Vec3(0.5f, 0.1f, 0.f));
 
 			pPortal->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));

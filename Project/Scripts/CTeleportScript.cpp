@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "CTeleportScript.h"
 
+#include <Engine/CLevel.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLayer.h>
+
+
 CTeleportScript::CTeleportScript()
 	: CScript(SCRIPT_TYPE::TELEPORTSCRIPT)
 {
@@ -16,11 +21,14 @@ void CTeleportScript::Begin()
 	FlipBookComponent()->AddFlipBook(0, pFlipBook);
 	FlipBookComponent()->Play(0, 10, false);
 	
+	
 }
 
 void CTeleportScript::Tick()
 {
+	
 }
+
 
 void CTeleportScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
