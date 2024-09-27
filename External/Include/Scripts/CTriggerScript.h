@@ -4,6 +4,8 @@
 class CTriggerScript :
     public CScript
 {
+    wstring m_CurLevelName;
+
 public:
     virtual void Begin() override;
     virtual void Tick() override;

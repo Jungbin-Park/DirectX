@@ -16,6 +16,9 @@
     <Filter Include="02. States\Boss">
       <UniqueIdentifier>{52457d42-ae94-4053-8ac6-cc57b0c12a34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. States\Player">
+      <UniqueIdentifier>{faaf4be8-6bd3-4083-b737-49813ace0b42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CStateMgr.h">
@@ -69,6 +72,30 @@
     <ClInclude Include="BSpawnState.h">
       <Filter>02. States\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="PSlashState.h">
+      <Filter>02. States\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PDashState.h">
+      <Filter>02. States\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PDeadState.h">
+      <Filter>02. States\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PHitState.h">
+      <Filter>02. States\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PIdleState.h">
+      <Filter>02. States\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PMoveState.h">
+      <Filter>02. States\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PFireDragonState.h">
+      <Filter>02. States\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PFireBallState.h">
+      <Filter>02. States\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CStateMgr.cpp">
@@ -121,6 +148,30 @@
     </ClCompile>
     <ClCompile Include="BSpawnState.cpp">
       <Filter>02. States\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="PDashState.cpp">
+      <Filter>02. States\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PDeadState.cpp">
+      <Filter>02. States\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PHitState.cpp">
+      <Filter>02. States\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PIdleState.cpp">
+      <Filter>02. States\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PMoveState.cpp">
+      <Filter>02. States\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PSlashState.cpp">
+      <Filter>02. States\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PFireBallState.cpp">
+      <Filter>02. States\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PFireDragonState.cpp">
+      <Filter>02. States\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@ public:
         MOVE,
         ATTACK,
         DASH,
+        HIT,
     };
 
     enum class AtkState
@@ -35,6 +36,7 @@ private:
     float                   m_HP;
     float                   m_MP;
     int                     m_SlashDmg;
+    bool                    m_IsDead;
 
     Ptr<CTexture>           m_Texture;
     Ptr<CPrefab>            m_SlashPref;
@@ -42,9 +44,9 @@ private:
     eState                  m_State;
     AtkState                m_AtkState;
 
-    eDirection              m_PrevDirection;
-    eDirection              m_Direction;
-    eDirection              m_AttackDir;
+    eDIR                    m_PrevDirection;
+    eDIR                    m_Direction;
+    eDIR                    m_AttackDir;
     Vec2                    m_MouseDir;
     Vec2                    m_MovedPos;
 
@@ -53,7 +55,6 @@ private:
     float                   m_DashTime;
     float                   m_DashDuration;
     bool                    m_DashFinish;
-    bool                    m_DashCooldown;
 
     float                   m_AtkDashSpeed;
     float                   m_AtkDashTime;
@@ -62,7 +63,13 @@ private:
     Vec3                    m_SlashPos;
     Vec3                    m_SlashRot;
 
-    
+    float	                m_HitTime;
+    float	                m_KnockBackSpeed;
+    float	                m_KnockBackTime;
+    float	                m_KnockBackAge;
+    Vec3                    m_HitDir;
+
+
     int                     m_KeyTapCount;
     int                     m_AttackCount;
     float                   m_AttackCooldown;
@@ -73,13 +80,14 @@ private:
     int                     m_CollisionCount;
 
 private:
-    void ChangeAttribute(int _data);
-
     void KeyInput();
     void Idle();
     void Move();
     void Attack();
     void Dash();
+    void KnockBack();
+
+    void ExitState();
 
     void MousePosCheck();
     void LoadFlipBook();
@@ -107,4 +115,3 @@ public:
     CPlayerScript();
     ~CPlayerScript();
 };
-

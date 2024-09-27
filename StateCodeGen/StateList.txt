@@ -12,3 +12,11 @@ CDeadState
 CHitState
 CIdleState
 CMoveState
+PDashState
+PDeadState
+PFireBallState
+PFireDragonState
+PHitState
+PIdleState
+PMoveState
+PSlashState

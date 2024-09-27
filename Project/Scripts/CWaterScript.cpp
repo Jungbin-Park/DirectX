@@ -119,7 +119,7 @@ void CWaterScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 {
 	if (_OtherObject->GetName() == L"Platform");
 	{
-		FlipBookComponent()->Play(1, 10, false);
+		FlipBookComponent()->Play(1, 15, false);
 		m_bShoot = false;
 		m_bHit = true;
 
@@ -129,7 +129,7 @@ void CWaterScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 
 	if (_OtherObject->GetName() == L"Player")
 	{
-		FlipBookComponent()->Play(1, 10, false);
+		FlipBookComponent()->Play(1, 15, false);
 		m_bShoot = false;
 		m_bHit = true;
 

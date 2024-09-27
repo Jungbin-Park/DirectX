@@ -7,17 +7,6 @@ class CScript;
 
 #define GET_COMPONENT(Type, TYPE) class C##Type* Type() { return (C##Type*)GetComponent(COMPONENT_TYPE::TYPE); }
 
-enum class eDirection
-{
-    UP,
-    UP_LEFT,
-    UP_RIGHT,
-    DOWN,
-    DOWN_LEFT,
-    DOWN_RIGHT,
-    LEFT,
-    RIGHT,
-};
 
 class CGameObject :
     public CEntity

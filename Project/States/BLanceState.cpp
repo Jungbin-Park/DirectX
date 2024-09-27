@@ -110,6 +110,9 @@ void BLanceState::ShootLance()
 			if ((*iter) == nullptr)
 				continue;
 
+			if((*iter)->GetScripts().empty())
+				continue;
+
 			CLanceScript* vScript = (CLanceScript*)(*iter)->GetScriptByName(L"CLanceScript");
 
 			if (vScript != nullptr)

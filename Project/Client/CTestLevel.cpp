@@ -27,6 +27,8 @@
 #include <Scripts/CBSlashScript.h>
 #include <Scripts/CLanceScript.h>
 #include <Scripts/CHitSparkScript.h>
+#include <Scripts/CPortalScript.h>
+#include <Scripts/CTeleportScript.h>
 
 
 #include <Engine/CSetColorCS.h>
@@ -79,7 +81,7 @@ void CTestLevel::CreateTestLevel()
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
-	pLevel->SetName(L"Test");
+	pLevel->SetName(L"Home");
 
 	//// 레벨 지정
 
@@ -158,6 +160,7 @@ void CTestLevel::CreateTestLevel()
 		pPlayer->AddComponent(new CCollider2D);
 		pPlayer->AddComponent(new CFlipBookComponent);
 		pPlayer->AddComponent(new CPlayerScript);
+		pPlayer->AddComponent(new CFSM);
 
 		pPlayer->Transform()->SetRelativePos(0.f, 0.f, 100.f);
 		pPlayer->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
@@ -191,8 +194,47 @@ void CTestLevel::CreateTestLevel()
 
 		pLevel->AddObject(3, pPlayer);
 
+
+		// 포탈
+		/*CGameObject* pPortal = new CGameObject;
+		pPortal->SetName(L"Portal");
+
+		pPortal->AddComponent(new CTransform);
+		pPortal->AddComponent(new CMeshRender);
+		pPortal->AddComponent(new CCollider2D);
+		pPortal->AddComponent(new CFlipBookComponent);
+		pPortal->AddComponent(new CPortalScript);
+
+		pPortal->Transform()->SetRelativeScale(200.f, 150.f, 0.f);
+
+		pPortal->Collider2D()->SetIndependentScale(false);
+		pPortal->Collider2D()->SetOffset(Vec3(0.0f, 0.8f, 0.f));
+		pPortal->Collider2D()->SetScale(Vec3(0.5f, 0.1f, 0.f));
+
+		pPortal->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pPortal->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\WarpStone.mtrl", L"material\\WarpStone.mtrl"));
+
+		pLevel->AddObject(7, pPortal);*/
+
+		// 텔포 이펙트
+		/*CGameObject* TeleportEffect = new CGameObject;
+		TeleportEffect->SetName(L"TeleportEffect");
+
+		TeleportEffect->AddComponent(new CTransform);
+		TeleportEffect->AddComponent(new CMeshRender);
+		TeleportEffect->AddComponent(new CFlipBookComponent);
+		TeleportEffect->AddComponent(new CTeleportScript);
+
+		TeleportEffect->Transform()->SetRelativePos(0.f, 300.f, 0.f);
+		TeleportEffect->Transform()->SetRelativeScale(170.f, 750.f, 0.f);
+
+		TeleportEffect->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		TeleportEffect->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+
+		pLevel->AddObject(0, TeleportEffect);*/
+
 		// 보스
-		CGameObject* pBoss = new CGameObject;
+		/*CGameObject* pBoss = new CGameObject;
 		pBoss->SetName(L"Boss");
 
 		pBoss->AddComponent(new CTransform);
@@ -212,8 +254,9 @@ void CTestLevel::CreateTestLevel()
 		pBoss->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		pBoss->MeshRender()->SetMaterial(pMtrl);
 
-		pLevel->AddObject(4, pBoss);
+		pLevel->AddObject(4, pBoss);*/
 
+		
 
 		// HitSpark
 		/*CGameObject* pHit = new CGameObject;
@@ -422,15 +465,15 @@ void CTestLevel::CreateTestLevel()
 
 		// TileMap Object
 		CGameObject* pTileMapObj = new CGameObject;
-		pTileMapObj->SetName(L"IceTile");
+		pTileMapObj->SetName(L"Home");
 
 		wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
 		CTileMap* pTile = new CTileMap;
 		pTileMapObj->AddComponent(new CTransform);
 		pTileMapObj->AddComponent(pTile);
 
-		pTile->Load(strContentPath + L"tilemap\\IceBoss.tile");
-		pTileMapObj->Transform()->SetRelativePos(Vec3(-1570.f, 2830.f, 500.f));
+		pTile->Load(strContentPath + L"tilemap\\home.tile");
+		pTileMapObj->Transform()->SetRelativePos(Vec3(-880.f, 1800.f, 500.f));
 
 		pLevel->AddObject(2, pTileMapObj);
 
@@ -484,33 +527,31 @@ void CTestLevel::CreateTestLevel()
 
 void CTestLevel::CreatePrefab()
 {
-	CGameObject* pBoss = new CGameObject;
-	pBoss->SetName(L"Boss");
+	CGameObject* pPortal = new CGameObject;
+	pPortal->SetName(L"Portal");
 
-	pBoss->AddComponent(new CTransform);
-	pBoss->AddComponent(new CMeshRender);
-	pBoss->AddComponent(new CCollider2D);
-	pBoss->AddComponent(new CFlipBookComponent);
-	pBoss->AddComponent(new CBossScript);
-	pBoss->AddComponent(new CFSM);
+	pPortal->AddComponent(new CTransform);
+	pPortal->AddComponent(new CMeshRender);
+	pPortal->AddComponent(new CCollider2D);
+	pPortal->AddComponent(new CFlipBookComponent);
+	pPortal->AddComponent(new CPortalScript);
 
-	pBoss->Transform()->SetRelativePos(0.f, 200.f, 100.f);
-	pBoss->Transform()->SetRelativeScale(150.f, 150.f, 1.f);
+	pPortal->Transform()->SetRelativeScale(200.f, 150.f, 0.f);
 
-	pBoss->Collider2D()->SetIndependentScale(false);
-	pBoss->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pBoss->Collider2D()->SetScale(Vec3(0.5f, 0.7f, 1.f));
+	pPortal->Collider2D()->SetIndependentScale(false);
+	pPortal->Collider2D()->SetOffset(Vec3(0.f, 0.8f, 0.f));
+	pPortal->Collider2D()->SetScale(Vec3(0.5f, 0.1f, 0.f));
 
-	pBoss->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pBoss->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+	pPortal->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pPortal->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\WarpStone.mtrl", L"material\\WarpStone.mtrl"));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
-	pPrefab->SetProtoObject(pBoss);
+	pPrefab->SetProtoObject(pPortal);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"BossPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"PortalPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\Boss.pref";
+	FilePath += L"prefab\\Portal.pref";
 	pPrefab->Save(FilePath);
 	
 

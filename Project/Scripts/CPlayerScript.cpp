@@ -10,6 +10,8 @@
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
 
+#include <States/PDeadState.h>
+
 
 CPlayerScript::CPlayerScript()
 	: CScript(UINT(SCRIPT_TYPE::PLAYERSCRIPT))
@@ -20,8 +22,8 @@ CPlayerScript::CPlayerScript()
 	, m_Attribute(0)
 	, m_AtkState(AtkState::NONE)
 	, m_State(eState::IDLE)
-	, m_Direction(eDirection::DOWN)
-	, m_AttackDir(eDirection::RIGHT)
+	, m_Direction(eDIR::DOWN)
+	, m_AttackDir(eDIR::RIGHT)
 	, m_AtkDashSpeed(150.f)
 	, m_AtkDashTime(0.f)
 	, m_AtkDashDuration(0.3f)
@@ -36,7 +38,13 @@ CPlayerScript::CPlayerScript()
 	, m_CollisionCount(0)
 	, m_AttackCooldown(0.f)
 	, m_SlashDmg(10)
-	, m_DashCooldown(true)
+	, m_IsDead(false)
+	, m_HitTime(0.f)
+	, m_KnockBackSpeed(100.f)
+	, m_KnockBackTime(0.2f)
+	, m_KnockBackAge(0.f)
+	, m_HP(500.f)
+    , m_MP(100.f)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
@@ -55,11 +63,13 @@ void CPlayerScript::Begin()
 
 	GetRenderComponent()->GetDynamicMaterial();
 
-	LoadFlipBook(); 
+	LoadFlipBook();
+
+	FSM()->AddState(L"PDeadState", new PDeadState);
 }
 
 void CPlayerScript::Tick()
-{	
+{
 	KeyInput();
 
 	switch (m_State)
@@ -76,13 +86,16 @@ void CPlayerScript::Tick()
 	case CPlayerScript::eState::DASH:
 		Dash();
 		break;
+	case CPlayerScript::eState::HIT:
+		KnockBack();
+		break;
 	default:
 		break;
 	}
 
-	if (m_Direction == eDirection::LEFT ||
-		m_Direction == eDirection::UP_LEFT ||
-		m_Direction == eDirection::DOWN_LEFT)
+	if (m_Direction == eDIR::LEFT ||
+		m_Direction == eDIR::UP_LEFT ||
+		m_Direction == eDIR::DOWN_LEFT)
 	{
 		Transform()->SetRelativeRotation(Vec3(0.f, XM_PI, 0.f));
 	}
@@ -91,53 +104,65 @@ void CPlayerScript::Tick()
 		Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 	}
 
+	if (m_HP < 0.f)
+	{
+		m_IsDead = true;
+	}
+
 }
 
 void CPlayerScript::KeyInput()
 {
 	// W,S,A,D
+	if (KEY_TAP(KEY::A) || KEY_TAP(KEY::D) || KEY_TAP(KEY::W) || KEY_TAP(KEY::S))
+	{
+		m_KeyTapCount += 1;
+	}
+	if (KEY_RELEASED(KEY::A) || KEY_RELEASED(KEY::D) || KEY_RELEASED(KEY::W) || KEY_RELEASED(KEY::S))
+	{
+		m_KeyTapCount -= 1;
+	}
+
+
+	if(m_State != eState::HIT)
 	{
 		if (KEY_TAP(KEY::A))
 		{
-			m_KeyTapCount += 1;
-
 			m_State = eState::MOVE;
 
 			if (m_KeyTapCount == 2)
 			{
-				if (m_PrevDirection == eDirection::UP) m_Direction = eDirection::UP_LEFT;
-				if (m_PrevDirection == eDirection::DOWN) m_Direction = eDirection::DOWN_LEFT;
+				if (m_PrevDirection == eDIR::UP) m_Direction = eDIR::UP_LEFT;
+				if (m_PrevDirection == eDIR::DOWN) m_Direction = eDIR::DOWN_LEFT;
 				m_PrevDirection = m_Direction;
 			}
 			else
 			{
-				m_Direction = eDirection::LEFT;
+				m_Direction = eDIR::LEFT;
 				m_PrevDirection = m_Direction;
 			}
 			FlipBookComponent()->Play(4, 10, true);
 		}
 		if (KEY_RELEASED(KEY::A))
 		{
-			m_KeyTapCount -= 1;
-
 			if (m_KeyTapCount == 0)
 			{
 				m_State = eState::IDLE;
-				m_Direction = eDirection::LEFT;
+				m_Direction = eDIR::LEFT;
 				m_PrevDirection = m_Direction;
 				FlipBookComponent()->Play(1, 10, true);
 			}
-			if (m_KeyTapCount == 1)
+			else if (m_KeyTapCount == 1)
 			{
-				if (m_Direction == eDirection::UP_LEFT)
+				if (m_Direction == eDIR::UP_LEFT)
 				{
-					m_Direction = eDirection::UP;
+					m_Direction = eDIR::UP;
 					m_PrevDirection = m_Direction;
 					FlipBookComponent()->Play(5, 10, true);
 				}
-				if (m_Direction == eDirection::DOWN_LEFT)
+				if (m_Direction == eDIR::DOWN_LEFT)
 				{
-					m_Direction = eDirection::DOWN;
+					m_Direction = eDIR::DOWN;
 					m_PrevDirection = m_Direction;
 					FlipBookComponent()->Play(3, 10, true);
 				}
@@ -146,45 +171,41 @@ void CPlayerScript::KeyInput()
 
 		if (KEY_TAP(KEY::D))
 		{
-			m_KeyTapCount += 1;
-
 			m_State = eState::MOVE;
 
 			if (m_KeyTapCount == 2)
 			{
-				if (m_PrevDirection == eDirection::UP) m_Direction = eDirection::UP_RIGHT;
-				if (m_PrevDirection == eDirection::DOWN) m_Direction = eDirection::DOWN_RIGHT;
+				if (m_PrevDirection == eDIR::UP) m_Direction = eDIR::UP_RIGHT;
+				if (m_PrevDirection == eDIR::DOWN) m_Direction = eDIR::DOWN_RIGHT;
 				m_PrevDirection = m_Direction;
 			}
 			else
 			{
-				m_Direction = eDirection::RIGHT;
+				m_Direction = eDIR::RIGHT;
 				m_PrevDirection = m_Direction;
 			}
 			FlipBookComponent()->Play(4, 10, true);
 		}
 		if (KEY_RELEASED(KEY::D))
 		{
-			m_KeyTapCount -= 1;
-
 			if (m_KeyTapCount == 0)
 			{
 				m_State = eState::IDLE;
-				m_Direction = eDirection::RIGHT;
+				m_Direction = eDIR::RIGHT;
 				m_PrevDirection = m_Direction;
 				FlipBookComponent()->Play(1, 10, true);
 			}
-			if (m_KeyTapCount == 1)
+			else if (m_KeyTapCount == 1)
 			{
-				if (m_Direction == eDirection::UP_RIGHT)
+				if (m_Direction == eDIR::UP_RIGHT)
 				{
-					m_Direction = eDirection::UP;
+					m_Direction = eDIR::UP;
 					m_PrevDirection = m_Direction;
 					FlipBookComponent()->Play(5, 10, true);
 				}
-				if (m_Direction == eDirection::DOWN_RIGHT)
+				if (m_Direction == eDIR::DOWN_RIGHT)
 				{
-					m_Direction = eDirection::DOWN;
+					m_Direction = eDIR::DOWN;
 					m_PrevDirection = m_Direction;
 					FlipBookComponent()->Play(3, 10, true);
 				}
@@ -193,18 +214,16 @@ void CPlayerScript::KeyInput()
 
 		if (KEY_TAP(KEY::W))
 		{
-			m_KeyTapCount += 1;
-
 			m_State = eState::MOVE;
 
 			if (m_KeyTapCount == 2)
 			{
-				if (m_PrevDirection == eDirection::RIGHT) m_Direction = eDirection::UP_RIGHT;
-				if (m_PrevDirection == eDirection::LEFT) m_Direction = eDirection::UP_LEFT;
+				if (m_PrevDirection == eDIR::RIGHT) m_Direction = eDIR::UP_RIGHT;
+				if (m_PrevDirection == eDIR::LEFT) m_Direction = eDIR::UP_LEFT;
 			}
 			else
 			{
-				m_Direction = eDirection::UP;
+				m_Direction = eDIR::UP;
 				m_PrevDirection = m_Direction;
 			}
 
@@ -213,46 +232,43 @@ void CPlayerScript::KeyInput()
 		}
 		if (KEY_RELEASED(KEY::W))
 		{
-			m_KeyTapCount -= 1;
-
 			if (m_KeyTapCount == 0)
 			{
 				m_State = eState::IDLE;
-				m_Direction = eDirection::UP;
+				m_Direction = eDIR::UP;
 				m_PrevDirection = m_Direction;
 				FlipBookComponent()->Play(2, 10, true);
 			}
-			if (m_KeyTapCount == 1)
+			else if (m_KeyTapCount == 1)
 			{
-				if (m_Direction == eDirection::UP_RIGHT)
+				if (m_Direction == eDIR::UP_RIGHT)
 				{
-					m_Direction = eDirection::RIGHT;
+					m_Direction = eDIR::RIGHT;
 					m_PrevDirection = m_Direction;
 					FlipBookComponent()->Play(4, 10, true);
 				}
-				if (m_Direction == eDirection::UP_LEFT)
+				if (m_Direction == eDIR::UP_LEFT)
 				{
-					m_Direction = eDirection::LEFT;
+					m_Direction = eDIR::LEFT;
 					m_PrevDirection = m_Direction;
 					FlipBookComponent()->Play(4, 10, true);
 				}
 			}
+			
 		}
 
 		if (KEY_TAP(KEY::S))
 		{
-			m_KeyTapCount += 1;
-
 			m_State = eState::MOVE;
 
 			if (m_KeyTapCount == 2)
 			{
-				if (m_PrevDirection == eDirection::RIGHT) m_Direction = eDirection::DOWN_RIGHT;
-				if (m_PrevDirection == eDirection::LEFT) m_Direction = eDirection::DOWN_LEFT;
+				if (m_PrevDirection == eDIR::RIGHT) m_Direction = eDIR::DOWN_RIGHT;
+				if (m_PrevDirection == eDIR::LEFT) m_Direction = eDIR::DOWN_LEFT;
 			}
 			else
 			{
-				m_Direction = eDirection::DOWN;
+				m_Direction = eDIR::DOWN;
 				m_PrevDirection = m_Direction;
 			}
 
@@ -262,25 +278,24 @@ void CPlayerScript::KeyInput()
 		}
 		if (KEY_RELEASED(KEY::S))
 		{
-			m_KeyTapCount -= 1;
-
 			if (m_KeyTapCount == 0)
 			{
 				m_State = eState::IDLE;
-				m_Direction = eDirection::DOWN;
+				m_Direction = eDIR::DOWN;
+				m_PrevDirection = m_Direction;
 				FlipBookComponent()->Play(0, 10, true);
 			}
-			if (m_KeyTapCount == 1)
+			else if (m_KeyTapCount == 1)
 			{
-				if (m_Direction == eDirection::DOWN_RIGHT)
+				if (m_Direction == eDIR::DOWN_RIGHT)
 				{
-					m_Direction = eDirection::RIGHT;
+					m_Direction = eDIR::RIGHT;
 					m_PrevDirection = m_Direction;
 					FlipBookComponent()->Play(4, 10, true);
 				}
-				if (m_Direction == eDirection::DOWN_LEFT)
+				if (m_Direction == eDIR::DOWN_LEFT)
 				{
-					m_Direction = eDirection::LEFT;
+					m_Direction = eDIR::LEFT;
 					m_PrevDirection = m_Direction;
 					FlipBookComponent()->Play(4, 10, true);
 				}
@@ -289,6 +304,7 @@ void CPlayerScript::KeyInput()
 	}
 
 	// Mouse
+	if(m_State != eState::HIT)
 	{
 		if (m_AttackCount >= 3)
 		{
@@ -298,7 +314,7 @@ void CPlayerScript::KeyInput()
 				m_AttackCount = 0;
 				m_AttackCooldown = 0.f;
 			}
-				
+
 		}
 
 		if (m_AttackCount < 3)
@@ -328,20 +344,20 @@ void CPlayerScript::KeyInput()
 				{
 					switch (m_AttackDir)
 					{
-					case eDirection::UP:
-						m_Direction = eDirection::UP;
+					case eDIR::UP:
+						m_Direction = eDIR::UP;
 						FlipBookComponent()->Play(10, 15, false);
 						break;
-					case eDirection::DOWN:
-						m_Direction = eDirection::DOWN;
+					case eDIR::DOWN:
+						m_Direction = eDIR::DOWN;
 						FlipBookComponent()->Play(6, 15, false);
 						break;
-					case eDirection::LEFT:
-						m_Direction = eDirection::LEFT;
+					case eDIR::LEFT:
+						m_Direction = eDIR::LEFT;
 						FlipBookComponent()->Play(8, 15, false);
 						break;
-					case eDirection::RIGHT:
-						m_Direction = eDirection::RIGHT;
+					case eDIR::RIGHT:
+						m_Direction = eDIR::RIGHT;
 						FlipBookComponent()->Play(8, 15, false);
 						break;
 					default:
@@ -353,20 +369,20 @@ void CPlayerScript::KeyInput()
 				{
 					switch (m_AttackDir)
 					{
-					case eDirection::UP:
-						m_Direction = eDirection::UP;
+					case eDIR::UP:
+						m_Direction = eDIR::UP;
 						FlipBookComponent()->Play(11, 15, false);
 						break;
-					case eDirection::DOWN:
-						m_Direction = eDirection::DOWN;
+					case eDIR::DOWN:
+						m_Direction = eDIR::DOWN;
 						FlipBookComponent()->Play(7, 15, false);
 						break;
-					case eDirection::LEFT:
-						m_Direction = eDirection::LEFT;
+					case eDIR::LEFT:
+						m_Direction = eDIR::LEFT;
 						FlipBookComponent()->Play(9, 15, false);
 						break;
-					case eDirection::RIGHT:
-						m_Direction = eDirection::RIGHT;
+					case eDIR::RIGHT:
+						m_Direction = eDIR::RIGHT;
 						FlipBookComponent()->Play(9, 15, false);
 						break;
 					default:
@@ -379,57 +395,61 @@ void CPlayerScript::KeyInput()
 		}
 	}
 
-	if (KEY_TAP(KEY::SPACE))
+	if (m_State != eState::DASH && m_State != eState::HIT)
 	{
-		m_State = eState::DASH;
-
-		m_DashFinish = false;
-
-		m_DashTime = 0.f;
-
-		// 애니메이션 재생
-		switch (m_Direction)
+		if (KEY_TAP(KEY::SPACE))
 		{
-		case eDirection::UP:
-			FlipBookComponent()->Play(14, 40, false);
-			break;
-		case eDirection::DOWN:
-			FlipBookComponent()->Play(12, 40, false);
-			break;
-		case eDirection::LEFT:
-		case eDirection::UP_LEFT:
-		case eDirection::DOWN_LEFT:
-			FlipBookComponent()->Play(13, 50, false);
-			break;
-		case eDirection::RIGHT:
-		case eDirection::UP_RIGHT:
-		case eDirection::DOWN_RIGHT:
-			FlipBookComponent()->Play(13, 50, false);
-			break;
-		}
+			m_State = eState::DASH;
 
-		FlipBookComponent()->Reset();
+			m_DashFinish = false;
+
+			m_DashTime = 0.f;
+
+			// 애니메이션 재생
+			switch (m_Direction)
+			{
+			case eDIR::UP:
+				FlipBookComponent()->Play(14, 30, false);
+				break;
+			case eDIR::DOWN:
+				FlipBookComponent()->Play(12, 20, false);
+				break;
+			case eDIR::LEFT:
+			case eDIR::UP_LEFT:
+			case eDIR::DOWN_LEFT:
+				FlipBookComponent()->Play(13, 20, false);
+				break;
+			case eDIR::RIGHT:
+			case eDIR::UP_RIGHT:
+			case eDIR::DOWN_RIGHT:
+				FlipBookComponent()->Play(13, 30, false);
+				break;
+			}
+
+			FlipBookComponent()->Reset();
+		}
 	}
+	
 }
 
 void CPlayerScript::Idle()
 {
 	switch (m_Direction)
 	{
-	case eDirection::UP:
+	case eDIR::UP:
 		FlipBookComponent()->Play(2, 10, true);
 		break;
-	case eDirection::DOWN:
+	case eDIR::DOWN:
 		FlipBookComponent()->Play(0, 10, true);
 		break;
-	case eDirection::LEFT:
-	case eDirection::UP_LEFT:
-	case eDirection::DOWN_LEFT:
+	case eDIR::LEFT:
+	case eDIR::UP_LEFT:
+	case eDIR::DOWN_LEFT:
 		FlipBookComponent()->Play(1, 10, true);
 		break;
-	case eDirection::RIGHT:
-	case eDirection::UP_RIGHT:
-	case eDirection::DOWN_RIGHT:
+	case eDIR::RIGHT:
+	case eDIR::UP_RIGHT:
+	case eDIR::DOWN_RIGHT:
 		FlipBookComponent()->Play(1, 10, true);
 		break;
 	default:
@@ -439,21 +459,19 @@ void CPlayerScript::Idle()
 
 void CPlayerScript::Move()
 {
-	ChangeAttribute(m_Attribute);
-
 	Vec3 vPos = Transform()->GetRelativePos();
 
 	if (KEY_PRESSED(KEY::A))
 	{
-		//m_Direction = eDirection::LEFT;
+		//m_Direction = eDIR::LEFT;
 		m_State = eState::MOVE;
-		if(m_CollisionDir != CollisionDir::RIGHT)
+		if (m_CollisionDir != CollisionDir::RIGHT)
 			vPos.x -= DT * m_Speed;
 	}
-	
+
 	if (KEY_PRESSED(KEY::D))
 	{
-		//m_Direction = eDirection::RIGHT;
+		//m_Direction = eDIR::RIGHT;
 		m_State = eState::MOVE;
 		if (m_CollisionDir != CollisionDir::LEFT)
 			vPos.x += DT * m_Speed;
@@ -461,7 +479,7 @@ void CPlayerScript::Move()
 
 	if (KEY_PRESSED(KEY::W))
 	{
-		//m_Direction = eDirection::UP;
+		//m_Direction = eDIR::UP;
 		m_State = eState::MOVE;
 		if (m_CollisionDir != CollisionDir::DOWN)
 			vPos.y += DT * m_Speed;
@@ -469,7 +487,7 @@ void CPlayerScript::Move()
 
 	if (KEY_PRESSED(KEY::S))
 	{
-		//m_Direction = eDirection::DOWN;
+		//m_Direction = eDIR::DOWN;
 		m_State = eState::MOVE;
 		if (m_CollisionDir != CollisionDir::UP)
 			vPos.y -= DT * m_Speed;
@@ -493,34 +511,7 @@ void CPlayerScript::Attack()
 
 		m_AttackFinish = true;
 
-		// 누르고 있는 키가 없으면
-		if (m_KeyTapCount == 0)
-		{
-			m_State = eState::IDLE;
-		}
-		// 다른 키를 누르고 있을 경우
-		else
-		{
-			m_State = eState::MOVE;
-
-			switch (m_Direction)
-			{
-			case eDirection::UP:
-				FlipBookComponent()->Play(5, 10, true);
-				break;
-			case eDirection::DOWN:
-				FlipBookComponent()->Play(3, 10, true);
-				break;
-			case eDirection::LEFT:
-				FlipBookComponent()->Play(4, 10, true);
-				break;
-			case eDirection::RIGHT:
-				FlipBookComponent()->Play(4, 10, true);
-				break;
-			default:
-				break;
-			}
-		}
+		ExitState();
 	}
 	// 공격 시
 	else
@@ -565,98 +556,62 @@ void CPlayerScript::Dash()
 
 	if (m_DashTime >= m_DashDuration)
 	{
-		if (m_DashCooldown)
-		{
-			m_DashCooldown = false;
-			FlipBookComponent()->Play(15, 20, false);
-		}
-
-		if (m_DashTime >= 1.f)
+		if (FlipBookComponent()->IsFinish())
 		{
 			m_DashTime = 0.f;
 			m_DashFinish = true;
-			m_DashCooldown = true;
 
-			// 아무 키도 안눌려 있으면
-			if (m_KeyTapCount == 0)
-				m_State = eState::IDLE;
-			// 다른 키를 누르고 있으면
-			else
-			{
-				m_State = eState::MOVE;
-
-				switch (m_Direction)
-				{
-				case eDirection::UP:
-					FlipBookComponent()->Play(5, 10, true);
-					break;
-				case eDirection::DOWN:
-					FlipBookComponent()->Play(3, 10, true);
-					break;
-				case eDirection::LEFT:
-				case eDirection::UP_LEFT:
-				case eDirection::DOWN_LEFT:
-					FlipBookComponent()->Play(4, 10, true);
-					break;
-				case eDirection::RIGHT:
-				case eDirection::UP_RIGHT:
-				case eDirection::DOWN_RIGHT:
-					FlipBookComponent()->Play(4, 10, true);
-					break;
-				default:
-					break;
-				}
-			}
-
+			ExitState();
 		}
 	}
 	else
 	{
+		FlipBookComponent()->Reset();
 		// 상하좌우
-		if (m_Direction == eDirection::UP)
+		if (m_Direction == eDIR::UP)
 		{
 			if (m_CollisionDir != CollisionDir::DOWN)
 				vPos.y += DT * m_DashSpeed;
 		}
-		if (m_Direction == eDirection::DOWN)
+		if (m_Direction == eDIR::DOWN)
 		{
 			if (m_CollisionDir != CollisionDir::UP)
 				vPos.y -= DT * m_DashSpeed;
 		}
-		if (m_Direction == eDirection::LEFT)
+		if (m_Direction == eDIR::LEFT)
 		{
 			if (m_CollisionDir != CollisionDir::RIGHT)
 				vPos.x -= DT * m_DashSpeed;
 		}
-		if (m_Direction == eDirection::RIGHT)
+		if (m_Direction == eDIR::RIGHT)
 		{
 			if (m_CollisionDir != CollisionDir::LEFT)
 				vPos.x += DT * m_DashSpeed;
 		}
 
 		// 대각선 방향
-		if (m_Direction == eDirection::UP_LEFT)
+		if (m_Direction == eDIR::UP_LEFT)
 		{
 			if (m_CollisionDir != CollisionDir::DOWN)
 				vPos.y += DT * m_DashSpeed * 0.7f;  // 45도일 때 √2/2 ≈ 0.707
 			if (m_CollisionDir != CollisionDir::RIGHT)
 				vPos.x -= DT * m_DashSpeed * 0.7f;
 		}
-		if (m_Direction == eDirection::UP_RIGHT)
+		if (m_Direction == eDIR::UP_RIGHT)
 		{
 			if (m_CollisionDir != CollisionDir::DOWN)
 				vPos.y += DT * m_DashSpeed * 0.7f;
 			if (m_CollisionDir != CollisionDir::LEFT)
 				vPos.x += DT * m_DashSpeed * 0.7f;
 		}
-		if (m_Direction == eDirection::DOWN_LEFT)
+		if (m_Direction == eDIR::DOWN_LEFT)
 		{
 			if (m_CollisionDir != CollisionDir::UP)
 				vPos.y -= DT * m_DashSpeed * 0.7f;
 			if (m_CollisionDir != CollisionDir::RIGHT)
 				vPos.x -= DT * m_DashSpeed * 0.7f;
 		}
-		if (m_Direction == eDirection::DOWN_RIGHT)
+		if (m_Direction == eDIR::DOWN_RIGHT)
 		{
 			if (m_CollisionDir != CollisionDir::UP)
 				vPos.y -= DT * m_DashSpeed * 0.7f;
@@ -668,6 +623,65 @@ void CPlayerScript::Dash()
 	}
 
 	Transform()->SetRelativePos(vPos);
+}
+
+void CPlayerScript::KnockBack()
+{
+	Vec3 vPos = Transform()->GetRelativePos();
+
+	if (m_KnockBackAge < m_KnockBackTime)
+	{
+		m_KnockBackAge += DT;
+		vPos -= m_HitDir * m_KnockBackSpeed * DT;
+	}
+
+	Transform()->SetRelativePos(vPos);
+
+	m_HitTime += DT;
+
+	if (m_HitTime > 0.1f)
+		GetRenderComponent()->GetDynamicMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+
+	if (m_HitTime > 0.3f)
+	{
+		ExitState();
+	}
+
+	FlipBookComponent()->Reset();
+}
+
+void CPlayerScript::ExitState()
+{
+	// 아무 키도 안눌려 있으면
+	if (m_KeyTapCount == 0)
+		m_State = eState::IDLE;
+	// 다른 키를 누르고 있으면
+	else
+	{
+		m_State = eState::MOVE;
+
+		switch (m_Direction)
+		{
+		case eDIR::UP:
+			FlipBookComponent()->Play(5, 10, true);
+			break;
+		case eDIR::DOWN:
+			FlipBookComponent()->Play(3, 10, true);
+			break;
+		case eDIR::LEFT:
+		case eDIR::UP_LEFT:
+		case eDIR::DOWN_LEFT:
+			FlipBookComponent()->Play(4, 10, true);
+			break;
+		case eDIR::RIGHT:
+		case eDIR::UP_RIGHT:
+		case eDIR::DOWN_RIGHT:
+			FlipBookComponent()->Play(4, 10, true);
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void CPlayerScript::MousePosCheck()
@@ -699,25 +713,25 @@ void CPlayerScript::MousePosCheck()
 		angle = atan2(vMouseDir.y, vMouseDir.x);*/
 
 	angle = atan2(vMouseDir.y, vMouseDir.x);
-	m_SlashRot.z = angle - XM_PI/2.f;
+	m_SlashRot.z = angle - XM_PI / 2.f;
 
 	// 라디안 -> 도
 	angle = angle * (180.f / XM_PI);
-	
+
 	if (angle < 0)
 		angle += 360.0f;
 
-	
+
 
 	// 각도에 따른 공격 방향 설정
 	if (angle >= 45.0f && angle < 135.0f)
-		m_AttackDir = eDirection::UP;
+		m_AttackDir = eDIR::UP;
 	else if (angle >= 135.0f && angle < 225.0f)
-		m_AttackDir = eDirection::LEFT;
+		m_AttackDir = eDIR::LEFT;
 	else if (angle >= 225.0f && angle < 315.0f)
-		m_AttackDir = eDirection::DOWN;
+		m_AttackDir = eDIR::DOWN;
 	else
-		m_AttackDir = eDirection::RIGHT;  
+		m_AttackDir = eDIR::RIGHT;
 
 	//vRot.z = angle;
 
@@ -756,8 +770,10 @@ void CPlayerScript::LoadFlipBook()
 	FlipBookComponent()->AddFlipBook(13, pFlipBook);
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\DashUp.flip");
 	FlipBookComponent()->AddFlipBook(14, pFlipBook);
-	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\pDashRight2.flip");
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\Hit.flip");
 	FlipBookComponent()->AddFlipBook(15, pFlipBook);
+	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\Dead.flip");
+	FlipBookComponent()->AddFlipBook(16, pFlipBook);
 
 }
 
@@ -820,14 +836,37 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 
 	if (_OtherObject->GetLayerIdx() == 2 || _OtherObject->GetLayerIdx() == 6)
 	{
-		// Hit
+		if (!m_IsDead)
+		{
+			m_HP -= 10;
+
+			GetOwner()->FlipBookComponent()->Play(15, 10, true);
+			GetRenderComponent()->GetDynamicMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+			
+			m_HitTime = 0;
+			m_KnockBackAge = 0.f;
+			m_HitDir = _OwnCollider->GetCollisionPoint() - Transform()->GetRelativePos();
+			m_HitDir.Normalize();
+
+			if (m_HitDir.x > 0)
+				m_Direction = eDIR::RIGHT;
+			else
+				m_Direction = eDIR::LEFT;
+
+			m_State = eState::HIT;
+		}
+		else
+		{
+			//FSM()->ChangeState(L"PDeadState");
+		}
+		
 
 	}
 }
 
 void CPlayerScript::Overlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
-	
+
 }
 
 void CPlayerScript::EndOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
@@ -836,13 +875,9 @@ void CPlayerScript::EndOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObj
 
 	if (m_CollisionCount == 0)
 		m_CollisionDir = CollisionDir::NONE;
-}
 
-void CPlayerScript::ChangeAttribute(int _data)
-{
-	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, _data);
-}
 
+}
 
 
 void CPlayerScript::SaveToFile(FILE* _File)
@@ -860,5 +895,3 @@ void CPlayerScript::LoadFromFile(FILE* _File)
 	LoadAssetRef(m_SlashPref, _File);
 	//fread(&m_FlipBookComponent, sizeof(CFlipBookComponent), 1, _File);
 }
-
-

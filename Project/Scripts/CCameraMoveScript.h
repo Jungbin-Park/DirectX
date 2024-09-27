@@ -7,8 +7,14 @@ class CCameraMoveScript :
 {
 private:
     float           m_CamSpeed;
+    bool            m_BossSpawn;
+    float           m_Timer;
+    Vec3            m_Dir;
 
     CGameObject*    m_FollowObj;
+
+public:
+    void BossSpawn();
 
 public:
     virtual void Begin() override;

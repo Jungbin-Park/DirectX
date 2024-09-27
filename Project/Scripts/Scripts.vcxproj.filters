@@ -61,6 +61,12 @@
     <ClInclude Include="CHitSparkScript.h">
       <Filter>Scripts\Object</Filter>
     </ClInclude>
+    <ClInclude Include="CPortalScript.h">
+      <Filter>Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CTeleportScript.h">
+      <Filter>Scripts\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -121,6 +127,12 @@
       <Filter>Scripts\Boss</Filter>
     </ClCompile>
     <ClCompile Include="CHitSparkScript.cpp">
+      <Filter>Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CPortalScript.cpp">
+      <Filter>Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CTeleportScript.cpp">
       <Filter>Scripts\Object</Filter>
     </ClCompile>
   </ItemGroup>

@@ -115,6 +115,9 @@ void BWaterState::ShootWaterBall()
 			if ((*iter) == nullptr)
 				continue;
 
+			if ((*iter)->GetScripts().empty())
+				continue;
+
 			CWaterScript* vScript = (CWaterScript*)(*iter)->GetScriptByName(L"CWaterScript");
 
 			if (vScript != nullptr)

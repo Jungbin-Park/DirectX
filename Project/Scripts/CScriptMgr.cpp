@@ -13,8 +13,10 @@
 #include "CMAttackScript.h"
 #include "CPlatformScript.h"
 #include "CPlayerScript.h"
+#include "CPortalScript.h"
 #include "CSlashScript.h"
 #include "CSpawnerScript.h"
+#include "CTeleportScript.h"
 #include "CTriggerScript.h"
 #include "CursorScript.h"
 #include "CWaterScript.h"
@@ -33,8 +35,10 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CMAttackScript");
 	_vec.push_back(L"CPlatformScript");
 	_vec.push_back(L"CPlayerScript");
+	_vec.push_back(L"CPortalScript");
 	_vec.push_back(L"CSlashScript");
 	_vec.push_back(L"CSpawnerScript");
+	_vec.push_back(L"CTeleportScript");
 	_vec.push_back(L"CTriggerScript");
 	_vec.push_back(L"CursorScript");
 	_vec.push_back(L"CWaterScript");
@@ -66,10 +70,14 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlatformScript;
 	if (L"CPlayerScript" == _strScriptName)
 		return new CPlayerScript;
+	if (L"CPortalScript" == _strScriptName)
+		return new CPortalScript;
 	if (L"CSlashScript" == _strScriptName)
 		return new CSlashScript;
 	if (L"CSpawnerScript" == _strScriptName)
 		return new CSpawnerScript;
+	if (L"CTeleportScript" == _strScriptName)
+		return new CTeleportScript;
 	if (L"CTriggerScript" == _strScriptName)
 		return new CTriggerScript;
 	if (L"CursorScript" == _strScriptName)
@@ -119,11 +127,17 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT:
 		return new CPlayerScript;
 		break;
+	case (UINT)SCRIPT_TYPE::PORTALSCRIPT:
+		return new CPortalScript;
+		break;
 	case (UINT)SCRIPT_TYPE::SLASHSCRIPT:
 		return new CSlashScript;
 		break;
 	case (UINT)SCRIPT_TYPE::SPAWNERSCRIPT:
 		return new CSpawnerScript;
+		break;
+	case (UINT)SCRIPT_TYPE::TELEPORTSCRIPT:
+		return new CTeleportScript;
 		break;
 	case (UINT)SCRIPT_TYPE::TRIGGERSCRIPT:
 		return new CTriggerScript;
@@ -190,12 +204,20 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 		return L"CPlayerScript";
 		break;
 
+	case SCRIPT_TYPE::PORTALSCRIPT:
+		return L"CPortalScript";
+		break;
+
 	case SCRIPT_TYPE::SLASHSCRIPT:
 		return L"CSlashScript";
 		break;
 
 	case SCRIPT_TYPE::SPAWNERSCRIPT:
 		return L"CSpawnerScript";
+		break;
+
+	case SCRIPT_TYPE::TELEPORTSCRIPT:
+		return L"CTeleportScript";
 		break;
 
 	case SCRIPT_TYPE::TRIGGERSCRIPT:

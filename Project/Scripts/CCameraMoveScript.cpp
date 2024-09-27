@@ -11,6 +11,9 @@ CCameraMoveScript::CCameraMoveScript()
 	: CScript(UINT(SCRIPT_TYPE::CAMERAMOVESCRIPT))
 	, m_CamSpeed(500.f)
 	, m_FollowObj(nullptr)
+	, m_BossSpawn(false)
+	, m_Dir(Vec3(0.f, 0.f, 0.f))
+	, m_Timer(0.f)
 {
 	//AddScriptParam(SCRIPT_PARAM::PREFAB, "FollowObject", &m_FollowObj);
 }
@@ -19,28 +22,70 @@ CCameraMoveScript::~CCameraMoveScript()
 {
 }
 
+
+
 void CCameraMoveScript::Begin()
 {
+	SetName(L"CCameraMoveScript");
+
 	m_FollowObj = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
 }
 
 void CCameraMoveScript::Tick()
 {
-	if (PROJ_TYPE::ORTHOGRAPHIC == Camera()->GetProjType())
+	/*if (PROJ_TYPE::ORTHOGRAPHIC == Camera()->GetProjType())
 	{
 		OrthoGraphicMove();
 	}
 	else if (PROJ_TYPE::PERSPECTIVE == Camera()->GetProjType())
 	{
 		PerspectiveMove();
+	}*/
+
+	if (m_BossSpawn)
+	{
+		m_Timer += DT;
+
+		Vec3 vBossPos = Vec3(0.f, 1200.f, 0.f);
+		Vec3 vPos = Transform()->GetRelativePos();
+		Vec3 vDir = vBossPos - vPos;
+		vDir.Normalize();
+
+		if (fabs(vDir.x - m_Dir.x) < 0.001f && fabs(vDir.y - m_Dir.y) < 0.001f)
+		{
+			vPos += vDir * m_CamSpeed * DT;
+		}
+		
+
+		Transform()->SetRelativePos(vPos);
+
+		if (m_Timer >= 3.f)
+		{
+			m_BossSpawn = false;
+			m_Timer = 0.f;
+		}
+		
 	}
+	else
+	{
+		Vec3 vPos = Transform()->GetRelativePos();
+		Vec3 objPos = m_FollowObj->Transform()->GetRelativePos();
 
+		vPos = objPos;
+
+		Transform()->SetRelativePos(vPos);
+	}
+	
+}
+
+void CCameraMoveScript::BossSpawn()
+{
+	m_BossSpawn = true;
+
+	Vec3 vBossPos = Vec3(0.f, 1200.f, 0.f);
 	Vec3 vPos = Transform()->GetRelativePos();
-	Vec3 objPos = m_FollowObj->Transform()->GetRelativePos();
-
-	vPos = objPos;
-
-	Transform()->SetRelativePos(vPos);
+	m_Dir = vBossPos - vPos;
+	m_Dir.Normalize();
 }
 
 void CCameraMoveScript::OrthoGraphicMove()

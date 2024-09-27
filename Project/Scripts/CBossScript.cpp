@@ -41,6 +41,8 @@ void CBossScript::Begin()
 {
 	GetRenderComponent()->GetDynamicMaterial();
 
+	SetName(L"CBossScript");
+
 	FSM()->AddState(L"BSpawnState", new BSpawnState);
 	FSM()->AddState(L"BIdleState", new BIdleState);
 	FSM()->AddState(L"BReadyState", new BReadyState);

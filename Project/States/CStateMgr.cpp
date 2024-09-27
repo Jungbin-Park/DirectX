@@ -15,6 +15,14 @@
 #include "CHitState.h"
 #include "CIdleState.h"
 #include "CMoveState.h"
+#include "PDashState.h"
+#include "PDeadState.h"
+#include "PFireBallState.h"
+#include "PFireDragonState.h"
+#include "PHitState.h"
+#include "PIdleState.h"
+#include "PMoveState.h"
+#include "PSlashState.h"
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
@@ -32,6 +40,14 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CHitState");
 	_vec.push_back(L"CIdleState");
 	_vec.push_back(L"CMoveState");
+	_vec.push_back(L"PDashState");
+	_vec.push_back(L"PDeadState");
+	_vec.push_back(L"PFireBallState");
+	_vec.push_back(L"PFireDragonState");
+	_vec.push_back(L"PHitState");
+	_vec.push_back(L"PIdleState");
+	_vec.push_back(L"PMoveState");
+	_vec.push_back(L"PSlashState");
 }
 
 CState * CStateMgr::GetState(const wstring& _strStateName)
@@ -64,6 +80,22 @@ CState * CStateMgr::GetState(const wstring& _strStateName)
 		return new CIdleState;
 	if (L"CMoveState" == _strStateName)
 		return new CMoveState;
+	if (L"PDashState" == _strStateName)
+		return new PDashState;
+	if (L"PDeadState" == _strStateName)
+		return new PDeadState;
+	if (L"PFireBallState" == _strStateName)
+		return new PFireBallState;
+	if (L"PFireDragonState" == _strStateName)
+		return new PFireDragonState;
+	if (L"PHitState" == _strStateName)
+		return new PHitState;
+	if (L"PIdleState" == _strStateName)
+		return new PIdleState;
+	if (L"PMoveState" == _strStateName)
+		return new PMoveState;
+	if (L"PSlashState" == _strStateName)
+		return new PSlashState;
 	return nullptr;
 }
 
@@ -112,6 +144,30 @@ CState * CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::MOVESTATE:
 		return new CMoveState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERDASHSTATE:
+		return new PDashState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERDEADSTATE:
+		return new PDeadState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERFIREBALLSTATE:
+		return new PFireBallState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERFIREDRAGONSTATE:
+		return new PFireDragonState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERHITSTATE:
+		return new PHitState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERIDLESTATE:
+		return new PIdleState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERMOVESTATE:
+		return new PMoveState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERSLASHSTATE:
+		return new PSlashState;
 		break;
 	}
 	return nullptr;
@@ -175,6 +231,38 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::MOVESTATE:
 		return L"CMoveState";
+		break;
+
+	case STATE_TYPE::PLAYERDASHSTATE:
+		return L"PDashState";
+		break;
+
+	case STATE_TYPE::PLAYERDEADSTATE:
+		return L"PDeadState";
+		break;
+
+	case STATE_TYPE::PLAYERFIREBALLSTATE:
+		return L"PFireBallState";
+		break;
+
+	case STATE_TYPE::PLAYERFIREDRAGONSTATE:
+		return L"PFireDragonState";
+		break;
+
+	case STATE_TYPE::PLAYERHITSTATE:
+		return L"PHitState";
+		break;
+
+	case STATE_TYPE::PLAYERIDLESTATE:
+		return L"PIdleState";
+		break;
+
+	case STATE_TYPE::PLAYERMOVESTATE:
+		return L"PMoveState";
+		break;
+
+	case STATE_TYPE::PLAYERSLASHSTATE:
+		return L"PSlashState";
 		break;
 
 	}

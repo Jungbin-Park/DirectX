@@ -55,6 +55,20 @@ enum class COMPONENT_TYPE
 extern const char* COMPONENT_TYPE_STRING[(UINT)COMPONENT_TYPE::END];
 const char* ToString(COMPONENT_TYPE _Type);
 
+enum class eDIR
+{
+	NONE,
+	UP,
+    UP_LEFT,
+    UP_RIGHT,
+    DOWN,
+    DOWN_LEFT,
+    DOWN_RIGHT,
+    LEFT,
+    RIGHT,
+	FRONT,
+};
+
 enum DIR
 {
 	RIGHT,

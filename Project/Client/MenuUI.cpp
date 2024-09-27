@@ -12,6 +12,7 @@
 #include <Scripts/CPlatformScript.h>
 #include <Scripts/CSpawnerScript.h>
 #include <Scripts/CTriggerScript.h>
+#include <Scripts/CPortalScript.h>
 
 #include "CEditorMgr.h"
 #include "Inspector.h"
@@ -186,6 +187,30 @@ void MenuUI::GameObject()
 			pSpawner->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
 
 			CLevelMgr::GetInst()->GetCurrentLevel()->AddObject(1, pSpawner);
+		}
+
+		if (ImGui::MenuItem("Create Portal"))
+		{
+			CGameObject* pPortal = new CGameObject;
+			pPortal->SetName(L"Portal");
+
+			pPortal->AddComponent(new CTransform);
+			pPortal->AddComponent(new CMeshRender);
+			pPortal->AddComponent(new CCollider2D);
+			pPortal->AddComponent(new CFlipBookComponent);
+			pPortal->AddComponent(new CPortalScript);
+
+			pPortal->Transform()->SetRelativePos(0.f, 0.f, 0.f);
+			pPortal->Transform()->SetRelativeScale(200.f, 150.f, 0.f);
+
+			pPortal->Collider2D()->SetIndependentScale(false);
+			pPortal->Collider2D()->SetOffset(Vec3(0.0f, 0.8f, 0.f));
+			pPortal->Collider2D()->SetScale(Vec3(0.5f, 0.1f, 0.f));
+
+			pPortal->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+			pPortal->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\WarpStone.mtrl", L"material\\WarpStone.mtrl"));
+
+			CLevelMgr::GetInst()->GetCurrentLevel()->AddObject(7, pPortal);
 		}
 
 		AddScript();

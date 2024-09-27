@@ -10,8 +10,10 @@ CMarkerScript
 CMAttackScript
 CPlatformScript
 CPlayerScript
+CPortalScript
 CSlashScript
 CSpawnerScript
+CTeleportScript
 CTriggerScript
 CursorScript
 CWaterScript
