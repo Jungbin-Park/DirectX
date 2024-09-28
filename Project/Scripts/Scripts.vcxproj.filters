@@ -67,6 +67,12 @@
     <ClInclude Include="CTeleportScript.h">
       <Filter>Scripts\Object</Filter>
     </ClInclude>
+    <ClInclude Include="CFireDragonScript.h">
+      <Filter>Scripts\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="CFireBallScript.h">
+      <Filter>Scripts\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -134,6 +140,12 @@
     </ClCompile>
     <ClCompile Include="CTeleportScript.cpp">
       <Filter>Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CFireBallScript.cpp">
+      <Filter>Scripts\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="CFireDragonScript.cpp">
+      <Filter>Scripts\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

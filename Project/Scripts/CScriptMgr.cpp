@@ -5,6 +5,8 @@
 #include "CBSlashScript.h"
 #include "CCameraMoveScript.h"
 #include "CCrystalScript.h"
+#include "CFireBallScript.h"
+#include "CFireDragonScript.h"
 #include "CGhoulScript.h"
 #include "CHitSparkScript.h"
 #include "CLanceScript.h"
@@ -27,6 +29,8 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CBSlashScript");
 	_vec.push_back(L"CCameraMoveScript");
 	_vec.push_back(L"CCrystalScript");
+	_vec.push_back(L"CFireBallScript");
+	_vec.push_back(L"CFireDragonScript");
 	_vec.push_back(L"CGhoulScript");
 	_vec.push_back(L"CHitSparkScript");
 	_vec.push_back(L"CLanceScript");
@@ -54,6 +58,10 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CCameraMoveScript;
 	if (L"CCrystalScript" == _strScriptName)
 		return new CCrystalScript;
+	if (L"CFireBallScript" == _strScriptName)
+		return new CFireBallScript;
+	if (L"CFireDragonScript" == _strScriptName)
+		return new CFireDragonScript;
 	if (L"CGhoulScript" == _strScriptName)
 		return new CGhoulScript;
 	if (L"CHitSparkScript" == _strScriptName)
@@ -102,6 +110,12 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::CRYSTALSCRIPT:
 		return new CCrystalScript;
+		break;
+	case (UINT)SCRIPT_TYPE::FIREBALLSCRIPT:
+		return new CFireBallScript;
+		break;
+	case (UINT)SCRIPT_TYPE::FIREDRAGONSCRIPT:
+		return new CFireDragonScript;
 		break;
 	case (UINT)SCRIPT_TYPE::GHOULSCRIPT:
 		return new CGhoulScript;
@@ -170,6 +184,14 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::CRYSTALSCRIPT:
 		return L"CCrystalScript";
+		break;
+
+	case SCRIPT_TYPE::FIREBALLSCRIPT:
+		return L"CFireBallScript";
+		break;
+
+	case SCRIPT_TYPE::FIREDRAGONSCRIPT:
+		return L"CFireDragonScript";
 		break;
 
 	case SCRIPT_TYPE::GHOULSCRIPT:

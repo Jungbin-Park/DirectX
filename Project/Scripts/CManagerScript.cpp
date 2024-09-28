@@ -31,12 +31,14 @@ void CManagerScript::Begin()
 {
 	m_GateVPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\GateVertical.pref");
 	m_GateHPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\GateHorizontal.pref");
-	m_Player = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
-	m_Boss = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Boss");
+	
 }
 
 void CManagerScript::Tick()
 {
+	m_Player = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
+	m_Boss = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Boss");
+
 	if (m_Score == 4)
 		GateOpen();
 
@@ -44,14 +46,14 @@ void CManagerScript::Tick()
 	{
 		if (m_Player->IsDead())
 		{
-			CTimeMgr::GetInst()->SetDTRatio(0.5f);
+			CTimeMgr::GetInst()->SetDTRatio(0.3f);
 		}
 	}
 	if (m_Boss != nullptr)
 	{
 		if (m_Boss->FSM()->GetCurState()->GetStateType() == STATE_TYPE::BOSSDEADSTATE)
 		{
-			CTimeMgr::GetInst()->SetDTRatio(0.5f);
+			CTimeMgr::GetInst()->SetDTRatio(0.3f);
 		}
 	}
 }

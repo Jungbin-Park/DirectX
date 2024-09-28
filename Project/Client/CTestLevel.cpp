@@ -29,6 +29,9 @@
 #include <Scripts/CHitSparkScript.h>
 #include <Scripts/CPortalScript.h>
 #include <Scripts/CTeleportScript.h>
+#include <Scripts/CFireDragonScript.h>
+#include <Scripts/CFireBallScript.h>
+
 
 
 #include <Engine/CSetColorCS.h>
@@ -81,7 +84,7 @@ void CTestLevel::CreateTestLevel()
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
-	pLevel->SetName(L"Home");
+	pLevel->SetName(L"Test");
 
 	//// 레벨 지정
 
@@ -255,6 +258,26 @@ void CTestLevel::CreateTestLevel()
 		pBoss->MeshRender()->SetMaterial(pMtrl);
 
 		pLevel->AddObject(4, pBoss);*/
+
+		CGameObject* pFD = new CGameObject;
+		pFD->SetName(L"FireDragon");
+		
+		pFD->AddComponent(new CTransform);
+		pFD->AddComponent(new CMeshRender);
+		pFD->AddComponent(new CCollider2D);
+		pFD->AddComponent(new CFlipBookComponent);
+		pFD->AddComponent(new CFireDragonScript);
+		
+		pFD->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
+		
+		pFD->Collider2D()->SetIndependentScale(false);
+		pFD->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+		pFD->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
+		
+		pFD->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pFD->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\WaterBall.mtrl", L"material\\WaterBall.mtrl"));
+
+		pLevel->AddObject(5, pFD);
 
 		
 

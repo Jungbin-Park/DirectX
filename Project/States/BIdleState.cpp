@@ -61,7 +61,7 @@ void BIdleState::Exit()
 	m_bWaitStart = false;
 	m_WaitTime = 0.f;
 
-	int rand = std::rand() % 3 + 1;
+	/*int rand = std::rand() % 3 + 1;
 
 	switch (rand)
 	{
@@ -74,7 +74,7 @@ void BIdleState::Exit()
 	case 3:
 		m_bWater = true;
 		break;
-	}
+	}*/
 }
 
 

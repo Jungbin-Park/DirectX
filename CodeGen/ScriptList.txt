@@ -2,6 +2,8 @@ CBossScript
 CBSlashScript
 CCameraMoveScript
 CCrystalScript
+CFireBallScript
+CFireDragonScript
 CGhoulScript
 CHitSparkScript
 CLanceScript

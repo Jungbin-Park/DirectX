@@ -170,6 +170,8 @@ call CodeGen.exe
     <ClInclude Include="CBSlashScript.h" />
     <ClInclude Include="CCameraMoveScript.h" />
     <ClInclude Include="CCrystalScript.h" />
+    <ClInclude Include="CFireBallScript.h" />
+    <ClInclude Include="CFireDragonScript.h" />
     <ClInclude Include="CGhoulScript.h" />
     <ClInclude Include="CHitSparkScript.h" />
     <ClInclude Include="CLanceScript.h" />
@@ -194,6 +196,8 @@ call CodeGen.exe
     <ClCompile Include="CBSlashScript.cpp" />
     <ClCompile Include="CCameraMoveScript.cpp" />
     <ClCompile Include="CCrystalScript.cpp" />
+    <ClCompile Include="CFireBallScript.cpp" />
+    <ClCompile Include="CFireDragonScript.cpp" />
     <ClCompile Include="CGhoulScript.cpp" />
     <ClCompile Include="CHitSparkScript.cpp" />
     <ClCompile Include="CLanceScript.cpp" />
