@@ -212,6 +212,18 @@ void CPortalScript::Overlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject
 		}
 		
 	}
+	if (CLevelMgr::GetInst()->GetCurrentLevel()->GetName() == L"Ice")
+	{
+		if (KEY_TAP(KEY::F))
+		{
+			wstring levelName = L"Boss";
+			wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
+			StrLevelLoadPath += (L"level\\" + levelName + L".lv");
+			CLevel* pLevel = LoadLevel(StrLevelLoadPath);
+
+			ChangeLevel(pLevel, LEVEL_STATE::PLAY);
+		}
+	}
 }
 
 void CPortalScript::SaveToFile(FILE* _File)

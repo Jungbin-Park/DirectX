@@ -43,7 +43,7 @@ CPlayerScript::CPlayerScript()
 	, m_KnockBackSpeed(100.f)
 	, m_KnockBackTime(0.2f)
 	, m_KnockBackAge(0.f)
-	, m_HP(500.f)
+	, m_HP(10.f)
     , m_MP(100.f)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
@@ -65,6 +65,11 @@ void CPlayerScript::Begin()
 	GetRenderComponent()->GetDynamicMaterial();
 
 	LoadFlipBook();
+
+	Vec3 vPos = Transform()->GetRelativePos();
+	vPos.x += 10.f;
+	vPos.y += 250.f;
+	Instantiate(m_TeleportPref, 0, vPos, L"Teleport");
 
 	//FSM()->AddState(L"PDeadState", new PDeadState);
 }
@@ -781,6 +786,8 @@ void CPlayerScript::LoadFlipBook()
 
 void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
+	FlipBookComponent()->Reset();
+
 	if (_OtherObject->GetName() == L"Platform")
 	{
 		m_CollisionCount += 1;
@@ -841,27 +848,31 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 		{
 			m_HP -= 10;
 
-			GetOwner()->FlipBookComponent()->Play(15, 10, true);
-			GetRenderComponent()->GetDynamicMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
-			
-			m_HitTime = 0;
-			m_KnockBackAge = 0.f;
-			m_HitDir = _OwnCollider->GetCollisionPoint() - Transform()->GetRelativePos();
-			m_HitDir.Normalize();
-
-			if (m_HitDir.x > 0)
-				m_Direction = eDIR::RIGHT;
+			if (m_HP <= 0.f)
+			{
+				FlipBookComponent()->Play(16, 10, false);
+				m_IsDead = true;
+				//GetOwner()->SetDead(true);
+			}
 			else
-				m_Direction = eDIR::LEFT;
+			{
+				FlipBookComponent()->Play(15, 10, false);
+				GetRenderComponent()->GetDynamicMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 
-			m_State = eState::HIT;
-		}
-		else
-		{
-			//FSM()->ChangeState(L"PDeadState");
+				m_HitTime = 0;
+				m_KnockBackAge = 0.f;
+				m_HitDir = _OwnCollider->GetCollisionPoint() - Transform()->GetRelativePos();
+				m_HitDir.Normalize();
+
+				if (m_HitDir.x > 0)
+					m_Direction = eDIR::RIGHT;
+				else
+					m_Direction = eDIR::LEFT;
+
+				m_State = eState::HIT;
+			}
 		}
 		
-
 	}
 }
 
@@ -872,7 +883,8 @@ void CPlayerScript::Overlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject
 		if (KEY_TAP(KEY::F))
 		{
 			Vec3 vPos = Transform()->GetRelativePos();
-			vPos.y += 300.f;
+			vPos.x += 10.f;
+			vPos.y += 250.f;
 			Instantiate(m_TeleportPref, 0, vPos, L"Teleport");
 		}
 	}
@@ -880,12 +892,13 @@ void CPlayerScript::Overlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject
 
 void CPlayerScript::EndOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
-	m_CollisionCount -= 1;
+	if (_OtherObject->GetName() == L"Platform")
+	{
+		m_CollisionCount -= 1;
 
-	if (m_CollisionCount == 0)
-		m_CollisionDir = CollisionDir::NONE;
-
-
+		if (m_CollisionCount == 0)
+			m_CollisionDir = CollisionDir::NONE;
+	}
 }
 
 

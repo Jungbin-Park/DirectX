@@ -14,6 +14,7 @@ CTimeMgr::CTimeMgr()
 	, m_Time(0.f)
 	, m_E_DeltaTime(0.f)
 	, m_E_Time(0.f)
+	, m_Ratio(1.f)
 {
 
 }
@@ -77,7 +78,7 @@ void CTimeMgr::Tick()
 	}
 	else
 	{
-		m_DeltaTime = m_E_DeltaTime;
+		m_DeltaTime = m_E_DeltaTime * m_Ratio;
 	}
 
 	m_Time += m_DeltaTime;

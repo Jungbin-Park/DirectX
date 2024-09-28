@@ -112,15 +112,10 @@ void CLevelSaveLoad::LevelInit()
 	wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
 	StrLevelLoadPath += (L"level\\" + levelName + L".lv");
 	CLevelSaveLoad::LoadLevel(StrLevelLoadPath);*/
-	wstring levelName = L"Home";
+	wstring levelName = L"Ice";
 	wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
 	StrLevelLoadPath += (L"level\\" + levelName + L".lv");
 	CLevel* pLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath); 
-
-	//CGameObject* pObject = new CGameObject;
-	//pObject->SetName(L"GameManager");
-	//pObject->AddComponent(new CManagerScript);
-	//pLevel->AddObject(0, pObject);
 
 	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // Platform vs Player
 	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // Platform vs Monster
@@ -130,6 +125,8 @@ void CLevelSaveLoad::LevelInit()
 	CCollisionMgr::GetInst()->CollisionCheck(5, 4); // Player Projectile vs Monster
 	CCollisionMgr::GetInst()->CollisionCheck(6, 3); // Monster Projectile vs player
 	CCollisionMgr::GetInst()->CollisionCheck(7, 3); // Object vs player
+
+	
 
 	/*CGameObject* pBoss = pLevel->FindObjectByName(L"Boss");
 	pLevel->GetLayer(4)->DisconnectWithObject(pBoss);*/

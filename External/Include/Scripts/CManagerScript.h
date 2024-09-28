@@ -5,12 +5,15 @@ class CManagerScript :
     public CScript
 {
 private:
-    int     m_Score;
+    int             m_Score;
 
-    bool    m_bGate;
+    bool            m_bGate;
 
-    Ptr<CPrefab>            m_GateHPref;
-    Ptr<CPrefab>            m_GateVPref;
+    Ptr<CPrefab>    m_GateHPref;
+    Ptr<CPrefab>    m_GateVPref;
+
+    CGameObject*    m_Player;
+    CGameObject*    m_Boss;
 
 public:
     void GateClose();

@@ -20,13 +20,14 @@ void CTeleportScript::Begin()
 	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\TP.flip");
 	FlipBookComponent()->AddFlipBook(0, pFlipBook);
 	FlipBookComponent()->Play(0, 10, false);
-	
-	
 }
 
 void CTeleportScript::Tick()
 {
-	
+	if (FlipBookComponent()->IsFinish())
+	{
+		DeleteObject(GetOwner());
+	}
 }
 
 

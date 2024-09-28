@@ -39,6 +39,8 @@ public:
     bool IsAncestor(CGameObject* _Object);
     bool IsDead() { return m_Dead; }
 
+    void SetDead(bool _Set) { m_Dead = _Set; }
+
     void DisConnenctWithLayer();
 
     // Unregister : 등록을 취소하다, 등록하는 행위를 취소하다

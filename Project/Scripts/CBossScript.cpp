@@ -28,7 +28,7 @@ CBossScript::CBossScript()
 	, m_CrystalPref(nullptr)
 	, m_Target(nullptr)
 	, m_Dead(false)
-	, m_HP(1000.f)
+	, m_HP(30.f)
 	, m_Angle(0.f)
 {
 }
@@ -84,6 +84,8 @@ void CBossScript::Tick()
 	{
 		Transform()->SetRelativeRotation(Vec3(0.f, XM_PI, 0.f));
 	}
+
+
 
 }
 
