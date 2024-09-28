@@ -14,6 +14,8 @@ public:
         ATTACK,
         DASH,
         HIT,
+        FIREDRAGON,
+        FIREBALL,
     };
 
     enum class AtkState
@@ -40,7 +42,7 @@ private:
     Ptr<CPrefab>            m_TeleportPref;
 
     Ptr<CTexture>           m_Texture;
-    Ptr<CPrefab>            m_SlashPref;
+    
 
     eState                  m_State;
     AtkState                m_AtkState;
@@ -51,19 +53,33 @@ private:
     Vec2                    m_MouseDir;
     Vec2                    m_MovedPos;
 
+    // Move
     float                   m_Speed;
     float                   m_DashSpeed;
     float                   m_DashTime;
     float                   m_DashDuration;
     bool                    m_DashFinish;
 
+    // Slash
+    Ptr<CPrefab>            m_SlashPref;
     float                   m_AtkDashSpeed;
     float                   m_AtkDashTime;
     float                   m_AtkDashDuration;
     bool                    m_AttackFinish;
     Vec3                    m_SlashPos;
     Vec3                    m_SlashRot;
+    int                     m_AttackCount;
+    float                   m_AttackCooldown;
 
+    // ShootFireDragon
+    Ptr<CPrefab>            m_FireDragonPref;
+    Vec3                    m_FireDragonPos;
+    Vec3                    m_FireDragonRot;
+    int                     m_FireDragonCount;
+    int                     m_SkillAnimCount;
+    float                   m_FireDragonCooldown;
+
+    // Hit
     float	                m_HitTime;
     float	                m_KnockBackSpeed;
     float	                m_KnockBackTime;
@@ -72,9 +88,6 @@ private:
 
 
     int                     m_KeyTapCount;
-    int                     m_AttackCount;
-    float                   m_AttackCooldown;
-
     int                     m_Attribute;
 
     CollisionDir            m_CollisionDir;
@@ -86,8 +99,9 @@ private:
     void Move();
     void Attack();
     void Dash();
+    void FireDragon();
     void KnockBack();
-
+    void ShootFireDragon();
     void ExitState();
 
     void MousePosCheck();

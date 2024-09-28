@@ -12,6 +12,8 @@
 
 #include <States/PDeadState.h>
 
+#include "CFireDragonScript.h"
+
 
 CPlayerScript::CPlayerScript()
 	: CScript(UINT(SCRIPT_TYPE::PLAYERSCRIPT))
@@ -45,6 +47,8 @@ CPlayerScript::CPlayerScript()
 	, m_KnockBackAge(0.f)
 	, m_HP(10.f)
     , m_MP(100.f)
+	, m_FireDragonCount(0)
+	, m_SkillAnimCount(0)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
@@ -61,6 +65,7 @@ void CPlayerScript::Begin()
 {
 	m_SlashPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Slash.pref");
 	m_TeleportPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Teleport.pref");
+	m_FireDragonPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\FireDragon.pref");
 
 	GetRenderComponent()->GetDynamicMaterial();
 
@@ -94,6 +99,9 @@ void CPlayerScript::Tick()
 		break;
 	case CPlayerScript::eState::HIT:
 		KnockBack();
+		break;
+	case CPlayerScript::eState::FIREDRAGON:
+		FireDragon();
 		break;
 	default:
 		break;
@@ -309,40 +317,15 @@ void CPlayerScript::KeyInput()
 		}
 	}
 
+
+	// FireDragon
 	if (KEY_TAP(KEY::RBTN))
 	{
 		m_State = eState::FIREDRAGON;
-
 		MousePosCheck();
-
-		// Slash 프리팹 생성
-		m_SlashPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 100.f);
-		Instantiate(m_SlashPref, 5, m_SlashPos, m_SlashRot, L"FireDragon");
-
-		switch (m_AttackDir)
-		{
-		case eDIR::UP:
-			m_Direction = eDIR::UP;
-			FlipBookComponent()->Play(10, 15, false);
-			break;
-		case eDIR::DOWN:
-			m_Direction = eDIR::DOWN;
-			FlipBookComponent()->Play(6, 15, false);
-			break;
-		case eDIR::LEFT:
-			m_Direction = eDIR::LEFT;
-			FlipBookComponent()->Play(8, 15, false);
-			break;
-		case eDIR::RIGHT:
-			m_Direction = eDIR::RIGHT;
-			FlipBookComponent()->Play(8, 15, false);
-			break;
-		default:
-			break;
-		}
 	}
 
-	// Mouse
+	// Slash
 	if(m_State != eState::HIT)
 	{
 		if (m_AttackCount >= 3)
@@ -664,6 +647,99 @@ void CPlayerScript::Dash()
 	Transform()->SetRelativePos(vPos);
 }
 
+void CPlayerScript::FireDragon()
+{
+	m_FireDragonCooldown += DT;
+
+	if (m_FireDragonCooldown > 0.2f)
+	{
+		m_FireDragonCooldown = 0.f;
+		m_FireDragonCount++;
+		ShootFireDragon();
+
+		if (m_FireDragonCount == 7)
+		{
+			m_FireDragonCount = 0;
+			ExitState();
+		}
+	}
+	
+}
+
+void CPlayerScript::ShootFireDragon()
+{
+	// ShootFireDragon 프리팹 생성
+	m_FireDragonPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 100.f);
+
+	switch (m_AttackDir)
+	{
+	case eDIR::LEFT:
+		m_FireDragonRot = Vec3(XM_PI, 0.f, 0.f);
+		break;
+
+	default:
+		m_FireDragonRot = Vec3(0.f, 0.f, 0.f);
+		break;
+	}
+
+	Instantiate(m_FireDragonPref, 5, m_FireDragonPos, m_FireDragonRot, L"FireDragon");
+
+	if (m_SkillAnimCount == 0)
+	{
+		m_SkillAnimCount++;
+		// animation
+		switch (m_AttackDir)
+		{
+		case eDIR::UP:
+			m_Direction = eDIR::UP;
+			FlipBookComponent()->Play(10, 15, false);
+			break;
+		case eDIR::DOWN:
+			m_Direction = eDIR::DOWN;
+			FlipBookComponent()->Play(6, 15, false);
+			break;
+		case eDIR::LEFT:
+			m_Direction = eDIR::LEFT;
+			FlipBookComponent()->Play(8, 15, false);
+			break;
+		case eDIR::RIGHT:
+			m_Direction = eDIR::RIGHT;
+			FlipBookComponent()->Play(8, 15, false);
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		m_SkillAnimCount--;
+		// animation
+		switch (m_AttackDir)
+		{
+		case eDIR::UP:
+			m_Direction = eDIR::UP;
+			FlipBookComponent()->Play(10, 15, false);
+			break;
+		case eDIR::DOWN:
+			m_Direction = eDIR::DOWN;
+			FlipBookComponent()->Play(6, 15, false);
+			break;
+		case eDIR::LEFT:
+			m_Direction = eDIR::LEFT;
+			FlipBookComponent()->Play(8, 15, false);
+			break;
+		case eDIR::RIGHT:
+			m_Direction = eDIR::RIGHT;
+			FlipBookComponent()->Play(8, 15, false);
+			break;
+		default:
+			break;
+		}
+	}
+
+	FlipBookComponent()->Reset();
+}
+
 void CPlayerScript::KnockBack()
 {
 	Vec3 vPos = Transform()->GetRelativePos();
@@ -753,6 +829,7 @@ void CPlayerScript::MousePosCheck()
 
 	angle = atan2(vMouseDir.y, vMouseDir.x);
 	m_SlashRot.z = angle - XM_PI / 2.f;
+	m_FireDragonRot.z = angle;
 
 	// 라디안 -> 도
 	angle = angle * (180.f / XM_PI);

@@ -198,9 +198,9 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(3, pPlayer);
 
 
-		// FireDragon
+		// ShootFireDragon
 		/*CGameObject* pFD = new CGameObject;
-		pFD->SetName(L"FireDragon");
+		pFD->SetName(L"ShootFireDragon");
 
 		pFD->AddComponent(new CTransform);
 		pFD->AddComponent(new CMeshRender);
@@ -281,7 +281,7 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(4, pBoss);*/
 
 		/*CGameObject* pFD = new CGameObject;
-		pFD->SetName(L"FireDragon");
+		pFD->SetName(L"ShootFireDragon");
 		
 		pFD->AddComponent(new CTransform);
 		pFD->AddComponent(new CMeshRender);
@@ -573,7 +573,7 @@ void CTestLevel::CreateTestLevel()
 void CTestLevel::CreatePrefab()
 {
 	/*CGameObject* pFD = new CGameObject;
-	pFD->SetName(L"FireDragon");
+	pFD->SetName(L"ShootFireDragon");
 
 	pFD->AddComponent(new CTransform);
 	pFD->AddComponent(new CMeshRender);
@@ -596,7 +596,7 @@ void CTestLevel::CreatePrefab()
 	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"FireDragonPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\FireDragon.pref";
+	FilePath += L"prefab\\ShootFireDragon.pref";
 	pPrefab->Save(FilePath);*/
 	
 

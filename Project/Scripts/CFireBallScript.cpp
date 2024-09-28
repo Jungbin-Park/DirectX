@@ -12,6 +12,7 @@ CFireBallScript::~CFireBallScript()
 
 void CFireBallScript::Begin()
 {
+	
 }
 
 void CFireBallScript::Tick()

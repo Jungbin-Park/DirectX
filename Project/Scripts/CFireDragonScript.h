@@ -5,12 +5,19 @@ class CFireDragonScript :
     public CScript
 {
 private:
-    Vec3    m_Pos;
+    static int      m_GlobalNum;
+    int             m_Num;
 
-    float   amplitude;  // sin 柳气
-    float   frequency;  // sin 林扁
-    float   speed;
+    CGameObject*    m_Player;
+    Vec3            m_Pos;
+    Vec3            m_Dir;
 
+    float           amplitude;  // sin 柳气
+    float           frequency;  // sin 林扁
+    float           speed;
+
+
+    Ptr<CPrefab>    m_SparkPref;
 
 
 public:
