@@ -198,6 +198,27 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(3, pPlayer);
 
 
+		// FireDragon
+		/*CGameObject* pFD = new CGameObject;
+		pFD->SetName(L"FireDragon");
+
+		pFD->AddComponent(new CTransform);
+		pFD->AddComponent(new CMeshRender);
+		pFD->AddComponent(new CCollider2D);
+		pFD->AddComponent(new CFlipBookComponent);
+		pFD->AddComponent(new CFireDragonScript);
+
+		pFD->Transform()->SetRelativeScale(100.f, 70.f, 0.f);
+
+		pFD->Collider2D()->SetIndependentScale(false);
+		pFD->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+		pFD->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
+
+		pFD->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pFD->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+
+		pLevel->AddObject(5, pFD);*/
+
 		// 포탈
 		/*CGameObject* pPortal = new CGameObject;
 		pPortal->SetName(L"Portal");
@@ -259,7 +280,7 @@ void CTestLevel::CreateTestLevel()
 
 		pLevel->AddObject(4, pBoss);*/
 
-		CGameObject* pFD = new CGameObject;
+		/*CGameObject* pFD = new CGameObject;
 		pFD->SetName(L"FireDragon");
 		
 		pFD->AddComponent(new CTransform);
@@ -275,9 +296,9 @@ void CTestLevel::CreateTestLevel()
 		pFD->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
 		
 		pFD->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-		pFD->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\WaterBall.mtrl", L"material\\WaterBall.mtrl"));
+		pFD->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
-		pLevel->AddObject(5, pFD);
+		pLevel->AddObject(5, pFD);*/
 
 		
 
@@ -537,45 +558,46 @@ void CTestLevel::CreateTestLevel()
 	ChangeLevel(pLevel, LEVEL_STATE::STOP);
 
 	// 충돌 지정
-	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // platform vs Monster
+	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // Platform vs Player
+	CCollisionMgr::GetInst()->CollisionCheck(1, 4); // Platform vs Monster
+	CCollisionMgr::GetInst()->CollisionCheck(1, 6); // Platform vs Monster Projectile
+	CCollisionMgr::GetInst()->CollisionCheck(1, 5); // Platform vs Player Projectile
+
 	CCollisionMgr::GetInst()->CollisionCheck(5, 4); // Player Projectile vs Monster
-	CCollisionMgr::GetInst()->CollisionCheck(2, 3);
-	CCollisionMgr::GetInst()->CollisionCheck(1, 3); // platform vs player;
-	CCollisionMgr::GetInst()->CollisionCheck(5, 1); // Player Projectile vs platform
-	CCollisionMgr::GetInst()->CollisionCheck(6, 1); // Monster Projectile vs platform
 	CCollisionMgr::GetInst()->CollisionCheck(6, 3); // Monster Projectile vs player
+	CCollisionMgr::GetInst()->CollisionCheck(7, 3); // Object vs player
 
 
 }
 
 void CTestLevel::CreatePrefab()
 {
-	CGameObject* pPortal = new CGameObject;
-	pPortal->SetName(L"Portal");
+	/*CGameObject* pFD = new CGameObject;
+	pFD->SetName(L"FireDragon");
 
-	pPortal->AddComponent(new CTransform);
-	pPortal->AddComponent(new CMeshRender);
-	pPortal->AddComponent(new CCollider2D);
-	pPortal->AddComponent(new CFlipBookComponent);
-	pPortal->AddComponent(new CPortalScript);
+	pFD->AddComponent(new CTransform);
+	pFD->AddComponent(new CMeshRender);
+	pFD->AddComponent(new CCollider2D);
+	pFD->AddComponent(new CFlipBookComponent);
+	pFD->AddComponent(new CFireDragonScript);
 
-	pPortal->Transform()->SetRelativeScale(200.f, 150.f, 0.f);
+	pFD->Transform()->SetRelativeScale(100.f, 70.f, 0.f);
 
-	pPortal->Collider2D()->SetIndependentScale(false);
-	pPortal->Collider2D()->SetOffset(Vec3(0.f, 0.8f, 0.f));
-	pPortal->Collider2D()->SetScale(Vec3(0.5f, 0.1f, 0.f));
+	pFD->Collider2D()->SetIndependentScale(false);
+	pFD->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pFD->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
 
-	pPortal->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pPortal->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\WarpStone.mtrl", L"material\\WarpStone.mtrl"));
+	pFD->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pFD->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
-	pPrefab->SetProtoObject(pPortal);
+	pPrefab->SetProtoObject(pFD);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"PortalPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"FireDragonPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\Portal.pref";
-	pPrefab->Save(FilePath);
+	FilePath += L"prefab\\FireDragon.pref";
+	pPrefab->Save(FilePath);*/
 	
 
 	/*CTileMap* pTile = new CTileMap;

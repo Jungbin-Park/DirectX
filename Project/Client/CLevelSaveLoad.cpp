@@ -112,7 +112,7 @@ void CLevelSaveLoad::LevelInit()
 	wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
 	StrLevelLoadPath += (L"level\\" + levelName + L".lv");
 	CLevelSaveLoad::LoadLevel(StrLevelLoadPath);*/
-	wstring levelName = L"Ice";
+	wstring levelName = L"Home";
 	wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
 	StrLevelLoadPath += (L"level\\" + levelName + L".lv");
 	CLevel* pLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath); 

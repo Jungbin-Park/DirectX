@@ -5,9 +5,11 @@ class CFireDragonScript :
     public CScript
 {
 private:
-    float amplitude;  // sin 柳气
-    float frequency;  // sin 林扁
-    float speed;
+    Vec3    m_Pos;
+
+    float   amplitude;  // sin 柳气
+    float   frequency;  // sin 林扁
+    float   speed;
 
 
 

@@ -309,6 +309,39 @@ void CPlayerScript::KeyInput()
 		}
 	}
 
+	if (KEY_TAP(KEY::RBTN))
+	{
+		m_State = eState::FIREDRAGON;
+
+		MousePosCheck();
+
+		// Slash 프리팹 생성
+		m_SlashPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 100.f);
+		Instantiate(m_SlashPref, 5, m_SlashPos, m_SlashRot, L"FireDragon");
+
+		switch (m_AttackDir)
+		{
+		case eDIR::UP:
+			m_Direction = eDIR::UP;
+			FlipBookComponent()->Play(10, 15, false);
+			break;
+		case eDIR::DOWN:
+			m_Direction = eDIR::DOWN;
+			FlipBookComponent()->Play(6, 15, false);
+			break;
+		case eDIR::LEFT:
+			m_Direction = eDIR::LEFT;
+			FlipBookComponent()->Play(8, 15, false);
+			break;
+		case eDIR::RIGHT:
+			m_Direction = eDIR::RIGHT;
+			FlipBookComponent()->Play(8, 15, false);
+			break;
+		default:
+			break;
+		}
+	}
+
 	// Mouse
 	if(m_State != eState::HIT)
 	{
@@ -782,7 +815,6 @@ void CPlayerScript::LoadFlipBook()
 	FlipBookComponent()->AddFlipBook(16, pFlipBook);
 
 }
-
 
 void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {

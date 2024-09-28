@@ -3,9 +3,9 @@
 
 CFireDragonScript::CFireDragonScript()
 	: CScript(SCRIPT_TYPE::FIREDRAGONSCRIPT)
-	, amplitude(200.0f)
-	, frequency(0.5f)
-	, speed(100.0f)
+	, amplitude(50.0f)
+	, frequency(0.03f)
+	, speed(300.0f)
 {
 }
 
@@ -15,6 +15,9 @@ CFireDragonScript::~CFireDragonScript()
 
 void CFireDragonScript::Begin()
 {
+	Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\FireDragon.flip");
+	FlipBookComponent()->AddFlipBook(0, pFlipBook);
+	FlipBookComponent()->Play(0, 5, true);
 }
 
 void CFireDragonScript::Tick()

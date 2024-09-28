@@ -14,6 +14,8 @@ public:
         ATTACK,
         DASH,
         HIT,
+        FIREDRAGON,
+        FIREBALL,
     };
 
     enum class AtkState
