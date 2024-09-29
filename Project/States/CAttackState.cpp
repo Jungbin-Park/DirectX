@@ -5,6 +5,7 @@
 #include <Engine/CLevel.h>
 #include <Engine/CTransform.h>
 #include <Engine/CTimeMgr.h>
+#include <Engine/CAssetMgr.h>
 
 CAttackState::CAttackState()
 	: CState(STATE_TYPE::ATTACKSTATE)
@@ -12,6 +13,7 @@ CAttackState::CAttackState()
 	, m_bPlayRightAnim(false)
 	, m_bPlayLeftAnim(false)
 	, m_AttackCoolDown(0.f)
+	, m_AttackSound(nullptr)
 {
 }
 
@@ -21,6 +23,11 @@ CAttackState::~CAttackState()
 
 void CAttackState::Enter()
 {
+	m_AttackSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\GhoulAttack.wav");
+	m_AttackSound->Play(1, 0.3f, true);
+
+	m_AttackPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\MonHit.pref");
+
 	m_bPlayLeftAnim = false;
 	m_bPlayRightAnim = false;
 	m_AttackCoolDown = 0.f;
@@ -46,6 +53,7 @@ void CAttackState::FinalTick()
 
 			// 공격 오브젝트 소환 오른쪽 방향
 
+			InstantiateSkill(m_AttackPref, 6, vPos += vDir * 50.f, L"MonHit");
 		}
 	}
 	else
@@ -57,6 +65,7 @@ void CAttackState::FinalTick()
 			GetOwner()->FlipBookComponent()->Play(2, 5, false);
 
 			// 공격 오브젝트 소환 왼쪽 방향
+			InstantiateSkill(m_AttackPref, 6, vPos += vDir * 50.f, L"MonHit");
 		}
 	}
 
@@ -73,6 +82,7 @@ void CAttackState::FinalTick()
 void CAttackState::Exit()
 {
 	GetOwner()->FlipBookComponent()->Reset();
+	m_AttackSound->Stop();
 }
 
 

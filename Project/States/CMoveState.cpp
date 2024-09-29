@@ -5,6 +5,7 @@
 #include <Engine/CLevel.h>
 #include <Engine/CTransform.h>
 #include <Engine/CTimeMgr.h>
+#include <Engine/CAssetMgr.h>
 
 CMoveState::CMoveState()
 	: CState(STATE_TYPE::MOVESTATE)
@@ -12,6 +13,7 @@ CMoveState::CMoveState()
 	, m_bPlayLeftAnim(false)
 	, m_Speed(200.f)
 	, m_AttackRange(100.f)
+	, m_WalkSound(nullptr)
 {
 }
 
@@ -21,6 +23,9 @@ CMoveState::~CMoveState()
 
 void CMoveState::Enter()
 {
+	m_WalkSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\GhoulWalk.mp3");
+	m_WalkSound->Play(0, 0.1f, true);
+
 	m_bPlayLeftAnim = false;
 	m_bPlayRightAnim = false;
 }
@@ -68,6 +73,7 @@ void CMoveState::FinalTick()
 
 void CMoveState::Exit()
 {
+	m_WalkSound->Stop();
 }
 
 

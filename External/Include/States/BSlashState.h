@@ -16,6 +16,8 @@ private:
 	bool			m_ChangeState;
 
 	Ptr<CPrefab>	m_SwordPref;
+	Ptr<CSound>		m_Sound1;
+	Ptr<CSound>		m_Sound2;
 
 private:
 	void IceSword();

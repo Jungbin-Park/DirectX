@@ -11,6 +11,7 @@
 
 CCollisionMgr::CCollisionMgr()
 	: m_Matrix{}
+	, m_Active(true)
 {
 
 }

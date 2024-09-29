@@ -34,6 +34,7 @@
 #include <Scripts/CFireBallScript.h>
 #include <Scripts/CPlayerHUDScript.h>
 #include <Scripts/CBossHUDScript.h>
+#include <Scripts/CMAttackScript.h>
 
 
 #include <Engine/CSetColorCS.h>
@@ -87,7 +88,7 @@ void CTestLevel::CreateTestLevel()
 	// Level 생성
 	CLevel* pLevel = new CLevel;
 
-	pLevel->SetName(L"Title");
+	pLevel->SetName(L"Test");
 
 	//// 레벨 지정
 
@@ -174,7 +175,7 @@ void CTestLevel::CreateTestLevel()
 			pLevel->AddObject(10, pCursor);
 
 			// Title 화면
-			CGameObject* pTitle = new CGameObject;
+			/*CGameObject* pTitle = new CGameObject;
 			pTitle->SetName(L"Title");
 			pTitle->AddComponent(new CTransform);
 			pTitle->AddComponent(new CMeshRender);
@@ -185,10 +186,10 @@ void CTestLevel::CreateTestLevel()
 			pTitle->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 			pTitle->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\Title.mtrl", L"material\\Title.mtrl"));
 
-			pLevel->AddObject(0, pTitle);
+			pLevel->AddObject(0, pTitle);*/
 
 			// Logo
-			CGameObject* pLogo = new CGameObject;
+			/*CGameObject* pLogo = new CGameObject;
 			pLogo->SetName(L"Title");
 			pLogo->AddComponent(new CTransform);
 			pLogo->AddComponent(new CMeshRender);
@@ -199,14 +200,11 @@ void CTestLevel::CreateTestLevel()
 			pLogo->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 			pLogo->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\TitleLogo.mtrl", L"material\\TitleLogo.mtrl"));
 
-			pLevel->AddObject(0, pLogo);
-
-
-			
+			pLevel->AddObject(0, pLogo);*/
 
 
 			// 플레이어 오브젝트
-			/*CGameObject* pPlayer = new CGameObject;
+			CGameObject* pPlayer = new CGameObject;
 			pPlayer->SetName(L"Player");
 			pPlayer->AddComponent(new CTransform);
 			pPlayer->AddComponent(new CMeshRender);
@@ -227,74 +225,52 @@ void CTestLevel::CreateTestLevel()
 
 			Ptr<CFlipBook> pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\idledown.flip");
 			pPlayer->FlipBookComponent()->AddFlipBook(0, pFlipBook);
-			pPlayer->FlipBookComponent()->Play(0, 10, true);*/
+			pPlayer->FlipBookComponent()->Play(0, 10, true);
 
 			// 화살표
-			//CGameObject* pMarker = new CGameObject;
-			//pMarker->SetName(L"pMarker");
+			CGameObject* pMarker = new CGameObject;
+			pMarker->SetName(L"pMarker");
 
-			//pMarker->AddComponent(new CTransform);
-			//pMarker->AddComponent(new CMeshRender);
-			//pMarker->AddComponent(new CMarkerScript);
+			pMarker->AddComponent(new CTransform);
+			pMarker->AddComponent(new CMeshRender);
+			pMarker->AddComponent(new CMarkerScript);
 
-			//pMarker->Transform()->SetRelativePos(0.f, -0.3f, 11.f);
-			//pMarker->Transform()->SetRelativeScale(0.6f, 0.6f, 0.f);
+			pMarker->Transform()->SetRelativePos(0.f, -0.3f, 11.f);
+			pMarker->Transform()->SetRelativeScale(0.6f, 0.6f, 0.f);
 
-			//pMarker->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-			//pMarker->MeshRender()->SetMaterial(pmMtrl);
+			pMarker->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+			pMarker->MeshRender()->SetMaterial(pmMtrl);
 
-			//pPlayer->AddChild(pMarker);
+			pPlayer->AddChild(pMarker);
 
-			//pLevel->AddObject(3, pPlayer);
+			pLevel->AddObject(3, pPlayer);
 
-			//// TileMap Object
-			//CGameObject* pTileMapObj = new CGameObject;
-			//pTileMapObj->SetName(L"Home");
+			// TileMap Object
+			CGameObject* pTileMapObj = new CGameObject;
+			pTileMapObj->SetName(L"Home");
 
-			//wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
-			//CTileMap* pTile = new CTileMap;
-			//pTileMapObj->AddComponent(new CTransform);
-			//pTileMapObj->AddComponent(pTile);
+			wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
+			CTileMap* pTile = new CTileMap;
+			pTileMapObj->AddComponent(new CTransform);
+			pTileMapObj->AddComponent(pTile);
 
-			//pTile->Load(strContentPath + L"tilemap\\home.tile");
-			//pTileMapObj->Transform()->SetRelativePos(Vec3(-880.f, 1800.f, 100.f));
+			pTile->Load(strContentPath + L"tilemap\\home.tile");
+			pTileMapObj->Transform()->SetRelativePos(Vec3(-880.f, 1800.f, 100.f));
 
-			//pLevel->AddObject(2, pTileMapObj);
+			pLevel->AddObject(2, pTileMapObj);
 		}
 
+		// FireBall
+		CGameObject* pFireBall = new CGameObject;
+		pFireBall->SetName(L"FireBall");
 
-		//// BossStatus
-		//CGameObject* pHUD = new CGameObject;
-		//pHUD->SetName(L"BossHUD");
+		pFireBall->AddComponent(new CTransform);
+		pFireBall->AddComponent(new CCollider2D);
+		pFireBall->AddComponent(new CMeshRender);
+		pFireBall->AddComponent(new CFlipBookComponent);
+		pFireBall->AddComponent(new CFireBallScript);
 
-		//pHUD->AddComponent(new CTransform);
-		//pHUD->AddComponent(new CMeshRender);
-
-		//pHUD->Transform()->SetRelativePos(0.f, 300.f, 5.f);
-		//pHUD->Transform()->SetRelativeScale(350.f, 60.f, 0.f);
-
-		//pHUD->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-		//pHUD->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\BossStatus.mtrl", L"material\\BossStatus.mtrl"));
-
-		//pLevel->AddObject(31, pHUD);
-
-
-		//// BossHPBar
-		//CGameObject* pHPBar = new CGameObject;
-		//pHPBar->SetName(L"BossHPBar");
-
-		//pHPBar->AddComponent(new CTransform);
-		//pHPBar->AddComponent(new CMeshRender);
-		////pHPBar->AddComponent(new CBossHUDScript);
-
-		//pHPBar->Transform()->SetRelativePos(0.f, 295.f, 4.f);
-		//pHPBar->Transform()->SetRelativeScale(365.f, 35.f, 0.f);
-
-		//pHPBar->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-		//pHPBar->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\BossHPBar.mtrl", L"material\\BossHPBar.mtrl"));
-
-		//pLevel->AddObject(31, pHPBar);
-
+		pFireBall->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
 
 		//// PlayerStatus
 		//CGameObject* pHUD = new CGameObject;
@@ -690,26 +666,26 @@ void CTestLevel::CreateTestLevel()
 
 void CTestLevel::CreatePrefab()
 {
-	/*CGameObject* pHPBar = new CGameObject;
-	pHPBar->SetName(L"BossHPBar");
+	/*CGameObject* pMonHit = new CGameObject;
+	pMonHit->SetName(L"MonHit");
 
-	pHPBar->AddComponent(new CTransform);
-	pHPBar->AddComponent(new CMeshRender);
-	pHPBar->AddComponent(new CBossHUDScript);
+	pMonHit->AddComponent(new CTransform);
+	pMonHit->AddComponent(new CCollider2D);
+	pMonHit->AddComponent(new CMAttackScript);
 
-	pHPBar->Transform()->SetRelativePos(0.f, 295.f, 4.f);
-	pHPBar->Transform()->SetRelativeScale(265.f, 35.f, 0.f);
+	pMonHit->Transform()->SetRelativeScale(50.f, 50.f, 0.f);
 
-	pHPBar->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pHPBar->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\BossHPBar.mtrl", L"material\\BossHPBar.mtrl"));
+	pMonHit->Collider2D()->SetIndependentScale(false);
+	pMonHit->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pMonHit->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
-	pPrefab->SetProtoObject(pHPBar);
+	pPrefab->SetProtoObject(pMonHit);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"BossHPBarPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"MonHitPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\BossHPBar.pref";
+	FilePath += L"prefab\\MonHit.pref";
 	pPrefab->Save(FilePath);*/
 	
 

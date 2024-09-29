@@ -87,6 +87,14 @@ private:
     float	                m_KnockBackAge;
     Vec3                    m_HitDir;
 
+    // Sound
+    Ptr<CSound>             m_WalkSound;
+    Ptr<CSound>             m_SlashSound;
+    Ptr<CSound>             m_FireDragonSound;
+    Ptr<CSound>             m_DashSound;
+    Ptr<CSound>             m_HitSound;
+    Ptr<CSound>             m_DeadSound;
+
 
     int                     m_KeyTapCount;
     int                     m_Attribute;

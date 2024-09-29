@@ -6,6 +6,7 @@
 #include <Engine/CTransform.h>
 #include <Engine/CTimeMgr.h>
 #include <Engine/CCollider2D.h>
+#include <Engine/CAssetMgr.h>
 
 CDeadState::CDeadState()
 	:CState(STATE_TYPE::BOSSDEADSTATE)
@@ -18,6 +19,9 @@ CDeadState::~CDeadState()
 
 void CDeadState::Enter()
 {
+	m_DeadSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\GhoulDie.mp3");
+	m_DeadSound->Play(1, 1.f, true);
+
 	// 콜라이더 비활성화
 	//GetOwner()->Collider2D()->SetActive(false);
 
@@ -42,6 +46,7 @@ void CDeadState::FinalTick()
 
 void CDeadState::Exit()
 {
+	m_DeadSound->Stop();
 }
 
 

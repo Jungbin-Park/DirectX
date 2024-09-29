@@ -67,6 +67,8 @@ void CGhoulScript::Begin()
 	CGameObject* pTarget = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
 	if (pTarget != nullptr)
 		m_Target = pTarget;
+
+	Collider2D()->SetActive(true);
 }
 
 void CGhoulScript::Tick()

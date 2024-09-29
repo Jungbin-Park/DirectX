@@ -49,7 +49,14 @@ CPlayerScript::CPlayerScript()
     , m_MP(100.f)
 	, m_FireDragonCount(0)
 	, m_SkillAnimCount(0)
+	, m_WalkSound(nullptr)
+	, m_SlashSound(nullptr)
+	, m_FireDragonSound(nullptr)
+	, m_DashSound(nullptr)
+	, m_HitSound(nullptr)
+	, m_DeadSound(nullptr)
 {
+	
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "PlayerSpeed", &m_Speed);
 	AddScriptParam(SCRIPT_PARAM::TEXTURE, "Test", &m_Texture);
@@ -63,6 +70,7 @@ CPlayerScript::~CPlayerScript()
 
 void CPlayerScript::Begin()
 {
+	SetName(L"CPlayerScript");
 	m_SlashPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Slash.pref");
 	m_TeleportPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Teleport.pref");
 	m_FireDragonPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\FireDragon.pref");
@@ -74,9 +82,18 @@ void CPlayerScript::Begin()
 	Vec3 vPos = Transform()->GetRelativePos();
 	vPos.x += 10.f;
 	vPos.y += 250.f;
+
 	Instantiate(m_TeleportPref, 0, vPos, L"Teleport");
 
-	//FSM()->AddState(L"PDeadState", new PDeadState);
+	// Sound
+	m_WalkSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Walk.mp3");
+	m_SlashSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Slash.wav");
+	m_FireDragonSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Firedragon1.mp3");
+	m_DashSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Dash.wav");
+	m_HitSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Hit.mp3");
+	m_DeadSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Dead.mp3");
+
+	Collider2D()->SetActive(true);
 }
 
 void CPlayerScript::Tick()
@@ -344,6 +361,7 @@ void CPlayerScript::KeyInput()
 		{
 			if (KEY_TAP(KEY::LBTN))
 			{
+				m_SlashSound->Play(1, 0.1f, true);
 				m_State = eState::ATTACK;
 
 				MousePosCheck();
@@ -418,10 +436,13 @@ void CPlayerScript::KeyInput()
 		}
 	}
 
+	// Dash
 	if (m_State != eState::DASH && m_State != eState::HIT)
 	{
 		if (KEY_TAP(KEY::SPACE))
 		{
+			m_DashSound->Play(1, 0.1f, false);
+
 			m_State = eState::DASH;
 
 			m_DashFinish = false;
@@ -482,6 +503,7 @@ void CPlayerScript::Idle()
 
 void CPlayerScript::Move()
 {
+	m_WalkSound->Play(1, 0.3f, false);
 	Vec3 vPos = Transform()->GetRelativePos();
 
 	if (KEY_PRESSED(KEY::A))
@@ -669,6 +691,8 @@ void CPlayerScript::FireDragon()
 
 void CPlayerScript::ShootFireDragon()
 {
+	m_FireDragonSound->Play(1, 0.3f, true);
+
 	// ShootFireDragon 프리팹 생성
 	m_FireDragonPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 100.f);
 
@@ -954,12 +978,16 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 
 	if (_OtherObject->GetLayerIdx() == 2 || _OtherObject->GetLayerIdx() == 6)
 	{
-		if (!m_IsDead)
+		if (m_State != eState::DEAD)
 		{
 			m_HP -= 10;
 
 			if (m_HP <= 0.f)
 			{
+				Collider2D()->SetActive(false);
+				Ptr<CSound> pBGM = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Boss.wav");
+				pBGM->Stop();
+				m_DeadSound->Play(1, 1.f, false);
 				FlipBookComponent()->Play(16, 10, false);
 				m_IsDead = true;
 				m_State = eState::DEAD;
@@ -967,6 +995,7 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 			}
 			else
 			{
+				m_HitSound->Play(1, 1.f, true);
 				FlipBookComponent()->Play(15, 10, false);
 				GetRenderComponent()->GetDynamicMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 
@@ -990,16 +1019,6 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 
 void CPlayerScript::Overlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
-	if (_OtherObject->GetName() == L"Portal")
-	{
-		if (KEY_TAP(KEY::F))
-		{
-			Vec3 vPos = Transform()->GetRelativePos();
-			vPos.x += 10.f;
-			vPos.y += 250.f;
-			Instantiate(m_TeleportPref, 0, vPos, L"Teleport");
-		}
-	}
 }
 
 void CPlayerScript::EndOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)

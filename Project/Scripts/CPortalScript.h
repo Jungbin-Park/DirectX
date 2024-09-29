@@ -4,6 +4,10 @@
 class CPortalScript :
     public CScript
 {
+private:
+    Ptr<CPrefab>            m_TeleportPref;
+    CGameObject*            m_TP;
+
 public:
     virtual void Begin() override;
     virtual void Tick() override;

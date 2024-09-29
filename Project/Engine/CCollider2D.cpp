@@ -53,6 +53,9 @@ void CCollider2D::FinalTick()
 
 void CCollider2D::BeginOverlap(CCollider2D* _Other)
 {
+	if (!m_Active)
+		return;
+
 	m_OverlapCount += 1;
 
 	const vector<CScript*>& vecScripts = GetOwner()->GetScripts();
@@ -64,6 +67,9 @@ void CCollider2D::BeginOverlap(CCollider2D* _Other)
 
 void CCollider2D::Overlap(CCollider2D* _Other)
 {
+	if (!m_Active)
+		return;
+
 	const vector<CScript*>& vecScripts = GetOwner()->GetScripts();
 	for (size_t i = 0; i < vecScripts.size(); ++i)
 	{
@@ -73,6 +79,9 @@ void CCollider2D::Overlap(CCollider2D* _Other)
 
 void CCollider2D::EndOverlap(CCollider2D* _Other)
 {
+	if (!m_Active)
+		return;
+
 	m_OverlapCount -= 1;
 
 	const vector<CScript*>& vecScripts = GetOwner()->GetScripts();

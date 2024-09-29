@@ -8,6 +8,8 @@ private:
     int             m_Score;
 
     bool            m_bGate;
+    bool            m_Retry;
+    float           m_WaitTime;
 
     Ptr<CPrefab>    m_GateHPref;
     Ptr<CPrefab>    m_GateVPref;

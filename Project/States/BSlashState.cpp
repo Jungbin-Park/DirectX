@@ -18,6 +18,8 @@ BSlashState::BSlashState()
 	, m_SlashTime(1.f)
 	, m_SpawnedSword(nullptr)
 	, m_ChangeState(false)
+	, m_Sound1(nullptr)
+	, m_Sound2(nullptr)
 {
 }	  
 
@@ -27,6 +29,9 @@ BSlashState::~BSlashState()
 
 void BSlashState::Enter()
 {
+	m_Sound1 = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\IceDaggerBasic.wav");
+	m_Sound2 = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\IceSwordInit.wav");
+	m_Sound1->Play(1, 0.3f, false);
 	// IceSword
 	m_SwordPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\IceSword.pref");
 
@@ -85,6 +90,7 @@ void BSlashState::IceSword()
 
 void BSlashState::Slash()
 {
+	m_Sound2->Play(1, 0.3f, false);
 	GetOwner()->FlipBookComponent()->Play(15, 10, false);
 
 	CBSlashScript* vScript = nullptr;
@@ -103,6 +109,9 @@ void BSlashState::Exit()
 	GetOwner()->FlipBookComponent()->Reset();
 	m_ChangeState = false;
 	m_Timer = 0.f;
+
+	m_Sound1->Stop();
+	m_Sound2->Stop();
 }
 
 

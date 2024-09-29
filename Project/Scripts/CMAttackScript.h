@@ -4,6 +4,10 @@
 class CMAttackScript :
     public CScript
 {
+private:
+    
+    float           m_Age;
+
 public:
     virtual void Begin() override;
     virtual void Tick() override;

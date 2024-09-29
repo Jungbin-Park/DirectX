@@ -46,6 +46,8 @@ void CLanceScript::Begin()
 
 	m_Angle = atan2(vRelativePos.y, vRelativePos.x);
 	m_Dist = sqrt(vRelativePos.x * vRelativePos.x + vRelativePos.y * vRelativePos.y);
+
+	Collider2D()->SetActive(true);
 }
 
 void CLanceScript::Tick()

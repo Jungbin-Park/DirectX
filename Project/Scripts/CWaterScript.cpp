@@ -21,12 +21,15 @@ CWaterScript::CWaterScript()
 	, m_ShootInitTime(0.f)
 	, m_ShootWaterSpacing(0.3f)
 	, m_bCountStart(false)
+	, m_HitSound(nullptr)
 { 
 	
 }
 
 CWaterScript::~CWaterScript()
 {
+	if (m_HitSound != nullptr)
+		m_HitSound->Stop();
 }
 
 
@@ -34,6 +37,8 @@ CWaterScript::~CWaterScript()
 void CWaterScript::Begin()
 {
 	SetName(L"CWaterScript");
+
+	m_HitSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\WaterExplode.wav");
 
 	m_SparkPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\HitSpark.pref");
 
@@ -54,6 +59,8 @@ void CWaterScript::Begin()
 
 	m_Angle = atan2(vRelativePos.y, vRelativePos.x);
 	m_Dist = sqrt(vRelativePos.x * vRelativePos.x + vRelativePos.y * vRelativePos.y);
+
+	Collider2D()->SetActive(true);
 }
 
 void CWaterScript::Tick()
@@ -137,7 +144,7 @@ void CWaterScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 		Instantiate(m_SparkPref, 0, vPos, L"HitSpark");
 	}
 
-
+	m_HitSound->Play(1, 0.3f, true);
 } 
 
 void CWaterScript::SaveToFile(FILE* _File)

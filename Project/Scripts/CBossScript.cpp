@@ -64,6 +64,7 @@ void CBossScript::Begin()
 
 
 	FSM()->ChangeState(L"BSpawnState");
+	Collider2D()->SetActive(true);
 }
 
 void CBossScript::Tick()

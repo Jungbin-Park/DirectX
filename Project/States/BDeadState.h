@@ -3,7 +3,7 @@
 
 class BDeadState :
     public CState
-{
+{  
 public:
 	virtual void Enter();
 	virtual void FinalTick();

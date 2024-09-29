@@ -11,6 +11,7 @@ CFireDragonScript::CFireDragonScript()
 	, amplitude(2.0f)
 	, frequency(0.03f)
 	, speed(600.0f)
+	, m_HitSound(nullptr)
 {
 }
 
@@ -41,7 +42,9 @@ void CFireDragonScript::Begin()
 		m_GlobalNum--;
 	}
 	m_Num = m_GlobalNum;
-		
+
+	m_HitSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\FiredragonHit1.mp3");
+	Collider2D()->SetActive(true);
 }
 
 void CFireDragonScript::Tick()
@@ -87,6 +90,7 @@ void CFireDragonScript::Tick()
 void CFireDragonScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObject, CCollider2D* _OtherCollider)
 {
 	Vec3 vPos = _OwnCollider->GetCollisionPoint();
+	m_HitSound->Play(1, 1.f, true);
 	Instantiate(m_SparkPref, 0, vPos, L"HitSpark");
 
 	if (_OtherObject->GetName() == L"Platform")

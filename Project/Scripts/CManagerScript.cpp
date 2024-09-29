@@ -25,12 +25,15 @@ CManagerScript::CManagerScript()
 	, m_Player(nullptr)
 	, m_Boss(nullptr)
 	, m_Logo{}
+	, m_Retry(false)
 {
 	SetName(L"ManagerScript");
 }
 
 CManagerScript::~CManagerScript()
 {
+	if(m_BGM != nullptr)
+		m_BGM->Stop();
 }
 
 
@@ -42,6 +45,10 @@ void CManagerScript::Begin()
 	m_bBGM = true;
 	m_CurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
 	swprintf_s(m_Logo, L"Press Any Key To Start");
+
+	CTimeMgr::GetInst()->SetDTRatio(1.f);
+	m_Retry = false;
+	m_WaitTime = 0.f;
 }
 
 void CManagerScript::Tick()
@@ -53,12 +60,28 @@ void CManagerScript::Tick()
 	if (m_Score == 4)
 		GateOpen();
 
+	if (m_Retry)
+	{
+		m_WaitTime += DT;
+
+		if (m_WaitTime >= 2.f)
+		{
+			wstring levelName = m_CurLevel->GetName();
+			wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
+			StrLevelLoadPath += (L"level\\" + levelName + L".lv");
+			CLevel* pLevel = LoadLevel(StrLevelLoadPath);
+
+			ChangeLevel(pLevel, LEVEL_STATE::PLAY);
+		}
+	}
+
 	if (m_Player != nullptr)
 	{
 		pScript = (CPlayerScript*)m_Player->GetScriptByName(L"CPlayerScript");
 
 		if (pScript->IsDead())
 		{
+			m_Retry = true;
 			CTimeMgr::GetInst()->SetDTRatio(0.3f);
 		}
 	}
@@ -79,12 +102,8 @@ void CManagerScript::Tick()
 		// BGM
 		if (m_bBGM)
 		{
-			if (m_BGM != nullptr)
-			{
-				m_BGM->Stop();
-			}
 			m_BGM = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Title.wav");
-			m_BGM->Play(0, 1.f, false);
+			m_BGM->Play(0, 0.1f, false);
 			m_bBGM = false;
 		}
 
@@ -98,48 +117,32 @@ void CManagerScript::Tick()
 
 			ChangeLevel(pLevel, LEVEL_STATE::PLAY);
 		}
-
 	}
 	else if (m_CurLevel->GetName() == L"Home")
 	{
-		if (m_BGM != nullptr)
-		{
-			m_BGM->Stop();
-		}
-
 		CRenderMgr::GetInst()->SetTitleLogo(false);
 		if (m_bBGM)
 		{
 			m_BGM = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Home.wav");
-			m_BGM->Play(0, 1.f, false);
+			m_BGM->Play(0, 0.1f, false);
 			m_bBGM = false;
 		}
 	}
 	else if (m_CurLevel->GetName() == L"Ice")
 	{
-		if (m_BGM != nullptr)
-		{
-			m_BGM->Stop();
-		}
-
 		if (m_bBGM)
 		{
-			m_BGM = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Home.wav");
-			m_BGM->Play(0, 1.f, false);
+			m_BGM = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Ice.wav");
+			m_BGM->Play(0, 0.1f, false);
 			m_bBGM = false;
 		}
 	}
 	else if (m_CurLevel->GetName() == L"Boss")
 	{
-		if (m_BGM != nullptr)
-		{
-			m_BGM->Stop();
-		}
-
 		if (m_bBGM)
 		{
-			m_BGM = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Home.wav");
-			m_BGM->Play(0, 1.f, false);
+			m_BGM = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Boss.wav");
+			m_BGM->Play(0, 0.1f, false);
 			m_bBGM = false;
 		}
 	}

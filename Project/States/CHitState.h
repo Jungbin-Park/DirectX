@@ -12,6 +12,8 @@ private:
 	float	m_KnockBackTime;
 	float	m_KnockBackAge;
 
+	Ptr<CSound> m_HitSound;
+
 private:
 	void KnockBack();
 

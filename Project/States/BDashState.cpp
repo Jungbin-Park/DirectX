@@ -13,6 +13,7 @@ BDashState::BDashState()
 	, m_bDash(false)
 	, m_bTimerStart(true)
 	, m_Time(0.f)
+	, m_DashSound(nullptr)
 {
 
 }
@@ -23,6 +24,9 @@ BDashState::~BDashState()
 
 void BDashState::Enter()
 {
+	m_DashSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\IceDash.wav");
+	m_DashSound->Play(1, 0.3f, false);
+
 	GetOwner()->FlipBookComponent()->Play(4, 10, false);
 
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
@@ -72,6 +76,7 @@ void BDashState::FinalTick()
 void BDashState::Exit()
 {
 	GetOwner()->FlipBookComponent()->Reset();
+	m_DashSound->Stop();
 }
 
 

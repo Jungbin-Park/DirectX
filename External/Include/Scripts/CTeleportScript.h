@@ -4,6 +4,9 @@
 class CTeleportScript :
     public CScript
 {
+private:
+    Ptr<CSound>    m_TPSound;
+
 public:
     virtual void Begin() override;
     virtual void Tick() override;

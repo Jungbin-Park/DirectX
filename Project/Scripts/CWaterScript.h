@@ -6,6 +6,7 @@ class CWaterScript :
 {
 private:
     Ptr<CPrefab>    m_SparkPref;
+    Ptr<CSound>     m_HitSound;
 
     CGameObject*    m_Boss;
 

@@ -36,6 +36,8 @@ void CSlashScript::Begin()
 		m_SlashIdx = 2;
 	else
 		m_SlashIdx = 1;
+
+	Collider2D()->SetActive(true);
 }
 
 void CSlashScript::Tick()

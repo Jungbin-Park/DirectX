@@ -48,6 +48,8 @@ void CBSlashScript::Begin()
 	m_RotatedAngle = 0.0f;
 	m_SlashCount = 2;
 	m_CurSlashCount = 0;
+
+	Collider2D()->SetActive(true);
 }
 
 void CBSlashScript::Tick()

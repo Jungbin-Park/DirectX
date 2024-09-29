@@ -5,6 +5,9 @@ class CMoveState :
     public CState
 {
 private:
+	Ptr<CSound> m_WalkSound;
+
+private:
 	float	m_Speed;
 	bool	m_bPlayRightAnim;
 	bool	m_bPlayLeftAnim;

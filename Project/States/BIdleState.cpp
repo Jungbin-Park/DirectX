@@ -36,17 +36,14 @@ void BIdleState::FinalTick()
 
 			if (m_bLance)
 			{
-				m_bLance = false;
 				GetOwner()->FSM()->ChangeState(L"BLanceState");
 			}
 			else if (m_bSword)
 			{
-				m_bSword = false;
 				GetOwner()->FSM()->ChangeState(L"BDashState");
 			}
 			else if (m_bWater)
 			{
-				m_bWater = false;
 				GetOwner()->FSM()->ChangeState(L"BWaterState");
 			}
 			
@@ -61,12 +58,27 @@ void BIdleState::Exit()
 	m_bWaitStart = false;
 	m_WaitTime = 0.f;
 
-	if (!m_bLance)
+	if (m_bLance)
+	{
+		m_bLance = false;
 		m_bSword = true;
-	else if (!m_bSword)
+		m_bWater = false;
+	}
+		
+	else if (m_bSword)
+	{
+		m_bSword = false;
 		m_bWater = true;
-	else if (!m_bWater)
+		m_bLance = false;
+	}
+		
+	else if (m_bWater)
+	{
+		m_bWater = false;
 		m_bLance = true;
+		m_bSword = false;
+	}
+		
 
 	/*int rand = std::rand() % 3 + 1;
 

@@ -18,6 +18,8 @@ private:
 	float                   m_WaterSpacing;
 	int                     m_WaterCount;
 
+	Ptr<CSound>				m_Sound1;
+
 
 private:
 	void InitWaterBall();

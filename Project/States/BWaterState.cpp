@@ -5,6 +5,7 @@
 #include <Engine/CGameObject.h>
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
+#include <Engine/CAssetMgr.h>
 
 #include <Scripts/CWaterScript.h>
 
@@ -19,6 +20,7 @@ BWaterState::BWaterState()
 	, m_IsShoot(false)
 	, m_bCountStart(true)
 	, m_ChangeState(false)
+	, m_Sound1(nullptr)
 {
 }
 
@@ -30,6 +32,9 @@ BWaterState::~BWaterState()
 
 void BWaterState::Enter()
 {
+	m_Sound1 = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Shimmer.wav");
+	m_Sound1->Play(1, 0.3f, false);
+
 	// WaterBall
 	m_WaterPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\WaterBall.pref");
 
@@ -140,4 +145,6 @@ void BWaterState::Exit()
 
 	m_ChangeState = false;
 	m_Timer = 0.f;
+
+	m_Sound1->Stop();
 }

@@ -5,7 +5,7 @@ class CDeadState :
     public CState
 {
 private:
-
+	Ptr<CSound>	m_DeadSound;
 
 public:
 	virtual void Enter();

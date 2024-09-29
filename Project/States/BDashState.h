@@ -5,6 +5,8 @@ class BDashState :
     public CState
 {
 private:
+	Ptr<CSound> m_DashSound;
+
 	Vec3	 m_Dir;
 	Vec3	 m_TargetPos;
 

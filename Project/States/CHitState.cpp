@@ -8,6 +8,7 @@
 #include <Engine/CConstBuffer.h>
 #include <Engine/CDevice.h>
 #include <Engine/CRenderComponent.h>
+#include <Engine/CAssetMgr.h>
 
 CHitState::CHitState()
 	: CState(STATE_TYPE::BOSSHITSTATE)
@@ -16,6 +17,7 @@ CHitState::CHitState()
 	, m_KnockBackTime(0.2f)
 	, m_KnockBackAge(0.f)
 	, m_AttackRange(100.f)
+	, m_HitSound(nullptr)
 {
 }
 
@@ -25,6 +27,9 @@ CHitState::~CHitState()
 
 void CHitState::Enter()
 {
+	m_HitSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\GhoulHit1.mp3");
+	m_HitSound->Play(1, 1.f, true);
+
 	m_HitTime = 0;
 	m_KnockBackAge = 0.f;
 
@@ -68,6 +73,7 @@ void CHitState::FinalTick()
 void CHitState::Exit()
 {
 	GetOwner()->FlipBookComponent()->Reset();
+	m_HitSound->Stop();
 }
 
 void CHitState::KnockBack()

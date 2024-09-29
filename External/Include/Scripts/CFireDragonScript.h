@@ -18,6 +18,7 @@ private:
 
 
     Ptr<CPrefab>    m_SparkPref;
+    Ptr<CSound>     m_HitSound;
 
 
 public:

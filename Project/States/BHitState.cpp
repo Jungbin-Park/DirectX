@@ -6,6 +6,7 @@
 #include <Engine/CTransform.h>
 #include <Engine/CRenderComponent.h>
 #include <Engine/CTimeMgr.h>
+#include <Engine/CAssetMgr.h>
 
 BHitState::BHitState()
 	: CState(STATE_TYPE::BOSSHITSTATE)
@@ -13,6 +14,7 @@ BHitState::BHitState()
 	, m_KnockBackSpeed(100.f)
 	, m_KnockBackTime(0.2f)
 	, m_KnockBackAge(0.f)
+	, m_HitSound(nullptr)
 {
 }
 
@@ -24,6 +26,9 @@ BHitState::~BHitState()
 
 void BHitState::Enter()
 {
+	m_HitSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\IceBossHurt0.wav");
+	m_HitSound->Play(1, 0.1f, true);
+
 	m_HitTime = 0;
 	m_KnockBackAge = 0.f;
 
@@ -71,6 +76,7 @@ void BHitState::FinalTick()
 void BHitState::Exit()
 {
 	GetOwner()->FlipBookComponent()->Reset();
+	m_HitSound->Stop();
 }
 
 void BHitState::KnockBack()

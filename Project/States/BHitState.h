@@ -5,6 +5,8 @@ class BHitState :
     public CState
 {
 private:
+	Ptr<CSound> m_HitSound;
+
 	float	m_HitTime;
 
 	float	m_KnockBackSpeed;
