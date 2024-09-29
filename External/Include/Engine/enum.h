@@ -6,6 +6,8 @@ enum class CB_TYPE
 	MATERIAL,
 	SPRITE,
 	GLOBAL,
+	HUD,
+	BOSSHUD,
 	END,
 };
 

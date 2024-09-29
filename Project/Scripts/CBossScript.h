@@ -21,6 +21,9 @@ private:
     void LoadAnimation();
 
 public:
+    float GetHP() { return m_HP; }
+
+public:
     virtual void Begin() override;
     virtual void Tick() override;
 

@@ -166,6 +166,7 @@ call CodeGen.exe
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBossHUDScript.h" />
     <ClInclude Include="CBossScript.h" />
     <ClInclude Include="CBSlashScript.h" />
     <ClInclude Include="CCameraMoveScript.h" />
@@ -179,6 +180,7 @@ call CodeGen.exe
     <ClInclude Include="CMarkerScript.h" />
     <ClInclude Include="CMAttackScript.h" />
     <ClInclude Include="CPlatformScript.h" />
+    <ClInclude Include="CPlayerHUDScript.h" />
     <ClInclude Include="CPortalScript.h" />
     <ClInclude Include="CSlashScript.h" />
     <ClInclude Include="CPlayerScript.h" />
@@ -192,6 +194,7 @@ call CodeGen.exe
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBossHUDScript.cpp" />
     <ClCompile Include="CBossScript.cpp" />
     <ClCompile Include="CBSlashScript.cpp" />
     <ClCompile Include="CCameraMoveScript.cpp" />
@@ -205,6 +208,7 @@ call CodeGen.exe
     <ClCompile Include="CMarkerScript.cpp" />
     <ClCompile Include="CMAttackScript.cpp" />
     <ClCompile Include="CPlatformScript.cpp" />
+    <ClCompile Include="CPlayerHUDScript.cpp" />
     <ClCompile Include="CPortalScript.cpp" />
     <ClCompile Include="CSlashScript.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />

@@ -19,10 +19,13 @@
 #include "CStructuredBuffer.h"
 
 #include "CKeyMgr.h"
+#include "CFontMgr.h"
 
 CRenderMgr::CRenderMgr()
 	: m_EditorCamera(nullptr)
 	, m_Light2DBuffer(nullptr)
+	, m_LogoTime(0.f)
+	, m_TitleLogo(false)
 {
 	m_Light2DBuffer = new CStructuredBuffer;
 }
@@ -72,6 +75,11 @@ void CRenderMgr::Tick()
 				continue;
 
 			m_vecCam[i]->Render();
+
+			if (i == 0)
+			{
+				RenderDebugShape();
+			}
 		}
 	}
 
@@ -81,12 +89,34 @@ void CRenderMgr::Tick()
 		if (nullptr != m_EditorCamera)
 		{
 			m_EditorCamera->Render();
+			RenderDebugShape();
 		}
 	}
 
-	// Debug Render
-	RenderDebugShape();
+	//for (size_t i = 0; i < m_vecCam.size(); ++i)
+	//{
+	//	if (nullptr == m_vecCam[i])
+	//		continue;
 
+	//	if (m_vecCam[i]->GetPriority() == 0)
+	//	{
+	//		// Debug Render
+	//		RenderDebugShape();
+	//	}
+	//}
+
+	if (m_TitleLogo)
+	{
+		m_LogoTime += DT;
+		float alpha = (sin(m_LogoTime * 2.0f) + 1.0f) * 0.5f;
+		UINT alphaValue = static_cast<UINT>(alpha * 255.0f) << 24;
+		UINT color = alphaValue | 0x00FFFFFF;
+		CFontMgr::GetInst()->DrawFont(L"Press Any Key To Start", 500, 650, 30, color);
+	}
+	
+	
+	// Time 정보 출력
+	//CTimeMgr::GetInst()->Render();
 
 	// Clear
 	Clear();

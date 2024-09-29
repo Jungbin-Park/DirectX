@@ -28,7 +28,7 @@ CBossScript::CBossScript()
 	, m_CrystalPref(nullptr)
 	, m_Target(nullptr)
 	, m_Dead(false)
-	, m_HP(30.f)
+	, m_HP(100.f)
 	, m_Angle(0.f)
 {
 }
@@ -64,8 +64,6 @@ void CBossScript::Begin()
 
 
 	FSM()->ChangeState(L"BSpawnState");
-
-	
 }
 
 void CBossScript::Tick()
@@ -97,7 +95,8 @@ void CBossScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObj
 		{
 			if (_OtherObject->GetName() == L"Slash")
 			{
-				CPlayerScript* TargetScript = (CPlayerScript*)m_Target->GetScriptByName(L"CPlayerScript");
+				CPlayerScript* TargetScript = nullptr;
+				TargetScript = (CPlayerScript*)m_Target->GetScriptByName(L"CPlayerScript");
 				int slashDmg = TargetScript->GetSlashDamage();
 				m_HP -= slashDmg;
 			}

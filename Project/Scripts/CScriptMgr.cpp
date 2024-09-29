@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CScriptMgr.h"
 
+#include "CBossHUDScript.h"
 #include "CBossScript.h"
 #include "CBSlashScript.h"
 #include "CCameraMoveScript.h"
@@ -14,6 +15,7 @@
 #include "CMarkerScript.h"
 #include "CMAttackScript.h"
 #include "CPlatformScript.h"
+#include "CPlayerHUDScript.h"
 #include "CPlayerScript.h"
 #include "CPortalScript.h"
 #include "CSlashScript.h"
@@ -25,6 +27,7 @@
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
+	_vec.push_back(L"CBossHUDScript");
 	_vec.push_back(L"CBossScript");
 	_vec.push_back(L"CBSlashScript");
 	_vec.push_back(L"CCameraMoveScript");
@@ -38,6 +41,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CMarkerScript");
 	_vec.push_back(L"CMAttackScript");
 	_vec.push_back(L"CPlatformScript");
+	_vec.push_back(L"CPlayerHUDScript");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CPortalScript");
 	_vec.push_back(L"CSlashScript");
@@ -50,6 +54,8 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 {
+	if (L"CBossHUDScript" == _strScriptName)
+		return new CBossHUDScript;
 	if (L"CBossScript" == _strScriptName)
 		return new CBossScript;
 	if (L"CBSlashScript" == _strScriptName)
@@ -76,6 +82,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CMAttackScript;
 	if (L"CPlatformScript" == _strScriptName)
 		return new CPlatformScript;
+	if (L"CPlayerHUDScript" == _strScriptName)
+		return new CPlayerHUDScript;
 	if (L"CPlayerScript" == _strScriptName)
 		return new CPlayerScript;
 	if (L"CPortalScript" == _strScriptName)
@@ -99,6 +107,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 {
 	switch (_iScriptType)
 	{
+	case (UINT)SCRIPT_TYPE::BOSSHUDSCRIPT:
+		return new CBossHUDScript;
+		break;
 	case (UINT)SCRIPT_TYPE::BOSSSCRIPT:
 		return new CBossScript;
 		break;
@@ -138,6 +149,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::PLATFORMSCRIPT:
 		return new CPlatformScript;
 		break;
+	case (UINT)SCRIPT_TYPE::PLAYERHUDSCRIPT:
+		return new CPlayerHUDScript;
+		break;
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT:
 		return new CPlayerScript;
 		break;
@@ -170,6 +184,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 {
 	switch ((SCRIPT_TYPE)_pScript->GetScriptType())
 	{
+	case SCRIPT_TYPE::BOSSHUDSCRIPT:
+		return L"CBossHUDScript";
+		break;
+
 	case SCRIPT_TYPE::BOSSSCRIPT:
 		return L"CBossScript";
 		break;
@@ -220,6 +238,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::PLATFORMSCRIPT:
 		return L"CPlatformScript";
+		break;
+
+	case SCRIPT_TYPE::PLAYERHUDSCRIPT:
+		return L"CPlayerHUDScript";
 		break;
 
 	case SCRIPT_TYPE::PLAYERSCRIPT:

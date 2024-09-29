@@ -122,3 +122,19 @@ struct tGlobalData
 	int     g_Light3DCount;
 };
 extern tGlobalData g_GlobalData;
+
+struct tHUD
+{
+	float HPRatio;
+	float Padding1;
+	float Padding2;
+	float Padding3;
+};
+
+struct tBOSSHUD
+{
+	float HPRatio;
+	float Padding1;
+	float Padding2;
+	float Padding3;
+};

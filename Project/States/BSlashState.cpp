@@ -87,7 +87,8 @@ void BSlashState::Slash()
 {
 	GetOwner()->FlipBookComponent()->Play(15, 10, false);
 
-	CBSlashScript* vScript = (CBSlashScript*)m_SpawnedSword->GetScriptByName(L"CBSlashScript");
+	CBSlashScript* vScript = nullptr;
+	vScript = (CBSlashScript*)m_SpawnedSword->GetScriptByName(L"CBSlashScript");
 
 	if (vScript != nullptr)
 	{

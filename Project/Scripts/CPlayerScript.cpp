@@ -45,7 +45,7 @@ CPlayerScript::CPlayerScript()
 	, m_KnockBackSpeed(100.f)
 	, m_KnockBackTime(0.2f)
 	, m_KnockBackAge(0.f)
-	, m_HP(10.f)
+	, m_HP(100.f)
     , m_MP(100.f)
 	, m_FireDragonCount(0)
 	, m_SkillAnimCount(0)
@@ -81,7 +81,10 @@ void CPlayerScript::Begin()
 
 void CPlayerScript::Tick()
 {
-	KeyInput();
+	if (m_State != eState::DEAD)
+	{
+		KeyInput();
+	}
 
 	switch (m_State)
 	{
@@ -103,6 +106,8 @@ void CPlayerScript::Tick()
 	case CPlayerScript::eState::FIREDRAGON:
 		FireDragon();
 		break;
+	case CPlayerScript::eState::DEAD:
+		break;
 	default:
 		break;
 	}
@@ -118,10 +123,6 @@ void CPlayerScript::Tick()
 		Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 	}
 
-	if (m_HP < 0.f)
-	{
-		m_IsDead = true;
-	}
 
 }
 
@@ -651,7 +652,7 @@ void CPlayerScript::FireDragon()
 {
 	m_FireDragonCooldown += DT;
 
-	if (m_FireDragonCooldown > 0.2f)
+	if (m_FireDragonCooldown > 0.1f)
 	{
 		m_FireDragonCooldown = 0.f;
 		m_FireDragonCount++;
@@ -961,6 +962,7 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 			{
 				FlipBookComponent()->Play(16, 10, false);
 				m_IsDead = true;
+				m_State = eState::DEAD;
 				//GetOwner()->SetDead(true);
 			}
 			else
@@ -980,8 +982,9 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 
 				m_State = eState::HIT;
 			}
+
+			FlipBookComponent()->Reset();
 		}
-		
 	}
 }
 

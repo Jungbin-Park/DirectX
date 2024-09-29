@@ -24,6 +24,12 @@ private:
 	// PostProcess
 	Ptr<CTexture>			m_PostProcessTex;
 
+	float					m_LogoTime;
+	bool					m_TitleLogo;
+
+public:
+	void SetTitleLogo(bool _Set) { m_TitleLogo = _Set; }
+
 public:
 	void RegisterCamera(CCamera* _Cam, int _CamPriority);
 	void RegisterEditorCamera(CCamera* _Cam) { m_EditorCamera = _Cam; }
@@ -31,6 +37,7 @@ public:
 	void RegisterLight2D(CLight2D* _Light) { m_vecLight2D.push_back(_Light); }
 
 	void PostProcessCopy();
+
 
 private:
 	void RenderStart();

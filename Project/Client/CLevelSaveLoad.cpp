@@ -11,6 +11,7 @@
 
 #include <Scripts/CScriptMgr.h>
 #include <Scripts/CManagerScript.h>
+#include <Scripts/CPlayerHUDScript.h>
 
 #include <States/CStateMgr.h>
 
@@ -124,12 +125,65 @@ void CLevelSaveLoad::LevelInit()
 
 	CCollisionMgr::GetInst()->CollisionCheck(5, 4); // Player Projectile vs Monster
 	CCollisionMgr::GetInst()->CollisionCheck(6, 3); // Monster Projectile vs player
+	CCollisionMgr::GetInst()->CollisionCheck(2, 3); // Monster Projectile vs player
 	CCollisionMgr::GetInst()->CollisionCheck(7, 3); // Object vs player
 
-	
+	/*CGameObject* puicam = pLevel->FindObjectByName(L"UICamera");
+	pLevel->GetLayer(0)->DisconnectWithObject(puicam);
 
-	/*CGameObject* pBoss = pLevel->FindObjectByName(L"Boss");
-	pLevel->GetLayer(4)->DisconnectWithObject(pBoss);*/
+	CGameObject* phud = pLevel->FindObjectByName(L"PlayerHUD");
+	pLevel->GetLayer(31)->DisconnectWithObject(phud);
+	*/
+	/*CGameObject* phud = pLevel->FindObjectByName(L"PlayerHPBar");
+	pLevel->GetLayer(31)->DisconnectWithObject(phud);
+
+	CGameObject* pHPBar = new CGameObject;
+	pHPBar->SetName(L"PlayerHPBar");
+
+	pHPBar->AddComponent(new CTransform);
+	pHPBar->AddComponent(new CMeshRender);
+	pHPBar->AddComponent(new CPlayerHUDScript);
+
+	pHPBar->Transform()->SetRelativePos(-480.f, 305.f, 4.f);
+	pHPBar->Transform()->SetRelativeScale(130.f, 25.f, 0.f);
+
+	pHPBar->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pHPBar->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\PlayerHUD.mtrl", L"material\\PlayerHUD.mtrl"));
+
+	pLevel->AddObject(31, pHPBar);*/
+
+	//// BossStatus
+	//CGameObject* pHUD = new CGameObject;
+	//pHUD->SetName(L"BossHUD");
+
+	//pHUD->AddComponent(new CTransform);
+	//pHUD->AddComponent(new CMeshRender);
+
+	//pHUD->Transform()->SetRelativePos(-500.f, 300.f, 5.f);
+	//pHUD->Transform()->SetRelativeScale(168.f, 44.f, 0.f);
+
+	//pHUD->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	//pHUD->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\PlayerStatus.mtrl", L"material\\PlayerStatus.mtrl"));
+
+	//pLevel->AddObject(31, pHUD);
+
+
+	//// BossHPBar
+	//CGameObject* pHPBar = new CGameObject;
+	//pHPBar->SetName(L"BossHPBar");
+
+	//pHPBar->AddComponent(new CTransform);
+	//pHPBar->AddComponent(new CMeshRender);
+	//pHPBar->AddComponent(new CPlayerHUDScript);
+
+	//pHPBar->Transform()->SetRelativePos(-480.f, 305.f, 4.f);
+	//pHPBar->Transform()->SetRelativeScale(130.f, 25.f, 0.f);
+
+	//pHPBar->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	//pHPBar->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\BossHPBar.mtrl", L"material\\BossHPBar.mtrl"));
+
+	//pLevel->AddObject(31, pHPBar);
+
 	ChangeLevel(pLevel, LEVEL_STATE::STOP);
 }
 

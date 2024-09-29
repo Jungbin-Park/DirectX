@@ -82,7 +82,8 @@ void CGhoulScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 		{
 			if (_OtherObject->GetName() == L"Slash")
 			{
-				CPlayerScript* TargetScript = (CPlayerScript*)m_Target->GetScriptByName(L"CPlayerScript");
+				CPlayerScript* TargetScript = nullptr;
+				TargetScript = (CPlayerScript*)m_Target->GetScriptByName(L"CPlayerScript");
 				int slashDmg = TargetScript->GetSlashDamage();
 				m_HP -= slashDmg;
 			}
@@ -92,7 +93,8 @@ void CGhoulScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 				FSM()->ChangeState(L"DeadState");
 				m_Dead = true;
 				CGameObject* pManager = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"GameManager");
-				CManagerScript* pScript = (CManagerScript*)pManager->GetScriptByName(L"ManagerScript");
+				CManagerScript* pScript = nullptr;
+				pScript = (CManagerScript*)pManager->GetScriptByName(L"ManagerScript");
 				pScript->AddScore(1);
 			}
 			else

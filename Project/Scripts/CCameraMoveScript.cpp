@@ -51,13 +51,14 @@ void CCameraMoveScript::Tick()
 		Vec3 vDir = vBossPos - vPos;
 		vDir.Normalize();
 
+		m_Dir = vDir;
+
 		if (fabs(vDir.x - m_Dir.x) < 0.001f && fabs(vDir.y - m_Dir.y) < 0.001f)
 		{
 			vPos += vDir * m_CamSpeed * DT;
 		}
-		
 
-		Transform()->SetRelativePos(vPos);
+		Transform()->SetRelativePos(Vec3(vPos.x, vPos.y, 0.f));
 
 		if (m_Timer >= 3.f)
 		{
@@ -68,12 +69,19 @@ void CCameraMoveScript::Tick()
 	}
 	else
 	{
-		Vec3 vPos = Transform()->GetRelativePos();
-		Vec3 objPos = m_FollowObj->Transform()->GetRelativePos();
+		if (m_FollowObj)
+		{
+			Vec3 vPos = Transform()->GetRelativePos();
+			Vec3 objPos = m_FollowObj->Transform()->GetRelativePos();
 
-		vPos = objPos;
+			vPos = objPos;
 
-		Transform()->SetRelativePos(vPos);
+			Transform()->SetRelativePos(vPos);
+		}
+		else
+		{
+
+		}
 	}
 	
 }

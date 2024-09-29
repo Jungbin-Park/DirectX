@@ -43,18 +43,26 @@ void CTriggerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _Other
 			Instantiate(CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\GhoulSpawner.pref"), 2, vRB, L"GhoulSpawner");
 
 			CGameObject* pManager = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"GameManager");
-			CManagerScript* pScript = (CManagerScript*)pManager->GetScriptByName(L"ManagerScript");
+			CManagerScript* pScript = nullptr;
+			pScript = (CManagerScript*)pManager->GetScriptByName(L"ManagerScript");
 			pScript->GateClose();
 		}
 
 		if (m_CurLevelName == L"Boss")
 		{
 			CGameObject* pManager = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"MainCamera");
-			CCameraMoveScript* pScript = (CCameraMoveScript*)pManager->GetScriptByName(L"CCameraMoveScript");
+			CCameraMoveScript* pScript = nullptr;
+			pScript = (CCameraMoveScript*)pManager->GetScriptByName(L"CCameraMoveScript");
 			pScript->BossSpawn();
 
 			Vec3 vPos = Vec3(0.f, 1200.f, 100.f);
 			Instantiate(CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Boss.pref"), 4, vPos, L"Boss");
+
+			vPos = Vec3(0.f, 300.f, 5.f);
+			Instantiate(CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\BossHUD.pref"), 31, vPos, L"BossHUD");
+
+			vPos = Vec3(1.f, 295.f, 4.f);
+			Instantiate(CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\BossHPBar.pref"), 31, vPos, L"BossHPBar");
 		}
 
 		DeleteObject(GetOwner());

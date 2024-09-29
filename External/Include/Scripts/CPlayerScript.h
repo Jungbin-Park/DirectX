@@ -16,6 +16,7 @@ public:
         HIT,
         FIREDRAGON,
         FIREBALL,
+        DEAD,
     };
 
     enum class AtkState
@@ -102,6 +103,7 @@ private:
     void FireDragon();
     void KnockBack();
     void ShootFireDragon();
+
     void ExitState();
 
     void MousePosCheck();
@@ -110,6 +112,8 @@ private:
 public:
     float GetSpeed() { return m_Speed; }
     int GetSlashDamage() { return m_SlashDmg; }
+    float GetHP() { return m_HP; }
+    bool IsDead() { return m_IsDead; }
 
     void SetSpeed(float _Speed) { m_Speed = _Speed; }
 

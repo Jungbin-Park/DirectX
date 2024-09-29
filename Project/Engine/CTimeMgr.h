@@ -20,10 +20,12 @@ private:
 	float			m_E_Time;			// 프로그램이 켜진 이후로 진행된 시간
 
 	float			m_Ratio;
+	wchar_t			m_TimeInfo[255];
 
 public:
 	void Init();
 	void Tick();
+	void Render();
 
 public:
 	void SetDTRatio(float _Ratio) { m_Ratio = _Ratio; }

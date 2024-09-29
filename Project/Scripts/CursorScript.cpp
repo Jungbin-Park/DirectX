@@ -29,11 +29,15 @@ void CursorScript::Tick()
 	vMousePos = Vec2(vMousePos.x, -vMousePos.y);
 
 	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
-	Vec3 vPlayerPos = pCurLevel->FindObjectByName(L"Player")->Transform()->GetRelativePos();
 
-	Vec2 pPos = Vec2(vPlayerPos.x, vPlayerPos.y);
-	vMousePos += pPos;
+	if (pCurLevel->GetName() != L"Title")
+	{
+		Vec3 vPlayerPos = pCurLevel->FindObjectByName(L"Player")->Transform()->GetRelativePos();
 
+		Vec2 pPos = Vec2(vPlayerPos.x, vPlayerPos.y);
+		vMousePos += pPos;
+	}
+	
 	Transform()->SetRelativePos(Vec3(vMousePos.x, vMousePos.y, 0.f));
 }
 

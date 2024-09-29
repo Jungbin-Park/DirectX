@@ -73,6 +73,12 @@
     <ClInclude Include="CFireBallScript.h">
       <Filter>Scripts\Skill</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerHUDScript.h">
+      <Filter>Scripts\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CBossHUDScript.h">
+      <Filter>Scripts\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -147,6 +153,12 @@
     <ClCompile Include="CFireDragonScript.cpp">
       <Filter>Scripts\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerHUDScript.cpp">
+      <Filter>Scripts\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossHUDScript.cpp">
+      <Filter>Scripts\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -181,6 +193,9 @@
     </Filter>
     <Filter Include="Scripts\Skill">
       <UniqueIdentifier>{a994a062-a508-40d8-917a-bf16a9e1c0a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\UI">
+      <UniqueIdentifier>{1d43153e-9dd2-44cf-ac4f-00249a2d1612}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

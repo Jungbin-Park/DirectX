@@ -30,7 +30,7 @@ void BIdleState::FinalTick()
 	if (m_bWaitStart)
 	{
 		m_WaitTime += DT;
-		if (m_WaitTime >= 2.f)
+		if (m_WaitTime >= 1.f)
 		{
 			m_bWaitStart = false;
 
@@ -61,6 +61,13 @@ void BIdleState::Exit()
 	m_bWaitStart = false;
 	m_WaitTime = 0.f;
 
+	if (!m_bLance)
+		m_bSword = true;
+	else if (!m_bSword)
+		m_bWater = true;
+	else if (!m_bWater)
+		m_bLance = true;
+
 	/*int rand = std::rand() % 3 + 1;
 
 	switch (rand)
@@ -75,6 +82,8 @@ void BIdleState::Exit()
 		m_bWater = true;
 		break;
 	}*/
+
+
 }
 
 

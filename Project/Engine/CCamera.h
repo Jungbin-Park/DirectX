@@ -51,6 +51,7 @@ public:
 
     void SetProjType(PROJ_TYPE _Type) { m_ProjType = _Type; }
     PROJ_TYPE GetProjType() { return m_ProjType; }
+    int GetPriority() { return m_Priority; }
 
     void SetWidth(float _Width)
     {

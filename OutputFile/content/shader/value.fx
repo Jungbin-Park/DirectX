@@ -82,6 +82,18 @@ cbuffer GLOBAL_DATA : register(b3)
     int g_Light3DCount;
 }
 
+cbuffer HUD : register(b4)
+{
+    float   HPRatio;
+    float3  HUDPadding;
+}
+
+cbuffer BOSSHUD : register(b5)
+{
+    float  BOSSHPRatio;
+    float3 BOSSHUDPadding;
+}
+
 SamplerState g_sam_0 : register(s0); // 이방성 필터 샘플러
 SamplerState g_sam_1 : register(s1); // 포인트 필터 샘플러
 
