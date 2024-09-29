@@ -80,14 +80,6 @@ private:
     int                     m_SkillAnimCount;
     float                   m_FireDragonCooldown;
 
-    // FireBall
-    Ptr<CPrefab>            m_FireBallPref;
-    Vec3                    m_FireBallPos;
-    Vec3                    m_FireBallRot;
-    bool                    m_bShootFireBall;
-    float                   m_FireBallTime;
-
-
     // Hit
     float	                m_HitTime;
     float	                m_KnockBackSpeed;
@@ -117,7 +109,6 @@ private:
     void Attack();
     void Dash();
     void FireDragon();
-    void FireBall();
     void KnockBack();
     void ShootFireDragon();
 

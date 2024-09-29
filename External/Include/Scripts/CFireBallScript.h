@@ -5,14 +5,7 @@ class CFireBallScript :
     public CScript
 {
 private:
-    Ptr<CSound>     m_HitSound;
-    Ptr<CSound>     m_Sound;
-
-    float           m_Speed;
-    Vec3            m_Dir;
-
-    CGameObject*    m_Player;
-    bool            m_bHit;
+    
 
 public:
     virtual void Begin() override;
