@@ -55,6 +55,8 @@ CPlayerScript::CPlayerScript()
 	, m_DashSound(nullptr)
 	, m_HitSound(nullptr)
 	, m_DeadSound(nullptr)
+	, m_bShootFireBall(false)
+	, m_FireBallTime(0.f)
 {
 	
 	AddScriptParam(SCRIPT_PARAM::INT, "Red", &m_Attribute);
@@ -74,10 +76,14 @@ void CPlayerScript::Begin()
 	m_SlashPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Slash.pref");
 	m_TeleportPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Teleport.pref");
 	m_FireDragonPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\FireDragon.pref");
+	m_FireBallPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\FireBall.pref");
 
 	GetRenderComponent()->GetDynamicMaterial();
 
 	LoadFlipBook();
+
+	m_bShootFireBall = true;
+	m_FireBallTime = 0.f;
 
 	Vec3 vPos = Transform()->GetRelativePos();
 	vPos.x += 10.f;
@@ -122,6 +128,9 @@ void CPlayerScript::Tick()
 		break;
 	case CPlayerScript::eState::FIREDRAGON:
 		FireDragon();
+		break;
+	case CPlayerScript::eState::FIREBALL:
+		FireBall();
 		break;
 	case CPlayerScript::eState::DEAD:
 		break;
@@ -333,6 +342,15 @@ void CPlayerScript::KeyInput()
 				}
 			}
 		}
+	}
+
+
+	// FireBall
+	if (KEY_TAP(KEY::Q))
+	{
+		m_bShootFireBall = true;
+		m_State = eState::FIREBALL;
+		MousePosCheck();
 	}
 
 
@@ -689,6 +707,92 @@ void CPlayerScript::FireDragon()
 	
 }
 
+void CPlayerScript::FireBall()
+{
+	m_FireBallTime += DT;
+	
+	if (m_bShootFireBall)
+	{
+		m_bShootFireBall = false;
+
+		m_FireBallPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 100.f);
+
+		switch (m_AttackDir)
+		{
+		case eDIR::LEFT:
+			m_FireDragonRot = Vec3(XM_PI, 0.f, 0.f);
+			break;
+
+		default:
+			m_FireDragonRot = Vec3(0.f, 0.f, 0.f);
+			break;
+		}
+
+		Instantiate(m_FireBallPref, 5, m_FireBallPos, m_FireBallRot, L"FireDragon");
+
+		if (m_SkillAnimCount == 0)
+		{
+			m_SkillAnimCount++;
+			// animation
+			switch (m_AttackDir)
+			{
+			case eDIR::UP:
+				m_Direction = eDIR::UP;
+				FlipBookComponent()->Play(10, 15, false);
+				break;
+			case eDIR::DOWN:
+				m_Direction = eDIR::DOWN;
+				FlipBookComponent()->Play(6, 15, false);
+				break;
+			case eDIR::LEFT:
+				m_Direction = eDIR::LEFT;
+				FlipBookComponent()->Play(8, 15, false);
+				break;
+			case eDIR::RIGHT:
+				m_Direction = eDIR::RIGHT;
+				FlipBookComponent()->Play(8, 15, false);
+				break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			m_SkillAnimCount--;
+			// animation
+			switch (m_AttackDir)
+			{
+			case eDIR::UP:
+				m_Direction = eDIR::UP;
+				FlipBookComponent()->Play(10, 15, false);
+				break;
+			case eDIR::DOWN:
+				m_Direction = eDIR::DOWN;
+				FlipBookComponent()->Play(6, 15, false);
+				break;
+			case eDIR::LEFT:
+				m_Direction = eDIR::LEFT;
+				FlipBookComponent()->Play(8, 15, false);
+				break;
+			case eDIR::RIGHT:
+				m_Direction = eDIR::RIGHT;
+				FlipBookComponent()->Play(8, 15, false);
+				break;
+			default:
+				break;
+			}
+		}
+
+		FlipBookComponent()->Reset();
+	}
+
+	if (m_FireBallTime >= 0.5f)
+	{
+		m_FireBallTime = 0.f;
+		ExitState();
+	}
+}
+
 void CPlayerScript::ShootFireDragon()
 {
 	m_FireDragonSound->Play(1, 0.3f, true);
@@ -854,6 +958,7 @@ void CPlayerScript::MousePosCheck()
 
 	angle = atan2(vMouseDir.y, vMouseDir.x);
 	m_SlashRot.z = angle - XM_PI / 2.f;
+	m_FireBallRot.z = angle - XM_PI / 2.f;
 	m_FireDragonRot.z = angle;
 
 	// 라디안 -> 도

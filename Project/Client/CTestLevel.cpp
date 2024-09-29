@@ -271,6 +271,16 @@ void CTestLevel::CreateTestLevel()
 		pFireBall->AddComponent(new CFireBallScript);
 
 		pFireBall->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
+		
+		pFireBall->Collider2D()->SetIndependentScale(false);
+		pFireBall->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+		pFireBall->Collider2D()->SetScale(Vec3(1.f, 1.f, 0.f));
+
+		pFireBall->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pFireBall->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+
+		//pLevel->AddObject(5, pFireBall);
+
 
 		//// PlayerStatus
 		//CGameObject* pHUD = new CGameObject;
@@ -666,27 +676,32 @@ void CTestLevel::CreateTestLevel()
 
 void CTestLevel::CreatePrefab()
 {
-	/*CGameObject* pMonHit = new CGameObject;
-	pMonHit->SetName(L"MonHit");
+	CGameObject* pFireBall = new CGameObject;
+	pFireBall->SetName(L"FireBall");
 
-	pMonHit->AddComponent(new CTransform);
-	pMonHit->AddComponent(new CCollider2D);
-	pMonHit->AddComponent(new CMAttackScript);
+	pFireBall->AddComponent(new CTransform);
+	pFireBall->AddComponent(new CCollider2D);
+	pFireBall->AddComponent(new CMeshRender);
+	pFireBall->AddComponent(new CFlipBookComponent);
+	pFireBall->AddComponent(new CFireBallScript);
 
-	pMonHit->Transform()->SetRelativeScale(50.f, 50.f, 0.f);
+	pFireBall->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
 
-	pMonHit->Collider2D()->SetIndependentScale(false);
-	pMonHit->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pMonHit->Collider2D()->SetScale(Vec3(1.f, 1.f, 1.f));
+	pFireBall->Collider2D()->SetIndependentScale(false);
+	pFireBall->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
+	pFireBall->Collider2D()->SetScale(Vec3(0.7f, 0.7f, 0.f));
+
+	pFireBall->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pFireBall->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
-	pPrefab->SetProtoObject(pMonHit);
+	pPrefab->SetProtoObject(pFireBall);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"MonHitPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"FireBallPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\MonHit.pref";
-	pPrefab->Save(FilePath);*/
+	FilePath += L"prefab\\FireBall.pref";
+	pPrefab->Save(FilePath);
 	
 
 	/*CTileMap* pTile = new CTileMap;
