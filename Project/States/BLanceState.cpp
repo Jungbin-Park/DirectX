@@ -20,6 +20,8 @@ BLanceState::BLanceState()
 	, m_ShootTime(2.f)
 	, m_bCountStart(true)
 	, m_ChangeState(false)
+	, m_LanceInitSound(nullptr)
+	, m_LanceShootSound(nullptr)
 {
 }
 
@@ -29,6 +31,8 @@ BLanceState::~BLanceState()
 
 void BLanceState::Enter()
 {
+	m_LanceInitSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\IceChime.wav");
+	m_LanceShootSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\IceLanceShoot.wav");
 	// Lance
 	m_LancePref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\IceLance.pref");
 
@@ -37,6 +41,7 @@ void BLanceState::Enter()
 		m_Target = pTarget;
 
 	m_bCountStart = true;
+	m_LanceInitSound->Play(1, 0.3f, false);
 
 	InitLance();
 }
@@ -96,6 +101,7 @@ void BLanceState::InitLance()
 
 void BLanceState::ShootLance()
 {
+	m_LanceShootSound->Play(1, 0.3f, false);
 	GetOwner()->FlipBookComponent()->Play(9, 5, false);
 	//GetOwner()->FlipBookComponent()->Play(11, 5, false);
 	//GetOwner()->FlipBookComponent()->Play(13, 5, false);
@@ -132,6 +138,9 @@ void BLanceState::Exit()
 
 	m_ChangeState = false;
 	m_Timer = 0.f;
+
+	m_LanceInitSound->Stop();
+	m_LanceShootSound->Stop();
 }
 
 

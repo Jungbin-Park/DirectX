@@ -6,6 +6,8 @@ class BLanceState :
 {
 private:
 	CGameObject*			m_Target;
+	Ptr<CSound>				m_LanceInitSound;
+	Ptr<CSound>				m_LanceShootSound;
 
 	float					m_Timer;
 	float					m_ShootTime;
