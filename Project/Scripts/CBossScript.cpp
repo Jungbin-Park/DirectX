@@ -28,7 +28,7 @@ CBossScript::CBossScript()
 	, m_CrystalPref(nullptr)
 	, m_Target(nullptr)
 	, m_Dead(false)
-	, m_HP(100.f)
+	, m_HP(200.f)
 	, m_Angle(0.f)
 {
 }
@@ -100,6 +100,16 @@ void CBossScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherObj
 				TargetScript = (CPlayerScript*)m_Target->GetScriptByName(L"CPlayerScript");
 				int slashDmg = TargetScript->GetSlashDamage();
 				m_HP -= slashDmg;
+			}
+
+			if (_OtherObject->GetName() == L"FireDragon")
+			{
+				m_HP -= 10;
+			}
+
+			if (_OtherObject->GetName() == L"FireBall")
+			{
+				m_HP -= 20;
 			}
 
 			if (m_HP <= 0.f)

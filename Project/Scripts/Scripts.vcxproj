@@ -170,6 +170,7 @@ call CodeGen.exe
     <ClInclude Include="CBossScript.h" />
     <ClInclude Include="CBSlashScript.h" />
     <ClInclude Include="CCameraMoveScript.h" />
+    <ClInclude Include="CChargeEffectScript.h" />
     <ClInclude Include="CCrystalScript.h" />
     <ClInclude Include="CFireBallScript.h" />
     <ClInclude Include="CFireDragonScript.h" />
@@ -181,6 +182,7 @@ call CodeGen.exe
     <ClInclude Include="CMAttackScript.h" />
     <ClInclude Include="CPlatformScript.h" />
     <ClInclude Include="CPlayerHUDScript.h" />
+    <ClInclude Include="CPlayerMPScript.h" />
     <ClInclude Include="CPortalScript.h" />
     <ClInclude Include="CSlashScript.h" />
     <ClInclude Include="CPlayerScript.h" />
@@ -198,6 +200,7 @@ call CodeGen.exe
     <ClCompile Include="CBossScript.cpp" />
     <ClCompile Include="CBSlashScript.cpp" />
     <ClCompile Include="CCameraMoveScript.cpp" />
+    <ClCompile Include="CChargeEffectScript.cpp" />
     <ClCompile Include="CCrystalScript.cpp" />
     <ClCompile Include="CFireBallScript.cpp" />
     <ClCompile Include="CFireDragonScript.cpp" />
@@ -209,6 +212,7 @@ call CodeGen.exe
     <ClCompile Include="CMAttackScript.cpp" />
     <ClCompile Include="CPlatformScript.cpp" />
     <ClCompile Include="CPlayerHUDScript.cpp" />
+    <ClCompile Include="CPlayerMPScript.cpp" />
     <ClCompile Include="CPortalScript.cpp" />
     <ClCompile Include="CSlashScript.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />

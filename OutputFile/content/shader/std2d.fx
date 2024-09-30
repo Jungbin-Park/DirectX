@@ -165,6 +165,47 @@ float4 PS_Std2D_HUD(VTX_OUT _in) : SV_Target
     return vColor;
 }
 
+float4 PS_Std2D_HUDMP(VTX_OUT _in) : SV_Target
+{
+    float4 vColor = float4(0.f, 0.f, 0.f, 1.f);
+    
+    if (_in.vUV.x > MPRatio)
+    {
+        discard;
+    }
+    
+    if (g_btex_0)
+    {
+        vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+    }
+    else
+    {
+        vColor = float4(1.f, 0.f, 1.f, 1.f);
+    }
+
+
+    if (vColor.a == 0.f)
+    {
+        //clip(-1);
+        discard;
+    }
+    
+    
+    // ±¤¿ø Àû¿ë
+    tLight Light = (tLight) 0.f;
+    
+    for (int i = 0; i < g_Light2DCount; ++i)
+    {
+        CalculateLight2D(i, _in.vWorldPos, Light);
+    }
+    
+    vColor.rgb = vColor.rgb * Light.Color.rgb
+               + vColor.rgb * Light.Ambient.rgb;
+
+    
+    return vColor;
+}
+
 float4 PS_Std2D_BOSSHUD(VTX_OUT _in) : SV_Target
 {
     float4 vColor = float4(0.f, 0.f, 0.f, 1.f);

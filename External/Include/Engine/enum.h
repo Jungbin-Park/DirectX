@@ -7,6 +7,7 @@ enum class CB_TYPE
 	SPRITE,
 	GLOBAL,
 	HUD,
+	HUDMP,
 	BOSSHUD,
 	END,
 };

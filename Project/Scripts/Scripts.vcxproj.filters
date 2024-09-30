@@ -79,6 +79,12 @@
     <ClInclude Include="CBossHUDScript.h">
       <Filter>Scripts\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerMPScript.h">
+      <Filter>Scripts\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CChargeEffectScript.h">
+      <Filter>Scripts\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -158,6 +164,12 @@
     </ClCompile>
     <ClCompile Include="CBossHUDScript.cpp">
       <Filter>Scripts\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerMPScript.cpp">
+      <Filter>Scripts\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CChargeEffectScript.cpp">
+      <Filter>Scripts\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

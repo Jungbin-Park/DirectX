@@ -39,7 +39,7 @@ void CFireBallScript::Begin()
 	pFlipBook = CAssetMgr::GetInst()->FindAsset<CFlipBook>(L"Animation\\SFireBallHit.flip");
 	FlipBookComponent()->AddFlipBook(3, pFlipBook);
 
-	FlipBookComponent()->Play(0, 10, true);
+	FlipBookComponent()->Play(2, 10, true);
 
 	m_Sound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\FireBall.wav");
 	m_HitSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\FireBallHit.wav");
@@ -74,12 +74,10 @@ void CFireBallScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _Othe
 	Vec3 vPos = _OwnCollider->GetCollisionPoint();
 	m_HitSound->Play(1, 0.1f, true);
 
-	if (_OtherObject->GetName() == L"Platform")
-	{
-		m_bHit = true;
-		Transform()->SetRelativeScale(Vec3(50.f, 50.f, 0.f));
-		FlipBookComponent()->Play(1, 10, false);
-	}
+	m_bHit = true;
+	Transform()->SetRelativeScale(Vec3(200.f, 200.f, 0.f));
+	Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+	FlipBookComponent()->Play(3, 10, false);
 }
 
 void CFireBallScript::SaveToFile(FILE* _File)

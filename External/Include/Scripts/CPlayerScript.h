@@ -82,6 +82,7 @@ private:
 
     // FireBall
     Ptr<CPrefab>            m_FireBallPref;
+    Ptr<CPrefab>            m_ChargePref;
     Vec3                    m_FireBallPos;
     Vec3                    m_FireBallRot;
     bool                    m_bShootFireBall;
@@ -102,6 +103,7 @@ private:
     Ptr<CSound>             m_DashSound;
     Ptr<CSound>             m_HitSound;
     Ptr<CSound>             m_DeadSound;
+    Ptr<CSound>             m_ChargeSound;
 
 
     int                     m_KeyTapCount;
@@ -130,9 +132,11 @@ public:
     float GetSpeed() { return m_Speed; }
     int GetSlashDamage() { return m_SlashDmg; }
     float GetHP() { return m_HP; }
+    float GetMP() { return m_MP; }
     bool IsDead() { return m_IsDead; }
 
     void SetSpeed(float _Speed) { m_Speed = _Speed; }
+    void AddMP(int _Num) { m_MP += _Num; }
 
 
 public:

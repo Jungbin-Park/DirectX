@@ -3,6 +3,10 @@
 
 #include <Engine/CFlipBookComponent.h>
 #include <Engine/CFlipBook.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
+
+#include "CPlayerScript.h"
 
 int CSlashScript::m_SlashIdx = 1;
 
@@ -53,6 +57,9 @@ void CSlashScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 	{
 		Vec3 vPos = _OwnCollider->GetCollisionPoint();
 		Instantiate(m_SparkPref, 0, vPos, L"HitSpark");
+		CPlayerScript* pScript = nullptr;
+		pScript = (CPlayerScript*)CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player")->GetScriptByName(L"CPlayerScript");
+		pScript->AddMP(10);
 	}
 }
 

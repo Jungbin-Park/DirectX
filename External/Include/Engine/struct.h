@@ -131,6 +131,14 @@ struct tHUD
 	float Padding3;
 };
 
+struct tHUDMP
+{
+	float MPRatio;
+	float Padding1;
+	float Padding2;
+	float Padding3;
+};
+
 struct tBOSSHUD
 {
 	float HPRatio;

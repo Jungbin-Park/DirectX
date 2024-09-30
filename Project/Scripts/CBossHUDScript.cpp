@@ -38,10 +38,10 @@ void CBossHUDScript::Tick()
 
 	CConstBuffer* pCB = CDevice::GetInst()->GetConstBuffer(CB_TYPE::BOSSHUD);
 
-	m_CurPlayerHP = BossScript->GetHP() / 100.f;
+	m_CurPlayerHP = BossScript->GetHP() / 200.f;
 	
 
-	tHUD tInfo = {};
+	tBOSSHUD tInfo = {};
 	tInfo.HPRatio = m_CurPlayerHP;
 
 	pCB->SetData(&tInfo);

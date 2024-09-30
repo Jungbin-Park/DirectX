@@ -94,6 +94,12 @@ cbuffer BOSSHUD : register(b5)
     float3 BOSSHUDPadding;
 }
 
+cbuffer HUDMP : register(b6)
+{
+    float MPRatio;
+    float3 HUDMPPadding;
+}
+
 SamplerState g_sam_0 : register(s0); // 이방성 필터 샘플러
 SamplerState g_sam_1 : register(s1); // 포인트 필터 샘플러
 

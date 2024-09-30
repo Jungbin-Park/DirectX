@@ -9,6 +9,7 @@
 #include <Engine/CTransform.h>
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
+#include <Engine/CTimeMgr.h>
 
 #include <States/PDeadState.h>
 
@@ -46,7 +47,7 @@ CPlayerScript::CPlayerScript()
 	, m_KnockBackTime(0.2f)
 	, m_KnockBackAge(0.f)
 	, m_HP(100.f)
-    , m_MP(100.f)
+    , m_MP(0.f)
 	, m_FireDragonCount(0)
 	, m_SkillAnimCount(0)
 	, m_WalkSound(nullptr)
@@ -77,6 +78,7 @@ void CPlayerScript::Begin()
 	m_TeleportPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\Teleport.pref");
 	m_FireDragonPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\FireDragon.pref");
 	m_FireBallPref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\FireBall.pref");
+	m_ChargePref = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"prefab\\ChargeEffect.pref");
 
 	GetRenderComponent()->GetDynamicMaterial();
 
@@ -98,6 +100,7 @@ void CPlayerScript::Begin()
 	m_DashSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Dash.wav");
 	m_HitSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Hit.mp3");
 	m_DeadSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\Dead.mp3");
+	m_ChargeSound = CAssetMgr::GetInst()->FindAsset<CSound>(L"sound\\ChargeSkill.wav");
 
 	Collider2D()->SetActive(true);
 }
@@ -348,9 +351,13 @@ void CPlayerScript::KeyInput()
 	// FireBall
 	if (KEY_TAP(KEY::Q))
 	{
-		m_bShootFireBall = true;
-		m_State = eState::FIREBALL;
-		MousePosCheck();
+		if (m_MP >= 100.f)
+		{
+			m_MP -= 100.f;
+			m_bShootFireBall = true;
+			m_State = eState::FIREBALL;
+			MousePosCheck();
+		}
 	}
 
 
@@ -710,85 +717,81 @@ void CPlayerScript::FireDragon()
 void CPlayerScript::FireBall()
 {
 	m_FireBallTime += DT;
-	
-	if (m_bShootFireBall)
+	m_ChargeSound->Play(1, 0.3f, false);
+	m_FireBallPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 50.f);
+
+	Instantiate(m_ChargePref, 5, m_FireBallPos, L"ChargeEffect");
+	CTimeMgr::GetInst()->SetDTRatio(0.3f);
+
+	if (m_FireBallTime >= 0.3f)
 	{
-		m_bShootFireBall = false;
-
-		m_FireBallPos = Transform()->GetRelativePos() + (Vec3(m_MouseDir.x, m_MouseDir.y, 0.f) * 100.f);
-
-		switch (m_AttackDir)
+		CTimeMgr::GetInst()->SetDTRatio(1.0f);
+		if (m_bShootFireBall)
 		{
-		case eDIR::LEFT:
-			m_FireDragonRot = Vec3(XM_PI, 0.f, 0.f);
-			break;
+			m_bShootFireBall = false;
+			Instantiate(m_FireBallPref, 5, m_FireBallPos, m_FireBallRot, L"FireDragon");
 
-		default:
-			m_FireDragonRot = Vec3(0.f, 0.f, 0.f);
-			break;
-		}
-
-		Instantiate(m_FireBallPref, 5, m_FireBallPos, m_FireBallRot, L"FireDragon");
-
-		if (m_SkillAnimCount == 0)
-		{
-			m_SkillAnimCount++;
-			// animation
-			switch (m_AttackDir)
+			if (m_SkillAnimCount == 0)
 			{
-			case eDIR::UP:
-				m_Direction = eDIR::UP;
-				FlipBookComponent()->Play(10, 15, false);
-				break;
-			case eDIR::DOWN:
-				m_Direction = eDIR::DOWN;
-				FlipBookComponent()->Play(6, 15, false);
-				break;
-			case eDIR::LEFT:
-				m_Direction = eDIR::LEFT;
-				FlipBookComponent()->Play(8, 15, false);
-				break;
-			case eDIR::RIGHT:
-				m_Direction = eDIR::RIGHT;
-				FlipBookComponent()->Play(8, 15, false);
-				break;
-			default:
-				break;
+				m_SkillAnimCount++;
+				// animation
+				switch (m_AttackDir)
+				{
+				case eDIR::UP:
+					m_Direction = eDIR::UP;
+					FlipBookComponent()->Play(10, 15, false);
+					break;
+				case eDIR::DOWN:
+					m_Direction = eDIR::DOWN;
+					FlipBookComponent()->Play(6, 15, false);
+					break;
+				case eDIR::LEFT:
+					m_Direction = eDIR::LEFT;
+					FlipBookComponent()->Play(8, 15, false);
+					break;
+				case eDIR::RIGHT:
+					m_Direction = eDIR::RIGHT;
+					FlipBookComponent()->Play(8, 15, false);
+					break;
+				default:
+					break;
+				}
 			}
-		}
-		else
-		{
-			m_SkillAnimCount--;
-			// animation
-			switch (m_AttackDir)
+			else
 			{
-			case eDIR::UP:
-				m_Direction = eDIR::UP;
-				FlipBookComponent()->Play(10, 15, false);
-				break;
-			case eDIR::DOWN:
-				m_Direction = eDIR::DOWN;
-				FlipBookComponent()->Play(6, 15, false);
-				break;
-			case eDIR::LEFT:
-				m_Direction = eDIR::LEFT;
-				FlipBookComponent()->Play(8, 15, false);
-				break;
-			case eDIR::RIGHT:
-				m_Direction = eDIR::RIGHT;
-				FlipBookComponent()->Play(8, 15, false);
-				break;
-			default:
-				break;
+				m_SkillAnimCount--;
+				// animation
+				switch (m_AttackDir)
+				{
+				case eDIR::UP:
+					m_Direction = eDIR::UP;
+					FlipBookComponent()->Play(10, 15, false);
+					break;
+				case eDIR::DOWN:
+					m_Direction = eDIR::DOWN;
+					FlipBookComponent()->Play(6, 15, false);
+					break;
+				case eDIR::LEFT:
+					m_Direction = eDIR::LEFT;
+					FlipBookComponent()->Play(8, 15, false);
+					break;
+				case eDIR::RIGHT:
+					m_Direction = eDIR::RIGHT;
+					FlipBookComponent()->Play(8, 15, false);
+					break;
+				default:
+					break;
+				}
 			}
-		}
 
-		FlipBookComponent()->Reset();
+			FlipBookComponent()->Reset();
+		}
 	}
-
+	
 	if (m_FireBallTime >= 0.5f)
 	{
 		m_FireBallTime = 0.f;
+		m_ChargeSound->Stop();
 		ExitState();
 	}
 }
@@ -958,7 +961,7 @@ void CPlayerScript::MousePosCheck()
 
 	angle = atan2(vMouseDir.y, vMouseDir.x);
 	m_SlashRot.z = angle - XM_PI / 2.f;
-	m_FireBallRot.z = angle - XM_PI / 2.f;
+	m_FireBallRot.z = angle;
 	m_FireDragonRot.z = angle;
 
 	// 라디안 -> 도
@@ -1110,9 +1113,9 @@ void CPlayerScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherO
 				m_HitDir.Normalize();
 
 				if (m_HitDir.x > 0)
-					m_Direction = eDIR::RIGHT;
+					Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 				else
-					m_Direction = eDIR::LEFT;
+					Transform()->SetRelativeRotation(Vec3(0.f, XM_PI, 0.f));
 
 				m_State = eState::HIT;
 			}

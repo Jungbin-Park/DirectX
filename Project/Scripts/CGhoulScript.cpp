@@ -90,6 +90,16 @@ void CGhoulScript::BeginOverlap(CCollider2D* _OwnCollider, CGameObject* _OtherOb
 				m_HP -= slashDmg;
 			}
 
+			if (_OtherObject->GetName() == L"FireDragon")
+			{
+				m_HP -= 10;
+			}
+
+			if (_OtherObject->GetName() == L"FireBall")
+			{
+				m_HP -= 20;
+			}
+
 			if (m_HP <= 0.f)
 			{
 				FSM()->ChangeState(L"DeadState");

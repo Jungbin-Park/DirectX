@@ -12,6 +12,7 @@
 #include <Scripts/CScriptMgr.h>
 #include <Scripts/CManagerScript.h>
 #include <Scripts/CPlayerHUDScript.h>
+#include <Scripts/CPlayerMPScript.h>
 
 #include <States/CStateMgr.h>
 
@@ -105,7 +106,7 @@ void CLevelSaveLoad::SaveGameObject(FILE* _File, CGameObject* _Object)
 
 void CLevelSaveLoad::LevelInit()
 {
-	wstring levelName = L"Title";
+	wstring levelName = L"Boss";
 	wstring StrLevelLoadPath = CPathMgr::GetInst()->GetContentPath();
 	StrLevelLoadPath += (L"level\\" + levelName + L".lv");
 	CLevel* pLevel = CLevelSaveLoad::LoadLevel(StrLevelLoadPath); 
@@ -120,10 +121,25 @@ void CLevelSaveLoad::LevelInit()
 	CCollisionMgr::GetInst()->CollisionCheck(2, 3); // Monster Projectile vs player
 	CCollisionMgr::GetInst()->CollisionCheck(7, 3); // Object vs player
 
-	/*CGameObject* puicam = pLevel->FindObjectByName(L"UICamera");
-	pLevel->GetLayer(0)->DisconnectWithObject(puicam);*/
+	/*CGameObject* puicam = pLevel->FindObjectByName(L"PlayerMPBar");
+	pLevel->GetLayer(31)->DisconnectWithObject(puicam);*/
 
-	ChangeLevel(pLevel, LEVEL_STATE::PLAY);
+	/*CGameObject* pMPBar = new CGameObject;
+	pMPBar->SetName(L"PlayerMPBar");
+
+	pMPBar->AddComponent(new CTransform);
+	pMPBar->AddComponent(new CMeshRender);
+	pMPBar->AddComponent(new CPlayerMPScript);
+
+	pMPBar->Transform()->SetRelativePos(-487.f, 288.f, 4.f);
+	pMPBar->Transform()->SetRelativeScale(120.f, 20.f, 0.f);
+
+	pMPBar->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pMPBar->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\PlayerMPBar.mtrl", L"material\\PlayerMPBar.mtrl"));
+
+	pLevel->AddObject(31, pMPBar);*/
+
+	ChangeLevel(pLevel, LEVEL_STATE::STOP);
 }
 
 CLevel* CLevelSaveLoad::LoadLevel(const wstring& _FilePath)

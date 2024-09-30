@@ -2,6 +2,7 @@ CBossHUDScript
 CBossScript
 CBSlashScript
 CCameraMoveScript
+CChargeEffectScript
 CCrystalScript
 CFireBallScript
 CFireDragonScript
@@ -13,6 +14,7 @@ CMarkerScript
 CMAttackScript
 CPlatformScript
 CPlayerHUDScript
+CPlayerMPScript
 CPlayerScript
 CPortalScript
 CSlashScript

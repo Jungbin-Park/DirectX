@@ -5,6 +5,7 @@
 #include "CBossScript.h"
 #include "CBSlashScript.h"
 #include "CCameraMoveScript.h"
+#include "CChargeEffectScript.h"
 #include "CCrystalScript.h"
 #include "CFireBallScript.h"
 #include "CFireDragonScript.h"
@@ -16,6 +17,7 @@
 #include "CMAttackScript.h"
 #include "CPlatformScript.h"
 #include "CPlayerHUDScript.h"
+#include "CPlayerMPScript.h"
 #include "CPlayerScript.h"
 #include "CPortalScript.h"
 #include "CSlashScript.h"
@@ -31,6 +33,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CBossScript");
 	_vec.push_back(L"CBSlashScript");
 	_vec.push_back(L"CCameraMoveScript");
+	_vec.push_back(L"CChargeEffectScript");
 	_vec.push_back(L"CCrystalScript");
 	_vec.push_back(L"CFireBallScript");
 	_vec.push_back(L"CFireDragonScript");
@@ -42,6 +45,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CMAttackScript");
 	_vec.push_back(L"CPlatformScript");
 	_vec.push_back(L"CPlayerHUDScript");
+	_vec.push_back(L"CPlayerMPScript");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CPortalScript");
 	_vec.push_back(L"CSlashScript");
@@ -62,6 +66,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CBSlashScript;
 	if (L"CCameraMoveScript" == _strScriptName)
 		return new CCameraMoveScript;
+	if (L"CChargeEffectScript" == _strScriptName)
+		return new CChargeEffectScript;
 	if (L"CCrystalScript" == _strScriptName)
 		return new CCrystalScript;
 	if (L"CFireBallScript" == _strScriptName)
@@ -84,6 +90,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlatformScript;
 	if (L"CPlayerHUDScript" == _strScriptName)
 		return new CPlayerHUDScript;
+	if (L"CPlayerMPScript" == _strScriptName)
+		return new CPlayerMPScript;
 	if (L"CPlayerScript" == _strScriptName)
 		return new CPlayerScript;
 	if (L"CPortalScript" == _strScriptName)
@@ -119,6 +127,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::CAMERAMOVESCRIPT:
 		return new CCameraMoveScript;
 		break;
+	case (UINT)SCRIPT_TYPE::CHARGEEFFECTSCRIPT:
+		return new CChargeEffectScript;
+		break;
 	case (UINT)SCRIPT_TYPE::CRYSTALSCRIPT:
 		return new CCrystalScript;
 		break;
@@ -151,6 +162,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERHUDSCRIPT:
 		return new CPlayerHUDScript;
+		break;
+	case (UINT)SCRIPT_TYPE::PLAYERMPSCRIPT:
+		return new CPlayerMPScript;
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT:
 		return new CPlayerScript;
@@ -200,6 +214,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 		return L"CCameraMoveScript";
 		break;
 
+	case SCRIPT_TYPE::CHARGEEFFECTSCRIPT:
+		return L"CChargeEffectScript";
+		break;
+
 	case SCRIPT_TYPE::CRYSTALSCRIPT:
 		return L"CCrystalScript";
 		break;
@@ -242,6 +260,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::PLAYERHUDSCRIPT:
 		return L"CPlayerHUDScript";
+		break;
+
+	case SCRIPT_TYPE::PLAYERMPSCRIPT:
+		return L"CPlayerMPScript";
 		break;
 
 	case SCRIPT_TYPE::PLAYERSCRIPT:

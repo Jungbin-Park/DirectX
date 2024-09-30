@@ -35,6 +35,8 @@
 #include <Scripts/CPlayerHUDScript.h>
 #include <Scripts/CBossHUDScript.h>
 #include <Scripts/CMAttackScript.h>
+#include <Scripts/CPlayerMPScript.h>
+#include <Scripts/CChargeEffectScript.h>
 
 
 #include <Engine/CSetColorCS.h>
@@ -122,19 +124,19 @@ void CTestLevel::CreateTestLevel()
 		pLevel->AddObject(0, CamObj);
 
 		// UI 카메라
-		//CGameObject* UICamObj = new CGameObject;
-		//UICamObj->SetName(L"UICamera");
-		//UICamObj->AddComponent(new CTransform);
-		//UICamObj->AddComponent(new CCamera);
+		CGameObject* UICamObj = new CGameObject;
+		UICamObj->SetName(L"UICamera");
+		UICamObj->AddComponent(new CTransform);
+		UICamObj->AddComponent(new CCamera);
 
-		//// Priority 설정
-		//UICamObj->Camera()->SetPriority(1);
+		// Priority 설정
+		UICamObj->Camera()->SetPriority(1);
 
-		//// 레이어 설정
-		//UICamObj->Camera()->SetLayer(31, true);
-		//UICamObj->Camera()->SetFar(100000.f);
-		//UICamObj->Camera()->SetProjType(ORTHOGRAPHIC);
-		//pLevel->AddObject(0, UICamObj);
+		// 레이어 설정
+		UICamObj->Camera()->SetLayer(31, true);
+		UICamObj->Camera()->SetFar(100000.f);
+		UICamObj->Camera()->SetProjType(ORTHOGRAPHIC);
+		pLevel->AddObject(0, UICamObj);
 
 		{
 			CGameObject* pObject = nullptr;
@@ -261,7 +263,7 @@ void CTestLevel::CreateTestLevel()
 		}
 
 		// FireBall
-		CGameObject* pFireBall = new CGameObject;
+		/*CGameObject* pFireBall = new CGameObject;
 		pFireBall->SetName(L"FireBall");
 
 		pFireBall->AddComponent(new CTransform);
@@ -277,42 +279,75 @@ void CTestLevel::CreateTestLevel()
 		pFireBall->Collider2D()->SetScale(Vec3(1.f, 1.f, 0.f));
 
 		pFireBall->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-		pFireBall->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+		pFireBall->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));*/
 
 		//pLevel->AddObject(5, pFireBall);
 
 
-		//// PlayerStatus
-		//CGameObject* pHUD = new CGameObject;
-		//pHUD->SetName(L"PlayerHUD");
+		// PlayerStatus
+		CGameObject* pHUD = new CGameObject;
+		pHUD->SetName(L"PlayerHUD");
 
-		//pHUD->AddComponent(new CTransform);
-		//pHUD->AddComponent(new CMeshRender);
+		pHUD->AddComponent(new CTransform);
+		pHUD->AddComponent(new CMeshRender);
 
-		//pHUD->Transform()->SetRelativePos(-500.f, 300.f, 5.f);
-		//pHUD->Transform()->SetRelativeScale(168.f, 44.f, 0.f);
+		pHUD->Transform()->SetRelativePos(-500.f, 300.f, 5.f);
+		pHUD->Transform()->SetRelativeScale(168.f, 44.f, 0.f);
 
-		//pHUD->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-		//pHUD->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\PlayerStatus.mtrl", L"material\\PlayerStatus.mtrl"));
+		pHUD->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pHUD->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\PlayerStatus.mtrl", L"material\\PlayerStatus.mtrl"));
 
-		//pLevel->AddObject(31, pHUD);
+		pLevel->AddObject(31, pHUD);
 
 
-		//// PlayerHPBar
-		//CGameObject* pHPBar = new CGameObject;
-		//pHPBar->SetName(L"PlayerHPBar");
+		// PlayerHPBar
+		CGameObject* pHPBar = new CGameObject;
+		pHPBar->SetName(L"PlayerHPBar");
 
-		//pHPBar->AddComponent(new CTransform);
-		//pHPBar->AddComponent(new CMeshRender);
-		//pHPBar->AddComponent(new CPlayerHUDScript);
+		pHPBar->AddComponent(new CTransform);
+		pHPBar->AddComponent(new CMeshRender);
+		pHPBar->AddComponent(new CPlayerHUDScript);
 
-		//pHPBar->Transform()->SetRelativePos(-480.f, 305.f, 4.f);
-		//pHPBar->Transform()->SetRelativeScale(130.f, 25.f, 0.f);
+		pHPBar->Transform()->SetRelativePos(-480.f, 305.f, 4.f);
+		pHPBar->Transform()->SetRelativeScale(130.f, 25.f, 0.f);
 
-		//pHPBar->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-		//pHPBar->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\PlayerHPBar.mtrl", L"material\\PlayerHPBar.mtrl"));
+		pHPBar->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pHPBar->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\PlayerHPBar.mtrl", L"material\\PlayerHPBar.mtrl"));
 
-		//pLevel->AddObject(31, pHPBar);
+		pLevel->AddObject(31, pHPBar);
+
+		// PlayerMPBar
+		CGameObject* pMPBar = new CGameObject;
+		pMPBar->SetName(L"PlayerMPBar");
+
+		pMPBar->AddComponent(new CTransform);
+		pMPBar->AddComponent(new CMeshRender);
+		pMPBar->AddComponent(new CPlayerMPScript);
+
+		pMPBar->Transform()->SetRelativePos(-487.f, 288.f, 4.f);
+		pMPBar->Transform()->SetRelativeScale(120.f, 20.f, 0.f);
+
+		pMPBar->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pMPBar->MeshRender()->SetMaterial(CAssetMgr::GetInst()->Load<CMaterial>(L"material\\PlayerMPBar.mtrl", L"material\\PlayerMPBar.mtrl"));
+
+		pLevel->AddObject(31, pMPBar);
+
+		// FireBall Charge
+		CGameObject* pFC = new CGameObject;
+
+		pFC->SetName(L"ChargeEffect");
+
+		pFC->AddComponent(new CTransform);
+		pFC->AddComponent(new CMeshRender);
+		pFC->AddComponent(new CFlipBookComponent);
+		pFC->AddComponent(new CChargeEffectScript);
+
+		pFC->Transform()->SetRelativeScale(Vec3(150.f, 150.f, 0.f));
+
+		pFC->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pFC->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+
+		pLevel->AddObject(5, pFC);
 
 		// ShootFireDragon
 		/*CGameObject* pFD = new CGameObject;
@@ -676,32 +711,28 @@ void CTestLevel::CreateTestLevel()
 
 void CTestLevel::CreatePrefab()
 {
-	CGameObject* pFireBall = new CGameObject;
-	pFireBall->SetName(L"FireBall");
+	/*CGameObject* pFC = new CGameObject;
 
-	pFireBall->AddComponent(new CTransform);
-	pFireBall->AddComponent(new CCollider2D);
-	pFireBall->AddComponent(new CMeshRender);
-	pFireBall->AddComponent(new CFlipBookComponent);
-	pFireBall->AddComponent(new CFireBallScript);
+	pFC->SetName(L"ChargeEffect");
 
-	pFireBall->Transform()->SetRelativeScale(100.f, 100.f, 0.f);
+	pFC->AddComponent(new CTransform);
+	pFC->AddComponent(new CMeshRender);
+	pFC->AddComponent(new CFlipBookComponent);
+	pFC->AddComponent(new CChargeEffectScript);
 
-	pFireBall->Collider2D()->SetIndependentScale(false);
-	pFireBall->Collider2D()->SetOffset(Vec3(0.f, 0.f, 0.f));
-	pFireBall->Collider2D()->SetScale(Vec3(0.7f, 0.7f, 0.f));
+	pFC->Transform()->SetRelativeScale(Vec3(150.f, 150.f, 0.f));
 
-	pFireBall->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pFireBall->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
+	pFC->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pFC->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMtrl"));
 
 	Ptr<CPrefab> pPrefab = new CPrefab;
-	pPrefab->SetProtoObject(pFireBall);
+	pPrefab->SetProtoObject(pFC);
 
-	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"FireBallPref", pPrefab);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"ChargeEffectPref", pPrefab);
 
 	wstring FilePath = CPathMgr::GetInst()->GetContentPath();
-	FilePath += L"prefab\\FireBall.pref";
-	pPrefab->Save(FilePath);
+	FilePath += L"prefab\\ChargeEffect.pref";
+	pPrefab->Save(FilePath);*/
 	
 
 	/*CTileMap* pTile = new CTileMap;
