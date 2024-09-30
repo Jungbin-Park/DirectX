@@ -219,7 +219,7 @@ int CDevice::CreateConstBuffer()
 
 	// HUDMP 
 	pCB = new CConstBuffer;
-	if (FAILED(pCB->Create(CB_TYPE::BOSSHUD, sizeof(tHUDMP))))
+	if (FAILED(pCB->Create(CB_TYPE::HUDMP, sizeof(tHUDMP))))
 	{
 		MessageBox(nullptr, L"상수버퍼 생성 실패", L"초기화 실패", MB_OK);
 		return E_FAIL;

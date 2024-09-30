@@ -62,6 +62,7 @@ void CBossScript::Begin()
 	if (pTarget != nullptr)
 		m_Target = pTarget;
 
+	m_HP = 200.f;
 
 	FSM()->ChangeState(L"BSpawnState");
 	Collider2D()->SetActive(true);
